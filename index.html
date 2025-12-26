@@ -3322,8 +3322,11 @@
                 return;
             }
 
-            // Hide counter while toast is visible (they overlap)
-            if (counter) counter.classList.remove('show');
+            // Hide counter while toast is visible (using inline style to override any previous inline display)
+            if (counter) {
+                counter.classList.remove('show');
+                counter.style.display = 'none';
+            }
 
             // Render selected products
             productsContainer.innerHTML = compareList.map(p => `
@@ -3363,6 +3366,7 @@
                 const textEl = counter.querySelector('.compare-counter-text');
                 if (numberEl) numberEl.textContent = compareList.length;
                 if (textEl) textEl.textContent = compareList.length === 1 ? 'produto' : 'produtos';
+                counter.style.display = 'flex';
                 counter.classList.add('show');
             }
         }
