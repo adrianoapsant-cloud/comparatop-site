@@ -2405,6 +2405,37 @@
                 max-height: 90vh;
             }
 
+            /* Reorganize modal header for mobile - social buttons + X on top, title below */
+            .compare-modal-header {
+                flex-direction: column-reverse;
+                align-items: stretch;
+                gap: 0.5rem;
+                padding: 0.75rem 1rem;
+            }
+
+            .compare-modal-header>div {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+            }
+
+            .compare-modal-header .share-buttons {
+                flex-wrap: nowrap;
+                gap: 0.35rem;
+            }
+
+            .compare-modal-header .share-social-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 0.9rem;
+            }
+
+            .compare-modal-title {
+                font-size: 1rem;
+                text-align: center;
+            }
+
             .compare-modal-body {
                 padding: 1rem;
             }
