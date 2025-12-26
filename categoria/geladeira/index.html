@@ -3839,12 +3839,15 @@
 
             if (compareList.length > 0) {
                 bar.classList.add('show');
-                counter.classList.add('show');
+                // Don't show counter here - let hideCompareToast handle it
 
-                // Update counter
-                counter.querySelector('.compare-counter-number').textContent = compareList.length;
-                counter.querySelector('.compare-counter-text').textContent =
-                    compareList.length === 1 ? 'produto' : 'produtos';
+                // Update counter number (but don't show it yet)
+                if (counter) {
+                    const numberEl = counter.querySelector('.compare-counter-number');
+                    const textEl = counter.querySelector('.compare-counter-text');
+                    if (numberEl) numberEl.textContent = compareList.length;
+                    if (textEl) textEl.textContent = compareList.length === 1 ? 'produto' : 'produtos';
+                }
 
                 productsContainer.innerHTML = compareList.map(p => `
                     <div class="compare-bar-product">
@@ -3854,7 +3857,7 @@
                 `).join('');
             } else {
                 bar.classList.remove('show');
-                counter.classList.remove('show');
+                if (counter) counter.classList.remove('show');
             }
         }
 
