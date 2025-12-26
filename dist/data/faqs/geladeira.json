@@ -1,0 +1,70 @@
+{
+    "global": [
+        {
+            "q": "Qual a diferença entre frost-free e cycle defrost?",
+            "a": "Frost-free não acumula gelo pois possui sistema de degelo automático. Cycle defrost requer degelo manual periódico."
+        },
+        {
+            "q": "Qual selo Procel é melhor?",
+            "a": "Selo A é o mais eficiente. A escala vai de A (melhor) a G (pior). Geladeiras classe A consomem menos energia."
+        },
+        {
+            "q": "Quanto espaço deixar nas laterais da geladeira?",
+            "a": "Recomenda-se 2 a 4 cm de folga em cada lateral e 5-10 cm atrás para ventilação adequada."
+        },
+        {
+            "q": "Vale a pena geladeira inverse (freezer embaixo)?",
+            "a": "Para quem usa mais o refrigerador que o freezer, sim. Os itens mais acessados ficam na altura dos olhos."
+        }
+    ],
+    "products": {
+        "brm44hb": [
+            {
+                "q": "Por que as laterais da BRM44HB esquentam?",
+                "a": "Condensador tipo 'skin' dissipa calor pelas laterais. Até 50°C é normal e está no manual."
+            },
+            {
+                "q": "A BRM44HB tem luz no freezer?",
+                "a": "Não, apenas no refrigerador. É uma queixa pontual de alguns compradores."
+            },
+            {
+                "q": "Qual a voltagem da BRM44HB?",
+                "a": "Disponível em 110V e 220V. Verifique o modelo específico ao comprar."
+            }
+        ],
+        "tf55": [
+            {
+                "q": "Por que a TF55 faz barulho de estalos à noite?",
+                "a": "Contração/dilatação térmica das partes plásticas após degelo. É comum em modelos frost-free."
+            },
+            {
+                "q": "O que é o painel Blue Touch da TF55?",
+                "a": "Painel digital na porta com controle de temperatura e modos especiais (Férias, Festa, Turbo Freezer)."
+            },
+            {
+                "q": "A TF55 tem dispenser de água?",
+                "a": "Não, este modelo não possui dispenser de água na porta."
+            }
+        ]
+    },
+    "comparisons": {
+        "brm44hb-vs-tf55": [
+            {
+                "q": "Qual ocupa menos espaço?",
+                "a": "BRM44HB tem 62,1 cm de largura vs 70 cm da TF55. Diferença de quase 8 cm."
+            },
+            {
+                "q": "Qual gasta menos energia?",
+                "a": "Com base no consumo mensal declarado, a TF55 (49,8 kWh/mês) consome menos que a BRM44HB (54 kWh/mês). Economia de ~8%."
+            },
+            {
+                "q": "Qual tem freezer maior?",
+                "a": "TF55 tem 128L de freezer vs 86L da BRM44HB. Diferença de 42L (quase 50% maior)."
+            },
+            {
+                "q": "Qual tem mais funcionalidades?",
+                "a": "TF55 tem painel Blue Touch com modos Férias, Festa, Turbo Freezer e Drink Express. BRM44HB é mais simples."
+            }
+        ]
+    }
+}

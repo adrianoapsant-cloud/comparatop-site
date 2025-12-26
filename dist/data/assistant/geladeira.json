@@ -1,0 +1,161 @@
+{
+    "questions": [
+        {
+            "id": "niche_width",
+            "type": "number",
+            "label": "Qual a largura do seu nicho (cm)?",
+            "icon": "📐",
+            "required": false,
+            "placeholder": "Ex: 66",
+            "helpText": "Deixe em branco se não souber",
+            "validation": {
+                "min": 50,
+                "max": 150
+            },
+            "scoring": {
+                "rule": "fit_check",
+                "field": "specs.largura_cm",
+                "gap": 4,
+                "penaltyIfNotFit": -100
+            }
+        },
+        {
+            "id": "freezer_usage",
+            "type": "single_choice",
+            "label": "Você usa MUITO o freezer?",
+            "icon": "❄️",
+            "required": true,
+            "defaultValue": "medio",
+            "options": [
+                {
+                    "value": "muito",
+                    "label": "Muito",
+                    "scoring": {
+                        "boost_field": "specs.capacidade_freezer",
+                        "factor": 0.3
+                    }
+                },
+                {
+                    "value": "medio",
+                    "label": "Médio",
+                    "scoring": null
+                },
+                {
+                    "value": "pouco",
+                    "label": "Pouco",
+                    "scoring": {
+                        "penalty_field": "specs.capacidade_freezer",
+                        "factor": -0.1
+                    }
+                }
+            ]
+        },
+        {
+            "id": "priority",
+            "type": "single_choice",
+            "label": "Sua prioridade #1?",
+            "icon": "🎯",
+            "required": true,
+            "defaultValue": "consumo",
+            "options": [
+                {
+                    "value": "espaco",
+                    "label": "Cabe no espaço",
+                    "scoring": {
+                        "boost_topic": "encaixe",
+                        "factor": 3
+                    }
+                },
+                {
+                    "value": "freezer",
+                    "label": "Freezer maior",
+                    "scoring": {
+                        "boost_field": "specs.capacidade_freezer",
+                        "factor": 0.5
+                    }
+                },
+                {
+                    "value": "consumo",
+                    "label": "Menor consumo",
+                    "scoring": {
+                        "boost_topic": "consumo",
+                        "factor": 3
+                    }
+                },
+                {
+                    "value": "funcoes",
+                    "label": "Painel/funções",
+                    "scoring": {
+                        "boost_topic": "funcionalidades",
+                        "factor": 3
+                    }
+                },
+                {
+                    "value": "custo",
+                    "label": "Menor preço",
+                    "scoring": {
+                        "boost_field_inverse": "bestPrice",
+                        "factor": 0.01
+                    }
+                }
+            ]
+        },
+        {
+            "id": "noise_sensitive",
+            "type": "single_choice",
+            "label": "Você é sensível a ruído e estalos?",
+            "icon": "🔇",
+            "required": true,
+            "defaultValue": "nao",
+            "options": [
+                {
+                    "value": "sim",
+                    "label": "Sim",
+                    "scoring": {
+                        "boost_topic": "ruido",
+                        "factor": 3
+                    }
+                },
+                {
+                    "value": "nao",
+                    "label": "Não",
+                    "scoring": null
+                },
+                {
+                    "value": "tanto_faz",
+                    "label": "Tanto faz",
+                    "scoring": null
+                }
+            ]
+        },
+        {
+            "id": "budget",
+            "type": "number",
+            "label": "Qual seu orçamento máximo (R$)?",
+            "icon": "💰",
+            "required": false,
+            "placeholder": "Ex: 3500",
+            "validation": {
+                "min": 1000,
+                "max": 20000
+            },
+            "scoring": {
+                "rule": "budget_check",
+                "field": "bestPrice",
+                "penaltyIfOver": -50
+            }
+        }
+    ],
+    "resultConfig": {
+        "showTop": 3,
+        "showReasons": true,
+        "showAlternatives": true,
+        "maxAlternatives": 2,
+        "highlightWinner": true
+    },
+    "flowConfig": {
+        "allowSkip": true,
+        "showProgress": true,
+        "animateTransitions": true
+    }
+}
