@@ -126,14 +126,14 @@
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0s 0.3s;
             backdrop-filter: blur(2px);
-            pointer-events: none;
-            /* iOS Fix: prevent ghost clicks */
+            cursor: pointer;
         }
 
         .sidebar-overlay.open {
             opacity: 1;
             visibility: visible;
             transition: opacity 0.3s ease;
+            pointer-events: auto;
         }
 
         /* Mobile specific styles */
@@ -1718,6 +1718,98 @@
             opacity: 1;
         }
 
+        /* Compare Prompt Modal */
+        .compare-prompt {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .compare-prompt.show {
+            display: flex;
+        }
+
+        .compare-prompt-content {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            max-width: 320px;
+            width: 100%;
+            text-align: center;
+            animation: slideUp 0.3s ease;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .compare-prompt h3 {
+            margin: 0 0 1rem;
+            color: #1e40af;
+            font-size: 1.25rem;
+        }
+
+        .compare-prompt-products {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .compare-prompt-product {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f1f5f9;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .compare-prompt-hint {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 1rem;
+        }
+
+        .compare-prompt-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .compare-prompt-btn {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-size: 0.95rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .compare-prompt-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .compare-prompt-btn.primary {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .compare-prompt-btn.secondary {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .compare-prompt-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         /* Comparison Floating Bar */
         .compare-bar {
             position: fixed;
@@ -2626,7 +2718,25 @@
                 <!-- Home Page -->
                 <div class="container">
                     <!-- Mobile Overlay Element -->
-                    <div id="sidebar-overlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
+                    <div id="sidebar-overlay" class="sidebar-overlay" onclick="handleOverlayClick()"></div>
+
+                    <!-- Compare Prompt Modal -->
+                    <div id="compare-prompt" class="compare-prompt" onclick="closeComparePrompt()">
+                        <div class="compare-prompt-content" onclick="event.stopPropagation()">
+                            <h3>📊 Comparar Produtos?</h3>
+                            <div id="compare-prompt-products" class="compare-prompt-products"></div>
+                            <p class="compare-prompt-hint" id="compare-prompt-hint"></p>
+                            <div class="compare-prompt-actions">
+                                <button class="compare-prompt-btn primary" id="compare-prompt-btn-compare"
+                                    onclick="startComparisonFromPrompt()">
+                                    Comparar Agora
+                                </button>
+                                <button class="compare-prompt-btn secondary" onclick="closeComparePrompt()">
+                                    Fechar Menu
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Home Page -->
                     <div id="page-home">
@@ -3199,6 +3309,77 @@
                 closeSidebar();
             } else {
                 openSidebar();
+            }
+        }
+
+        // Handle overlay click - shows compare prompt if products selected, otherwise just closes
+        function handleOverlayClick() {
+            // Check if there are products in compare list
+            if (typeof compareList !== 'undefined' && compareList.length >= 1) {
+                showComparePrompt();
+            } else {
+                closeSidebar();
+            }
+        }
+
+        // Show the compare prompt modal
+        function showComparePrompt() {
+            const prompt = document.getElementById('compare-prompt');
+            const productsContainer = document.getElementById('compare-prompt-products');
+            const hint = document.getElementById('compare-prompt-hint');
+            const compareBtn = document.getElementById('compare-prompt-btn-compare');
+
+            if (!prompt || !productsContainer) {
+                closeSidebar();
+                return;
+            }
+
+            // Render selected products
+            productsContainer.innerHTML = compareList.map(p => `
+                <div class="compare-prompt-product">
+                    <span>✓ ${p.brand} ${p.model}</span>
+                    <span style="color:#10b981;font-weight:600">${p.score}</span>
+                </div>
+            `).join('');
+
+            // Update hint and button state
+            const remaining = 4 - compareList.length;
+            if (compareList.length < 2) {
+                hint.textContent = `Selecione pelo menos mais ${2 - compareList.length} produto(s) para comparar`;
+                hint.style.color = '#f59e0b';
+                compareBtn.classList.add('disabled');
+                compareBtn.disabled = true;
+            } else if (remaining > 0) {
+                hint.textContent = `Você pode adicionar mais ${remaining} produto(s)`;
+                hint.style.color = '#64748b';
+                compareBtn.classList.remove('disabled');
+                compareBtn.disabled = false;
+            } else {
+                hint.textContent = 'Limite máximo de 4 produtos atingido';
+                hint.style.color = '#64748b';
+                compareBtn.classList.remove('disabled');
+                compareBtn.disabled = false;
+            }
+
+            prompt.classList.add('show');
+        }
+
+        // Close the compare prompt modal
+        function closeComparePrompt() {
+            const prompt = document.getElementById('compare-prompt');
+            if (prompt) prompt.classList.remove('show');
+            closeSidebar();
+        }
+
+        // Start comparison from the prompt
+        function startComparisonFromPrompt() {
+            const prompt = document.getElementById('compare-prompt');
+            if (prompt) prompt.classList.remove('show');
+            closeSidebar();
+
+            // Call existing comparison function if available
+            if (typeof showComparison === 'function') {
+                showComparison();
             }
         }
 
