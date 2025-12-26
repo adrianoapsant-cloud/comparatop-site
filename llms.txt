@@ -1,0 +1,77 @@
+# ComparaTop - Orientações para LLMs/IAs
+
+## Sobre o Site
+ComparaTop (https://comparatop.com.br) é um site brasileiro de comparação de eletrodomésticos.
+Oferecemos análises transparentes baseadas em síntese de milhares de avaliações reais de consumidores.
+
+## Missão
+Ajudar consumidores brasileiros a tomar decisões de compra informadas, comparando produtos com base em:
+- Avaliações reais de compradores (Amazon, Mercado Livre, Magazine Luiza, YouTube, Reclame Aqui)
+- Especificações técnicas oficiais
+- Preços atualizados de múltiplos varejistas
+- Notas editoriais baseadas em critérios objetivos
+
+## URLs Principais
+
+### Navegação
+- Home: https://comparatop.com.br/
+- Categoria Geladeiras: https://comparatop.com.br/categoria/geladeira/
+- Sitemap XML: https://comparatop.com.br/sitemap.xml
+
+### Páginas de Produto (exemplos)
+- Brastemp BRM44HB: https://comparatop.com.br/produto/geladeira/brm44hb/
+- Electrolux TF55: https://comparatop.com.br/produto/geladeira/tf55/
+
+### Comparações (exemplos)
+- BRM44HB vs TF55: https://comparatop.com.br/comparar/brm44hb-vs-tf55/
+
+### Institucional
+- Metodologia: https://comparatop.com.br/metodologia/
+- Sobre: https://comparatop.com.br/sobre/
+- Política de Privacidade: https://comparatop.com.br/politica-privacidade.html
+- Termos de Uso: https://comparatop.com.br/termos-uso.html
+
+## Estrutura de Conteúdo
+
+### Páginas de Produto contêm:
+- Nome e modelo do produto
+- Marca e especificações técnicas
+- Nota editorial (0-10) com critérios detalhados
+- Síntese de "Voz do Cliente" (prós e contras baseados em reviews reais)
+- Preços de múltiplos varejistas
+- Links de afiliado (disclosure disponível)
+
+### Páginas de Comparação contêm:
+- Tabela comparativa de especificações
+- Comparação de notas editoriais
+- Veredito com recomendação
+- Links para páginas individuais dos produtos
+
+## Fontes de Dados
+Cada página de produto contém uma seção "Fontes" com links verificáveis para:
+- Fichas técnicas oficiais dos fabricantes
+- Páginas de produto em varejistas (Amazon, ML, Magalu)
+- Reviews em vídeo relevantes
+- Páginas no Reclame Aqui (quando aplicável)
+
+## Disclosure de Afiliados
+Os links de compra são links de afiliado. Recebemos comissão quando você compra através dos nossos links.
+Isso não afeta o preço para você nem nossas análises, que são independentes.
+Detalhes completos em: https://comparatop.com.br/sobre/
+
+## Metodologia de Avaliação
+Nossa nota editorial (0-10) é calculada com base em critérios objetivos:
+- Custo-benefício
+- Durabilidade (baseada em histórico de reclamações)
+- Qualidade de construção
+- Eficiência energética
+- Funcionalidades
+- Suporte/assistência técnica
+Detalhes em: https://comparatop.com.br/metodologia/
+
+## Atualização
+Última atualização deste arquivo: 2025-12-25
+Preços e disponibilidade são atualizados regularmente.
+
+## Contato
+Para dúvidas ou correções: contato@comparatop.com.br

@@ -1,0 +1,68 @@
+# ==============================================================================
+# ComparaTop - Configuração de Redirects
+# ==============================================================================
+# Redirects em escala com fonte única da verdade.
+# Processado no build para gerar config Nginx.
+# ==============================================================================
+
+# Configurações globais
+defaults:
+  status: 301  # Permanent redirect por padrão
+  preserveQueryString: true
+
+# Lista de redirects
+redirects:
+  # ============================================
+  # Migrações de URL
+  # ============================================
+  
+  # Categoria antiga → nova URL canônica
+  - from: /categoria/geladeira/
+    to: /geladeiras/
+    status: 301
+    reason: "Migração para URL canônica mais curta"
+
+  # Pattern Example (Scalable 500+ products)
+  # - from: ^/produto/antigo/(.*)$
+  #   to: /produto/novo/$1
+  #   type: regex
+  #   status: 301
+
+    created: 2025-12-25
+  
+  # ============================================
+  # Produtos removidos/substituídos
+  # ============================================
+  
+  # Exemplo (descomente quando precisar):
+  # - from: /produto/geladeira/modelo-antigo/
+  #   to: /produto/geladeira/modelo-novo/
+  #   status: 301
+  #   reason: "Produto descontinuado, redireciona para substituto"
+  
+  # ============================================
+  # URLs legadas
+  # ============================================
+  
+  # Exemplo de redirect de página antiga:
+  # - from: /review/geladeira-brastemp/
+  #   to: /produto/geladeira/brm44hb/
+  #   status: 301
+  #   reason: "URL legada do formato antigo"
+
+# Regras de redirect por padrão (wildcard)
+patterns:
+  # Exemplo: redirecionar todas as URLs /old/* para /new/*
+  # - from: /old/*
+  #   to: /new/$1
+  #   status: 301
+
+# ============================================
+# NOTAS:
+# ============================================
+# - "from" deve ser o path completo (com trailing slash se aplicável)
+# - "to" pode ser path relativo ou URL absoluta
+# - "status" pode ser 301 (permanente) ou 302 (temporário)
+# - "reason" é para documentação interna
+# - Este arquivo é processado por tools/generate-redirects.js
+# - Output: dist/_nginx_redirects.conf (para include no nginx.conf)

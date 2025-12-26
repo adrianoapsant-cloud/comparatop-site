@@ -1,0 +1,165 @@
+# ==============================================================================
+# ComparaTop - Configuração de SEO
+# ==============================================================================
+# Templates, defaults e regras para SEO.
+# Fonte única da verdade para meta tags e structured data.
+# ==============================================================================
+
+# Configurações globais do site
+site:
+  name: ComparaTop
+  tagline: Compare antes de comprar
+  baseUrl: https://comparatop.com.br
+  language: pt-BR
+  locale: pt_BR
+  author: Equipe ComparaTop
+
+# Defaults para meta tags
+defaults:
+  titleSuffix: " | ComparaTop"
+  titleMaxLength: 60
+  descriptionMaxLength: 160
+  robots: "index, follow"
+  ogType: website
+  ogImage: /assets/og/default.jpg
+  twitterCard: summary_large_image
+  twitterHandle: null  # @comparatop quando tiver
+
+# Templates por tipo de página
+templates:
+  home:
+    title: "ComparaTop - Compare Eletrodomésticos Antes de Comprar"
+    description: "Compare eletrodomésticos antes de comprar. Análise transparente com síntese de milhares de avaliações reais de compradores."
+    ogType: website
+
+  product:
+    title: "{productName} - Review e Preços | ComparaTop"
+    description: "Análise completa do {productName}. Compare preços em {storeCount} lojas, veja especificações e {reviewCount}+ opiniões de compradores."
+    ogType: product
+
+  category:
+    title: "Melhores {categoryName} {year} - Compare | ComparaTop"
+    description: "Compare as {count} melhores {categoryNamePlural} de {year}. Análise técnica, preços atualizados e avaliações reais."
+    ogType: website
+
+  comparison:
+    title: "{productA} vs {productB} - Qual Escolher? | ComparaTop"
+    description: "Comparativo: {productA} ou {productB}? Veja diferenças de preço, capacidade, consumo e avaliações para decidir."
+    ogType: article
+
+  article:
+    title: "{articleTitle} | ComparaTop"
+    description: "{articleExcerpt}"
+    ogType: article
+
+# Canonical rules
+canonical:
+  # Sempre trailing slash
+  trailingSlash: true
+  # Sempre HTTPS
+  forceHttps: true
+  # Preferred domain (sem www)
+  preferredDomain: comparatop.com.br
+  # Parâmetros a remover da canonical
+  stripParams:
+    - utm_source
+    - utm_medium
+    - utm_campaign
+    - ref
+    - fbclid
+    - gclid
+
+# Slugs
+slugs:
+  # Caracteres permitidos
+  allowedChars: "a-z0-9-"
+  # Separador
+  separator: "-"
+  # Máximo de caracteres
+  maxLength: 80
+  # Transformações
+  transformations:
+    - lowercase
+    - normalize_accents
+    - replace_spaces
+    - remove_special
+
+# Structured Data (JSON-LD)
+structuredData:
+  organization:
+    "@type": Organization
+    name: ComparaTop
+    url: https://comparatop.com.br
+    logo: https://comparatop.com.br/assets/logo.png
+    description: Site de comparação de eletrodomésticos com análise transparente.
+  
+  website:
+    "@type": WebSite
+    name: ComparaTop
+    url: https://comparatop.com.br
+    potentialAction:
+      "@type": SearchAction
+      target: https://comparatop.com.br/busca?q={search_term_string}
+      query-input: required name=search_term_string
+
+# Robots.txt rules
+robots:
+  defaultAllow: true
+  disallow:
+    - /api/
+    - /admin/
+    - /_next/
+    - /static/chunks/
+  sitemap: /sitemap.xml
+  
+  # Bots de IA - políticas específicas
+  aiPolicies:
+    # Permitir citação/busca
+    allow:
+      - OAI-SearchBot
+      - ChatGPT-User
+      - PerplexityBot
+      - ClaudeBot
+    # Bloquear treinamento
+    disallow:
+      - GPTBot
+      - Google-Extended
+      - CCBot
+      - anthropic-ai
+      - Bytespider
+
+# Sitemap configuration
+sitemap:
+  filename: sitemap.xml
+  # Prioridades por tipo
+  priorities:
+    home: 1.0
+    category: 0.9
+    product: 0.8
+    comparison: 0.7
+    article: 0.6
+    static: 0.3
+  # Frequências
+  changefreq:
+    home: weekly
+    category: weekly
+    product: weekly
+    comparison: monthly
+    article: monthly
+    static: yearly
+  # Excluir do sitemap
+  exclude:
+    - /404.html
+    - /500.html
+    - /admin/*
+
+# Performance hints
+performance:
+  # Preconnect para recursos externos
+  preconnect:
+    - https://fonts.googleapis.com
+    - https://fonts.gstatic.com
+  # DNS prefetch
+  dnsPrefetch:
+    - https://www.google-analytics.com
+    - https://www.googletagmanager.com

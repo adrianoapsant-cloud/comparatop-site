@@ -1,0 +1,36 @@
+{
+    "name": "comparatop",
+    "version": "3.0.0",
+    "description": "ComparaTop - Site de comparação de eletrodomésticos",
+    "main": "index.html",
+    "scripts": {
+        "validate": "npm run validate:schemas && npm run validate:catalog",
+        "validate:schemas": "node tools/validate-schemas.js",
+        "validate:catalog": "node tools/validate-catalog.js",
+        "validate:prod": "node tools/validate-prod.js",
+        "prebuild": "npm run validate",
+        "build": "node tools/build.js",
+        "build:full": "npm run validate && npm run build && npm run redirects",
+        "postbuild": "npm run redirects",
+        "serve": "npx serve dist -l 3000",
+        "serve:dev": "npx serve . -l 3001",
+        "smoke-test": "node tools/smoke-test.js",
+        "smoke-test:prod": "node tools/smoke-test.js --prod",
+        "redirects": "node tools/generate-redirects.js",
+        "deploy:check": "npm run validate:prod",
+        "start": "npx serve dist -l 3000",
+        "test": "npm run smoke-test"
+    },
+    "keywords": [
+        "comparação",
+        "eletrodomésticos",
+        "geladeira",
+        "afiliado",
+        "seo"
+    ],
+    "author": "ComparaTop",
+    "license": "ISC",
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}

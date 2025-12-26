@@ -1,0 +1,5 @@
+# Redirects para comparatop.com.br
+# Cloudflare Pages format
+
+# Canonical de categoria: /categoria/geladeira/ → /geladeiras/
+/categoria/geladeira/ /geladeiras/ 301

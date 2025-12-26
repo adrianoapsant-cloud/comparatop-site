@@ -1,0 +1,214 @@
+# ==============================================================================
+# ComparaTop - Configuração de Categorias
+# ==============================================================================
+# Define categorias, tópicos editoriais, pesos e specs importantes.
+# Fonte única da verdade para scoring e avaliação.
+# ==============================================================================
+
+# Configurações globais de scoring
+scoring:
+  defaults:
+    minScore: 0
+    maxScore: 10
+    decimalPlaces: 1
+  # Pesos padrão (podem ser sobrescritos por categoria)
+  defaultWeights:
+    qualidade_construcao: 0.15
+    custo_beneficio: 0.20
+    eficiencia_energetica: 0.15
+    capacidade: 0.15
+    recursos: 0.10
+    ruido: 0.10
+    durabilidade: 0.15
+
+# Categorias
+categories:
+  geladeira:
+    id: geladeira
+    name: Geladeiras
+    namePlural: Geladeiras
+    slug: geladeira
+    canonicalPath: /geladeiras/
+    icon: "❄️"
+    enabled: true
+    
+    # Descrição para SEO
+    description: |
+      Compare as melhores geladeiras do Brasil. Análise de capacidade,
+      consumo, tecnologia e avaliações reais de compradores.
+    
+    # Specs importantes para esta categoria
+    importantSpecs:
+      - capacidade_total
+      - capacidade_freezer
+      - consumo_kwh
+      - selo_procel
+      - frost_free
+      - inverse
+      - altura_cm
+      - largura_cm
+      - profundidade_cm
+      - peso_kg
+      - voltagem
+      - garantia_meses
+    
+    # Tópicos editoriais com pesos específicos
+    editorialTopics:
+      - id: eficiencia_energetica
+        label: Eficiência Energética
+        weight: 0.20
+        description: Consumo mensal e selo Procel
+      - id: capacidade_interna
+        label: Capacidade Interna
+        weight: 0.18
+        description: Litros úteis e organização
+      - id: qualidade_construcao
+        label: Qualidade de Construção
+        weight: 0.15
+        description: Materiais, acabamento e durabilidade
+      - id: controle_temperatura
+        label: Controle de Temperatura
+        weight: 0.12
+        description: Precisão e uniformidade
+      - id: nivel_ruido
+        label: Nível de Ruído
+        weight: 0.10
+        description: Decibéis em operação normal
+      - id: funcionalidades
+        label: Funcionalidades
+        weight: 0.10
+        description: Recursos extras e tecnologia
+      - id: custo_beneficio
+        label: Custo-Benefício
+        weight: 0.15
+        description: Relação preço/qualidade
+    
+    # TCO (Total Cost of Ownership) config
+    tco:
+      enabled: true
+      defaultYears: 10
+      energyMultiplier: 12  # meses por ano
+      maintenanceEstimate: 0.02  # 2% do valor por ano
+    
+    # Templates SEO
+    seo:
+      titleTemplate: "{name} - Review e Preços | ComparaTop"
+      descriptionTemplate: "Análise completa do {name}. Compare preços em {storeCount} lojas, veja especificações e opiniões de compradores."
+      categoryTitle: "Melhores Geladeiras {year} - Compare as Top do Brasil"
+      categoryDescription: "Compare as {count} melhores geladeiras de {year}. Análise de capacidade, consumo, preços e avaliações reais."
+
+  ar_condicionado:
+    id: ar_condicionado
+    name: Ar-Condicionado
+    namePlural: Ar-Condicionados
+    slug: ar-condicionado
+    canonicalPath: /ar-condicionado/
+    icon: "🌬️"
+    enabled: false
+    
+    description: |
+      Compare os melhores ar-condicionados split e portáteis.
+      Análise de BTUs, consumo, ruído e avaliações.
+    
+    importantSpecs:
+      - capacidade_btus
+      - consumo_kwh
+      - selo_procel
+      - inverter
+      - ciclo  # frio, quente_frio
+      - ruido_interno_db
+      - ruido_externo_db
+      - area_recomendada_m2
+    
+    editorialTopics:
+      - id: eficiencia_energetica
+        label: Eficiência Energética
+        weight: 0.22
+      - id: capacidade_refrigeracao
+        label: Capacidade de Refrigeração
+        weight: 0.20
+      - id: nivel_ruido
+        label: Nível de Ruído
+        weight: 0.18
+      - id: qualidade_construcao
+        label: Qualidade de Construção
+        weight: 0.15
+      - id: funcionalidades
+        label: Funcionalidades
+        weight: 0.10
+      - id: custo_beneficio
+        label: Custo-Benefício
+        weight: 0.15
+
+  maquina_lavar:
+    id: maquina_lavar
+    name: Máquina de Lavar
+    namePlural: Máquinas de Lavar
+    slug: maquina-lavar
+    canonicalPath: /maquinas-de-lavar/
+    icon: "🧺"
+    enabled: false
+    
+    importantSpecs:
+      - capacidade_kg
+      - consumo_kwh
+      - consumo_agua_litros
+      - programas
+      - centrifugacao_rpm
+      - abertura  # frontal, superior
+    
+    editorialTopics:
+      - id: eficiencia_lavagem
+        label: Eficiência de Lavagem
+        weight: 0.20
+      - id: consumo_agua
+        label: Consumo de Água
+        weight: 0.15
+      - id: eficiencia_energetica
+        label: Eficiência Energética
+        weight: 0.15
+      - id: capacidade
+        label: Capacidade
+        weight: 0.15
+      - id: nivel_ruido
+        label: Nível de Ruído
+        weight: 0.10
+      - id: programas_funcoes
+        label: Programas e Funções
+        weight: 0.10
+      - id: custo_beneficio
+        label: Custo-Benefício
+        weight: 0.15
+
+  microondas:
+    id: microondas
+    name: Micro-ondas
+    namePlural: Micro-ondas
+    slug: microondas
+    canonicalPath: /microondas/
+    icon: "📻"
+    enabled: false
+    
+    importantSpecs:
+      - capacidade_litros
+      - potencia_watts
+      - programas
+      - painel  # digital, mecanico
+      - funcao_grill
+      - funcao_descongelar
+
+  fogao:
+    id: fogao
+    name: Fogão
+    namePlural: Fogões
+    slug: fogao
+    canonicalPath: /fogoes/
+    icon: "🔥"
+    enabled: false
+    
+    importantSpecs:
+      - bocas
+      - tipo  # piso, embutir, cooktop
+      - acendimento_automatico
+      - forno_litros
+      - mesa_material  # inox, vidro, esmaltada

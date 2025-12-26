@@ -1,0 +1,291 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://comparatop.com.br/schemas/product.schema.json",
+  "title": "Product",
+  "description": "Schema para validação de produtos no ComparaTop",
+  "type": "object",
+  "required": ["id", "name", "brand", "model"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "ID único do produto (slug)",
+      "pattern": "^[a-z0-9-]+$",
+      "minLength": 2,
+      "maxLength": 80
+    },
+    "name": {
+      "type": "string",
+      "description": "Nome completo do produto",
+      "minLength": 5,
+      "maxLength": 200
+    },
+    "brand": {
+      "type": "string",
+      "description": "Marca/fabricante",
+      "minLength": 2,
+      "maxLength": 50
+    },
+    "model": {
+      "type": "string",
+      "description": "Modelo do produto",
+      "minLength": 2,
+      "maxLength": 50
+    },
+    "imageUrl": {
+      "type": "string",
+      "description": "URL da imagem principal",
+      "format": "uri"
+    },
+    "imageKeys": {
+      "type": "object",
+      "description": "Chaves de imagem para CDN (R2/S3)",
+      "properties": {
+        "hero": { "type": "string" },
+        "thumb": { "type": "string" },
+        "gallery": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "specs": {
+      "$ref": "#/definitions/specs"
+    },
+    "offers": {
+      "type": "array",
+      "description": "Lista de ofertas/preços",
+      "items": {
+        "$ref": "#/definitions/offer"
+      }
+    },
+    "editorialScores": {
+      "$ref": "#/definitions/editorialScores"
+    },
+    "thirdPartyRatings": {
+      "type": "array",
+      "description": "Avaliações de terceiros (lojas, sites)",
+      "items": {
+        "$ref": "#/definitions/thirdPartyRating"
+      }
+    },
+    "voc": {
+      "$ref": "#/definitions/voc"
+    },
+    "faq": {
+      "type": "array",
+      "description": "Perguntas frequentes",
+      "items": {
+        "type": "object",
+        "required": ["question", "answer"],
+        "properties": {
+          "question": { "type": "string" },
+          "answer": { "type": "string" }
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "description": "Metadados do produto",
+      "properties": {
+        "createdAt": { "type": "string", "format": "date" },
+        "updatedAt": { "type": "string", "format": "date" },
+        "status": {
+          "type": "string",
+          "enum": ["draft", "published", "archived"]
+        }
+      }
+    }
+  },
+  "definitions": {
+    "specs": {
+      "type": "object",
+      "description": "Especificações técnicas",
+      "properties": {
+        "capacidade_total": { "type": "number", "minimum": 0 },
+        "capacidade_freezer": { "type": "number", "minimum": 0 },
+        "consumo_kwh": { "type": "number", "minimum": 0 },
+        "selo_procel": {
+          "type": "string",
+          "enum": ["A", "B", "C", "D", "E"]
+        },
+        "frost_free": { "type": "boolean" },
+        "inverse": { "type": "boolean" },
+        "altura_cm": { "type": "number", "minimum": 0 },
+        "largura_cm": { "type": "number", "minimum": 0 },
+        "profundidade_cm": { "type": "number", "minimum": 0 },
+        "peso_kg": { "type": "number", "minimum": 0 },
+        "voltagem": {
+          "type": "string",
+          "enum": ["110V", "220V", "Bivolt"]
+        },
+        "garantia_meses": { "type": "integer", "minimum": 0 },
+        "cor": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "offer": {
+      "type": "object",
+      "description": "Oferta de uma loja",
+      "required": ["price"],
+      "properties": {
+        "retailer": {
+          "type": "string",
+          "description": "ID da loja (deve existir em affiliates.yml)"
+        },
+        "retailerId": { "type": "string" },
+        "retailerName": { "type": "string" },
+        "store": { "type": "string" },
+        "price": {
+          "type": "number",
+          "description": "Preço em BRL",
+          "minimum": 0.01
+        },
+        "priceOriginal": {
+          "type": "number",
+          "description": "Preço original (antes do desconto)",
+          "minimum": 0
+        },
+        "url": {
+          "type": "string",
+          "description": "URL do produto na loja",
+          "format": "uri"
+        },
+        "productId": {
+          "type": "string",
+          "description": "ID do produto na loja (ASIN, SKU, etc)"
+        },
+        "installments": {
+          "type": "string",
+          "description": "Condição de parcelamento"
+        },
+        "inStock": {
+          "type": "boolean",
+          "default": true
+        },
+        "lastChecked": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "anyOf": [
+        { "required": ["retailer"] },
+        { "required": ["retailerId"] },
+        { "required": ["retailerName"] },
+        { "required": ["store"] }
+      ]
+    },
+    "editorialScores": {
+      "type": "object",
+      "description": "Notas editoriais",
+      "properties": {
+        "overall": {
+          "type": "number",
+          "description": "Nota geral (0-10)",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "topics": {
+          "type": "object",
+          "description": "Notas por tópico",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "score": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 10
+              },
+              "note": { "type": "string" }
+            }
+          }
+        },
+        "summary": { "type": "string" },
+        "lastUpdated": { "type": "string", "format": "date" }
+      }
+    },
+    "thirdPartyRating": {
+      "type": "object",
+      "description": "Avaliação de terceiros",
+      "required": ["source", "rating"],
+      "properties": {
+        "source": {
+          "type": "string",
+          "description": "Nome da fonte (Amazon, Reclame Aqui, etc)"
+        },
+        "sourceUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "rating": {
+          "type": "number",
+          "description": "Nota (escala original)",
+          "minimum": 0
+        },
+        "maxRating": {
+          "type": "number",
+          "default": 5
+        },
+        "reviewCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "voc": {
+      "type": "object",
+      "description": "Voice of Customer - Síntese de avaliações",
+      "properties": {
+        "oneLiner": {
+          "type": "string",
+          "description": "Resumo em uma frase"
+        },
+        "thirtySecondSummary": {
+          "type": "string",
+          "description": "Resumo de 30 segundos"
+        },
+        "summary30s": {
+          "type": "string",
+          "description": "Alias para thirtySecondSummary"
+        },
+        "pros": {
+          "type": "array",
+          "description": "Pontos positivos",
+          "items": {
+            "type": "object",
+            "properties": {
+              "topic": { "type": "string" },
+              "detail": { "type": "string" }
+            }
+          }
+        },
+        "cons": {
+          "type": "array",
+          "description": "Pontos negativos",
+          "items": {
+            "type": "object",
+            "properties": {
+              "topic": { "type": "string" },
+              "detail": { "type": "string" }
+            }
+          }
+        },
+        "dataSources": {
+          "type": "array",
+          "description": "Fontes dos dados",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "url": { "type": "string", "format": "uri" },
+              "sampleSize": { "type": "integer" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

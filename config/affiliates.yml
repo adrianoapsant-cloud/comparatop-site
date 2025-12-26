@@ -1,0 +1,144 @@
+# ==============================================================================
+# ComparaTop - Configuração de Afiliados
+# ==============================================================================
+# Este arquivo define as lojas parceiras, parâmetros de tracking e restrições.
+# Fonte única da verdade para links de afiliados.
+# ==============================================================================
+
+# Configurações globais
+defaults:
+  currency: BRL
+  priceDisplayFormat: "R$ {price}"
+  linkTarget: _blank
+  trackingEnabled: true
+
+# Lojas parceiras
+stores:
+  amazon:
+    id: amazon
+    name: Amazon
+    displayName: Amazon Brasil
+    color: "#ff9900"
+    textColor: "#ffffff"
+    priority: 1
+    # Padrões de URL
+    urlPattern: "https://www.amazon.com.br/dp/{asin}?tag={tag}"
+    # Parâmetros de tracking
+    tracking:
+      paramName: tag
+      defaultTag: comparatop-20
+    # Restrições específicas (COMPLIANCE)
+    restrictions:
+      allowPriceHistory: false      # NÃO armazenar histórico de preço
+      allowPriceAlerts: false       # NÃO enviar alertas de preço
+      allowPriceComparison: true    # Pode exibir preço atual
+      requireTimestamp: true        # Sempre mostrar "atualizado em"
+      maxCacheMinutes: 60           # Preço válido por no máximo 60min
+    # Campos do produto
+    productIdField: asin
+
+  mercado_livre:
+    id: mercado_livre
+    name: Mercado Livre
+    displayName: Mercado Livre
+    color: "#ffe600"
+    textColor: "#333333"
+    priority: 2
+    urlPattern: "https://produto.mercadolivre.com.br/{productId}"
+    tracking:
+      paramName: null  # ML usa programa próprio
+      affiliateProgram: mercado_livre_affiliates
+    restrictions:
+      allowPriceHistory: true
+      allowPriceAlerts: true
+      allowPriceComparison: true
+      requireTimestamp: false
+      maxCacheMinutes: 120
+    productIdField: mlb_id
+
+  magalu:
+    id: magalu
+    name: Magazine Luiza
+    displayName: Magazine Luiza
+    color: "#0086ff"
+    textColor: "#ffffff"
+    priority: 3
+    urlPattern: "https://www.magazineluiza.com.br/{slug}/p/{sku}/?parceiro={tag}"
+    tracking:
+      paramName: parceiro
+      defaultTag: comparatop
+    restrictions:
+      allowPriceHistory: true
+      allowPriceAlerts: true
+      allowPriceComparison: true
+      requireTimestamp: false
+      maxCacheMinutes: 180
+    productIdField: sku
+
+  shopee:
+    id: shopee
+    name: Shopee
+    displayName: Shopee Brasil
+    color: "#ee4d2d"
+    textColor: "#ffffff"
+    priority: 4
+    urlPattern: "https://shopee.com.br/product/{shopId}/{itemId}"
+    tracking:
+      paramName: af_sub_siteid
+      defaultTag: comparatop
+    restrictions:
+      allowPriceHistory: true
+      allowPriceAlerts: true
+      allowPriceComparison: true
+      requireTimestamp: false
+      maxCacheMinutes: 60
+    productIdField: item_id
+
+  casas_bahia:
+    id: casas_bahia
+    name: Casas Bahia
+    displayName: Casas Bahia
+    color: "#0047ba"
+    textColor: "#ffffff"
+    priority: 5
+    urlPattern: "https://www.casasbahia.com.br/{slug}/p/{sku}"
+    tracking:
+      paramName: utm_source
+      defaultTag: comparatop
+    restrictions:
+      allowPriceHistory: true
+      allowPriceAlerts: true
+      allowPriceComparison: true
+      requireTimestamp: false
+      maxCacheMinutes: 180
+    productIdField: sku
+
+  americanas:
+    id: americanas
+    name: Americanas
+    displayName: Americanas
+    color: "#e60014"
+    textColor: "#ffffff"
+    priority: 6
+    urlPattern: "https://www.americanas.com.br/produto/{productId}"
+    tracking:
+      paramName: chave
+      defaultTag: comparatop
+    restrictions:
+      allowPriceHistory: true
+      allowPriceAlerts: true
+      allowPriceComparison: true
+      requireTimestamp: false
+      maxCacheMinutes: 180
+    productIdField: sku
+
+# Disclosure obrigatório
+disclosure:
+  short: "O ComparaTop pode receber comissão por compras via links nesta página."
+  full: |
+    O ComparaTop participa de programas de afiliados de Amazon, Mercado Livre,
+    Magazine Luiza, Shopee e outros varejistas. Quando você clica em um link de
+    produto e faz uma compra, podemos receber uma comissão. Isso não afeta o
+    preço que você paga e nos ajuda a manter o site funcionando.
+  policyUrl: /disclosure-afiliados/
+  position: above_offers  # Onde exibir (above_offers, below_offers, footer)

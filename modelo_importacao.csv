@@ -1,0 +1,5 @@
+model,name,brand,capacity_total,capacity_freezer,tech,voltage,price,link
+BRM44HB,"Geladeira Brastemp Frost Free Duplex 375 litros Branca - BRM44HB",Brastemp,375,86,Frost Free,110V/220V,3199.00,https://amzn.to/EXEMPLO1
+TF55,"Geladeira Electrolux Frost Free Duplex 431 Litros Branca (TF55)",Electrolux,431,128,Frost Free,Bivolt,3599.00,https://amzn.to/EXEMPLO2
+BRE57AK,"Geladeira Brastemp Frost Free Inverse 443 litros Inox - BRE57AK",Brastemp,443,135,Inverse,110V,4299.00,https://amzn.to/EXEMPLO3
+RT46,"Geladeira Samsung Evolution RT46 com POWERvolt Inverter Duplex 460L",Samsung,460,112,Inverter,Bivolt,3899.00,https://amzn.to/EXEMPLO4

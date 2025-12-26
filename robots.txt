@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://comparatop.com.br/sitemap.xml
+
+# Principais páginas
+# Home: https://comparatop.com.br/
+# Geladeiras: https://comparatop.com.br/geladeiras/
+# Produtos: https://comparatop.com.br/produto/geladeira/*/
+# Comparações: https://comparatop.com.br/comparar/*/
+
+# LLMs
+# Para orientações de IA/LLMs, veja: https://comparatop.com.br/llms.txt

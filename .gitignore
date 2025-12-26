@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Build output
+# dist/ (Committed to ensure zero-config deployment)
+
+
+# Logs
+logs/*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Environment
+.env
+.env.local
+
+# Images (stored in R2, not in repo)
+assets/images/**/*.webp
+assets/images/**/*.jpg
+assets/images/**/*.png
+assets/images/**/*.gif
+!assets/images/.gitkeep
+
+# Temp files
+*.tmp
+*.temp

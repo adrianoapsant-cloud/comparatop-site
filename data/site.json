@@ -1,0 +1,167 @@
+{
+    "site": {
+        "name": "ComparaTop",
+        "tagline": "Comparativos práticos para decisões inteligentes",
+        "baseUrl": "https://comparatop.com.br",
+        "logoUrl": "https://comparatop.com.br/assets/logo.png",
+        "language": "pt-BR",
+        "locale": "pt_BR"
+    },
+    "author": {
+        "name": "Equipe ComparaTop",
+        "bio": "Analisamos fichas técnicas, etiquetas de eficiência e padrões de relatos de uso.",
+        "profileUrl": "https://comparatop.com.br/sobre/",
+        "avatarIcon": "👤"
+    },
+    "affiliate": {
+        "disclosureShort": "O ComparaTop pode receber comissão por compras via links nesta página.",
+        "disclosureFull": "O ComparaTop participa de programas de afiliados de Amazon, Mercado Livre, Magazine Luiza e outros varejistas. Quando você clica em um link de produto e faz uma compra, podemos receber uma comissão. Isso não afeta o preço que você paga e nos ajuda a manter o site funcionando.",
+        "policyUrl": "https://comparatop.com.br/disclosure-afiliados/"
+    },
+    "tco": {
+        "defaultTariff": 0.85,
+        "defaultGap": 2,
+        "tariffSource": "ANEEL",
+        "tariffSourceUrl": "https://www.aneel.gov.br/ranking-das-tarifas"
+    },
+    "social": {
+        "twitter": null,
+        "instagram": null,
+        "youtube": null
+    },
+    "analytics": {
+        "gaId": null,
+        "gtmId": null
+    },
+    "categories": [
+        {
+            "id": "geladeira",
+            "name": "Geladeiras",
+            "slug": "geladeira",
+            "icon": "❄️",
+            "enabled": true,
+            "productCount": 2
+        },
+        {
+            "id": "ar-condicionado",
+            "name": "Ar-Condicionado",
+            "slug": "ar-condicionado",
+            "icon": "🌬️",
+            "enabled": false,
+            "productCount": 0
+        },
+        {
+            "id": "maquina-lavar",
+            "name": "Máquinas de Lavar",
+            "slug": "maquina-lavar",
+            "icon": "🧺",
+            "enabled": false,
+            "productCount": 0
+        },
+        {
+            "id": "microondas",
+            "name": "Micro-ondas",
+            "slug": "microondas",
+            "icon": "📻",
+            "enabled": false,
+            "productCount": 0
+        },
+        {
+            "id": "fogao",
+            "name": "Fogões",
+            "slug": "fogao",
+            "icon": "🔥",
+            "enabled": false,
+            "productCount": 0
+        }
+    ],
+    "retailers": {
+        "amazon": {
+            "id": "amazon",
+            "name": "Amazon",
+            "color": "#ff9900",
+            "textColor": "#fff",
+            "priority": 1
+        },
+        "mercado_livre": {
+            "id": "mercado_livre",
+            "name": "Mercado Livre",
+            "color": "#ffe600",
+            "textColor": "#333",
+            "priority": 2
+        },
+        "magalu": {
+            "id": "magalu",
+            "name": "Magazine Luiza",
+            "color": "#0086ff",
+            "textColor": "#fff",
+            "priority": 3
+        },
+        "shopee": {
+            "id": "shopee",
+            "name": "Shopee",
+            "color": "#ee4d2d",
+            "textColor": "#fff",
+            "priority": 4
+        },
+        "casas_bahia": {
+            "id": "casas_bahia",
+            "name": "Casas Bahia",
+            "color": "#0047ba",
+            "textColor": "#fff",
+            "priority": 5
+        },
+        "americanas": {
+            "id": "americanas",
+            "name": "Americanas",
+            "color": "#e60014",
+            "textColor": "#fff",
+            "priority": 6
+        }
+    },
+    "navigation": {
+        "main": [
+            {
+                "label": "Home",
+                "url": "/"
+            },
+            {
+                "label": "Categorias",
+                "url": "/categorias/"
+            },
+            {
+                "label": "Sobre",
+                "url": "/sobre/"
+            }
+        ],
+        "footer": [
+            {
+                "label": "Sobre",
+                "url": "/sobre/"
+            },
+            {
+                "label": "Disclosure",
+                "url": "/disclosure-afiliados/"
+            },
+            {
+                "label": "Privacidade",
+                "url": "/privacidade/"
+            },
+            {
+                "label": "Contato",
+                "url": "/contato/"
+            }
+        ]
+    },
+    "seo": {
+        "titleSuffix": " | ComparaTop",
+        "defaultOgImage": "https://comparatop.com.br/assets/og/default.jpg",
+        "twitterHandle": null
+    },
+    "features": {
+        "darkMode": false,
+        "newsletter": false,
+        "comments": false,
+        "priceAlerts": false
+    }
+}

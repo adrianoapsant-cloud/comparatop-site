@@ -1,0 +1,932 @@
+{
+  "category": {
+    "id": "geladeira",
+    "name": "Geladeiras",
+    "namePlural": "Geladeiras",
+    "slug": "geladeira",
+    "canonicalPath": "/geladeiras/",
+    "description": "Comparativo de geladeiras frost-free, duplex e side-by-side",
+    "icon": "❄️",
+    "heroTitle": "Encontre a geladeira ideal para você",
+    "heroSubtitle": "Compare especificações, consumo e opiniões reais de compradores"
+  },
+  "meta": {
+    "lastUpdated": "2025-12-26",
+    "totalProducts": 6,
+    "version": "1.0.0",
+    "currency": "BRL",
+    "locale": "pt-BR"
+  },
+  "scoringTopics": [
+    {
+      "id": "durabilidade",
+      "label": "Durabilidade e confiabilidade",
+      "weight": 1,
+      "icon": "🔧",
+      "description": "Avalia a vida útil do produto, frequência de defeitos reportados, qualidade dos componentes e confiabilidade a longo prazo baseado em análises de consumidores."
+    },
+    {
+      "id": "consumo",
+      "label": "Consumo energético",
+      "weight": 1,
+      "icon": "⚡",
+      "description": "Considera o consumo mensal em kWh, selo Procel, tecnologia Inverter e impacto na conta de luz. Quanto maior a nota, mais econômico."
+    },
+    {
+      "id": "refrigeracao",
+      "label": "Refrigeração (gela bem)",
+      "weight": 1,
+      "icon": "🧊",
+      "description": "Avalia a capacidade de refrigeração, velocidade de resfriamento, manutenção de temperatura constante e desempenho do freezer."
+    },
+    {
+      "id": "espaco",
+      "label": "Espaço interno e organização",
+      "weight": 1,
+      "icon": "📦",
+      "description": "Considera a capacidade útil real, organização das prateleiras, gavetas de legumes, porta-latas e aproveitamento interno do espaço."
+    },
+    {
+      "id": "custo_beneficio",
+      "label": "Custo-benefício",
+      "weight": 1,
+      "icon": "💰",
+      "description": "Relação entre preço e qualidade entregue. Compara recursos, capacidade e durabilidade com produtos da mesma faixa de preço."
+    },
+    {
+      "id": "pos_venda",
+      "label": "Marca, garantia e pós-venda (SAC/assistência)",
+      "weight": 1,
+      "icon": "🛡️",
+      "description": "Avalia a reputação da marca, prazo de garantia, facilidade de acionar assistência técnica e disponibilidade de peças de reposição."
+    },
+    {
+      "id": "ruido",
+      "label": "Ruído (compressor/estalos)",
+      "weight": 1,
+      "icon": "🔇",
+      "description": "Nível de ruído do compressor e estalos durante funcionamento. Quanto maior a nota, mais silencioso o produto."
+    },
+    {
+      "id": "encaixe",
+      "label": "Medidas e encaixe no ambiente (nicho/porta/profundidade)",
+      "weight": 1,
+      "icon": "📐",
+      "description": "Considera as dimensões reais, facilidade de encaixe em nichos, espaço para abertura de portas e profundidade compatível com cozinhas brasileiras."
+    },
+    {
+      "id": "funcionalidades",
+      "label": "Funcionalidades e praticidade",
+      "weight": 1,
+      "icon": "⚙️",
+      "description": "Avalia recursos extras como painel digital, controle de temperatura, dispenser de água, LED interno, rodízios e facilidade de limpeza."
+    },
+    {
+      "id": "beleza",
+      "label": "Beleza e acabamento",
+      "weight": 1,
+      "icon": "✨",
+      "description": "Design externo, qualidade do acabamento, cor, tipo de puxador e como o produto se integra visualmente à cozinha."
+    }
+  ],
+  "specDefinitions": {
+    "capacidade_total": {
+      "label": "Capacidade Total",
+      "unit": "L",
+      "higherIsBetter": true
+    },
+    "capacidade_refrigerador": {
+      "label": "Capacidade Refrigerador",
+      "unit": "L",
+      "higherIsBetter": true
+    },
+    "capacidade_freezer": {
+      "label": "Capacidade Freezer",
+      "unit": "L",
+      "higherIsBetter": true
+    },
+    "consumo_kwh": {
+      "label": "Consumo Mensal",
+      "unit": "kWh/mês",
+      "higherIsBetter": false
+    },
+    "largura_cm": {
+      "label": "Largura",
+      "unit": "cm",
+      "higherIsBetter": false
+    },
+    "altura_cm": {
+      "label": "Altura",
+      "unit": "cm",
+      "higherIsBetter": null
+    },
+    "profundidade_cm": {
+      "label": "Profundidade",
+      "unit": "cm",
+      "higherIsBetter": false
+    },
+    "peso_kg": {
+      "label": "Peso",
+      "unit": "kg",
+      "higherIsBetter": false
+    },
+    "dispenser_agua": {
+      "label": "Dispenser Água",
+      "unit": null,
+      "higherIsBetter": true,
+      "type": "boolean"
+    }
+  },
+  "products": {
+    "brm44hb": {
+      "id": "brm44hb",
+      "brand": "Brastemp",
+      "model": "BRM44HB",
+      "name": "Brastemp BRM44HB 375L",
+      "slug": "brm44hb",
+      "imageUrl": "/assets/products/brm44hb.webp",
+      "status": "active",
+      "dateAdded": "2025-12-01",
+      "lastUpdated": "2025-12-23",
+      "specs": {
+        "capacidade_total": 375,
+        "capacidade_refrigerador": 288,
+        "capacidade_freezer": 86,
+        "consumo_kwh": 54,
+        "largura_cm": 62.1,
+        "altura_cm": 176,
+        "profundidade_cm": 75.5,
+        "peso_kg": 58,
+        "dispenser_agua": false,
+        "tipo": "duplex",
+        "frost_free": true,
+        "voltagem": [
+          "110V",
+          "220V"
+        ],
+        "cor": "Branca",
+        "selo_procel": "A"
+      },
+      "editorialScores": {
+        "refrigeracao": {
+          "score": 7.5,
+          "note": "Gela bem no geral, mas há relatos de aquecimento nas laterais que incomoda alguns usuários (é normal segundo o manual, mas divide opiniões)."
+        },
+        "durabilidade": {
+          "score": 6,
+          "note": "Relatos pontuais de defeitos após alguns meses de uso. Alguns casos de problemas com compressor e vedação da porta."
+        },
+        "consumo": {
+          "score": 8.5,
+          "note": "Selo Procel A com 54 kWh/mês. Consumo considerado bom para uma geladeira de 375L nesta faixa de preço."
+        },
+        "espaco": {
+          "score": 9.5,
+          "note": "Excelente aproveitamento interno com 375L. Prateleiras bem distribuídas, gavetas espaçosas e porta-latas generoso."
+        },
+        "pos_venda": {
+          "score": 6,
+          "note": "Brastemp é marca conhecida, mas há reclamações sobre demora na assistência técnica e dificuldade para agendar visitas."
+        },
+        "ruido": {
+          "score": 6.5,
+          "note": "Compressor faz barulho moderado. Alguns relatam estalos ao ligar/desligar, especialmente à noite."
+        },
+        "custo_beneficio": {
+          "score": 8,
+          "note": "Preço competitivo para o que oferece. Boa capacidade e recursos por ~R$ 3.200. Comparável a modelos mais caros."
+        },
+        "funcionalidades": {
+          "score": 6.5,
+          "note": "Frost Free e prateleiras removíveis. Não tem painel digital nem dispenser de água. Básica mas funcional."
+        },
+        "encaixe": {
+          "score": 7.5,
+          "note": "62cm de largura e 176cm de altura. Encaixa na maioria das cozinhas, mas profundidade de 75cm pode ser problema em nichos pequenos."
+        },
+        "beleza": {
+          "score": 8.5,
+          "note": "Design moderno e acabamento branco clean. Puxadores integrados. Muitos elogios à aparência nas avaliações."
+        },
+        "overall": 7.5,
+        "notes": "Ponto forte é espaço/organização e aparência; principal atrito recorrente é aquecimento lateral e casos pontuais de defeito/assistência.",
+        "updatedAt": "2025-12-23"
+      },
+      "offers": [
+        {
+          "retailerId": "amazon",
+          "retailerName": "Amazon",
+          "price": 3199,
+          "originalPrice": null,
+          "currency": "BRL",
+          "lastUpdated": "2025-12-23T00:30:00-03:00",
+          "url": "https://amzn.to/brm44hb",
+          "inStock": true
+        },
+        {
+          "retailerId": "mercado_livre",
+          "retailerName": "Mercado Livre",
+          "price": 3149.9,
+          "originalPrice": null,
+          "currency": "BRL",
+          "lastUpdated": "2025-12-23T00:30:00-03:00",
+          "url": "https://mercadolivre.com/brm44hb",
+          "inStock": true
+        },
+        {
+          "retailerId": "magalu",
+          "retailerName": "Magazine Luiza",
+          "price": 3299,
+          "originalPrice": null,
+          "currency": "BRL",
+          "lastUpdated": "2025-12-23T00:30:00-03:00",
+          "url": "https://magazineluiza.com/brm44hb",
+          "inStock": true
+        },
+        {
+          "retailerId": "shopee",
+          "retailerName": "Shopee",
+          "price": 3189,
+          "originalPrice": 3399,
+          "currency": "BRL",
+          "lastUpdated": "2025-12-23T00:30:00-03:00",
+          "url": "https://shopee.com.br/brm44hb",
+          "inStock": true
+        }
+      ],
+      "thirdPartyRatings": [
+        {
+          "retailerId": "amazon",
+          "retailerName": "Amazon",
+          "ratingValue": 4.6,
+          "ratingScale": 5,
+          "reviewCount": 2341,
+          "lastUpdated": "2025-12-23T00:30:00-03:00",
+          "affiliateUrl": "https://amzn.to/brm44hb",
+          "reviewUrl": "https://amazon.com.br/brm44hb#reviews"
+        },
+        {
+          "retailerId": "mercado_livre",
+          "retailerName": "Mercado Livre",
+          "ratingValue": 4.5,
+          "ratingScale": 5,
+          "reviewCount": 1823,
+          "lastUpdated": "2025-12-23T00:30:00-03:00",
+          "affiliateUrl": "https://mercadolivre.com/brm44hb",
+          "reviewUrl": null
+        }
+      ],
+      "voc": {
+        "lastUpdated": "2025-12-23",
+        "sentiment": "Geralmente positiva, com atritos recorrentes",
+        "sentimentClass": "positive",
+        "oneLiner": "No geral é vista como bonita, espaçosa e 'gela bem', mas há recorrência de dúvidas/reclamações sobre aquecimento nas laterais e casos pontuais de defeitos/assistência.",
+        "summary30s": "A BRM44HB costuma ter alta aprovação em varejistas, com relatos de bom espaço interno e bom desempenho de refrigeração. O ponto de atrito mais recorrente é o aquecimento nas laterais (parte considera normal, parte relata excesso), além de relatos pontuais de defeitos após meses de uso, avarias na entrega e frustração com assistência.",
+        "pros": [
+          {
+            "topic": "Design/'bonita'",
+            "freq": "Alta (~40%)",
+            "detail": "Percepção de estética moderna e 'linda' em avaliações."
+          },
+          {
+            "topic": "Gela bem / performance",
+            "freq": "Alta (~35%)",
+            "detail": "Cumpre bem a função principal e mantém bebidas bem geladas."
+          },
+          {
+            "topic": "Espaço e organização interna",
+            "freq": "Média (~25%)",
+            "detail": "Boa divisão interna e prateleiras ajudam no dia a dia."
+          },
+          {
+            "topic": "Confiança na marca",
+            "freq": "Média (~20%)",
+            "detail": "Sensação de robustez/durabilidade percebida."
+          },
+          {
+            "topic": "Custo-benefício",
+            "freq": "Média (~15–20%)",
+            "detail": "Boa avaliação de valor pelo que entrega."
+          }
+        ],
+        "cons": [
+          {
+            "topic": "Aquecimento nas laterais",
+            "freq": "Muito alta (~45%)",
+            "detail": "Gera medo/dúvida; é um ponto recorrente de reclamação e de comunicação técnica."
+          },
+          {
+            "topic": "Ruído do motor/compressor",
+            "freq": "Alta (~30%)",
+            "detail": "Zumbido constante incomoda em ambientes silenciosos."
+          },
+          {
+            "topic": "Atendimento/SAC",
+            "freq": "Média (~15%)",
+            "detail": "Frustração ao tentar validar defeitos e acionar assistência."
+          },
+          {
+            "topic": "Avaria na entrega",
+            "freq": "Baixa–média (pontual)",
+            "detail": "Relatos de amassados/avarias no transporte."
+          },
+          {
+            "topic": "Detalhes de construção",
+            "freq": "Baixa (~10–15%)",
+            "detail": "Queixas pontuais (ex.: partes plásticas, falta de luz no freezer, etc.)."
+          }
+        ],
+        "sample": {
+          "totalApprox": 12000,
+          "breakdown": [
+            {
+              "source": "Mercado Livre",
+              "countApprox": 11900,
+              "type": "marketplace_reviews",
+              "note": "dominante na amostra do relatório"
+            },
+            {
+              "source": "Magazine Luiza",
+              "count": 2822,
+              "type": "varejista_reviews"
+            },
+            {
+              "source": "Amazon BR",
+              "count": 23,
+              "type": "marketplace_reviews"
+            },
+            {
+              "source": "YouTube",
+              "countApprox": 8,
+              "type": "videos",
+              "note": "explicações técnicas/experiências de longo prazo"
+            },
+            {
+              "source": "Reclame Aqui/Proteste",
+              "countApprox": 6,
+              "type": "consumer_complaints",
+              "note": "amostra qualitativa (links pontuais)"
+            }
+          ]
+        },
+        "sources": [
+          {
+            "name": "Magalu — Avaliações BRM44HB (review)",
+            "url": "https://www.magazineluiza.com.br/review/efk668ad0d/geladeira-brastemp-frost-free-duplex-brm44hb-375-litros-branca/ED/REFR?partner_id=comparatop",
+            "type": "varejista_reviews",
+            "count": 2822,
+            "dateRange": "exemplos visíveis ~out/2025–dez/2025"
+          },
+          {
+            "name": "Amazon BR — BRM44HB 220V",
+            "url": "https://amzn.to/brm44hb",
+            "type": "marketplace_reviews",
+            "count": 23,
+            "dateRange": "não informado"
+          },
+          {
+            "name": "Brastemp (FAQ) — laterais aquecendo",
+            "url": "https://www.brastemp.com.br/atendimento/perguntas-frequentes/minha-geladeira-esta-aquecendo-nas-laterais-por-que",
+            "type": "fabricante_faq"
+          },
+          {
+            "name": "Reclame Aqui — caso (aquecimento lateral)",
+            "url": "https://www.reclameaqui.com.br/brastemp-consul/geladeira-brm44hb-horrorosa-nao-esta-funcionando_Tf9F8dx1N__QZSyg/",
+            "type": "reclame_aqui_case",
+            "date": "2024-02-16"
+          },
+          {
+            "name": "Reclame Aqui — caso (esquenta demais)",
+            "url": "https://www.reclameaqui.com.br/brastemp-consul/nao-comprem-a-geladeira-brm44hb-375-litros_tj8BGZ-D1-Zit_ye/",
+            "type": "reclame_aqui_case",
+            "date": "2024-08-13"
+          },
+          {
+            "name": "Reclame Aqui — caso (durabilidade)",
+            "url": "https://www.reclameaqui.com.br/brastemp-consul/brm44-hbana-pessimo-produto-programada-para-nao-durar_5Oz7tzQcl6CYesSj/",
+            "type": "reclame_aqui_case",
+            "date": "2025-03-12"
+          },
+          {
+            "name": "Reclame Aqui — caso (parou com 1 ano e 6 meses)",
+            "url": "https://www.reclameaqui.com.br/brastemp-consul/geladeira-brastemp-brm44hb-parou-de-funcionar-com-apenas-1-ano-e-6-meses_s_1aQl-qH7iyCjlA/",
+            "type": "reclame_aqui_case",
+            "date": "2025-07-20"
+          },
+          {
+            "name": "Reclame Aqui — caso (entrega amassada)",
+            "url": "https://www.reclameaqui.com.br/brastemp-consul/geladeira-entregue-amassada-e-dem_IfsEXRQ3gqMm_fG-/",
+            "type": "reclame_aqui_case",
+            "date": "2025-12-23"
+          }
+        ]
+      },
+      "features": [
+        {
+          "id": "frost_free",
+          "label": "Frost Free",
+          "value": true
+        },
+        {
+          "id": "prateleiras_ajustaveis",
+          "label": "Prateleiras ajustáveis",
+          "value": true
+        },
+        {
+          "id": "painel_digital",
+          "label": "Painel digital",
+          "value": false
+        },
+        {
+          "id": "turbo_freezer",
+          "label": "Turbo Freezer",
+          "value": false
+        },
+        {
+          "id": "dispenser_agua",
+          "label": "Dispenser de água",
+          "value": false
+        },
+        {
+          "id": "luz_led",
+          "label": "Iluminação LED",
+          "value": true
+        }
+      ],
+      "idealFor": [
+        {
+          "id": "nichos_estreitos",
+          "label": "Nichos estreitos (até 66 cm)",
+          "icon": "📐"
+        },
+        {
+          "id": "uso_moderado_freezer",
+          "label": "Uso moderado de freezer",
+          "icon": "❄️"
+        },
+        {
+          "id": "quem_valoriza_robustez",
+          "label": "Quem valoriza robustez/marca",
+          "icon": "🛡️"
+        },
+        {
+          "id": "design_moderno",
+          "label": "Quem busca design moderno",
+          "icon": "✨"
+        }
+      ],
+      "notIdealFor": [
+        {
+          "id": "freezer_grande",
+          "label": "Quem precisa de freezer grande (>100L)",
+          "icon": "🧊"
+        },
+        {
+          "id": "funcoes_avancadas",
+          "label": "Quem quer painel com modos automáticos",
+          "icon": "⚙️"
+        },
+        {
+          "id": "sensivel_ruido",
+          "label": "Muito sensível a ruído",
+          "icon": "🔇"
+        }
+      ],
+      "tags": [
+        "frost-free",
+        "duplex",
+        "brastemp",
+        "375l",
+        "compacta",
+        "branca",
+        "classe-a"
+      ]
+    },
+    "tf55": {
+      "id": "tf55",
+      "brand": "Electrolux",
+      "model": "TF55",
+      "name": "Electrolux TF55 431L",
+      "slug": "tf55",
+      "imageUrl": "/assets/products/tf55.webp",
+      "status": "active",
+      "dateAdded": "2025-12-01",
+      "lastUpdated": "2025-12-23",
+      "specs": {
+        "capacidade_total": 431,
+        "capacidade_refrigerador": 303,
+        "capacidade_freezer": 128,
+        "consumo_kwh": 49.8,
+        "largura_cm": 70,
+        "altura_cm": 176,
+        "profundidade_cm": 73.3,
+        "peso_kg": 67,
+        "dispenser_agua": false,
+        "tipo": "top_freezer",
+        "frost_free": true,
+        "voltagem": [
+          "110V",
+          "220V"
+        ],
+        "cor": "Branca",
+        "selo_procel": "A"
+      },
+      "editorialScores": {
+        "refrigeracao": {
+          "score": 7.5,
+          "note": "Turbo Freezer e Drink Express funcionam bem. Refrigeração rápida elogiada, mas freezer pode gelar demais em alguns casos."
+        },
+        "durabilidade": {
+          "score": 5.5,
+          "note": "Relatos de problemas com compressor e defeitos após 1-2 anos. Alguns casos de RA (Retorno Autorizada) nos reviews."
+        },
+        "consumo": {
+          "score": 7.5,
+          "note": "Selo Procel A com ~49.8 kWh/mês estimado. Bom para 431L mas não é Inverter."
+        },
+        "espaco": {
+          "score": 9.5,
+          "note": "431L com excelente distribuição. Icemax para gelo extra, gavetas amplas e prateleira de vidro temperado."
+        },
+        "pos_venda": {
+          "score": 6,
+          "note": "Electrolux tem boa rede de assistência, mas há relatos de demora e peças em falta em algumas regiões."
+        },
+        "ruido": {
+          "score": 6.5,
+          "note": "Alguns usuários relatam ruído do compressor, especialmente em apartamentos. Não é silenciosa."
+        },
+        "custo_beneficio": {
+          "score": 8,
+          "note": "Muitas funcionalidades pelo preço. 431L com recursos premium por ~R$ 3.500. Compete com modelos mais caros."
+        },
+        "funcionalidades": {
+          "score": 9,
+          "note": "Painel Blue Touch, Turbo Freezer, Drink Express, Icemax. Pacote de funções acima da média."
+        },
+        "encaixe": {
+          "score": 7.5,
+          "note": "70cm de largura. Maior que a BRM44HB, pode não caber em nichos estreitos. Verificar medidas."
+        },
+        "beleza": {
+          "score": 7,
+          "note": "Design funcional mas não tão elegante quanto concorrentes. Acabamento branco padrão."
+        },
+        "overall": 7.4,
+        "notes": "Entrega espaço e funcionalidades fortes (Turbo Freezer/Drink Express/Icemax); pontos de risco em relatos de ruído e defeitos.",
+        "updatedAt": "2025-12-23"
+      },
+      "offers": [
+        {
+          "retailerId": "amazon",
+          "retailerName": "Amazon",
+          "price": 3499,
+          "originalPrice": null,
+          "currency": "BRL",
+          "lastUpdated": "2025-12-23T00:30:00-03:00",
+          "url": "https://amzn.to/tf55",
+          "inStock": true
+        },
+        {
+          "retailerId": "mercado_livre",
+          "retailerName": "Mercado Livre",
+          "price": 3399.9,
+          "originalPrice": null,
+          "currency": "BRL",
+          "lastUpdated": "2025-12-23T00:30:00-03:00",
+          "url": "https://mercadolivre.com/tf55",
+          "inStock": true
+        },
+        {
+          "retailerId": "magalu",
+          "retailerName": "Magazine Luiza",
+          "price": 3549,
+          "originalPrice": null,
+          "currency": "BRL",
+          "lastUpdated": "2025-12-23T00:30:00-03:00",
+          "url": "https://magazineluiza.com/tf55",
+          "inStock": true
+        },
+        {
+          "retailerId": "shopee",
+          "retailerName": "Shopee",
+          "price": 3449,
+          "originalPrice": 3699,
+          "currency": "BRL",
+          "lastUpdated": "2025-12-23T00:30:00-03:00",
+          "url": "https://shopee.com.br/tf55",
+          "inStock": true
+        }
+      ],
+      "thirdPartyRatings": [
+        {
+          "retailerId": "amazon",
+          "retailerName": "Amazon",
+          "ratingValue": 4.4,
+          "ratingScale": 5,
+          "reviewCount": 1567,
+          "lastUpdated": "2025-12-23T00:30:00-03:00",
+          "affiliateUrl": "https://amzn.to/tf55",
+          "reviewUrl": "https://amazon.com.br/tf55#reviews"
+        }
+      ],
+      "voc": {
+        "lastUpdated": "2025-12-23",
+        "sentiment": "Mista / polarizada",
+        "sentimentClass": "mixed",
+        "oneLiner": "Muito elogiada por espaço e flexibilidade interna, mas com recorrência de reclamações sobre estalos noturnos e risco de falhas de refrigeração ('não gela embaixo') pós-garantia.",
+        "summary30s": "A TF55 costuma encantar pelo volume (431L), freezer grande e prateleiras adaptáveis. Em contrapartida, aparecem com frequência temas como estalos altos à noite (dilatação térmica) e relatos de falha de refrigeração na parte inferior após um tempo de uso, além de manutenção cara/complexa em alguns casos. É um produto que divide opiniões: amam o espaço, odeiam o barulho/risco técnico.",
+        "pros": [
+          {
+            "topic": "Espaço interno (431L)",
+            "freq": "Muito alta (~40%)",
+            "detail": "Freezer enorme e sensação de 'geladeira grande'."
+          },
+          {
+            "topic": "Prateleiras Fast Adapt",
+            "freq": "Alta (~30%)",
+            "detail": "Versatilidade para itens altos é muito elogiada."
+          },
+          {
+            "topic": "Custo-benefício (litragem)",
+            "freq": "Alta (~25%)",
+            "detail": "Boa relação R$/Litro frente a alternativas."
+          },
+          {
+            "topic": "Design/painel Blue Touch",
+            "freq": "Média (~20%)",
+            "detail": "Estética e funções na porta agradam."
+          },
+          {
+            "topic": "Congelamento rápido / turbo",
+            "freq": "Média (~15%)",
+            "detail": "Funções turbo funcionam bem para parte do público."
+          }
+        ],
+        "cons": [
+          {
+            "topic": "Ruídos de estalos (à noite)",
+            "freq": "Muito alta (~40%)",
+            "detail": "Incômodo noturno severo associado a dilatação térmica/degelo."
+          },
+          {
+            "topic": "Defeito: parou de gelar / 'não gela embaixo'",
+            "freq": "Alta (~25%)",
+            "detail": "Relatos de sensores, fusíveis, microvazamentos/gás e parada de refrigeração após a garantia."
+          },
+          {
+            "topic": "Manutenção/vazamentos",
+            "freq": "Média (~20%)",
+            "detail": "Risco de reparo caro (especialmente se vazamento interno)."
+          },
+          {
+            "topic": "Ergonomia (baixa)",
+            "freq": "Média (~15%)",
+            "detail": "Queixas de uso no dia a dia (precisar abaixar, bater a cabeça, etc.)."
+          },
+          {
+            "topic": "Fragilidade prateleiras",
+            "freq": "Baixa (~10%)",
+            "detail": "Relatos de prateleiras envergando com excesso de peso."
+          }
+        ],
+        "sample": {
+          "totalApprox": 6000,
+          "breakdown": [
+            {
+              "source": "Mercado Livre",
+              "countApprox": 3000,
+              "type": "marketplace_reviews"
+            },
+            {
+              "source": "Magazine Luiza",
+              "count": 668,
+              "type": "varejista_reviews"
+            },
+            {
+              "source": "Amazon BR",
+              "count": 88,
+              "type": "marketplace_reviews"
+            },
+            {
+              "source": "YouTube (repair / longo prazo)",
+              "countApprox": 8,
+              "type": "videos",
+              "note": "alta relevância qualitativa para defeitos"
+            }
+          ]
+        },
+        "sources": [
+          {
+            "name": "Magalu — Avaliações TF55 (review)",
+            "url": "https://www.magazineluiza.com.br/review/jbe35j4015/geladeira-frost-free-electrolux-tf55-431-litros-branca-110v/ED/REFR?partner_id=comparatop",
+            "type": "varejista_reviews",
+            "count": 668,
+            "dateRange": "não informado"
+          },
+          {
+            "name": "Amazon BR — TF55",
+            "url": "https://amzn.to/tf55",
+            "type": "marketplace_reviews",
+            "count": 88,
+            "dateRange": "não informado",
+            "note": "link de afiliado Amazon"
+          }
+        ]
+      },
+      "features": [
+        {
+          "id": "frost_free",
+          "label": "Frost Free",
+          "value": true
+        },
+        {
+          "id": "prateleiras_ajustaveis",
+          "label": "Prateleiras Fast Adapt",
+          "value": true
+        },
+        {
+          "id": "painel_digital",
+          "label": "Painel Blue Touch",
+          "value": true
+        },
+        {
+          "id": "turbo_freezer",
+          "label": "Turbo Freezer",
+          "value": true
+        },
+        {
+          "id": "drink_express",
+          "label": "Drink Express",
+          "value": true
+        },
+        {
+          "id": "icemax",
+          "label": "Ice Max",
+          "value": true
+        },
+        {
+          "id": "modo_ferias",
+          "label": "Modo Férias",
+          "value": true
+        },
+        {
+          "id": "modo_festa",
+          "label": "Modo Festa",
+          "value": true
+        },
+        {
+          "id": "dispenser_agua",
+          "label": "Dispenser de água",
+          "value": false
+        },
+        {
+          "id": "luz_led",
+          "label": "Iluminação LED",
+          "value": true
+        }
+      ],
+      "idealFor": [
+        {
+          "id": "familias_grandes",
+          "label": "Famílias que congelam muito",
+          "icon": "👨‍👩‍👧‍👦"
+        },
+        {
+          "id": "menor_consumo",
+          "label": "Quem quer menor consumo",
+          "icon": "⚡"
+        },
+        {
+          "id": "funcoes_avancadas",
+          "label": "Quem valoriza painel digital e funções",
+          "icon": "⚙️"
+        },
+        {
+          "id": "freezer_grande",
+          "label": "Quem precisa de freezer grande (128L)",
+          "icon": "🧊"
+        }
+      ],
+      "notIdealFor": [
+        {
+          "id": "nicho_estreito",
+          "label": "Nicho tem <74 cm de largura",
+          "icon": "📐"
+        },
+        {
+          "id": "preferem_simplicidade",
+          "label": "Quem prefere simplicidade",
+          "icon": "🎯"
+        },
+        {
+          "id": "sensivel_ruido",
+          "label": "Muito sensível a ruídos noturnos",
+          "icon": "🔇"
+        }
+      ],
+      "tags": [
+        "frost-free",
+        "top-freezer",
+        "electrolux",
+        "431l",
+        "grande",
+        "branca",
+        "painel-digital",
+        "blue-touch"
+      ]
+    },
+    "brastemp-brm44hb": {
+      "id": "brastemp-brm44hb",
+      "model": "BRM44HB",
+      "name": "Geladeira Brastemp Frost Free Duplex 375 litros Branca - BRM44HB",
+      "brand": "Brastemp",
+      "url": "/produto/geladeira/brastemp-brm44hb",
+      "specs": {
+        "capacidade_total": 375,
+        "capacidade_freezer": 86,
+        "tipo_degelo": "Frost Free",
+        "voltagem": "110V/220V"
+      },
+      "offers": [
+        {
+          "retailer": "Amazon",
+          "price": 3199,
+          "link": "https://amzn.to/EXEMPLO1",
+          "updated": "2025-12-26T12:39:59.134Z"
+        }
+      ],
+      "lastUpdated": "2025-12-26T12:39:59.135Z",
+      "status": "active"
+    },
+    "electrolux-tf55": {
+      "id": "electrolux-tf55",
+      "model": "TF55",
+      "name": "Geladeira Electrolux Frost Free Duplex 431 Litros Branca (TF55)",
+      "brand": "Electrolux",
+      "url": "/produto/geladeira/electrolux-tf55",
+      "specs": {
+        "capacidade_total": 431,
+        "capacidade_freezer": 128,
+        "tipo_degelo": "Frost Free",
+        "voltagem": "Bivolt"
+      },
+      "offers": [
+        {
+          "retailer": "Amazon",
+          "price": 3599,
+          "link": "https://amzn.to/EXEMPLO2",
+          "updated": "2025-12-26T12:39:59.135Z"
+        }
+      ],
+      "lastUpdated": "2025-12-26T12:39:59.135Z",
+      "status": "active"
+    },
+    "brastemp-bre57ak": {
+      "id": "brastemp-bre57ak",
+      "model": "BRE57AK",
+      "name": "Geladeira Brastemp Frost Free Inverse 443 litros Inox - BRE57AK",
+      "brand": "Brastemp",
+      "url": "/produto/geladeira/brastemp-bre57ak",
+      "specs": {
+        "capacidade_total": 443,
+        "capacidade_freezer": 135,
+        "tipo_degelo": "Inverse",
+        "voltagem": "110V"
+      },
+      "offers": [
+        {
+          "retailer": "Amazon",
+          "price": 4299,
+          "link": "https://amzn.to/EXEMPLO3",
+          "updated": "2025-12-26T12:39:59.135Z"
+        }
+      ],
+      "lastUpdated": "2025-12-26T12:39:59.135Z",
+      "status": "active"
+    },
+    "samsung-rt46": {
+      "id": "samsung-rt46",
+      "model": "RT46",
+      "name": "Geladeira Samsung Evolution RT46 com POWERvolt Inverter Duplex 460L",
+      "brand": "Samsung",
+      "url": "/produto/geladeira/samsung-rt46",
+      "specs": {
+        "capacidade_total": 460,
+        "capacidade_freezer": 112,
+        "tipo_degelo": "Inverter",
+        "voltagem": "Bivolt"
+      },
+      "offers": [
+        {
+          "retailer": "Amazon",
+          "price": 3899,
+          "link": "https://amzn.to/EXEMPLO4",
+          "updated": "2025-12-26T12:39:59.135Z"
+        }
+      ],
+      "lastUpdated": "2025-12-26T12:39:59.135Z",
+      "status": "active"
+    }
+  }
+}

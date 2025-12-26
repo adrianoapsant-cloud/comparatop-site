@@ -1,0 +1,140 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://comparatop.com.br/schemas/category.schema.json",
+    "title": "Category",
+    "description": "Schema para validação de categorias no ComparaTop",
+    "type": "object",
+    "required": [
+        "id",
+        "name",
+        "slug"
+    ],
+    "properties": {
+        "id": {
+            "type": "string",
+            "description": "ID único da categoria",
+            "pattern": "^[a-z0-9_-]+$",
+            "minLength": 2,
+            "maxLength": 50
+        },
+        "name": {
+            "type": "string",
+            "description": "Nome da categoria (singular)",
+            "minLength": 2,
+            "maxLength": 100
+        },
+        "namePlural": {
+            "type": "string",
+            "description": "Nome da categoria (plural)"
+        },
+        "slug": {
+            "type": "string",
+            "description": "Slug para URLs",
+            "pattern": "^[a-z0-9-]+$",
+            "minLength": 2,
+            "maxLength": 80
+        },
+        "canonicalPath": {
+            "type": "string",
+            "description": "Path canônico (ex: /geladeiras/)",
+            "pattern": "^/[a-z0-9-/]+/$"
+        },
+        "icon": {
+            "type": "string",
+            "description": "Emoji ou ícone",
+            "maxLength": 10
+        },
+        "enabled": {
+            "type": "boolean",
+            "description": "Categoria ativa",
+            "default": true
+        },
+        "description": {
+            "type": "string",
+            "description": "Descrição para SEO"
+        },
+        "importantSpecs": {
+            "type": "array",
+            "description": "Lista de specs importantes para esta categoria",
+            "items": {
+                "type": "string"
+            }
+        },
+        "editorialTopics": {
+            "type": "array",
+            "description": "Tópicos editoriais com pesos",
+            "items": {
+                "$ref": "#/definitions/editorialTopic"
+            }
+        },
+        "tco": {
+            "type": "object",
+            "description": "Configuração de TCO (Total Cost of Ownership)",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "defaultYears": {
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "energyMultiplier": {
+                    "type": "number"
+                },
+                "maintenanceEstimate": {
+                    "type": "number"
+                }
+            }
+        },
+        "seo": {
+            "type": "object",
+            "description": "Templates SEO específicos da categoria",
+            "properties": {
+                "titleTemplate": {
+                    "type": "string"
+                },
+                "descriptionTemplate": {
+                    "type": "string"
+                },
+                "categoryTitle": {
+                    "type": "string"
+                },
+                "categoryDescription": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "definitions": {
+        "editorialTopic": {
+            "type": "object",
+            "required": [
+                "id",
+                "label",
+                "weight"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "ID do tópico",
+                    "pattern": "^[a-z0-9_]+$"
+                },
+                "label": {
+                    "type": "string",
+                    "description": "Nome exibido"
+                },
+                "weight": {
+                    "type": "number",
+                    "description": "Peso no cálculo (0-1)",
+                    "minimum": 0,
+                    "maximum": 1
+                },
+                "description": {
+                    "type": "string",
+                    "description": "O que este tópico avalia"
+                }
+            }
+        }
+    }
+}

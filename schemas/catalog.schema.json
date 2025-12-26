@@ -1,0 +1,60 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://comparatop.com.br/schemas/catalog.schema.json",
+    "title": "Catalog",
+    "description": "Schema para validação de catálogos (arquivo por categoria)",
+    "type": "object",
+    "required": [
+        "category",
+        "products"
+    ],
+    "properties": {
+        "category": {
+            "$ref": "category.schema.json"
+        },
+        "products": {
+            "type": "object",
+            "description": "Mapa de produtos por ID",
+            "additionalProperties": {
+                "$ref": "product.schema.json"
+            }
+        },
+        "meta": {
+            "type": "object",
+            "description": "Metadados do catálogo",
+            "properties": {
+                "version": {
+                    "type": "string"
+                },
+                "lastUpdated": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "productCount": {
+                    "type": "integer",
+                    "minimum": 0
+                }
+            }
+        },
+        "comparisons": {
+            "type": "array",
+            "description": "Comparações destacadas (opcional)",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "products": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "minItems": 2,
+                        "maxItems": 4
+                    },
+                    "featured": {
+                        "type": "boolean"
+                    }
+                }
+            }
+        }
+    }
+}
