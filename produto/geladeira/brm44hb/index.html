@@ -3337,11 +3337,15 @@
             const productsContainer = document.getElementById('compare-prompt-products');
             const hint = document.getElementById('compare-prompt-hint');
             const compareBtn = document.getElementById('compare-prompt-btn-compare');
+            const counter = document.getElementById('compare-counter');
 
             if (!prompt || !productsContainer || compareList.length === 0) {
                 hideCompareToast();
                 return;
             }
+
+            // Hide counter while toast is visible (they overlap)
+            if (counter) counter.classList.remove('show');
 
             productsContainer.innerHTML = compareList.map(p => `
                 <div class="compare-prompt-product">
@@ -3366,10 +3370,21 @@
             prompt.classList.add('show');
         }
 
-        // Hide the compare toast
+        // Hide the compare toast and show counter if there are products
         function hideCompareToast() {
             const prompt = document.getElementById('compare-prompt');
+            const counter = document.getElementById('compare-counter');
+
             if (prompt) prompt.classList.remove('show');
+
+            // Show counter with updated count when toast is hidden
+            if (counter && compareList.length > 0) {
+                const numberEl = counter.querySelector('.compare-counter-number');
+                const textEl = counter.querySelector('.compare-counter-text');
+                if (numberEl) numberEl.textContent = compareList.length;
+                if (textEl) textEl.textContent = compareList.length === 1 ? 'produto' : 'produtos';
+                counter.classList.add('show');
+            }
         }
 
         function closeComparePrompt() {
