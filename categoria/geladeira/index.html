@@ -109,44 +109,45 @@
             }
         }
 
-        /* Compare Prompt Modal */
+        /* Compare Prompt - Small Toast in Bottom Right */
         .compare-prompt {
             position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1100;
-            display: none;
-            align-items: center;
-            justify-content: center;
+            bottom: 20px;
+            right: 20px;
+            z-index: 200;
+            max-width: 280px;
+            background: white;
+            border-radius: 12px;
             padding: 1rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(150%);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            pointer-events: none;
         }
 
         .compare-prompt.show {
-            display: flex;
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
         }
 
-        .compare-prompt-content {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            max-width: 320px;
-            width: 100%;
-            text-align: center;
-            animation: slideUp 0.3s ease;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-        }
-
-        .compare-prompt h3 {
-            margin: 0 0 1rem;
+        .compare-prompt h4 {
+            margin: 0 0 0.5rem;
             color: #1e40af;
-            font-size: 1.25rem;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .compare-prompt-products {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
+            gap: 0.25rem;
+            margin-bottom: 0.75rem;
+            max-height: 120px;
+            overflow-y: auto;
         }
 
         .compare-prompt-product {
@@ -154,41 +155,36 @@
             align-items: center;
             justify-content: space-between;
             background: #f1f5f9;
-            padding: 0.5rem 0.75rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
+            padding: 0.35rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
         }
 
         .compare-prompt-hint {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: #64748b;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
 
         .compare-prompt-actions {
             display: flex;
-            flex-direction: column;
             gap: 0.5rem;
         }
 
         .compare-prompt-btn {
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
+            flex: 1;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
             border: none;
-            font-size: 0.95rem;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .compare-prompt-btn:hover {
-            transform: translateY(-1px);
+            font-size: 0.8rem;
+            transition: transform 0.2s, opacity 0.2s;
         }
 
         .compare-prompt-btn.primary {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            background: linear-gradient(135deg, #10b981, #059669);
             color: white;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         }
 
         .compare-prompt-btn.secondary {
@@ -2476,21 +2472,15 @@
     <!-- Mobile Overlay Element -->
     <div id="sidebar-overlay" class="sidebar-overlay" onclick="handleOverlayClick()"></div>
 
-    <!-- Compare Prompt Modal -->
-    <div id="compare-prompt" class="compare-prompt" onclick="closeComparePrompt()">
-        <div class="compare-prompt-content" onclick="event.stopPropagation()">
-            <h3>📊 Comparar Produtos?</h3>
-            <div id="compare-prompt-products" class="compare-prompt-products"></div>
-            <p class="compare-prompt-hint" id="compare-prompt-hint"></p>
-            <div class="compare-prompt-actions">
-                <button class="compare-prompt-btn primary" id="compare-prompt-btn-compare"
-                    onclick="startComparisonFromPrompt()">
-                    Comparar Agora
-                </button>
-                <button class="compare-prompt-btn secondary" onclick="closeComparePrompt()">
-                    Fechar Menu
-                </button>
-            </div>
+    <!-- Compare Toast (Small notification) -->
+    <div id="compare-prompt" class="compare-prompt">
+        <h4>⚖️ Comparar?</h4>
+        <div id="compare-prompt-products" class="compare-prompt-products"></div>
+        <p class="compare-prompt-hint" id="compare-prompt-hint"></p>
+        <div class="compare-prompt-actions">
+            <button class="compare-prompt-btn primary" id="compare-prompt-btn-compare"
+                onclick="startComparisonFromPrompt()">Comparar</button>
+            <button class="compare-prompt-btn secondary" onclick="hideCompareToast()">✕</button>
         </div>
     </div>
 
@@ -3191,24 +3181,21 @@
             }
         }
 
-        // Handle overlay click - shows compare prompt if products selected
+        // Handle overlay click - just closes the sidebar
         function handleOverlayClick() {
-            if (typeof compareList !== 'undefined' && compareList.length >= 1) {
-                showComparePrompt();
-            } else {
-                closeSidebar();
-            }
+            closeSidebar();
+            hideCompareToast();
         }
 
-        // Show the compare prompt modal
+        // Show the compare toast (small notification in bottom right)
         function showComparePrompt() {
             const prompt = document.getElementById('compare-prompt');
             const productsContainer = document.getElementById('compare-prompt-products');
             const hint = document.getElementById('compare-prompt-hint');
             const compareBtn = document.getElementById('compare-prompt-btn-compare');
 
-            if (!prompt || !productsContainer) {
-                closeSidebar();
+            if (!prompt || !productsContainer || compareList.length === 0) {
+                hideCompareToast();
                 return;
             }
 
@@ -3221,17 +3208,12 @@
 
             const remaining = 4 - compareList.length;
             if (compareList.length < 2) {
-                hint.textContent = `Selecione pelo menos mais ${2 - compareList.length} produto(s) para comparar`;
+                hint.textContent = `+${2 - compareList.length} para comparar`;
                 hint.style.color = '#f59e0b';
                 compareBtn.classList.add('disabled');
                 compareBtn.disabled = true;
-            } else if (remaining > 0) {
-                hint.textContent = `Você pode adicionar mais ${remaining} produto(s)`;
-                hint.style.color = '#64748b';
-                compareBtn.classList.remove('disabled');
-                compareBtn.disabled = false;
             } else {
-                hint.textContent = 'Limite máximo de 4 produtos atingido';
+                hint.textContent = remaining > 0 ? `+${remaining} disponível` : 'Máximo atingido';
                 hint.style.color = '#64748b';
                 compareBtn.classList.remove('disabled');
                 compareBtn.disabled = false;
@@ -3240,15 +3222,18 @@
             prompt.classList.add('show');
         }
 
-        function closeComparePrompt() {
+        // Hide the compare toast
+        function hideCompareToast() {
             const prompt = document.getElementById('compare-prompt');
             if (prompt) prompt.classList.remove('show');
-            closeSidebar();
+        }
+
+        function closeComparePrompt() {
+            hideCompareToast();
         }
 
         function startComparisonFromPrompt() {
-            const prompt = document.getElementById('compare-prompt');
-            if (prompt) prompt.classList.remove('show');
+            hideCompareToast();
             closeSidebar();
             if (typeof showComparison === 'function') {
                 showComparison();
@@ -4306,6 +4291,9 @@
 
             // Update compare counter UI
             updateCompareCounter();
+
+            // Show compare toast
+            showComparePrompt();
 
             // Save to localStorage for persistence
             try {
