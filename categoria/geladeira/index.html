@@ -4279,10 +4279,8 @@
                     return;
                 }
                 compareList.push({
+                    ...product,
                     id: productId,
-                    name: product.name,
-                    brand: product.brand,
-                    model: product.model,
                     score: score
                 });
                 element.classList.add('selected');
