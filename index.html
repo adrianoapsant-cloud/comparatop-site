@@ -2196,6 +2196,37 @@
             font-weight: 600;
         }
 
+        /* Title row with zoom controls */
+        .compare-modal-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .font-zoom-controls {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .font-zoom-btn {
+            background: var(--c-primary-light);
+            color: var(--c-primary-dark);
+            border: 1px solid var(--c-border);
+            border-radius: var(--radius-sm);
+            padding: 0.3rem 0.6rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .font-zoom-btn:hover {
+            background: var(--c-primary);
+            color: #fff;
+        }
+
         /* Floating Compare Bar */
         .compare-bar {
             position: fixed;
@@ -3352,6 +3383,23 @@
             if (sidebar) sidebar.classList.remove('open');
             if (overlay) overlay.classList.remove('open');
             document.body.style.overflow = ''; // Unlock scroll
+        }
+
+        // Font size zoom for comparison table
+        let currentTableFontSize = 12; // base size in px
+        function changeTableFontSize(delta) {
+            const table = document.querySelector('.compare-table');
+            if (!table) return;
+
+            currentTableFontSize = Math.max(8, Math.min(20, currentTableFontSize + delta));
+            table.style.fontSize = currentTableFontSize + 'px';
+
+            // Also adjust cell padding proportionally
+            const cells = table.querySelectorAll('th, td');
+            const padding = Math.max(3, Math.min(12, currentTableFontSize / 3));
+            cells.forEach(cell => {
+                cell.style.padding = `${padding}px ${padding * 1.2}px`;
+            });
         }
 
         // Combined Toggle function (referenced by HTML onclick)

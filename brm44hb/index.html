@@ -2145,6 +2145,37 @@
             font-weight: 600;
         }
 
+        /* Title row with zoom controls */
+        .compare-modal-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .font-zoom-controls {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .font-zoom-btn {
+            background: var(--c-primary-light);
+            color: var(--c-primary-dark);
+            border: 1px solid var(--c-border);
+            border-radius: var(--radius-sm);
+            padding: 0.3rem 0.6rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .font-zoom-btn:hover {
+            background: var(--c-primary);
+            color: #fff;
+        }
+
         /* Floating Compare Bar */
         .compare-bar {
             position: fixed;
@@ -3263,7 +3294,15 @@
     <div class="compare-modal" id="compare-modal" onclick="if(event.target===this) closeCompareModal()">
         <div class="compare-modal-content">
             <div class="compare-modal-header">
-                <h2 class="compare-modal-title">⚖️ Comparação Detalhada</h2>
+                <div class="compare-modal-title-row">
+                    <h2 class="compare-modal-title">⚖️ Comparação Detalhada</h2>
+                    <div class="font-zoom-controls">
+                        <button class="font-zoom-btn" onclick="changeTableFontSize(-1)"
+                            title="Diminuir fonte">A-</button>
+                        <button class="font-zoom-btn" onclick="changeTableFontSize(1)"
+                            title="Aumentar fonte">A+</button>
+                    </div>
+                </div>
                 <div style="display:flex;align-items:center;gap:1rem;">
                     <div class="share-buttons" id="share-panel">
                         <button class="share-social-btn whatsapp" onclick="shareToSocial('whatsapp')" title="WhatsApp">
@@ -3375,6 +3414,23 @@
             if (sidebar) sidebar.classList.remove('open');
             if (overlay) overlay.classList.remove('open');
             document.body.style.overflow = '';
+        }
+
+        // Font size zoom for comparison table
+        let currentTableFontSize = 12; // base size in px
+        function changeTableFontSize(delta) {
+            const table = document.querySelector('.compare-table');
+            if (!table) return;
+
+            currentTableFontSize = Math.max(8, Math.min(20, currentTableFontSize + delta));
+            table.style.fontSize = currentTableFontSize + 'px';
+
+            // Also adjust cell padding proportionally
+            const cells = table.querySelectorAll('th, td');
+            const padding = Math.max(3, Math.min(12, currentTableFontSize / 3));
+            cells.forEach(cell => {
+                cell.style.padding = `${padding}px ${padding * 1.2}px`;
+            });
         }
 
         function toggleSidebar() {
