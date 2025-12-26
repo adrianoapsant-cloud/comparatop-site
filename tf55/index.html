@@ -4404,15 +4404,76 @@
                     const score = p.editorialScores?.overall || 0;
                     const scoreColor = score >= 8 ? '#22c55e' : score >= 6 ? '#eab308' : '#ef4444';
                     const altText = `Geladeira ${p.brand} ${p.model} ${p.specs?.capacidade_total || ''}L ${p.specs?.tipo || ''} Frost Free - Nota ${score}/10`;
-                    const productUrl = `/produto/geladeira/${p.id}`;
-                    html += `<a href="${productUrl}" class="nav-product-item" data-product-id="${p.id}" onclick="Router.navigate('${productUrl}'); return false;" title="${altText}">
+                    // Changed: onclick now toggles compare instead of navigating
+                    html += `<div class="nav-product-item" data-product-id="${p.id}" onclick="toggleSidebarCompare('${p.id}', this)" title="${altText}" style="cursor:pointer;">
                         <img src="${p.imageUrl}" alt="${altText}" class="nav-product-item-img" onerror="this.style.display='none'" loading="lazy" width="32" height="32">
                         <span>${p.brand} ${p.model}</span>
                         <span class="nav-product-score" style="background:${scoreColor};color:#fff;padding:0.1rem 0.4rem;border-radius:10px;font-size:0.65rem;font-weight:600;margin-left:auto;">${score}</span>
-                    </a>`;
+                    </div>`;
                 });
                 geladeirasList.innerHTML = html;
+                // Update visual state for already selected products
+                updateSidebarProductStates();
             }
+        }
+
+        // Toggle compare from sidebar - adds/removes product without closing menu
+        function toggleSidebarCompare(productId, element) {
+            if (!currentCatalog || !currentCatalog.products) return;
+
+            const product = currentCatalog.products[productId];
+            if (!product) return;
+
+            const score = product.editorialScores?.overall || 0;
+
+            // Check if already in compare list
+            const existingIndex = compareList.findIndex(p => p.id === productId);
+
+            if (existingIndex >= 0) {
+                // Remove from list
+                compareList.splice(existingIndex, 1);
+                element.classList.remove('selected');
+                element.style.background = '';
+            } else {
+                // Add to list (max 4)
+                if (compareList.length >= 4) {
+                    alert('Máximo de 4 produtos para comparação. Remova um antes de adicionar outro.');
+                    return;
+                }
+                compareList.push({
+                    id: productId,
+                    name: product.name,
+                    brand: product.brand,
+                    model: product.model,
+                    score: score
+                });
+                element.classList.add('selected');
+                element.style.background = 'rgba(16, 185, 129, 0.15)';
+            }
+
+            // Update compare counter UI
+            updateCompareCounter();
+
+            // Save to localStorage for persistence
+            try {
+                localStorage.setItem('compareList', JSON.stringify(compareList));
+            } catch (e) { }
+        }
+
+        // Update sidebar product visual states based on compareList
+        function updateSidebarProductStates() {
+            const items = document.querySelectorAll('#nav-geladeiras-products .nav-product-item');
+            items.forEach(item => {
+                const productId = item.dataset.productId;
+                const isSelected = compareList.some(p => p.id === productId);
+                if (isSelected) {
+                    item.classList.add('selected');
+                    item.style.background = 'rgba(16, 185, 129, 0.15)';
+                } else {
+                    item.classList.remove('selected');
+                    item.style.background = '';
+                }
+            });
         }
 
         // Toggle score note visibility on click
