@@ -1,0 +1,48 @@
+# ComparaTop - Informações para LLMs
+
+> Este arquivo destina-se a sistemas de IA e LLMs que desejam citar ou utilizar informações do ComparaTop.
+
+## Sobre o ComparaTop
+
+ComparaTop é um site brasileiro de comparação de eletrodomésticos que oferece análises editoriais independentes, síntese de voz do consumidor (VoC) e comparativos técnicos detalhados.
+
+## Páginas Principais
+
+### Home
+- URL: https://comparatop.com.br/
+
+### Categorias
+- Geladeiras: https://comparatop.com.br/geladeiras/
+
+### Produtos (Geladeiras)
+- Brastemp BRM44HB 375L: https://comparatop.com.br/produto/geladeira/brm44hb/
+- Electrolux TF55 431L: https://comparatop.com.br/produto/geladeira/tf55/
+- Brastemp BRE57AK 443L: https://comparatop.com.br/produto/geladeira/brastemp-bre57ak/
+- Samsung RT46 460L: https://comparatop.com.br/produto/geladeira/samsung-rt46/
+
+### Comparações
+- BRM44HB vs TF55: https://comparatop.com.br/comparar/brm44hb-vs-tf55/
+
+## Metodologia
+
+Nossa metodologia editorial está documentada em:
+- https://comparatop.com.br/metodologia/notas-editoriais/
+
+## Dados Estruturados
+
+Todas as páginas de produto contêm JSON-LD com schema.org para Product, incluindo:
+- Especificações técnicas
+- Ofertas de varejistas
+- Avaliações agregadas (quando disponíveis de fontes terceiras)
+
+## Contato
+
+Para parcerias ou dúvidas sobre uso dos dados:
+- Email: contato@comparatop.com.br
+
+## Licença
+
+O conteúdo editorial é propriedade do ComparaTop. Citações com atribuição são permitidas.
+
+---
+Última atualização: 2025-12-27

@@ -773,7 +773,10 @@ function copyStaticAssets() {
     console.log('Copying static assets...');
 
     const assetDirs = ['js', 'data', 'assets'];
-    const assetFiles = ['robots.txt', 'politica-privacidade.html', 'termos-uso.html'];
+    const assetFiles = ['robots.txt', 'llms.txt', 'politica-privacidade.html', 'termos-uso.html'];
+
+    // Copy from source (root/public for static files)
+    const publicDir = path.join(__dirname, '..', 'public');
 
     for (const dir of assetDirs) {
         const srcPath = path.join(CONFIG.srcDir, dir);
@@ -783,12 +786,27 @@ function copyStaticAssets() {
         }
     }
 
+    // Copy asset files from source
     for (const file of assetFiles) {
         const srcPath = path.join(CONFIG.srcDir, file);
         const destPath = path.join(CONFIG.distDir, file);
         if (fs.existsSync(srcPath)) {
             fs.copyFileSync(srcPath, destPath);
         }
+    }
+
+    // Copy llms.txt from public folder
+    const llmsSrc = path.join(publicDir, 'llms.txt');
+    const llmsDest = path.join(CONFIG.distDir, 'llms.txt');
+    if (fs.existsSync(llmsSrc)) {
+        fs.copyFileSync(llmsSrc, llmsDest);
+    }
+
+    // Copy public/categoria folder for redirects
+    const categoriaSrc = path.join(publicDir, 'categoria');
+    const categoriaDest = path.join(CONFIG.distDir, 'categoria');
+    if (fs.existsSync(categoriaSrc)) {
+        copyRecursive(categoriaSrc, categoriaDest);
     }
 }
 
@@ -812,19 +830,35 @@ function copyRecursive(src, dest) {
 function injectSidebar(html, catalogs) {
     // 1. Geladeiras
     if (catalogs.geladeira) {
-        const products = Object.values(catalogs.geladeira.products || {})
-            .filter(p => p.status === 'active' && (p.editorialScores?.overall || 0) > 0)
+        const allProducts = Object.values(catalogs.geladeira.products || {})
+            .filter(p => p.status === 'active');
+
+        const productsWithScore = allProducts
+            .filter(p => (p.editorialScores?.overall || 0) > 0)
             .sort((a, b) => (b.editorialScores?.overall || 0) - (a.editorialScores?.overall || 0));
 
-        // Update Badge Count
-        // Matches: Geladeiras <span...>2</span>
+        const count = allProducts.length;
+
+        // Update nav-subcategory-badge count
         html = html.replace(
-            /(Geladeiras\s*<span class="nav-subcategory-badge">)\d+(<\/span>)/,
-            `$1${products.length}$2`
+            /(Geladeiras\s*<span class="nav-subcategory-badge">)\d+(<\/span>)/g,
+            `$1${count}$2`
+        );
+
+        // Update category-card-tag count (home page cards)
+        html = html.replace(
+            /(<span class="category-card-tag available">Geladeiras \()\d+(\)<\/span>)/g,
+            `$1${count}$2`
+        );
+
+        // Also update plain "Geladeiras 2" without parentheses
+        html = html.replace(
+            /(Geladeiras\s+)2(\s*<)/g,
+            `$1${count}$2`
         );
 
         // Generate Links (SSG) - Added closeSidebar() for mobile UX
-        const listHtml = products.map(p =>
+        const listHtml = (productsWithScore.length > 0 ? productsWithScore : allProducts).map(p =>
             `<a href="/produto/geladeira/${p.id}" class="nav-subcategory" onclick="Router.navigate('/produto/geladeira/${p.id}'); closeSidebar(); return false;">${p.name}</a>`
         ).join('\n                                ');
 
