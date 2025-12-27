@@ -5585,7 +5585,7 @@
                 compareList.splice(existingIndex, 1);
             } else {
                 if (compareList.length < 4) {
-                    compareList.push(product);
+                    compareList.push({ id: productId, ...product });
                 } else {
                     showToast('Máximo de 4 produtos na comparação');
                     return;
