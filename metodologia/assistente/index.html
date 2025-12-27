@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistente Inteligente - Metodologia | ComparaTop</title>
+    <meta name="description"
+        content="Descubra como nosso assistente inteligente te ajuda a encontrar o produto ideal para suas necessidades.">
+    <link rel="canonical" href="https://comparatop.com.br/metodologia/assistente/">
+    <style>
+        :root {
+            --c-primary: #2563eb;
+            --c-primary-dark: #1e40af;
+            --c-accent: #f59e0b;
+            --c-bg: #f8fafc;
+            --c-surface: #ffffff;
+            --c-text: #1e293b;
+            --c-muted: #64748b;
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--c-bg);
+            color: var(--c-text);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .breadcrumb {
+            font-size: 0.9rem;
+            color: var(--c-muted);
+            margin-bottom: 2rem;
+        }
+
+        .breadcrumb a {
+            color: var(--c-primary);
+            text-decoration: none;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--c-primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .intro {
+            font-size: 1.2rem;
+            color: var(--c-muted);
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--c-accent);
+            padding-left: 1rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--c-primary-dark);
+            margin: 2rem 0 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        .step-list {
+            counter-reset: step;
+            margin: 1.5rem 0;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            background: var(--c-primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            margin-bottom: 0.25rem;
+        }
+
+        .step-content p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: var(--c-muted);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin: 2rem 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: var(--c-primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="/">Início</a> › <a href="/metodologia/">Metodologia</a> › Assistente Inteligente
+        </nav>
+
+        <h1>🎯 Assistente Inteligente</h1>
+
+        <p class="intro">Responda algumas perguntas simples e descubra qual produto combina melhor com suas necessidades
+            específicas.</p>
+
+        <h2>Como Funciona?</h2>
+        <p>Nosso assistente analisa suas respostas e cruza com os dados de cada produto para encontrar as melhores
+            opções para o seu perfil.</p>
+
+        <div class="step-list">
+            <div class="step-item">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Você responde perguntas simples</h3>
+                    <p>Qual o tamanho do seu espaço? Qual seu orçamento? O que é mais importante para você?</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Analisamos milhares de dados</h3>
+                    <p>Cruzamos suas respostas com especificações técnicas e avaliações de consumidores.</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Recomendamos os melhores produtos</h3>
+                    <p>Você recebe sugestões personalizadas com explicações do porquê cada produto combina com você.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h3 style="margin-bottom:0.5rem;">✅ Recomendações Honestas</h3>
+            <p style="margin:0;">Não temos favoritos. Nossas recomendações são baseadas exclusivamente nos dados e no
+                seu perfil, sem influência de marcas ou patrocínios.</p>
+        </div>
+
+        <h2>Perguntas que Fazemos</h2>
+        <ul style="margin-left:1.5rem;">
+            <li><strong>Espaço disponível:</strong> Qual a largura do nicho ou área de instalação?</li>
+            <li><strong>Orçamento:</strong> Qual faixa de preço você está considerando?</li>
+            <li><strong>Uso:</strong> Qual será o uso principal? (família grande, casal, etc.)</li>
+            <li><strong>Prioridades:</strong> O que é mais importante? (economia, espaço, silêncio, etc.)</li>
+        </ul>
+
+        <a href="/" class="back-link">← Voltar para a página inicial</a>
+    </div>
+</body>
+
+</html>
