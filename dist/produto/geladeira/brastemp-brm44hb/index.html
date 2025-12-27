@@ -2983,11 +2983,13 @@
                     <div id="page-home">
                         <!-- Unified Hero + Recommender Section -->
                         <section class="home-hero"
-                            style="background:linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem;color:white;text-align:center;">
+                            style="background:linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem;color:white;text-align:center;overflow:hidden;word-wrap:break-word;">
                             <h1
-                                style="font-size:1.5rem;margin:0 0 0.75rem;font-weight:700;color:#ffffff;text-shadow:0 2px 4px rgba(0,0,0,0.5);">
+                                style="font-size:clamp(1.2rem, 5vw, 1.5rem);margin:0 0 0.75rem;font-weight:700;color:#ffffff;text-shadow:0 2px 4px rgba(0,0,0,0.5);">
                                 🎯 Encontre o Produto Ideal</h1>
-                            <p style="font-size:1rem;margin:0 0 1.25rem;color:#ffffff;">Compare eletrodomésticos com
+                            <p
+                                style="font-size:clamp(0.85rem, 3vw, 1rem);margin:0 auto 1.25rem;color:#ffffff;max-width:600px;padding:0 0.5rem;">
+                                Compare eletrodomésticos com
                                 análises reais de milhares de compradores</p>
 
                             <!-- Category Selector -->
@@ -5508,10 +5510,14 @@
 
         function runGlobalQuiz() {
             const startBtn = document.getElementById('start-global-quiz-btn');
-            const questionsDiv = document.getElementById('global-quiz-questions');
+            // Try hero container first, fallback to global container
+            let questionsDiv = document.getElementById('hero-quiz-container');
+            if (!questionsDiv || questionsDiv.offsetParent === null) {
+                questionsDiv = document.getElementById('global-quiz-questions');
+            }
             const resultDiv = document.getElementById('global-quiz-result');
 
-            startBtn.style.display = 'none';
+            if (startBtn) startBtn.style.display = 'none';
 
             const questions = [
                 {
