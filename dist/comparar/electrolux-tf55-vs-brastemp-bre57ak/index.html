@@ -1830,8 +1830,10 @@
         }
 
 
-        /* Comparison Floating Bar */
+        /* Comparison Floating Bar - HIDDEN (replaced by compare-counter) */
         .compare-bar {
+            display: none !important;
+            /* Replaced by floating counter/popup */
             position: fixed;
             bottom: 0;
             left: var(--sidebar-width);
@@ -1839,7 +1841,6 @@
             background: var(--c-primary-dark);
             color: #fff;
             padding: 1rem 2rem;
-            display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
@@ -1850,7 +1851,8 @@
         }
 
         .compare-bar.show {
-            transform: translateY(0);
+            display: none !important;
+            /* Keep hidden */
         }
 
         .compare-bar-products {
@@ -3741,7 +3743,15 @@
 
         async function showCategory(categoryId) {
 
-            currentCategory = categoryId;
+            // Map plural URLs to singular catalog filenames
+            const catalogFileMap = {
+                geladeiras: 'geladeira',
+                freezers: 'freezer',
+                frigobares: 'frigobar'
+            };
+            const catalogFileName = catalogFileMap[categoryId] || categoryId;
+
+            currentCategory = catalogFileName;
 
             // Scroll to top when navigating to category
             window.scrollTo(0, 0);
@@ -3757,8 +3767,11 @@
 
             const categoryNames = {
                 geladeira: 'Geladeiras',
+                geladeiras: 'Geladeiras',
                 freezer: 'Freezers',
-                frigobar: 'Frigobares'
+                freezers: 'Freezers',
+                frigobar: 'Frigobares',
+                frigobares: 'Frigobares'
             };
 
             const categoryName = categoryNames[categoryId] || categoryId;
@@ -3766,7 +3779,7 @@
             document.getElementById('category-title').textContent = categoryName;
             document.getElementById('breadcrumb').innerHTML = `
                 <a href="#" onclick="showHome(); return false;">Início</a> / 
-                <a href="#" onclick="showCategory('${categoryId}'); return false;">${categoryName}</a>
+                <a href="#" onclick="showCategory('${catalogFileName}'); return false;">${categoryName}</a>
             `;
 
             // Update active states
@@ -3777,7 +3790,7 @@
 
             try {
                 // Load catalog directly via fetch (more reliable than module)
-                const catalogResp = await fetch(`/data/catalogs/${categoryId}.json`);
+                const catalogResp = await fetch(`/data/catalogs/${catalogFileName}.json`);
                 if (!catalogResp.ok) {
                     throw new Error(`Catalog fetch failed: ${catalogResp.status}`);
                 }
@@ -3828,7 +3841,7 @@
                             <div class="product-brand">${product.brand}</div>
                             <div class="product-name">${product.model}</div>
                         </div>
-                        <div class="product-score">${product.editorialScores.overall}/10</div>
+                        <div class="product-score">${product.editorialScores?.overall || 'N/A'}/10</div>
                     </div>
                     
                     <!-- Specs principais -->
