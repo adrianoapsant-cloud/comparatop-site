@@ -2984,7 +2984,7 @@
 
                     <!-- Compare Toast (Small notification) -->
                     <div id="compare-prompt" class="compare-prompt"
-                        style="position:fixed;bottom:1rem;right:1rem;z-index:1000;background:white;border-radius:var(--radius);box-shadow:0 4px 20px rgba(0,0,0,0.15);padding:1rem;max-width:280px;">
+                        style="display:none;position:fixed;bottom:1rem;right:1rem;z-index:1000;background:white;border-radius:var(--radius);box-shadow:0 4px 20px rgba(0,0,0,0.15);padding:1rem;max-width:280px;">
                         <button class="compare-prompt-btn secondary" onclick="hideCompareToast()"
                             style="position:absolute;top:0.5rem;right:0.5rem;background:none;border:none;font-size:1.2rem;cursor:pointer;color:#64748b;padding:0.25rem;">✕</button>
                         <h4 style="margin:0 0 0.75rem;color:var(--c-primary-dark);font-size:1rem;">⚖️ Comparar?</h4>
@@ -3749,7 +3749,7 @@
                 compareBtn.disabled = false;
             }
 
-            prompt.classList.add('show');
+            prompt.style.display = 'block';
         }
 
         // Hide the compare toast and show counter if there are products
@@ -3757,7 +3757,7 @@
             const prompt = document.getElementById('compare-prompt');
             const counter = document.getElementById('compare-counter');
 
-            if (prompt) prompt.classList.remove('show');
+            if (prompt) prompt.style.display = 'none';
 
             // Show counter with updated count when toast is hidden
             if (counter && compareList.length > 0) {
@@ -5775,6 +5775,7 @@
             }
 
             updateCompareUI();
+            showComparePrompt();
         }
 
         // Energy calculator for single product page
