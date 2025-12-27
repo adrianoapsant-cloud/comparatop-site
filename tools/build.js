@@ -425,13 +425,13 @@ function generateComparisonContent(productA, productB, category) {
                     <div class="product-offers">
                         <h3>${escapeHtml(productA.model)}</h3>
                         <ul>
-                            ${(productA.offers || []).map(o => `<li>${escapeHtml(o.retailer)}: ${formatBRL(o.price)}</li>`).join('')}
+                            ${(productA.offers || []).map(o => `<li><strong>${escapeHtml(o.retailerName || o.retailer || 'Loja')}</strong>: ${formatBRL(o.price)}</li>`).join('')}
                         </ul>
                     </div>
                     <div class="product-offers">
                         <h3>${escapeHtml(productB.model)}</h3>
                         <ul>
-                            ${(productB.offers || []).map(o => `<li>${escapeHtml(o.retailer)}: ${formatBRL(o.price)}</li>`).join('')}
+                            ${(productB.offers || []).map(o => `<li><strong>${escapeHtml(o.retailerName || o.retailer || 'Loja')}</strong>: ${formatBRL(o.price)}</li>`).join('')}
                         </ul>
                     </div>
                 </div>

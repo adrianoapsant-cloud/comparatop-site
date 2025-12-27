@@ -2803,13 +2803,13 @@
                     <div class="product-offers">
                         <h3>TF55</h3>
                         <ul>
-                            <li>: R$ 3.399,90</li><li>: R$ 3.449,00</li><li>: R$ 3.499,00</li><li>: R$ 3.549,00</li>
+                            <li><strong>Mercado Livre</strong>: R$ 3.399,90</li><li><strong>Shopee</strong>: R$ 3.449,00</li><li><strong>Amazon</strong>: R$ 3.499,00</li><li><strong>Magazine Luiza</strong>: R$ 3.549,00</li>
                         </ul>
                     </div>
                     <div class="product-offers">
                         <h3>RT46</h3>
                         <ul>
-                            <li>: R$ 3.899,00</li>
+                            <li><strong>Amazon</strong>: R$ 3.899,00</li>
                         </ul>
                     </div>
                 </div>
@@ -3767,12 +3767,15 @@
             }
 
             // Render selected products
-            productsContainer.innerHTML = compareList.map(p => `
+            productsContainer.innerHTML = compareList.map(p => {
+                const scoreText = p.editorialScores?.overall ? `${p.editorialScores.overall}/10` : '';
+                return `
                 <div class="compare-prompt-product">
                     <span>✓ ${p.brand} ${p.model}</span>
-                    <span style="color:#10b981;font-weight:600">${p.score}</span>
+                    <span style="color:#10b981;font-weight:600">${scoreText}</span>
                 </div>
-            `).join('');
+            `;
+            }).join('');
 
             // Update hint and button state
             const remaining = 4 - compareList.length;
@@ -5722,7 +5725,8 @@
                                         <div style="font-weight:600;">${item.product.brand} ${item.product.model}</div>
                                         <div style="font-size:0.85rem;color:#64748b;">Compatibilidade: ${item.percent.toFixed(0)}% • ${Utils.formatBRL(item.lowestPrice)}</div>
                                     </div>
-                                    <a href="#" onclick="closeQuizResult(); showProduct('geladeira', '${item.product.id}'); return false;" 
+                                    <a href="/produto/geladeira/${item.product.id}/" 
+                                       onclick="closeQuizResult(); return true;" 
                                         style="background:#1d4ed8;color:white;padding:0.5rem 1rem;border-radius:var(--radius-sm);text-decoration:none;font-size:0.85rem;">
                                         Ver Detalhes
                                     </a>
