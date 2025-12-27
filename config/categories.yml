@@ -31,6 +31,14 @@ categories:
     canonicalPath: /geladeiras/
     icon: "❄️"
     enabled: true
+    # Aliases para redirects 301 (URLs legadas/alternativas)
+    aliases:
+      - /categoria/geladeira
+      - /categoria/geladeira/
+      - /categoria/geladeiras
+      - /categoria/geladeiras/
+      - /refrigeradores
+      - /refrigeradores/
     
     # Descrição para SEO
     description: |
