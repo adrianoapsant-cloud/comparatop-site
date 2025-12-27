@@ -282,7 +282,9 @@ function generateProductContent(product, category) {
                 <div class="product-rating">
                     <strong>Nota Editorial:</strong> 
                     <span itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
-                        <span itemprop="ratingValue">${overall}</span>/10
+                        <span itemprop="ratingValue">${overall}</span>/<span itemprop="bestRating">10</span>
+                        <meta itemprop="worstRating" content="0">
+                        <meta itemprop="ratingCount" content="${product.voc?.sample?.totalApprox || 1}">
                     </span>
                 </div>
             </div>
@@ -308,7 +310,7 @@ function generateProductContent(product, category) {
                 <ul class="offers-list">
                     ${offers.map(o => `
                         <li>
-                            <strong>${escapeHtml(o.retailer)}</strong>: 
+                            <strong>${escapeHtml(o.retailerName || o.retailer || 'Loja')}</strong>: 
                             ${formatBRL(o.price)}
                             ${o.installments ? ` (ou ${o.installments})` : ''}
                         </li>
