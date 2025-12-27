@@ -3833,6 +3833,8 @@
 
         function renderEditorialScores(product) {
             const scores = product.editorialScores;
+            if (!scores) return '<p style="color:var(--c-muted);">Notas editoriais não disponíveis.</p>';
+
             const topics = catalog.scoringTopics || [];
 
             return topics.map(topic => {
