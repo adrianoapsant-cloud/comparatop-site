@@ -3018,16 +3018,18 @@
                     <div id="sidebar-overlay" class="sidebar-overlay" onclick="handleOverlayClick()"></div>
 
                     <!-- Compare Toast (Small notification) -->
-                    <div id="compare-prompt" class="compare-prompt" style="position:relative;">
+                    <div id="compare-prompt" class="compare-prompt"
+                        style="position:fixed;bottom:1rem;right:1rem;z-index:1000;background:white;border-radius:var(--radius);box-shadow:0 4px 20px rgba(0,0,0,0.15);padding:1rem;max-width:280px;display:none;">
                         <button class="compare-prompt-btn secondary" onclick="hideCompareToast()"
                             style="position:absolute;top:0.5rem;right:0.5rem;background:none;border:none;font-size:1.2rem;cursor:pointer;color:#64748b;padding:0.25rem;">✕</button>
-                        <h4>⚖️ Comparar?</h4>
+                        <h4 style="margin:0 0 0.75rem;color:var(--c-primary-dark);font-size:1rem;">⚖️ Comparar?</h4>
                         <div id="compare-prompt-products" class="compare-prompt-products"></div>
-                        <p class="compare-prompt-hint" id="compare-prompt-hint"></p>
+                        <p class="compare-prompt-hint" id="compare-prompt-hint"
+                            style="font-size:0.8rem;color:var(--c-muted);margin:0.5rem 0;"></p>
                         <div class="compare-prompt-actions" style="justify-content:center;margin-top:1rem;">
                             <button class="compare-prompt-btn primary" id="compare-prompt-btn-compare"
                                 onclick="startComparisonFromPrompt()"
-                                style="width:100%;padding:0.75rem 1.5rem;font-size:1rem;">Comparar</button>
+                                style="width:100%;padding:0.75rem 1.5rem;font-size:1rem;background:var(--c-primary);color:white;border:none;border-radius:var(--radius-sm);cursor:pointer;">Comparar</button>
                         </div>
                     </div>
 
@@ -5714,7 +5716,7 @@
                                         <div style="font-weight:600;">${item.product.brand} ${item.product.model}</div>
                                         <div style="font-size:0.85rem;color:#64748b;">Compatibilidade: ${item.percent.toFixed(0)}% • ${Utils.formatBRL(item.lowestPrice)}</div>
                                     </div>
-                                    <a href="#" onclick="showProduct('geladeira', '${item.product.id}'); return false;" 
+                                    <a href="#" onclick="closeQuizResult(); showProduct('geladeira', '${item.product.id}'); return false;" 
                                         style="background:#1d4ed8;color:white;padding:0.5rem 1rem;border-radius:var(--radius-sm);text-decoration:none;font-size:0.85rem;">
                                         Ver Detalhes
                                     </a>
