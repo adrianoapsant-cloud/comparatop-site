@@ -2980,10 +2980,28 @@
 
                     <!-- Home Page -->
                     <div id="page-home">
-                        <section class="home-hero">
-                            <h1>🏆 Compare antes de comprar</h1>
-                            <p>Análise <strong>transparente</strong> de eletrodomésticos com síntese de milhares de
-                                avaliações reais de compradores</p>
+                        <!-- Unified Hero + Recommender Section -->
+                        <section class="home-hero"
+                            style="background:linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem;color:white;">
+                            <h1 style="font-size:1.5rem;margin:0 0 0.5rem;">🎯 Encontre o Produto Ideal</h1>
+                            <p style="font-size:0.9rem;margin:0 0 1rem;opacity:0.9;">Análise transparente de
+                                eletrodomésticos • Síntese de milhares de avaliações reais</p>
+
+                            <!-- Category Selector -->
+                            <div style="margin-bottom:1rem;">
+                                <label style="display:block;margin-bottom:0.5rem;font-weight:600;font-size:0.9rem;">Qual
+                                    categoria você procura?</label>
+                                <select id="quiz-category-select-hero"
+                                    onchange="document.getElementById('quiz-category-select').value = this.value; startGlobalQuiz();"
+                                    style="width:100%;max-width:300px;padding:0.65rem;border-radius:var(--radius-sm);border:none;font-size:0.95rem;color:#1e293b;">
+                                    <option value="">Selecione uma categoria...</option>
+                                    <option value="geladeira">❄️ Geladeiras</option>
+                                    <option value="fogao" disabled>🔥 Fogões (em breve)</option>
+                                    <option value="lavadora" disabled>🧺 Lavadoras (em breve)</option>
+                                </select>
+                            </div>
+
+                            <div id="hero-quiz-container"></div>
                         </section>
 
                         <section class="usp-section">
@@ -3035,9 +3053,9 @@
                             </div>
                         </section>
 
-                        <!-- Global Product Recommender -->
+                        <!-- Global Product Recommender (hidden - moved to hero) -->
                         <section class="recommender-section"
-                            style="background:linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);border-radius:var(--radius);padding:2rem;margin:2rem 0;color:white;">
+                            style="display:none;background:linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);border-radius:var(--radius);padding:2rem;margin:2rem 0;color:white;">
                             <h2 style="margin:0 0 0.5rem;font-size:1.5rem;">🎯 Encontre o Produto Ideal</h2>
                             <p style="margin:0 0 1.5rem;opacity:0.9;">Selecione a categoria e responda perguntas rápidas
                                 para descobrir qual produto combina melhor com você!</p>
