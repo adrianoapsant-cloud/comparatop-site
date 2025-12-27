@@ -2729,7 +2729,75 @@
     "worstRating": "1",
     "reviewCount": 4164
   },
-  "dateModified": "2025-12-23"
+  "dateModified": "2025-12-23",
+  "review": {
+    "@type": "Review",
+    "author": {
+      "@type": "Organization",
+      "name": "ComparaTop"
+    },
+    "reviewBody": "No geral é vista como bonita, espaçosa e 'gela bem', mas há recorrência de dúvidas/reclamações sobre aquecimento nas laterais e casos pontuais de defeitos/assistência.",
+    "positiveNotes": {
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Design/'bonita'"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Gela bem / performance"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Espaço e organização interna"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Confiança na marca"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Custo-benefício"
+        }
+      ]
+    },
+    "negativeNotes": {
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Aquecimento nas laterais"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Ruído do motor/compressor"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Atendimento/SAC"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Avaria na entrega"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Detalhes de construção"
+        }
+      ]
+    }
+  }
 }</script>
 <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -4074,7 +4142,8 @@
                     latestUpdate = offer.lastUpdated;
                 }
                 return `
-                    <a href="${offer.url}" class="offer-btn ${offer.retailerId}" target="_blank" rel="sponsored nofollow noopener">
+                    <a href="${offer.url}" class="offer-btn ${offer.retailerId}" target="_blank" rel="sponsored nofollow noopener"
+                       aria-label="Ver oferta na ${offer.retailerName} por ${priceText}">
                         <span class="retailer">${offer.retailerName}</span>
                         <span class="price">${priceText}</span>
                     </a>
@@ -5164,7 +5233,8 @@
                 const badgeHtml = isBest ? '<span class="offer-badge">🏆 Melhor Preço</span>' : '';
                 return `<a href="${offer.url}" target="_blank" rel="sponsored nofollow noopener" 
                            class="offer-item ${isBest ? 'offer-best' : ''}" 
-                           style="border-left: 4px solid ${color};">
+                           style="border-left: 4px solid ${color};"
+                           aria-label="Comprar na ${offer.retailerName} por ${Utils.formatBRL(offer.price)}">
                             <div class="offer-retailer">
                                 ${badgeHtml}
                                 <span class="offer-store">${offer.retailerName}</span>

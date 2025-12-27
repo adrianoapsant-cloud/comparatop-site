@@ -4029,7 +4029,8 @@
                     latestUpdate = offer.lastUpdated;
                 }
                 return `
-                    <a href="${offer.url}" class="offer-btn ${offer.retailerId}" target="_blank" rel="sponsored nofollow noopener">
+                    <a href="${offer.url}" class="offer-btn ${offer.retailerId}" target="_blank" rel="sponsored nofollow noopener"
+                       aria-label="Ver oferta na ${offer.retailerName} por ${priceText}">
                         <span class="retailer">${offer.retailerName}</span>
                         <span class="price">${priceText}</span>
                     </a>
@@ -5119,7 +5120,8 @@
                 const badgeHtml = isBest ? '<span class="offer-badge">🏆 Melhor Preço</span>' : '';
                 return `<a href="${offer.url}" target="_blank" rel="sponsored nofollow noopener" 
                            class="offer-item ${isBest ? 'offer-best' : ''}" 
-                           style="border-left: 4px solid ${color};">
+                           style="border-left: 4px solid ${color};"
+                           aria-label="Comprar na ${offer.retailerName} por ${Utils.formatBRL(offer.price)}">
                             <div class="offer-retailer">
                                 ${badgeHtml}
                                 <span class="offer-store">${offer.retailerName}</span>

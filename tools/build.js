@@ -179,6 +179,42 @@ function generateProductJsonLd(product, categorySlug, category) {
         schema.dateModified = product.lastUpdated || product.editorialScores?.updatedAt;
     }
 
+    // Review com positiveNotes e negativeNotes (VoC data)
+    if (product.voc && (product.voc.pros?.length || product.voc.cons?.length)) {
+        schema.review = {
+            "@type": "Review",
+            "author": {
+                "@type": "Organization",
+                "name": "ComparaTop"
+            },
+            "reviewBody": product.voc.thirtySecondSummary || product.voc.oneLiner || ""
+        };
+
+        // positiveNotes (Prós)
+        if (product.voc.pros?.length > 0) {
+            schema.review.positiveNotes = {
+                "@type": "ItemList",
+                "itemListElement": product.voc.pros.map((pro, idx) => ({
+                    "@type": "ListItem",
+                    "position": idx + 1,
+                    "name": typeof pro === 'object' ? pro.topic : pro
+                }))
+            };
+        }
+
+        // negativeNotes (Contras)
+        if (product.voc.cons?.length > 0) {
+            schema.review.negativeNotes = {
+                "@type": "ItemList",
+                "itemListElement": product.voc.cons.map((con, idx) => ({
+                    "@type": "ListItem",
+                    "position": idx + 1,
+                    "name": typeof con === 'object' ? con.topic : con
+                }))
+            };
+        }
+    }
+
     return `<script type="application/ld+json">${JSON.stringify(schema, null, 2)}</script>`;
 }
 

@@ -2729,7 +2729,75 @@
     "worstRating": "1",
     "reviewCount": 1567
   },
-  "dateModified": "2025-12-23"
+  "dateModified": "2025-12-23",
+  "review": {
+    "@type": "Review",
+    "author": {
+      "@type": "Organization",
+      "name": "ComparaTop"
+    },
+    "reviewBody": "Muito elogiada por espaço e flexibilidade interna, mas com recorrência de reclamações sobre estalos noturnos e risco de falhas de refrigeração ('não gela embaixo') pós-garantia.",
+    "positiveNotes": {
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Espaço interno (431L)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Prateleiras Fast Adapt"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Custo-benefício (litragem)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Design/painel Blue Touch"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Congelamento rápido / turbo"
+        }
+      ]
+    },
+    "negativeNotes": {
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Ruídos de estalos (à noite)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Defeito: parou de gelar / 'não gela embaixo'"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Manutenção/vazamentos"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Ergonomia (baixa)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Fragilidade prateleiras"
+        }
+      ]
+    }
+  }
 }</script>
 <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -4074,7 +4142,8 @@
                     latestUpdate = offer.lastUpdated;
                 }
                 return `
-                    <a href="${offer.url}" class="offer-btn ${offer.retailerId}" target="_blank" rel="sponsored nofollow noopener">
+                    <a href="${offer.url}" class="offer-btn ${offer.retailerId}" target="_blank" rel="sponsored nofollow noopener"
+                       aria-label="Ver oferta na ${offer.retailerName} por ${priceText}">
                         <span class="retailer">${offer.retailerName}</span>
                         <span class="price">${priceText}</span>
                     </a>
@@ -5164,7 +5233,8 @@
                 const badgeHtml = isBest ? '<span class="offer-badge">🏆 Melhor Preço</span>' : '';
                 return `<a href="${offer.url}" target="_blank" rel="sponsored nofollow noopener" 
                            class="offer-item ${isBest ? 'offer-best' : ''}" 
-                           style="border-left: 4px solid ${color};">
+                           style="border-left: 4px solid ${color};"
+                           aria-label="Comprar na ${offer.retailerName} por ${Utils.formatBRL(offer.price)}">
                             <div class="offer-retailer">
                                 ${badgeHtml}
                                 <span class="offer-store">${offer.retailerName}</span>
