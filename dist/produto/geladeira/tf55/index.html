@@ -1576,6 +1576,28 @@
             margin-top: 0.25rem;
         }
 
+        .compare-counter-close {
+            position: absolute;
+            top: 0.25rem;
+            right: 0.25rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: #fff;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 14px;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .compare-counter-close:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
         /* Newsletter Section */
         .newsletter-section {
             background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
@@ -3416,6 +3438,7 @@
 
     <!-- Floating Compare Counter Badge -->
     <div class="compare-counter" id="compare-counter" style="z-index:90;">
+        <button class="compare-counter-close" onclick="hideCompareCounter()" title="Fechar">×</button>
         <div class="compare-counter-number">0</div>
         <div class="compare-counter-text">produtos</div>
         <button class="compare-counter-btn" onclick="showComparison()">Ver Comparação</button>
@@ -3551,7 +3574,10 @@
         let currentTableFontSize = 12; // base size in px
         function changeTableFontSize(delta) {
             const table = document.querySelector('.compare-table');
-            if (!table) return;
+            if (!table) {
+                console.log('changeTableFontSize: table not found');
+                return;
+            }
 
             currentTableFontSize = Math.max(8, Math.min(20, currentTableFontSize + delta));
             table.style.fontSize = currentTableFontSize + 'px';
@@ -3562,6 +3588,16 @@
             cells.forEach(cell => {
                 cell.style.padding = `${padding}px ${padding * 1.2}px`;
             });
+            console.log('Font size changed to:', currentTableFontSize);
+        }
+
+        // Hide the compare counter badge
+        function hideCompareCounter() {
+            const counter = document.getElementById('compare-counter');
+            if (counter) {
+                counter.style.display = 'none';
+                counter.classList.remove('show');
+            }
         }
 
         // Combined Toggle function (referenced by HTML onclick)
