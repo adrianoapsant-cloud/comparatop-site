@@ -3039,11 +3039,31 @@
                             <div style="margin-bottom:0.5rem;">
                                 <select id="quiz-category-select-hero"
                                     onchange="document.getElementById('quiz-category-select').value = this.value; startGlobalQuiz();"
-                                    style="width:100%;max-width:280px;padding:0.75rem 1rem;border-radius:8px;border:2px solid rgba(255,255,255,0.3);font-size:1rem;color:#1e293b;background:white;font-weight:500;">
+                                    style="width:100%;max-width:320px;padding:0.75rem 1rem;border-radius:8px;border:2px solid rgba(255,255,255,0.3);font-size:1rem;color:#1e293b;background:white;font-weight:500;text-align:center;text-align-last:center;">
                                     <option value="">📦 Selecione uma categoria...</option>
-                                    <option value="geladeira">❄️ Geladeiras</option>
-                                    <option value="fogao" disabled>🔥 Fogões (em breve)</option>
-                                    <option value="lavadora" disabled>🧺 Lavadoras (em breve)</option>
+                                    <optgroup label="🌬️ Climatização">
+                                        <option value="aquecedor" disabled>Aquecedores (em breve)</option>
+                                        <option value="ar-condicionado" disabled>Ar-condicionado (em breve)</option>
+                                        <option value="ventilador" disabled>Ventiladores (em breve)</option>
+                                    </optgroup>
+                                    <optgroup label="🔥 Cocção">
+                                        <option value="coifa" disabled>Coifas e Depuradores (em breve)</option>
+                                        <option value="cooktop" disabled>Cooktops (em breve)</option>
+                                        <option value="fogao" disabled>Fogões (em breve)</option>
+                                        <option value="forno" disabled>Fornos (em breve)</option>
+                                        <option value="microondas" disabled>Micro-ondas (em breve)</option>
+                                    </optgroup>
+                                    <optgroup label="🧺 Lavanderia">
+                                        <option value="lava-seca" disabled>Lava e Seca (em breve)</option>
+                                        <option value="lava-loucas" disabled>Lava-louças (em breve)</option>
+                                        <option value="lavadora" disabled>Lavadoras (em breve)</option>
+                                        <option value="secadora" disabled>Secadoras (em breve)</option>
+                                    </optgroup>
+                                    <optgroup label="❄️ Refrigeração">
+                                        <option value="freezer" disabled>Freezers (em breve)</option>
+                                        <option value="frigobar" disabled>Frigobares (em breve)</option>
+                                        <option value="geladeira">Geladeiras ✓</option>
+                                    </optgroup>
                                 </select>
                             </div>
 
