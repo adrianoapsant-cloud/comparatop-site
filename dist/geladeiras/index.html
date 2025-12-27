@@ -3648,22 +3648,12 @@
 
         // Navigate to product page from sidebar
         function navigateToProduct(categorySlug, productId) {
-            if (!currentCatalog || !currentCatalog.products) return;
-            const product = currentCatalog.products[productId];
-            if (!product) return;
-
-            // Render the product page
-            renderProductPage(product, categorySlug);
+            // Use the existing showProduct function which handles everything
+            showProduct(categorySlug, productId);
 
             // Update URL without reload
             const url = `/produto/${categorySlug}/${productId}`;
             history.pushState({ page: 'product', category: categorySlug, product: productId }, '', url);
-
-            // Update breadcrumb
-            const breadcrumb = document.getElementById('breadcrumb');
-            if (breadcrumb) {
-                breadcrumb.innerHTML = `<a href="/" onclick="Router.navigate('/'); return false;">Início</a> › <a href="/geladeiras" onclick="Router.navigate('/geladeiras'); return false;">Geladeiras</a> › ${product.brand} ${product.model}`;
-            }
         }
 
         function toggleCategory(el) {
