@@ -3916,7 +3916,13 @@
             const topics = catalog.scoringTopics || [];
 
             return topics.map(topic => {
-                const score = scores[topic.id];
+                const scoreData = scores[topic.id];
+                if (scoreData == null) return '';
+
+                // Support both object {score, note} and direct number format
+                const score = typeof scoreData === 'object' ? scoreData.score : scoreData;
+                const note = typeof scoreData === 'object' ? scoreData.note : null;
+
                 if (score == null) return '';
 
                 const barWidth = score * 10;
@@ -3925,13 +3931,14 @@
                 else if (score < 6) barClass = 'low';
 
                 return `
-                    <div class="editorial-topic">
+                    <div class="editorial-topic" onclick="toggleScoreNote(this)">
                         <span style="font-size:1rem;">${topic.icon || '📊'}</span>
                         <span class="editorial-topic-label">${topic.label}</span>
                         <span class="editorial-topic-score">${score.toFixed(1)}</span>
                         <div class="editorial-topic-bar">
                             <div class="editorial-topic-bar-fill ${barClass}" style="width:${barWidth}%"></div>
                         </div>
+                        ${note ? `<div class="score-note-inline" style="display:none;">${note}</div>` : ''}
                     </div>
                 `;
             }).join('');
