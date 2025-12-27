@@ -2895,14 +2895,16 @@
                     <div id="sidebar-overlay" class="sidebar-overlay" onclick="handleOverlayClick()"></div>
 
                     <!-- Compare Toast (Small notification) -->
-                    <div id="compare-prompt" class="compare-prompt">
+                    <div id="compare-prompt" class="compare-prompt" style="position:relative;">
+                        <button class="compare-prompt-btn secondary" onclick="hideCompareToast()"
+                            style="position:absolute;top:0.5rem;right:0.5rem;background:none;border:none;font-size:1.2rem;cursor:pointer;color:#64748b;padding:0.25rem;">✕</button>
                         <h4>⚖️ Comparar?</h4>
                         <div id="compare-prompt-products" class="compare-prompt-products"></div>
                         <p class="compare-prompt-hint" id="compare-prompt-hint"></p>
-                        <div class="compare-prompt-actions">
+                        <div class="compare-prompt-actions" style="justify-content:center;margin-top:1rem;">
                             <button class="compare-prompt-btn primary" id="compare-prompt-btn-compare"
-                                onclick="startComparisonFromPrompt()">Comparar</button>
-                            <button class="compare-prompt-btn secondary" onclick="hideCompareToast()">✕</button>
+                                onclick="startComparisonFromPrompt()"
+                                style="width:100%;padding:0.75rem 1.5rem;font-size:1rem;">Comparar</button>
                         </div>
                     </div>
 
@@ -3538,19 +3540,27 @@
         function openSidebar(categoryToExpand) {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebar-overlay');
-            sidebar.classList.add('open');
-            if (overlay) overlay.classList.add('open');
-            document.body.style.overflow = 'hidden'; // Lock scroll
+            const isMobile = window.innerWidth <= 1024;
 
-            // If category specified, expand it after a small delay
+            if (isMobile) {
+                // Mobile: open sidebar with overlay
+                sidebar.classList.add('open');
+                if (overlay) overlay.classList.add('open');
+                document.body.style.overflow = 'hidden'; // Lock scroll
+            }
+            // Desktop: sidebar is already visible, no need for overlay
+
+            // Expand category after a small delay (works for both mobile and desktop)
             if (categoryToExpand) {
                 setTimeout(() => {
-                    const categoryLink = document.querySelector(`[onclick*="toggleCategory('${categoryToExpand}')"]`);
-                    if (categoryLink) {
-                        // Expand the category
-                        toggleCategory(categoryToExpand);
+                    toggleCategory(categoryToExpand);
+
+                    // Scroll the sidebar to show the category
+                    const categoryEl = document.querySelector(`[onclick*="toggleCategory('${categoryToExpand}')"]`);
+                    if (categoryEl && sidebar) {
+                        categoryEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
-                }, 100);
+                }, isMobile ? 300 : 100);
             }
         }
 
@@ -5564,10 +5574,11 @@
                 // Sort by score (highest first)
                 scoredProducts.sort((a, b) => b.score - a.score);
 
-                // Build result HTML
+                // Build result HTML with close button
                 const topProducts = scoredProducts.slice(0, 3);
                 let html = `
-                    <div style="background:rgba(255,255,255,0.95);padding:1.5rem;border-radius:var(--radius);color:#1e293b;">
+                    <div style="background:rgba(255,255,255,0.95);padding:1.5rem;border-radius:var(--radius);color:#1e293b;position:relative;">
+                        <button onclick="closeQuizResult()" style="position:absolute;top:0.5rem;right:0.5rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#64748b;padding:0.25rem;">&times;</button>
                         <h3 style="margin:0 0 1rem;color:#1d4ed8;">🏆 Nossas Recomendações para Você</h3>
                         ${topProducts.map((item, idx) => {
                     const color = item.percent >= 80 ? '#22c55e' : item.percent >= 60 ? '#eab308' : '#ef4444';
@@ -5587,9 +5598,14 @@
                                 </div>
                             `;
                 }).join('')}
-                        <button onclick="resetGlobalQuiz()" style="margin-top:1rem;background:none;border:none;color:#64748b;cursor:pointer;text-decoration:underline;">
-                            Refazer quiz
-                        </button>
+                        <div style="display:flex;gap:1rem;margin-top:1rem;justify-content:center;">
+                            <button onclick="closeQuizResult()" style="background:#22c55e;color:white;border:none;padding:0.75rem 1.5rem;border-radius:var(--radius-sm);cursor:pointer;font-size:0.95rem;">
+                                ✓ Fechar
+                            </button>
+                            <button onclick="restartQuizFromResult()" style="background:#64748b;color:white;border:none;padding:0.75rem 1.5rem;border-radius:var(--radius-sm);cursor:pointer;font-size:0.95rem;">
+                                🔄 Refazer Quiz
+                            </button>
+                        </div>
                     </div>
                 `;
                 questionsDiv.innerHTML = html;
@@ -5609,11 +5625,38 @@
             if (categorySelector) categorySelector.style.display = 'block';
             if (categorySelect) categorySelect.value = '';
 
-            startBtn.style.display = 'none';
-            questionsDiv.style.display = 'block';
-            questionsDiv.innerHTML = '';
-            resultDiv.style.display = 'none';
-            resultDiv.innerHTML = '';
+            if (startBtn) startBtn.style.display = 'none';
+            if (questionsDiv) {
+                questionsDiv.style.display = 'block';
+                questionsDiv.innerHTML = '';
+            }
+            if (resultDiv) {
+                resultDiv.style.display = 'none';
+                resultDiv.innerHTML = '';
+            }
+        }
+
+        // Close quiz result and reset hero container
+        function closeQuizResult() {
+            const heroQuizContainer = document.getElementById('hero-quiz-container');
+            const categorySelectHero = document.getElementById('quiz-category-select-hero');
+
+            if (heroQuizContainer) {
+                heroQuizContainer.innerHTML = '';
+            }
+            if (categorySelectHero) {
+                categorySelectHero.value = '';
+            }
+        }
+
+        // Restart quiz from result screen
+        function restartQuizFromResult() {
+            const categorySelectHero = document.getElementById('quiz-category-select-hero');
+            if (categorySelectHero && categorySelectHero.value) {
+                startGlobalQuiz();
+            } else {
+                closeQuizResult();
+            }
         }
 
         // Toggle product in compare list from product page
