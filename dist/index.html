@@ -3060,8 +3060,8 @@
                             <h3 style="color: var(--c-primary-dark); margin: 2rem 0 1rem; font-size: 1.25rem;">⚖️
                                 Comparações em Destaque</h3>
                             <div>
-                                <a href="/comparar/brm44hb-vs-tf55/"
-                                    style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 1.5rem; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; border-radius: var(--radius-sm); text-decoration: none; font-weight: 600; transition: all 0.2s;">
+                                <a href="#" onclick="openFeaturedComparison('brm44hb', 'tf55'); return false;"
+                                    style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 1.5rem; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; border-radius: var(--radius-sm); text-decoration: none; font-weight: 600; transition: all 0.2s; cursor: pointer;">
                                     ⚖️ Brastemp BRM44HB vs Electrolux TF55 — Qual escolher?
                                 </a>
                             </div>
@@ -4265,6 +4265,43 @@
             updateCompareUI();
         }
 
+        // Open comparison modal with specific products
+        async function openFeaturedComparison(productId1, productId2) {
+            // Load catalog if needed
+            if (!currentCatalog) {
+                try {
+                    const response = await fetch('/data/catalogs/geladeira.json');
+                    currentCatalog = await response.json();
+                } catch (e) {
+                    console.error('Failed to load catalog:', e);
+                    alert('Erro ao carregar catálogo');
+                    return;
+                }
+            }
+
+            // Get products from catalog
+            const product1 = currentCatalog.products[productId1];
+            const product2 = currentCatalog.products[productId2];
+
+            if (!product1 || !product2) {
+                alert('Produtos não encontrados');
+                return;
+            }
+
+            // Set compareList with these products
+            compareList = [
+                { id: productId1, name: product1.name, ...product1 },
+                { id: productId2, name: product2.name, ...product2 }
+            ];
+
+            // Open modal
+            const modal = document.getElementById('compare-modal');
+            const body = document.getElementById('compare-modal-body');
+            body.innerHTML = renderComparisonTable();
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
         function showComparison() {
             if (compareList.length < 2) {
                 alert('Selecione pelo menos 2 produtos para comparar');
@@ -4758,29 +4795,32 @@
             });
         }
 
-        // Toggle score note visibility on click
-        function showScoreTooltip(element) {
-            const tooltip = document.getElementById('score-tooltip');
-            const note = element.dataset.note;
-            const color = element.dataset.color;
+        // Toggle score note visibility inline (shows directly below item)
+        function toggleScoreNote(noteId, color) {
+            const noteEl = document.getElementById(noteId);
+            if (!noteEl) return;
 
-            if (!tooltip || !note) return;
+            // Close all other notes
+            document.querySelectorAll('.score-note-inline').forEach(el => {
+                if (el.id !== noteId) el.style.display = 'none';
+            });
 
-            // Remove selected state from all
-            document.querySelectorAll('.score-item-clickable').forEach(el => el.classList.remove('score-selected'));
-
-            // If clicking same item, toggle off
-            if (tooltip.style.display === 'block' && tooltip.dataset.activeId === element.dataset.note) {
-                tooltip.style.display = 'none';
-                return;
+            // Toggle this note
+            if (noteEl.style.display === 'none' || noteEl.style.display === '') {
+                noteEl.style.display = 'block';
+                noteEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } else {
+                noteEl.style.display = 'none';
             }
+        }
 
-            // Show tooltip with content
-            element.classList.add('score-selected');
-            tooltip.innerHTML = `<strong style="color:${color}">📝 Por que essa nota:</strong><br>${note}`;
-            tooltip.style.borderLeftColor = color;
-            tooltip.style.display = 'block';
-            tooltip.dataset.activeId = note;
+        // Legacy function for backwards compatibility
+        function showScoreTooltip(element) {
+            const noteId = element.dataset.noteId;
+            const color = element.dataset.color;
+            if (noteId) {
+                toggleScoreNote(noteId, color);
+            }
         }
 
         // Show individual product page
@@ -4900,12 +4940,18 @@
                 if (!score) return '';
                 const color = score >= 8 ? '#22c55e' : score >= 6 ? '#eab308' : '#ef4444';
                 const finalNote = noteText || 'Avaliação baseada em análise editorial detalhada.';
-                return `<div class="score-item score-item-clickable" data-note="${finalNote.replace(/"/g, '&quot;')}" data-color="${color}" onclick="showScoreTooltip(this)" style="cursor:pointer;">
-                    <span class="score-icon">${topic.icon}</span>
-                    <span class="score-label">${topic.label} <span style="font-size:0.7rem;color:#94a3b8;">ⓘ</span></span>
-                    <span class="score-value" style="color:${color}">${score.toFixed(1)}</span>
+                const itemId = `score-note-${topic.id}`;
+                return `<div class="score-item-wrapper">
+                    <div class="score-item score-item-clickable" data-note-id="${itemId}" data-color="${color}" onclick="toggleScoreNote('${itemId}', '${color}')" style="cursor:pointer;">
+                        <span class="score-icon">${topic.icon}</span>
+                        <span class="score-label">${topic.label} <span style="font-size:0.7rem;color:#94a3b8;">ⓘ</span></span>
+                        <span class="score-value" style="color:${color}">${score.toFixed(1)}</span>
+                    </div>
+                    <div id="${itemId}" class="score-note-inline" style="display:none;background:#f1f5f9;padding:0.75rem;border-radius:var(--radius-sm);margin-top:0.25rem;font-size:0.85rem;color:#475569;border-left:4px solid ${color};">
+                        📝 <strong>Por que essa nota:</strong> ${finalNote}
+                    </div>
                 </div>`;
-            }).join('') + `<div id="score-tooltip" style="display:none;grid-column:1/-1;background:#f1f5f9;padding:1rem;border-radius:var(--radius-sm);margin-top:0.5rem;font-size:0.9rem;color:#475569;border-left:4px solid #3b82f6;"></div>`;
+            }).join('');
 
             // Pre-compute VoC HTML parts
             const prosHtml = (product.voc?.pros || []).map(p =>
