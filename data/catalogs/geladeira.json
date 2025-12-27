@@ -12,7 +12,7 @@
   },
   "meta": {
     "lastUpdated": "2025-12-26",
-    "totalProducts": 6,
+    "totalProducts": 4,
     "version": "1.0.0",
     "currency": "BRL",
     "locale": "pt-BR"
@@ -835,52 +835,6 @@
         "painel-digital",
         "blue-touch"
       ]
-    },
-    "brastemp-brm44hb": {
-      "id": "brastemp-brm44hb",
-      "model": "BRM44HB",
-      "name": "Geladeira Brastemp Frost Free Duplex 375 litros Branca - BRM44HB",
-      "brand": "Brastemp",
-      "url": "/produto/geladeira/brastemp-brm44hb",
-      "specs": {
-        "capacidade_total": 375,
-        "capacidade_freezer": 86,
-        "tipo_degelo": "Frost Free",
-        "voltagem": "110V/220V"
-      },
-      "offers": [
-        {
-          "retailer": "Amazon",
-          "price": 3199,
-          "link": "https://amzn.to/EXEMPLO1",
-          "updated": "2025-12-26T12:39:59.134Z"
-        }
-      ],
-      "lastUpdated": "2025-12-26T12:39:59.135Z",
-      "status": "active"
-    },
-    "electrolux-tf55": {
-      "id": "electrolux-tf55",
-      "model": "TF55",
-      "name": "Geladeira Electrolux Frost Free Duplex 431 Litros Branca (TF55)",
-      "brand": "Electrolux",
-      "url": "/produto/geladeira/electrolux-tf55",
-      "specs": {
-        "capacidade_total": 431,
-        "capacidade_freezer": 128,
-        "tipo_degelo": "Frost Free",
-        "voltagem": "Bivolt"
-      },
-      "offers": [
-        {
-          "retailer": "Amazon",
-          "price": 3599,
-          "link": "https://amzn.to/EXEMPLO2",
-          "updated": "2025-12-26T12:39:59.135Z"
-        }
-      ],
-      "lastUpdated": "2025-12-26T12:39:59.135Z",
-      "status": "active"
     },
     "brastemp-bre57ak": {
       "id": "brastemp-bre57ak",

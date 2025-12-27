@@ -16,7 +16,12 @@ redirects:
   # Migrações de URL
   # ============================================
   
-  # Categoria antiga → nova URL canônica
+  # Categoria antiga → nova URL canônica (com e sem slash)
+  - from: /categoria/geladeira
+    to: /geladeiras/
+    status: 301
+    reason: "Migração para URL canônica mais curta (sem slash)"
+
   - from: /categoria/geladeira/
     to: /geladeiras/
     status: 301
