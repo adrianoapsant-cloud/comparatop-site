@@ -4172,35 +4172,7 @@
         let compareList = [];
         const MAX_COMPARE = 4;
 
-        // Called from product page compare button
-        function toggleProductCompare(productId) {
-            if (!currentCatalog) return;
-            const products = Catalog.getProducts(currentCatalog);
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
-
-            const index = compareList.findIndex(p => p.id === productId);
-
-            if (index > -1) {
-                compareList.splice(index, 1);
-            } else {
-                if (compareList.length >= MAX_COMPARE) {
-                    alert(`Máximo de ${MAX_COMPARE} produtos para comparação`);
-                    return;
-                }
-                compareList.push(product);
-            }
-
-            // Update button state
-            const btn = document.getElementById(`compare-btn-${productId}`);
-            if (btn) {
-                const isInCompare = compareList.some(p => p.id === productId);
-                btn.textContent = isInCompare ? '✓ Na comparação' : '➕ Adicionar ao comparador';
-                btn.classList.toggle('btn-compare-active', isInCompare);
-            }
-
-            updateCompareUI();
-        }
+        // toggleProductCompare is defined later in the file
 
         function toggleCompare(productId, productName) {
             const index = compareList.findIndex(p => p.id === productId);
@@ -4231,31 +4203,33 @@
                 el.textContent = isSelected ? '✓ Selecionado para comparação' : '⚖️ Comparar este produto';
             });
 
-            // Update floating bar (but NOT the counter - that's managed by showComparePrompt/hideCompareToast)
+            // Update floating bar and counter
             const bar = document.getElementById('compare-bar');
             const productsContainer = document.getElementById('compare-bar-products');
             const counter = document.getElementById('compare-counter');
 
             if (compareList.length > 0) {
-                bar.classList.add('show');
-                // Don't show counter here - let hideCompareToast handle it
+                if (bar) bar.classList.add('show');
 
-                // Update counter number (but don't show it yet)
+                // Show and update counter
                 if (counter) {
+                    counter.classList.add('show');
                     const numberEl = counter.querySelector('.compare-counter-number');
                     const textEl = counter.querySelector('.compare-counter-text');
                     if (numberEl) numberEl.textContent = compareList.length;
                     if (textEl) textEl.textContent = compareList.length === 1 ? 'produto' : 'produtos';
                 }
 
-                productsContainer.innerHTML = compareList.map(p => `
-                    <div class="compare-bar-product">
-                        <span class="compare-bar-product-name">${p.brand} ${p.model}</span>
-                        <button class="compare-bar-remove" onclick="toggleCompare('${p.id}', '${p.name}')">✕</button>
-                    </div>
-                `).join('');
+                if (productsContainer) {
+                    productsContainer.innerHTML = compareList.map(p => `
+                        <div class="compare-bar-product">
+                            <span class="compare-bar-product-name">${p.brand} ${p.model}</span>
+                            <button class="compare-bar-remove" onclick="toggleCompare('${p.id}', '${p.name}')">✕</button>
+                        </div>
+                    `).join('');
+                }
             } else {
-                bar.classList.remove('show');
+                if (bar) bar.classList.remove('show');
                 if (counter) counter.classList.remove('show');
             }
         }
@@ -5794,20 +5768,8 @@
             }
         });
 
-        // Ensure updateCompareUI exists and handles visibility correctly
-        window.updateCompareUI = function () {
-            const compareCounter = document.querySelector('.compare-counter');
-            if (compareCounter) {
-                if (compareList.length > 0) {
-                    compareCounter.style.display = 'flex'; // Or block/grid depending on design
-                    // Update count text if needed
-                    const countSpan = compareCounter.querySelector('span'); // Assuming a span holds the count
-                    if (countSpan) countSpan.textContent = `${compareList.length} produto(s)`;
-                } else {
-                    compareCounter.style.display = 'none';
-                }
-            }
-        };
+
+        // updateCompareUI is defined earlier - no need to redefine
     </script>
 </body>
 
