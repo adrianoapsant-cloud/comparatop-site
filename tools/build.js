@@ -857,8 +857,11 @@ function injectSidebar(html, catalogs) {
             `$1${count}$2`
         );
 
-        // Generate Links (SSG) - Added closeSidebar() for mobile UX
-        const listHtml = (productsWithScore.length > 0 ? productsWithScore : allProducts).map(p =>
+        // Generate Links (SSG) - List ALL active products, sorted by score if available
+        const sortedProducts = [...allProducts].sort((a, b) =>
+            (b.editorialScores?.overall || 0) - (a.editorialScores?.overall || 0)
+        );
+        const listHtml = sortedProducts.map(p =>
             `<a href="/produto/geladeira/${p.id}" class="nav-subcategory" onclick="Router.navigate('/produto/geladeira/${p.id}'); closeSidebar(); return false;">${p.name}</a>`
         ).join('\n                                ');
 
