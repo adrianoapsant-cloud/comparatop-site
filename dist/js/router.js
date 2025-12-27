@@ -16,9 +16,22 @@ const Router = (function () {
      */
     const routes = [
         { pattern: '/', name: 'home' },
+        // Canonical category routes (SEO-friendly)
+        { pattern: '/geladeiras', name: 'category', staticParams: { categoryId: 'geladeira' } },
+        { pattern: '/geladeiras/', name: 'category', staticParams: { categoryId: 'geladeira' } },
+        { pattern: '/freezers', name: 'category', staticParams: { categoryId: 'freezer' } },
+        { pattern: '/freezers/', name: 'category', staticParams: { categoryId: 'freezer' } },
+        { pattern: '/frigobares', name: 'category', staticParams: { categoryId: 'frigobar' } },
+        { pattern: '/frigobares/', name: 'category', staticParams: { categoryId: 'frigobar' } },
+        // Legacy category route (for backwards compatibility)
         { pattern: '/categoria/:categoryId', name: 'category' },
+        { pattern: '/categoria/:categoryId/', name: 'category' },
         { pattern: '/produto/:categoryId/:productId', name: 'product' },
-        { pattern: '/comparar', name: 'comparison' }
+        { pattern: '/produto/:categoryId/:productId/', name: 'product' },
+        { pattern: '/comparar', name: 'comparison' },
+        { pattern: '/comparar/', name: 'comparison' },
+        { pattern: '/comparar/:comparisonId', name: 'comparison' },
+        { pattern: '/comparar/:comparisonId/', name: 'comparison' }
     ];
 
     /**
@@ -49,6 +62,10 @@ const Router = (function () {
 
             if (match) {
                 const params = {};
+                // Use staticParams if defined, otherwise extract from URL
+                if (route.staticParams) {
+                    Object.assign(params, route.staticParams);
+                }
                 paramNames.forEach((name, index) => {
                     params[name] = decodeURIComponent(match[index + 1]);
                 });
