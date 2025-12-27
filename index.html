@@ -5715,8 +5715,37 @@
                         });
                     });
 
-                    Router.on('comparison', () => {
-                        showComparison();
+                    Router.on('comparison', async (params) => {
+                        const comparisonId = params.comparisonId;
+                        if (comparisonId && comparisonId.includes('-vs-')) {
+                            // Load catalog if needed
+                            if (!currentCatalog) {
+                                try {
+                                    const response = await fetch('/data/catalogs/geladeira.json');
+                                    currentCatalog = await response.json();
+                                } catch (e) {
+                                    console.error('Failed to load catalog:', e);
+                                    showCategory('geladeira');
+                                    return;
+                                }
+                            }
+                            // Parse product IDs from URL
+                            const [productId1, productId2] = comparisonId.split('-vs-');
+                            const product1 = currentCatalog.products[productId1];
+                            const product2 = currentCatalog.products[productId2];
+
+                            if (product1 && product2) {
+                                compareList = [
+                                    { id: productId1, ...product1 },
+                                    { id: productId2, ...product2 }
+                                ];
+                                showComparison();
+                            } else {
+                                showCategory('geladeira');
+                            }
+                        } else {
+                            showComparison();
+                        }
                     });
 
                     // Initialize router (handles current URL)
