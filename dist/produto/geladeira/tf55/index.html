@@ -2980,13 +2980,11 @@
             <header class="header">
                 <button class="mobile-menu-btn" type="button" style="display:block;">☰</button>
                 <div>
-                    <div class="header-breadcrumb" id="breadcrumb">
-                        <a href="/">Início</a>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:0.75rem;">
-                        <div class="header-title" id="header-title" style="white-space:nowrap;">
-                            Bem-vindo ao ComparaTop</div>
-                        <div class="header-social-icons">
+                    <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:nowrap;">
+                        <div class="header-breadcrumb" id="breadcrumb">
+                            <a href="/">Início</a>
+                        </div>
+                        <div class="header-social-icons" style="display:flex;gap:0.3rem;">
                             <a href="#" class="header-social-btn whatsapp" onclick="trackChannel('whatsapp')"
                                 title="WhatsApp">
                                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
@@ -3370,7 +3368,7 @@
                         <!-- Products List - use sidebar -->
                         <section style="margin-bottom:2rem;">
                             <h2 style="color:var(--c-primary-dark);margin-bottom:1rem;">📦 Modelos Disponíveis</h2>
-                            <a href="javascript:void(0)" onclick="openSidebar();"
+                            <a href="javascript:void(0)" onclick="openSidebar('refrigeracao');"
                                 style="display:block;background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); padding: 1.5rem; border-radius: var(--radius); border-left: 4px solid var(--c-primary); text-decoration:none; cursor:pointer; transition:transform 0.2s, box-shadow 0.2s;"
                                 onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)';"
                                 onmouseout="this.style.transform='';this.style.boxShadow='';">
@@ -3690,12 +3688,23 @@
         };
 
         // Sidebar functions - EXPLICIT STATE MANAGEMENT
-        function openSidebar() {
+        function openSidebar(categoryToExpand) {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebar-overlay');
             sidebar.classList.add('open');
             if (overlay) overlay.classList.add('open');
             document.body.style.overflow = 'hidden'; // Lock scroll
+
+            // If category specified, expand it after a small delay
+            if (categoryToExpand) {
+                setTimeout(() => {
+                    const categoryLink = document.querySelector(`[onclick*="toggleCategory('${categoryToExpand}')"]`);
+                    if (categoryLink) {
+                        // Expand the category
+                        toggleCategory(categoryToExpand);
+                    }
+                }, 100);
+            }
         }
 
         function closeSidebar() {
@@ -5663,8 +5672,7 @@
             }
 
             function showGlobalResult() {
-                questionsDiv.style.display = 'none';
-                resultDiv.style.display = 'block';
+                // Use questionsDiv instead of resultDiv since we're in hero-quiz-container
 
                 // Score each product
                 const products = Object.values(currentCatalog.products);
@@ -5737,7 +5745,7 @@
                         </button>
                     </div>
                 `;
-                resultDiv.innerHTML = html;
+                questionsDiv.innerHTML = html;
             }
 
             renderQuestion(0);
