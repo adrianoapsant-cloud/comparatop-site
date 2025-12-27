@@ -3804,8 +3804,7 @@
 
             } catch (err) {
                 document.getElementById('loading').style.display = 'none';
-                document.getElementById('error').textContent = '❌ Erro ao carregar catálogo. Por favor, recarregue a página.';
-                document.getElementById('error').style.display = 'block';
+                // Don't show error to user - sidebar still works for navigation
                 console.error('showCategory error:', err);
             }
         }
