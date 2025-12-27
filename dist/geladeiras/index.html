@@ -4808,7 +4808,7 @@
         function showProduct(categorySlug, productId) {
             // Load catalog first if needed
             if (!currentCatalog || currentCatalog.category.slug !== categorySlug) {
-                fetch(`data/catalogs/${categorySlug}.json`)
+                fetch(`/data/catalogs/${categorySlug}.json`)
                     .then(r => r.json())
                     .then(data => {
                         currentCatalog = data;
@@ -5326,7 +5326,7 @@
             const categorySelector = document.getElementById('quiz-category-selector');
             if (categorySelector) categorySelector.style.display = 'none';
 
-            const catalogFile = `data/catalogs/${selectedCategory}.json`;
+            const catalogFile = `/data/catalogs/${selectedCategory}.json`;
 
             fetch(catalogFile)
                 .then(r => r.json())
@@ -5694,8 +5694,8 @@
 
         // Init - integrate router with handlers
         document.addEventListener('DOMContentLoaded', () => {
-            // Load default catalog for navigation first
-            fetch('data/catalogs/geladeira.json')
+            // Load default catalog for navigation first (using absolute path)
+            fetch('/data/catalogs/geladeira.json')
                 .then(r => r.json())
                 .then(data => {
                     currentCatalog = data;
