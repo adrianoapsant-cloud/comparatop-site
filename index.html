@@ -4594,12 +4594,15 @@
                     const score = p.editorialScores?.overall || 0;
                     const scoreColor = score >= 8 ? '#22c55e' : score >= 6 ? '#eab308' : '#ef4444';
                     const altText = `Geladeira ${p.brand} ${p.model} ${p.specs?.capacidade_total || ''}L ${p.specs?.tipo || ''} Frost Free - Nota ${score}/10`;
-                    // Click navigates to product page
-                    html += `<a href="/produto/geladeira/${p.id}" class="nav-product-item" data-product-id="${p.id}" onclick="event.preventDefault(); navigateToProduct('geladeira', '${p.id}'); closeSidebar();" title="${altText}" style="cursor:pointer;text-decoration:none;color:inherit;">
-                        <img src="${p.imageUrl}" alt="${altText}" class="nav-product-item-img" onerror="this.style.display='none'" loading="lazy" width="32" height="32">
-                        <span>${p.brand} ${p.model}</span>
-                        <span class="nav-product-score" style="background:${scoreColor};color:#fff;padding:0.1rem 0.4rem;border-radius:10px;font-size:0.65rem;font-weight:600;margin-left:auto;">${score}</span>
-                    </a>`;
+                    // Click on name navigates; checkbox toggles compare
+                    html += `<div class="nav-product-item" data-product-id="${p.id}" style="display:flex;align-items:center;gap:0.5rem;">
+                        <input type="checkbox" class="nav-compare-checkbox" onclick="event.stopPropagation(); toggleSidebarCompare('${p.id}', this.parentElement)" title="Adicionar à comparação" style="cursor:pointer;width:16px;height:16px;">
+                        <a href="/produto/geladeira/${p.id}" onclick="event.preventDefault(); navigateToProduct('geladeira', '${p.id}'); closeSidebar();" title="${altText}" style="flex:1;display:flex;align-items:center;gap:0.5rem;text-decoration:none;color:inherit;cursor:pointer;">
+                            <img src="${p.imageUrl}" alt="${altText}" class="nav-product-item-img" onerror="this.style.display='none'" loading="lazy" width="32" height="32">
+                            <span>${p.brand} ${p.model}</span>
+                        </a>
+                        <span class="nav-product-score" style="background:${scoreColor};color:#fff;padding:0.1rem 0.4rem;border-radius:10px;font-size:0.65rem;font-weight:600;">${score}</span>
+                    </div>`;
                 });
                 geladeirasList.innerHTML = html;
                 // Update visual state for already selected products
@@ -4657,12 +4660,15 @@
             items.forEach(item => {
                 const productId = item.dataset.productId;
                 const isSelected = compareList.some(p => p.id === productId);
+                const checkbox = item.querySelector('.nav-compare-checkbox');
                 if (isSelected) {
                     item.classList.add('selected');
                     item.style.background = 'rgba(16, 185, 129, 0.15)';
+                    if (checkbox) checkbox.checked = true;
                 } else {
                     item.classList.remove('selected');
                     item.style.background = '';
+                    if (checkbox) checkbox.checked = false;
                 }
             });
         }
