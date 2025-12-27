@@ -3715,10 +3715,17 @@
 
             currentCategory = categoryId;
 
+            // Scroll to top when navigating to category
+            window.scrollTo(0, 0);
+            document.querySelector('.main-content')?.scrollTo(0, 0);
+
             document.getElementById('page-home').style.display = 'none';
             document.getElementById('page-category').style.display = 'block';
+            document.getElementById('page-product').style.display = 'none';
+            document.getElementById('page-comparison').style.display = 'none';
             document.getElementById('loading').style.display = 'block';
             document.getElementById('products-grid').innerHTML = '';
+            document.getElementById('error').style.display = 'none';
 
             const categoryNames = {
                 geladeira: 'Geladeiras',
@@ -3741,11 +3748,19 @@
             if (window.innerWidth <= 1024) closeSidebar();
 
             try {
-
+                // Load catalog
                 catalog = await Catalog.load(categoryId);
+                currentCatalog = catalog; // Ensure currentCatalog is set
 
-                const assistantResp = await fetch(`/data/assistant/${categoryId}.json`);
-                assistantConfig = await assistantResp.json();
+                // Load assistant config (optional, don't fail if missing)
+                try {
+                    const assistantResp = await fetch(`/data/assistant/${categoryId}.json`);
+                    if (assistantResp.ok) {
+                        assistantConfig = await assistantResp.json();
+                    }
+                } catch (e) {
+                    console.warn('Assistant config not available:', e);
+                }
 
                 document.getElementById('loading').style.display = 'none';
                 renderProducts();
@@ -3754,7 +3769,7 @@
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('error').textContent = '❌ Categoria em desenvolvimento. Disponível em breve!';
                 document.getElementById('error').style.display = 'block';
-                console.error(err);
+                console.error('showCategory error:', err);
             }
         }
 
