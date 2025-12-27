@@ -3394,7 +3394,13 @@
     <div class="compare-modal" id="compare-modal" onclick="if(event.target===this) closeCompareModal()">
         <div class="compare-modal-content">
             <div class="compare-modal-header">
-                <h2 class="compare-modal-title">⚖️ Comparação Detalhada</h2>
+                <div class="compare-modal-title-row">
+                    <h2 class="compare-modal-title">⚖️ Comparação Detalhada</h2>
+                    <div class="font-zoom-controls">
+                        <button class="font-zoom-btn" onclick="changeTableFontSize(-1)" title="Diminuir fonte">A-</button>
+                        <button class="font-zoom-btn" onclick="changeTableFontSize(1)" title="Aumentar fonte">A+</button>
+                    </div>
+                </div>
                 <div style="display:flex;align-items:center;gap:1rem;">
                     <div class="share-buttons" id="share-panel">
                         <button class="share-social-btn whatsapp" onclick="shareToSocial('whatsapp')" title="WhatsApp">
