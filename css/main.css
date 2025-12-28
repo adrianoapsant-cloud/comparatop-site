@@ -244,7 +244,7 @@ body {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.2s, visibility 0s 0.2s;
-    backdrop-filter: blur(2px);
+    /* NO backdrop-filter - causes click issues on mobile */
 }
 
 .ml-mega-overlay[aria-hidden="false"] {
@@ -740,7 +740,8 @@ body.menu-open {
     z-index: 990;
     opacity: 0;
     visibility: hidden;
-    pointer-events: none; /* Important: don't capture clicks when closed */
+    pointer-events: none;
+    /* Important: don't capture clicks when closed */
     transition: opacity 0.3s ease, visibility 0s 0.3s;
     cursor: pointer;
 }
@@ -748,7 +749,8 @@ body.menu-open {
 .sidebar-overlay.open {
     opacity: 1;
     visibility: visible;
-    pointer-events: auto; /* Only capture clicks when open */
+    pointer-events: auto;
+    /* Only capture clicks when open */
     transition: opacity 0.3s ease;
 }
 
@@ -772,6 +774,13 @@ body.menu-open {
 
     .main-content {
         margin-left: 0;
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+
+    /* Hide the redundant white bar (Início + social icons) on mobile */
+    .header {
+        display: none !important;
     }
 
     /* Aumentar fontes para melhor leitura no mobile */
