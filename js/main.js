@@ -2502,7 +2502,167 @@ document.addEventListener('DOMContentLoaded', () => {
             compareCounter.style.display = 'none';
         }
     }
+
+    // ========== ML-LIKE HEADER FUNCTIONALITY ==========
+    initMLHeader();
 });
 
+// ML Header initialization
+function initMLHeader() {
+    const mlSearchInput = document.getElementById('ml-search-input');
+    const mlSearchBtn = document.getElementById('ml-search-btn');
+    const mlSearchResults = document.getElementById('ml-search-results');
+    const originalSearchInput = document.getElementById('search-input');
+
+    if (mlSearchInput) {
+        // Sync ML search with original search functionality
+        mlSearchInput.addEventListener('input', function (e) {
+            // Trigger the same search as original
+            if (originalSearchInput) {
+                originalSearchInput.value = e.target.value;
+                originalSearchInput.dispatchEvent(new Event('input'));
+            }
+            // Show results in ML search dropdown
+            performMLSearch(e.target.value);
+        });
+
+        mlSearchInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                performMLSearch(this.value, true);
+            }
+        });
+
+        // Close search results when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.ml-search-wrapper')) {
+                if (mlSearchResults) mlSearchResults.classList.remove('show');
+            }
+        });
+    }
+
+    if (mlSearchBtn) {
+        mlSearchBtn.addEventListener('click', function () {
+            if (mlSearchInput) {
+                performMLSearch(mlSearchInput.value, true);
+            }
+        });
+    }
+
+    // Category buttons - for now just log, will add mega-menu in Phase 2
+    const catButtons = document.querySelectorAll('.ml-cat-btn');
+    catButtons.forEach(btn => {
+        btn.addEventListener('click', function () {
+            const category = this.dataset.category;
+            console.log('Category clicked:', category);
+
+            // Toggle aria-expanded
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+            // Close all other buttons
+            catButtons.forEach(b => b.setAttribute('aria-expanded', 'false'));
+
+            if (!isExpanded) {
+                this.setAttribute('aria-expanded', 'true');
+                // Phase 2 will add dropdown/mega-menu here
+                handleCategoryClick(category);
+            }
+        });
+    });
+}
+
+// ML Search function
+function performMLSearch(query, navigate = false) {
+    const mlSearchResults = document.getElementById('ml-search-results');
+
+    if (!query || query.length < 2) {
+        if (mlSearchResults) mlSearchResults.classList.remove('show');
+        return;
+    }
+
+    // Search in current catalog
+    if (!currentCatalog || !currentCatalog.products) {
+        // Try to load geladeira catalog for search
+        fetch('/data/catalogs/geladeira.json')
+            .then(r => r.json())
+            .then(data => {
+                searchInCatalog(data, query, mlSearchResults, navigate);
+            })
+            .catch(() => {
+                if (mlSearchResults) {
+                    mlSearchResults.innerHTML = '<div style="padding:1rem;color:var(--c-muted);">Nenhum resultado</div>';
+                    mlSearchResults.classList.add('show');
+                }
+            });
+    } else {
+        searchInCatalog(currentCatalog, query, mlSearchResults, navigate);
+    }
+}
+
+function searchInCatalog(catalog, query, resultsContainer, navigate) {
+    const q = query.toLowerCase();
+    const products = Object.values(catalog.products || {});
+
+    const matches = products.filter(p =>
+        p.model?.toLowerCase().includes(q) ||
+        p.brand?.toLowerCase().includes(q) ||
+        p.name?.toLowerCase().includes(q)
+    ).slice(0, 5);
+
+    if (navigate && matches.length > 0) {
+        // Navigate to first result
+        Router.navigate(`/produto/${catalog.category.slug}/${matches[0].id}/`);
+        resultsContainer.classList.remove('show');
+        return;
+    }
+
+    if (matches.length === 0) {
+        resultsContainer.innerHTML = '<div style="padding:1rem;color:var(--c-muted);">Nenhum produto encontrado</div>';
+    } else {
+        resultsContainer.innerHTML = matches.map(p => `
+            <a href="/produto/${catalog.category.slug}/${p.id}/" 
+               onclick="Router.navigate('/produto/${catalog.category.slug}/${p.id}/'); document.getElementById('ml-search-results').classList.remove('show'); return false;"
+               style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;text-decoration:none;color:var(--c-text);border-bottom:1px solid var(--c-border);">
+                <img src="${p.imageUrl || ''}" alt="" style="width:40px;height:40px;object-fit:contain;background:#f8fafc;border-radius:4px;">
+                <div>
+                    <div style="font-weight:500;">${p.brand} ${p.model}</div>
+                    <div style="font-size:0.8rem;color:var(--c-muted);">${catalog.category.name}</div>
+                </div>
+            </a>
+        `).join('');
+    }
+
+    resultsContainer.classList.add('show');
+}
+
+// Handle category button clicks (Phase 1: basic navigation)
+function handleCategoryClick(category) {
+    const categoryMap = {
+        'all': '/',
+        'refrigeracao': '/geladeiras/',
+        'climatizacao': '/',  // Coming soon
+        'coccao': '/',        // Coming soon
+        'lavanderia': '/'     // Coming soon
+    };
+
+    const url = categoryMap[category] || '/';
+
+    if (category === 'all') {
+        // For now, just navigate to home
+        Router.navigate('/');
+    } else if (category === 'refrigeracao') {
+        Router.navigate('/geladeiras/');
+    } else {
+        // Show "coming soon" toast for other categories
+        alert(`Categoria "${category}" em breve!`);
+    }
+
+    // Reset aria-expanded after action
+    setTimeout(() => {
+        document.querySelectorAll('.ml-cat-btn').forEach(b => {
+            b.setAttribute('aria-expanded', 'false');
+        });
+    }, 300);
+}
 
 // updateCompareUI is defined earlier - no need to redefine
