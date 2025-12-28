@@ -1206,8 +1206,11 @@ function copyToClipboard(text) {
     });
 }
 
-function showToast() {
+function showToast(message) {
     const toast = document.getElementById('share-toast');
+    if (message) {
+        toast.textContent = message;
+    }
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 3000);
 }
@@ -2763,20 +2766,31 @@ function openMobileMore() {
     openBottomSheet('more');
 }
 
-// Open Compare Modal (uses existing function)
-function openCompareModal() {
-    // Trigger the existing compare functionality
-    if (typeof showComparePrompt === 'function') {
-        showComparePrompt();
-    } else {
-        // Fallback: show comparison page if items exist
-        if (compareList && compareList.length >= 2) {
+// Handle Compare Click from bottom bar (mobile)
+function handleCompareClick() {
+    const list = window.compareList || [];
+    if (list.length >= 2) {
+        // Has 2+ products, start comparison
+        if (typeof startComparisonFromPrompt === 'function') {
             startComparisonFromPrompt();
+        } else if (typeof showComparePrompt === 'function') {
+            showComparePrompt();
+        }
+    } else {
+        // Less than 2 products, show toast
+        if (typeof showToast === 'function') {
+            showToast('Adicione pelo menos 2 produtos para comparar');
         } else {
             alert('Adicione pelo menos 2 produtos para comparar!');
         }
     }
 }
+
+// Open Compare Modal (legacy - uses existing function)
+function openCompareModal() {
+    handleCompareClick();
+}
+
 
 // Open Bottom Sheet
 function openBottomSheet(sheetName) {

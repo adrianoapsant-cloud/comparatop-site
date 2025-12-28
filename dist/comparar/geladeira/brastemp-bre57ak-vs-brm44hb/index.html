@@ -1126,16 +1126,16 @@
             <span class="ml-bottom-icon">🏠</span>
             <span class="ml-bottom-label">Início</span>
         </a>
-        <button class="ml-bottom-item" id="bottom-categories" onclick="openMobileCategories()">
+        <button class="ml-bottom-item" id="bottom-categories" onclick="openBottomSheet('categories')">
             <span class="ml-bottom-icon">📂</span>
             <span class="ml-bottom-label">Categorias</span>
         </button>
-        <button class="ml-bottom-item" id="bottom-compare" onclick="openCompareModal()">
+        <button class="ml-bottom-item" id="bottom-compare" onclick="handleCompareClick()">
             <span class="ml-bottom-icon">⚖️</span>
             <span class="ml-bottom-label">Comparar</span>
             <span class="ml-bottom-badge" id="bottom-compare-badge">0</span>
         </button>
-        <button class="ml-bottom-item" id="bottom-more" onclick="openMobileMore()">
+        <button class="ml-bottom-item" id="bottom-more" onclick="openBottomSheet('more')">
             <span class="ml-bottom-icon">☰</span>
             <span class="ml-bottom-label">Mais</span>
         </button>
@@ -1195,11 +1195,10 @@
                 <button class="ml-sheet-close" onclick="closeBottomSheet('more')">&times;</button>
             </div>
             <div class="ml-sheet-body">
-                <a href="/" class="ml-sheet-link" onclick="navigateFromSheet('/'); return false;">
+                <a href="/" class="ml-sheet-link">
                     <span>🏠</span> Início
                 </a>
-                <a href="/metodologia/" class="ml-sheet-link"
-                    onclick="navigateFromSheet('/metodologia/'); return false;">
+                <a href="/metodologia/" class="ml-sheet-link">
                     <span>📊</span> Nossa Metodologia
                 </a>
                 <div class="ml-sheet-divider"></div>

@@ -732,7 +732,7 @@ body.menu-open {
     }
 }
 
-/* Mobile Overlay */
+/* Mobile Overlay - NO backdrop-filter (causes click issues on mobile) */
 .sidebar-overlay {
     position: fixed;
     inset: 0;
@@ -740,16 +740,16 @@ body.menu-open {
     z-index: 990;
     opacity: 0;
     visibility: hidden;
+    pointer-events: none; /* Important: don't capture clicks when closed */
     transition: opacity 0.3s ease, visibility 0s 0.3s;
-    backdrop-filter: blur(2px);
     cursor: pointer;
 }
 
 .sidebar-overlay.open {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto; /* Only capture clicks when open */
     transition: opacity 0.3s ease;
-    pointer-events: auto;
 }
 
 /* Mobile specific styles */
