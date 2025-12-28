@@ -608,7 +608,9 @@ function generateProductPages(template, catalogs) {
 function generateCategoryPages(template, catalogs) {
     for (const [slug, catalog] of Object.entries(catalogs)) {
         const category = catalog.category;
-        const products = Object.values(catalog.products || {});
+        const products = Object.values(catalog.products || {})
+            .filter(p => p.status === 'active' || !p.status) // Only active products
+            .sort((a, b) => (b.editorialScores?.overall || 0) - (a.editorialScores?.overall || 0)); // Sort by score
 
         // Use canonical path if available (e.g., /geladeiras/), fallback to slug
         const canonicalPath = category.canonicalPath || `/${slug}s/`;
@@ -621,21 +623,167 @@ function generateCategoryPages(template, catalogs) {
             type: 'website'
         });
 
-        const bodyContent = `
-        <div id="prerendered-content" class="prerendered-seo-content">
-            <nav aria-label="Breadcrumb"><a href="/">Início</a> › <span>${category.name}</span></nav>
-            <h1>${category.name} - Compare as Melhores</h1>
-            <p>${category.description}</p>
-            <section>
-                <h2>Produtos</h2>
-                <ul>
-                    ${products.map(p => `
-                        <li><a href="/produto/${slug}/${p.id}">${p.name}</a> - Nota: ${p.editorialScores?.overall || '-'}/10</li>
-                    `).join('')}
-                </ul>
+        // Generate visible product cards
+        const productCardsHtml = products.map(p => {
+            const score = p.editorialScores?.overall;
+            const scoreHtml = score ? `<span class="ssg-product-score">${score.toFixed(1)}</span>` : '';
+            const lowestPrice = p.offers && p.offers.length > 0
+                ? Math.min(...p.offers.map(o => o.price).filter(pr => pr > 0))
+                : null;
+            const priceHtml = lowestPrice ? `<span class="ssg-product-price">A partir de ${formatBRL(lowestPrice)}</span>` : '';
+
+            return `
+                <a href="/produto/${slug}/${p.id}/" class="ssg-product-card">
+                    <div class="ssg-product-image">
+                        <img src="${resolveImageUrl(p.imageUrl)}" alt="${escapeHtml(p.name)}" loading="lazy">
+                    </div>
+                    <div class="ssg-product-info">
+                        <h3 class="ssg-product-name">${escapeHtml(p.brand)} ${escapeHtml(p.model)}</h3>
+                        ${scoreHtml}
+                        ${priceHtml}
+                    </div>
+                </a>`;
+        }).join('\n');
+
+        // Main visible content
+        const mainContent = `
+        <!-- SSG Category Content - VISIBLE -->
+        <div class="ssg-category-page">
+            <nav class="ssg-breadcrumb" aria-label="Breadcrumb">
+                <a href="/">Início</a> › <span>${escapeHtml(category.name)}</span>
+            </nav>
+            <header class="ssg-category-header">
+                <h1>${escapeHtml(category.name)}</h1>
+                <p class="ssg-category-description">${escapeHtml(category.description || '')}</p>
+                <p class="ssg-category-count">${products.length} modelos disponíveis</p>
+            </header>
+            <section class="ssg-products-section">
+                <h2>Modelos Disponíveis</h2>
+                <div class="ssg-products-grid" id="ssg-products-grid">
+                    ${productCardsHtml}
+                </div>
             </section>
         </div>
-        <style>.prerendered-seo-content { display: none; }</style>
+
+        <!-- Hidden SEO content for crawlers -->
+        <div id="prerendered-content" class="prerendered-seo-content">
+            <ul>
+                ${products.map(p => `<li><a href="/produto/${slug}/${p.id}/">${escapeHtml(p.name)}</a></li>`).join('')}
+            </ul>
+        </div>
+        <style>
+            .prerendered-seo-content { display: none; }
+            
+            /* SSG Category Page Styles */
+            .ssg-category-page {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 1rem;
+            }
+            .ssg-breadcrumb {
+                margin-bottom: 1rem;
+                color: #64748b;
+                font-size: 0.9rem;
+            }
+            .ssg-breadcrumb a {
+                color: #1e40af;
+                text-decoration: none;
+            }
+            .ssg-category-header {
+                margin-bottom: 2rem;
+                text-align: center;
+            }
+            .ssg-category-header h1 {
+                font-size: 2rem;
+                color: #1e3a8a;
+                margin-bottom: 0.5rem;
+            }
+            .ssg-category-description {
+                color: #64748b;
+                max-width: 600px;
+                margin: 0 auto 0.5rem;
+            }
+            .ssg-category-count {
+                color: #10b981;
+                font-weight: 600;
+            }
+            .ssg-products-section h2 {
+                font-size: 1.5rem;
+                color: #1e293b;
+                margin-bottom: 1.5rem;
+                padding-bottom: 0.5rem;
+                border-bottom: 2px solid #e2e8f0;
+            }
+            .ssg-products-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+            .ssg-product-card {
+                background: white;
+                border-radius: 12px;
+                padding: 1rem;
+                text-decoration: none;
+                color: inherit;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+                transition: transform 0.2s, box-shadow 0.2s;
+                display: flex;
+                flex-direction: column;
+            }
+            .ssg-product-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            }
+            .ssg-product-image {
+                height: 160px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 1rem;
+            }
+            .ssg-product-image img {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+            }
+            .ssg-product-info {
+                text-align: center;
+            }
+            .ssg-product-name {
+                font-size: 1rem;
+                font-weight: 600;
+                color: #1e293b;
+                margin-bottom: 0.5rem;
+            }
+            .ssg-product-score {
+                display: inline-block;
+                background: linear-gradient(135deg, #1e40af, #3b82f6);
+                color: white;
+                padding: 0.25rem 0.75rem;
+                border-radius: 20px;
+                font-weight: 700;
+                font-size: 0.9rem;
+                margin-bottom: 0.5rem;
+            }
+            .ssg-product-price {
+                display: block;
+                color: #10b981;
+                font-weight: 600;
+                font-size: 0.95rem;
+            }
+            @media (max-width: 600px) {
+                .ssg-products-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 1rem;
+                }
+                .ssg-product-image {
+                    height: 120px;
+                }
+                .ssg-product-name {
+                    font-size: 0.9rem;
+                }
+            }
+        </style>
         `;
 
         // ItemList JSON-LD para categoria
@@ -665,7 +813,7 @@ function generateCategoryPages(template, catalogs) {
         let html = template;
         html = html.replace(/<title>.*?<\/title>[\s\S]*?(<link href="https:\/\/fonts\.googleapis)/, meta + '\n    $1');
         html = html.replace('</head>', jsonLd + '\n</head>');
-        html = html.replace(/<body>/, '<body>\n' + bodyContent);
+        html = html.replace(/<body>/, '<body>\n' + mainContent);
 
         // Write to canonical path (e.g., /geladeiras/index.html)
         const destPath = path.join(CONFIG.distDir, canonicalPath.substring(1), 'index.html');
