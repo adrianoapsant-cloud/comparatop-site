@@ -335,15 +335,6 @@ function generateProductContent(product, category, otherProducts = [], categoryS
             </section>
             ` : ''}
             
-            ${comparisonLinks ? `
-            <section class="compare-section">
-                <h2>🔄 Compare com outros modelos</h2>
-                <ul class="compare-links">
-                    ${comparisonLinks}
-                </ul>
-            </section>
-            ` : ''}
-            
             ${product.voc ? `
             <section class="voc-section">
                 <h2>O que compradores dizem</h2>
@@ -367,10 +358,102 @@ function generateProductContent(product, category, otherProducts = [], categoryS
         </article>
     </div>
     
+    ${comparisonLinks ? `
+    <!-- Compare Section - Visible to users -->
+    <section class="compare-section-visible" id="compare-with-others">
+        <h2>🔄 Compare com outros modelos</h2>
+        <div class="compare-cards">
+            ${otherProducts.filter(p => p.id !== product.id).map(other => {
+        const [slugFirst, slugSecond] = [product.id, other.id].sort();
+        const comparisonUrl = `/comparar/${categorySlug}/${slugFirst}-vs-${slugSecond}/`;
+        return `
+                <a href="${comparisonUrl}" class="compare-card">
+                    <span class="vs-badge">VS</span>
+                    <span class="compare-model">${escapeHtml(other.model)}</span>
+                    <span class="compare-brand">${escapeHtml(other.brand)}</span>
+                </a>`;
+    }).join('')}
+        </div>
+    </section>
+    ` : ''}
+    
     <style>
         .prerendered-seo-content { display: none; }
-        /* Note: This content is hidden visually but readable by bots */
-        /* JavaScript will render the interactive version */
+        
+        /* Compare Section - Visible styling */
+        .compare-section-visible {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 16px;
+        }
+        .compare-section-visible h2 {
+            font-size: 1.25rem;
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .compare-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .compare-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: white;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #1e293b;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.2s ease;
+            min-width: 140px;
+        }
+        .compare-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(30,64,175,0.15);
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+        }
+        .compare-card:hover .compare-brand {
+            color: rgba(255,255,255,0.8);
+        }
+        .vs-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: white;
+            background: #1e40af;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+        }
+        .compare-card:hover .vs-badge {
+            background: white;
+            color: #1e40af;
+        }
+        .compare-model {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .compare-brand {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+        @media (max-width: 640px) {
+            .compare-cards {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .compare-card {
+                flex-direction: row;
+                justify-content: flex-start;
+                gap: 1rem;
+            }
+        }
     </style>
     `;
 }
