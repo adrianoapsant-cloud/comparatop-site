@@ -106,7 +106,7 @@ function generateMetaTags({ title, description, url, image, type = 'website' }) 
 
 // Generate JSON-LD for product (Schema.org)
 // REGRAS: Não inventar dados - só incluir se presente no conteúdo
-function generateProductJsonLd(product, categorySlug, category) {
+function generateProductJsonLd(product, categorySlug, category, otherProducts = []) {
     const offers = (product.offers || []).filter(o => o.price && o.price > 0);
     const sortedOffers = [...offers].sort((a, b) => a.price - b.price);
     const lowestPrice = sortedOffers[0]?.price;
@@ -217,6 +217,20 @@ function generateProductJsonLd(product, categorySlug, category) {
                     "name": typeof con === 'object' ? con.topic : con
                 }))
             };
+        }
+    }
+
+    // relatedLink - URLs de comparação com outros produtos da mesma categoria
+    if (otherProducts && otherProducts.length > 0) {
+        const comparisonUrls = otherProducts
+            .filter(other => other.id !== product.id)
+            .map(other => {
+                const [slugFirst, slugSecond] = [product.id, other.id].sort();
+                return `${CONFIG.baseUrl}/comparar/${categorySlug}/${slugFirst}-vs-${slugSecond}/`;
+            });
+
+        if (comparisonUrls.length > 0) {
+            schema.relatedLink = comparisonUrls;
         }
     }
 
@@ -645,8 +659,9 @@ function generateProductPages(template, catalogs) {
                 type: 'product'
             });
 
-            // JSON-LD com category para contexto
-            const productJsonLd = generateProductJsonLd(product, slug, category);
+            // JSON-LD com category para contexto + relatedLink para comparações
+            const allProductsInCategory = Object.values(products);
+            const productJsonLd = generateProductJsonLd(product, slug, category, allProductsInCategory);
 
             // Breadcrumb JSON-LD
             const canonicalPath = category.canonicalPath || `/${slug}s/`;
@@ -659,7 +674,6 @@ function generateProductPages(template, catalogs) {
             const jsonLd = productJsonLd + '\n' + breadcrumbJsonLd;
 
             // Pass all products in the category for "Compare with" section
-            const allProductsInCategory = Object.values(products);
             const bodyContent = generateProductContent(product, category, allProductsInCategory, slug);
 
             let html = template;
