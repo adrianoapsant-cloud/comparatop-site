@@ -838,7 +838,7 @@ function copyStaticAssets() {
     console.log('Copying static assets...');
 
     const assetDirs = ['css', 'js', 'data', 'assets'];
-    const assetFiles = ['robots.txt', 'llms.txt', 'politica-privacidade.html', 'termos-uso.html'];
+    const assetFiles = ['robots.txt', 'llms.txt', 'politica-privacidade.html', 'termos-uso.html', '_redirects'];
 
     // Copy from source (root/public for static files)
     const publicDir = path.join(__dirname, '..', 'public');
