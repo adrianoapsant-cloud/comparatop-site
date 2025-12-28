@@ -198,117 +198,14 @@
         </article>
     </div>
     
-    
-    <!-- Compare Section - At bottom of page, after all product info -->
-    <section class="compare-section-visible" id="compare-with-others">
-        <h2>🔄 Ver outros modelos</h2>
-        <div class="compare-grid">
-            
-            <a href="/comparar/geladeira/brm44hb-vs-samsung-rt46/" class="compare-item">
-                <span class="compare-item-model">BRM44HB</span>
-                <span class="compare-item-brand">Brastemp</span>
-                <span class="compare-item-score">7.5/10</span>
-                <span class="compare-item-cta">Comparar →</span>
-            </a>
-            <a href="/comparar/geladeira/samsung-rt46-vs-tf55/" class="compare-item">
-                <span class="compare-item-model">TF55</span>
-                <span class="compare-item-brand">Electrolux</span>
-                <span class="compare-item-score">7.4/10</span>
-                <span class="compare-item-cta">Comparar →</span>
-            </a>
-            <a href="/comparar/geladeira/brastemp-bre57ak-vs-samsung-rt46/" class="compare-item">
-                <span class="compare-item-model">BRE57AK</span>
-                <span class="compare-item-brand">Brastemp</span>
-                
-                <span class="compare-item-cta">Comparar →</span>
-            </a>
-        </div>
-        
-    </section>
-    
+    <!-- SEO Links for comparison pages (hidden, for crawlers) -->
+    <nav class="seo-compare-links" aria-label="Comparações disponíveis">
+        <a href="/comparar/geladeira/brm44hb-vs-samsung-rt46/">RT46 vs BRM44HB</a> <a href="/comparar/geladeira/samsung-rt46-vs-tf55/">RT46 vs TF55</a> <a href="/comparar/geladeira/brastemp-bre57ak-vs-samsung-rt46/">RT46 vs BRE57AK</a>
+    </nav>
     
     <style>
         .prerendered-seo-content { display: none; }
-        
-        /* Compare Section - Compact design for bottom of page */
-        .compare-section-visible {
-            max-width: 900px;
-            margin: 3rem auto 2rem;
-            padding: 2rem;
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            border-radius: 16px;
-            border: 1px solid #bae6fd;
-        }
-        .compare-section-visible h2 {
-            font-size: 1.25rem;
-            color: #0c4a6e;
-            margin: 0 0 0.5rem 0;
-            text-align: center;
-        }
-        .compare-subtitle {
-            font-size: 0.9rem;
-            color: #64748b;
-            text-align: center;
-            margin: 0 0 1.5rem 0;
-        }
-        .compare-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 0.75rem;
-        }
-        .compare-item {
-            display: flex;
-            flex-direction: column;
-            padding: 0.875rem;
-            background: white;
-            border-radius: 10px;
-            text-decoration: none;
-            color: #1e293b;
-            border: 1px solid #e2e8f0;
-            transition: all 0.15s ease;
-        }
-        .compare-item:hover {
-            border-color: #3b82f6;
-            box-shadow: 0 4px 12px rgba(59,130,246,0.15);
-            transform: translateY(-2px);
-        }
-        .compare-item-model {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #1e40af;
-        }
-        .compare-item-brand {
-            font-size: 0.8rem;
-            color: #64748b;
-        }
-        .compare-item-score {
-            font-size: 0.75rem;
-            color: #059669;
-            font-weight: 500;
-            margin-top: 0.25rem;
-        }
-        .compare-item-cta {
-            font-size: 0.75rem;
-            color: #3b82f6;
-            margin-top: auto;
-            padding-top: 0.5rem;
-        }
-        .compare-see-all {
-            display: block;
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            color: #1e40af;
-            text-decoration: none;
-        }
-        .compare-see-all:hover {
-            text-decoration: underline;
-        }
-        @media (max-width: 480px) {
-            .compare-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+        .seo-compare-links { display: none; }
     </style>
     
 

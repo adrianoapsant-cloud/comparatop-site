@@ -372,126 +372,18 @@ function generateProductContent(product, category, otherProducts = [], categoryS
         </article>
     </div>
     
-    ${(() => {
-            // Limit to top 6 products by editorial score (excluding current product)
-            const MAX_COMPARE_ITEMS = 6;
-            const filteredProducts = otherProducts
-                .filter(p => p.id !== product.id)
-                .sort((a, b) => (b.editorialScores?.overall || 0) - (a.editorialScores?.overall || 0))
-                .slice(0, MAX_COMPARE_ITEMS);
-
-            const totalOthers = otherProducts.filter(p => p.id !== product.id).length;
-            const hasMore = totalOthers > MAX_COMPARE_ITEMS;
-
-            if (filteredProducts.length === 0) return '';
-
-            return `
-    <!-- Compare Section - At bottom of page, after all product info -->
-    <section class="compare-section-visible" id="compare-with-others">
-        <h2>🔄 Ver outros modelos</h2>
-        <div class="compare-grid">
-            ${filteredProducts.map(other => {
-                const [slugFirst, slugSecond] = [product.id, other.id].sort();
-                const comparisonUrl = `/comparar/${categorySlug}/${slugFirst}-vs-${slugSecond}/`;
-                const otherScore = other.editorialScores?.overall || '-';
-                return `
-            <a href="${comparisonUrl}" class="compare-item">
-                <span class="compare-item-model">${escapeHtml(other.model)}</span>
-                <span class="compare-item-brand">${escapeHtml(other.brand)}</span>
-                ${otherScore !== '-' ? `<span class="compare-item-score">${otherScore}/10</span>` : ''}
-                <span class="compare-item-cta">Comparar →</span>
-            </a>`;
-            }).join('')}
-        </div>
-        ${hasMore ? `
-        <a href="/${categorySlug}s/" class="compare-see-all">Ver todos os ${totalOthers} modelos de ${category.name}</a>
-        ` : ''}
-    </section>
-    `;
-        })()}
+    <!-- SEO Links for comparison pages (hidden, for crawlers) -->
+    <nav class="seo-compare-links" aria-label="Comparações disponíveis">
+        ${otherProducts.filter(p => p.id !== product.id).map(other => {
+        const [slugFirst, slugSecond] = [product.id, other.id].sort();
+        const comparisonUrl = `/comparar/${categorySlug}/${slugFirst}-vs-${slugSecond}/`;
+        return `<a href="${comparisonUrl}">${escapeHtml(product.model)} vs ${escapeHtml(other.model)}</a>`;
+    }).join(' ')}
+    </nav>
     
     <style>
         .prerendered-seo-content { display: none; }
-        
-        /* Compare Section - Compact design for bottom of page */
-        .compare-section-visible {
-            max-width: 900px;
-            margin: 3rem auto 2rem;
-            padding: 2rem;
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            border-radius: 16px;
-            border: 1px solid #bae6fd;
-        }
-        .compare-section-visible h2 {
-            font-size: 1.25rem;
-            color: #0c4a6e;
-            margin: 0 0 0.5rem 0;
-            text-align: center;
-        }
-        .compare-subtitle {
-            font-size: 0.9rem;
-            color: #64748b;
-            text-align: center;
-            margin: 0 0 1.5rem 0;
-        }
-        .compare-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 0.75rem;
-        }
-        .compare-item {
-            display: flex;
-            flex-direction: column;
-            padding: 0.875rem;
-            background: white;
-            border-radius: 10px;
-            text-decoration: none;
-            color: #1e293b;
-            border: 1px solid #e2e8f0;
-            transition: all 0.15s ease;
-        }
-        .compare-item:hover {
-            border-color: #3b82f6;
-            box-shadow: 0 4px 12px rgba(59,130,246,0.15);
-            transform: translateY(-2px);
-        }
-        .compare-item-model {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #1e40af;
-        }
-        .compare-item-brand {
-            font-size: 0.8rem;
-            color: #64748b;
-        }
-        .compare-item-score {
-            font-size: 0.75rem;
-            color: #059669;
-            font-weight: 500;
-            margin-top: 0.25rem;
-        }
-        .compare-item-cta {
-            font-size: 0.75rem;
-            color: #3b82f6;
-            margin-top: auto;
-            padding-top: 0.5rem;
-        }
-        .compare-see-all {
-            display: block;
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            color: #1e40af;
-            text-decoration: none;
-        }
-        .compare-see-all:hover {
-            text-decoration: underline;
-        }
-        @media (max-width: 480px) {
-            .compare-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+        .seo-compare-links { display: none; }
     </style>
     `;
 }
