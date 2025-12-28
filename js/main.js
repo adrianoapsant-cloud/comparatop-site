@@ -2635,34 +2635,116 @@ function searchInCatalog(catalog, query, resultsContainer, navigate) {
     resultsContainer.classList.add('show');
 }
 
-// Handle category button clicks (Phase 1: basic navigation)
+// Handle category button clicks - Opens mega-menu or dropdown
 function handleCategoryClick(category) {
-    const categoryMap = {
-        'all': '/',
-        'refrigeracao': '/geladeiras/',
-        'climatizacao': '/',  // Coming soon
-        'coccao': '/',        // Coming soon
-        'lavanderia': '/'     // Coming soon
-    };
-
-    const url = categoryMap[category] || '/';
-
     if (category === 'all') {
-        // For now, just navigate to home
-        Router.navigate('/');
-    } else if (category === 'refrigeracao') {
-        Router.navigate('/geladeiras/');
+        openMegaMenu();
     } else {
-        // Show "coming soon" toast for other categories
-        alert(`Categoria "${category}" em breve!`);
+        openDropdown(category);
     }
-
-    // Reset aria-expanded after action
-    setTimeout(() => {
-        document.querySelectorAll('.ml-cat-btn').forEach(b => {
-            b.setAttribute('aria-expanded', 'false');
-        });
-    }, 300);
 }
+
+// Open Mega-Menu "Tudo"
+function openMegaMenu() {
+    const megaMenu = document.getElementById('ml-mega-all');
+    const overlay = document.getElementById('ml-mega-overlay');
+
+    // Close any open dropdowns first
+    closeAllDropdowns();
+
+    if (megaMenu && overlay) {
+        megaMenu.setAttribute('aria-hidden', 'false');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('menu-open');
+
+        // Add ESC key listener
+        document.addEventListener('keydown', handleEscKey);
+    }
+}
+
+// Close Mega-Menu
+function closeMegaMenu() {
+    const megaMenu = document.getElementById('ml-mega-all');
+    const overlay = document.getElementById('ml-mega-overlay');
+
+    if (megaMenu) megaMenu.setAttribute('aria-hidden', 'true');
+    if (overlay) overlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('menu-open');
+
+    // Reset category button states
+    document.querySelectorAll('.ml-cat-btn').forEach(b => {
+        b.setAttribute('aria-expanded', 'false');
+    });
+
+    // Remove ESC listener
+    document.removeEventListener('keydown', handleEscKey);
+}
+
+// Open individual category dropdown
+function openDropdown(category) {
+    const dropdown = document.getElementById(`ml-dropdown-${category}`);
+    const btn = document.querySelector(`.ml-cat-btn[data-category="${category}"]`);
+
+    // Close mega-menu and other dropdowns
+    closeMegaMenu();
+    closeAllDropdowns();
+
+    if (dropdown && btn) {
+        // Position dropdown below the button
+        const btnRect = btn.getBoundingClientRect();
+        dropdown.style.left = `${btnRect.left}px`;
+        dropdown.style.top = `${btnRect.bottom}px`;
+
+        dropdown.setAttribute('aria-hidden', 'false');
+
+        // Add click outside listener
+        setTimeout(() => {
+            document.addEventListener('click', handleClickOutsideDropdown);
+        }, 10);
+    }
+}
+
+// Close all dropdowns
+function closeAllDropdowns() {
+    document.querySelectorAll('.ml-dropdown').forEach(dd => {
+        dd.setAttribute('aria-hidden', 'true');
+    });
+    document.removeEventListener('click', handleClickOutsideDropdown);
+
+    // Reset button states
+    document.querySelectorAll('.ml-cat-btn').forEach(b => {
+        b.setAttribute('aria-expanded', 'false');
+    });
+}
+
+// Handle ESC key
+function handleEscKey(e) {
+    if (e.key === 'Escape') {
+        closeMegaMenu();
+        closeAllDropdowns();
+    }
+}
+
+// Handle click outside dropdown
+function handleClickOutsideDropdown(e) {
+    if (!e.target.closest('.ml-dropdown') && !e.target.closest('.ml-cat-btn')) {
+        closeAllDropdowns();
+    }
+}
+
+// Navigate and close menus
+function navigateAndClose(url) {
+    closeMegaMenu();
+    closeAllDropdowns();
+    Router.navigate(url);
+}
+
+// Setup overlay click handler
+document.addEventListener('DOMContentLoaded', function () {
+    const overlay = document.getElementById('ml-mega-overlay');
+    if (overlay) {
+        overlay.addEventListener('click', closeMegaMenu);
+    }
+});
 
 // updateCompareUI is defined earlier - no need to redefine

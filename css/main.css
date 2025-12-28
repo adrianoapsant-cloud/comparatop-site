@@ -235,6 +235,201 @@ body {
     }
 }
 
+/* ========== MEGA-MENU & DROPDOWNS ========== */
+.ml-mega-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0s 0.2s;
+    backdrop-filter: blur(2px);
+}
+
+.ml-mega-overlay[aria-hidden="false"] {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.2s;
+}
+
+.ml-mega-menu {
+    position: fixed;
+    top: 110px;
+    /* Below header + categories */
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    width: 90%;
+    max-width: 900px;
+    max-height: calc(100vh - 150px);
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    z-index: 1060;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s ease;
+    overflow-y: auto;
+}
+
+.ml-mega-menu[aria-hidden="false"] {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.ml-mega-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--c-border);
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1;
+}
+
+.ml-mega-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--c-primary-dark);
+}
+
+.ml-mega-close {
+    background: none;
+    border: none;
+    font-size: 1.75rem;
+    cursor: pointer;
+    color: var(--c-muted);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s;
+}
+
+.ml-mega-close:hover {
+    background: var(--c-bg);
+    color: var(--c-text);
+}
+
+.ml-mega-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.ml-mega-col h3 {
+    font-size: 0.95rem;
+    color: var(--c-primary-dark);
+    margin: 0 0 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--c-primary);
+}
+
+.ml-mega-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    text-decoration: none;
+    color: var(--c-text);
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.ml-mega-link:hover {
+    color: var(--c-primary);
+}
+
+.ml-mega-link.disabled {
+    color: var(--c-muted);
+    cursor: default;
+}
+
+.ml-mega-link.disabled:hover {
+    color: var(--c-muted);
+}
+
+.ml-mega-link span {
+    font-size: 0.75rem;
+    color: var(--c-muted);
+}
+
+.ml-mega-count {
+    background: var(--c-primary);
+    color: white !important;
+    padding: 0.125rem 0.5rem;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+/* Dropdowns */
+.ml-dropdown {
+    position: absolute;
+    top: 100%;
+    background: white;
+    border-radius: 0 0 var(--radius) var(--radius);
+    box-shadow: var(--shadow-lg);
+    z-index: 1055;
+    min-width: 200px;
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+}
+
+.ml-dropdown[aria-hidden="false"] {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.ml-dropdown-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem 1rem;
+    text-decoration: none;
+    color: var(--c-text);
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.ml-dropdown-link:hover {
+    background: var(--c-bg);
+    color: var(--c-primary);
+}
+
+.ml-dropdown-link.disabled {
+    color: var(--c-muted);
+    cursor: default;
+}
+
+.ml-dropdown-link.disabled:hover {
+    background: transparent;
+    color: var(--c-muted);
+}
+
+.ml-dropdown-link span {
+    font-size: 0.75rem;
+    color: var(--c-muted);
+}
+
+.ml-dropdown-count {
+    background: var(--c-primary);
+    color: white !important;
+    padding: 0.125rem 0.5rem;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+/* Body scroll lock when menu open */
+body.menu-open {
+    overflow: hidden;
+}
+
 /* Layout Principal */
 .app-layout {
     display: flex;

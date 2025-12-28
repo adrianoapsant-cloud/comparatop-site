@@ -110,14 +110,12 @@
                 ⚡ ComparaTop
             </a>
             <div class="ml-search-wrapper">
-                <input type="text" 
-                       class="ml-search-input" 
-                       id="ml-search-input" 
-                       placeholder="Buscar no ComparaTop"
-                       autocomplete="off">
+                <input type="text" class="ml-search-input" id="ml-search-input" placeholder="Buscar no ComparaTop"
+                    autocomplete="off">
                 <button class="ml-search-btn" type="button" id="ml-search-btn">
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        <path
+                            d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
                     </svg>
                 </button>
                 <div class="ml-search-results" id="ml-search-results"></div>
@@ -153,6 +151,81 @@
             <span class="ml-cat-arrow">▼</span>
         </button>
     </nav>
+
+    <!-- Mega-Menu Overlay -->
+    <div class="ml-mega-overlay" id="ml-mega-overlay" aria-hidden="true"></div>
+
+    <!-- Mega-Menu "Tudo" -->
+    <div class="ml-mega-menu" id="ml-mega-all" aria-hidden="true">
+        <div class="ml-mega-header">
+            <h2>📂 Todas as Categorias</h2>
+            <button class="ml-mega-close" onclick="closeMegaMenu()">&times;</button>
+        </div>
+        <div class="ml-mega-grid">
+            <div class="ml-mega-col">
+                <h3>🌬️ Climatização</h3>
+                <a href="#" class="ml-mega-link disabled">Aquecedores <span>em breve</span></a>
+                <a href="#" class="ml-mega-link disabled">Ar-condicionado <span>em breve</span></a>
+                <a href="#" class="ml-mega-link disabled">Ventiladores <span>em breve</span></a>
+            </div>
+            <div class="ml-mega-col">
+                <h3>🔥 Cocção</h3>
+                <a href="#" class="ml-mega-link disabled">Coifas <span>em breve</span></a>
+                <a href="#" class="ml-mega-link disabled">Cooktops <span>em breve</span></a>
+                <a href="#" class="ml-mega-link disabled">Fogões <span>em breve</span></a>
+                <a href="#" class="ml-mega-link disabled">Fornos <span>em breve</span></a>
+                <a href="#" class="ml-mega-link disabled">Micro-ondas <span>em breve</span></a>
+            </div>
+            <div class="ml-mega-col">
+                <h3>🧺 Lavanderia</h3>
+                <a href="#" class="ml-mega-link disabled">Lava e Seca <span>em breve</span></a>
+                <a href="#" class="ml-mega-link disabled">Lava-louças <span>em breve</span></a>
+                <a href="#" class="ml-mega-link disabled">Lavadoras <span>em breve</span></a>
+                <a href="#" class="ml-mega-link disabled">Secadoras <span>em breve</span></a>
+            </div>
+            <div class="ml-mega-col">
+                <h3>❄️ Refrigeração</h3>
+                <a href="/geladeiras/" class="ml-mega-link" onclick="navigateAndClose('/geladeiras/'); return false;">
+                    Geladeiras <span class="ml-mega-count">4</span>
+                </a>
+                <a href="#" class="ml-mega-link disabled">Freezers <span>em breve</span></a>
+                <a href="#" class="ml-mega-link disabled">Frigobares <span>em breve</span></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dropdown: Climatização -->
+    <div class="ml-dropdown" id="ml-dropdown-climatizacao" aria-hidden="true">
+        <a href="#" class="ml-dropdown-link disabled">Aquecedores <span>em breve</span></a>
+        <a href="#" class="ml-dropdown-link disabled">Ar-condicionado <span>em breve</span></a>
+        <a href="#" class="ml-dropdown-link disabled">Ventiladores <span>em breve</span></a>
+    </div>
+
+    <!-- Dropdown: Cocção -->
+    <div class="ml-dropdown" id="ml-dropdown-coccao" aria-hidden="true">
+        <a href="#" class="ml-dropdown-link disabled">Coifas <span>em breve</span></a>
+        <a href="#" class="ml-dropdown-link disabled">Cooktops <span>em breve</span></a>
+        <a href="#" class="ml-dropdown-link disabled">Fogões <span>em breve</span></a>
+        <a href="#" class="ml-dropdown-link disabled">Fornos <span>em breve</span></a>
+        <a href="#" class="ml-dropdown-link disabled">Micro-ondas <span>em breve</span></a>
+    </div>
+
+    <!-- Dropdown: Lavanderia -->
+    <div class="ml-dropdown" id="ml-dropdown-lavanderia" aria-hidden="true">
+        <a href="#" class="ml-dropdown-link disabled">Lava e Seca <span>em breve</span></a>
+        <a href="#" class="ml-dropdown-link disabled">Lava-louças <span>em breve</span></a>
+        <a href="#" class="ml-dropdown-link disabled">Lavadoras <span>em breve</span></a>
+        <a href="#" class="ml-dropdown-link disabled">Secadoras <span>em breve</span></a>
+    </div>
+
+    <!-- Dropdown: Refrigeração -->
+    <div class="ml-dropdown" id="ml-dropdown-refrigeracao" aria-hidden="true">
+        <a href="/geladeiras/" class="ml-dropdown-link" onclick="navigateAndClose('/geladeiras/'); return false;">
+            Geladeiras <span class="ml-dropdown-count">4</span>
+        </a>
+        <a href="#" class="ml-dropdown-link disabled">Freezers <span>em breve</span></a>
+        <a href="#" class="ml-dropdown-link disabled">Frigobares <span>em breve</span></a>
+    </div>
 
     <div class="app-layout">
         <!-- Sidebar -->
