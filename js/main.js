@@ -2732,11 +2732,12 @@ function handleClickOutsideDropdown(e) {
     }
 }
 
-// Navigate and close menus
+// Navigate and close menus - uses hard navigation to load SSG pages
 function navigateAndClose(url) {
     closeMegaMenu();
     closeAllDropdowns();
-    Router.navigate(url);
+    // Use hard navigation to ensure SSG page is loaded (not SPA template)
+    window.location.href = url;
 }
 
 // Setup overlay click handler
