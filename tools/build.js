@@ -638,70 +638,62 @@ function generateCategoryPages(template, catalogs) {
     }
 }
 
-// Generate comparison pages (LIMITED to top 50 for SEO scalability)
-// Note: Interactive JS comparison works for ALL products - this limit is only for static SEO pages
-const MAX_COMPARISON_PAGES = 200;
-
+// Generate comparison pages - FULL CATEGORY COVERAGE
+// Strategy: Generate ALL intra-category comparisons (no cross-category comparisons)
+// With 25 categories × 20 products each = 190 comparisons/category × 25 = 4,750 pages total (very manageable)
 function generateComparisonPages(template, catalogs) {
-    for (const [slug, catalog] of Object.entries(catalogs)) {
+    let totalGenerated = 0;
+
+    for (const [categorySlug, catalog] of Object.entries(catalogs)) {
         const category = catalog.category;
         const products = Object.entries(catalog.products || {});
 
-        // Sort products by editorial score (highest first) for prioritization
-        const sortedProducts = [...products].sort((a, b) => {
-            const scoreA = a[1].editorialScores?.overall || 0;
-            const scoreB = b[1].editorialScores?.overall || 0;
-            return scoreB - scoreA;
-        });
+        // Calculate expected comparisons: n*(n-1)/2
+        const expectedComparisons = (products.length * (products.length - 1)) / 2;
+        console.log(`\n[${category.name}] Generating ${expectedComparisons} comparison pages (${products.length} products)`);
 
-        // Generate comparison pairs, prioritizing top-rated products
-        const comparisonPairs = [];
-        for (let i = 0; i < sortedProducts.length; i++) {
-            for (let j = i + 1; j < sortedProducts.length; j++) {
-                const [idA, productA] = sortedProducts[i];
-                const [idB, productB] = sortedProducts[j];
+        // Generate ALL pairwise comparisons within this category
+        for (let i = 0; i < products.length; i++) {
+            for (let j = i + 1; j < products.length; j++) {
+                const [idA, productA] = products[i];
+                const [idB, productB] = products[j];
 
-                // Calculate pair priority (sum of both scores)
-                const priority = (productA.editorialScores?.overall || 0) +
-                    (productB.editorialScores?.overall || 0);
+                // CANONICALIZATION: Sort slugs alphabetically to avoid duplicates (A-vs-B = B-vs-A)
+                const [slugFirst, slugSecond] = [idA, idB].sort();
+                const [productFirst, productSecond] = slugFirst === idA
+                    ? [productA, productB]
+                    : [productB, productA];
 
-                comparisonPairs.push({
-                    idA, productA, idB, productB, priority
+                // URL structure: /comparar/{category}/{slugA}-vs-{slugB}/
+                const comparisonSlug = `${slugFirst}-vs-${slugSecond}`;
+                const urlPath = `comparar/${categorySlug}/${comparisonSlug}`;
+
+                console.log(`  Generating: /${urlPath}/index.html`);
+
+                const meta = generateMetaTags({
+                    title: `${productFirst.model} vs ${productSecond.model} - Qual escolher? | ComparaTop`,
+                    description: `Comparativo completo entre ${productFirst.name} e ${productSecond.name}. Veja diferenças de preço, capacidade, consumo e avaliações.`,
+                    url: `${CONFIG.baseUrl}/${urlPath}/`,
+                    type: 'article'
                 });
+
+                const jsonLd = generateComparisonJsonLd(productFirst, productSecond, categorySlug);
+                const bodyContent = generateComparisonContent(productFirst, productSecond, category);
+
+                let html = template;
+                html = html.replace(/<title>.*?<\/title>[\s\S]*?(<link href="https:\/\/fonts\.googleapis)/, meta + '\n    $1');
+                html = html.replace('</head>', jsonLd + '\n</head>');
+                html = html.replace(/<body>/, '<body>\n' + bodyContent);
+
+                const destPath = path.join(CONFIG.distDir, urlPath, 'index.html');
+                ensureDir(path.dirname(destPath));
+                fs.writeFileSync(destPath, html);
+                totalGenerated++;
             }
         }
-
-        // Sort pairs by priority and limit to MAX_COMPARISON_PAGES
-        comparisonPairs.sort((a, b) => b.priority - a.priority);
-        const limitedPairs = comparisonPairs.slice(0, MAX_COMPARISON_PAGES);
-
-        console.log(`Generating ${limitedPairs.length} comparison pages (max ${MAX_COMPARISON_PAGES}, total possible: ${comparisonPairs.length})`);
-
-        for (const pair of limitedPairs) {
-            const { idA, productA, idB, productB } = pair;
-            const comparisonSlug = `${idA}-vs-${idB}`;
-            console.log(`Generating: /comparar/${comparisonSlug}/index.html`);
-
-            const meta = generateMetaTags({
-                title: `${productA.model} vs ${productB.model} - Qual escolher? | ComparaTop`,
-                description: `Comparativo completo entre ${productA.name} e ${productB.name}. Veja diferenças de preço, capacidade, consumo e avaliações.`,
-                url: `${CONFIG.baseUrl}/comparar/${comparisonSlug}`,
-                type: 'article'
-            });
-
-            const jsonLd = generateComparisonJsonLd(productA, productB, slug);
-            const bodyContent = generateComparisonContent(productA, productB, category);
-
-            let html = template;
-            html = html.replace(/<title>.*?<\/title>[\s\S]*?(<link href="https:\/\/fonts\.googleapis)/, meta + '\n    $1');
-            html = html.replace('</head>', jsonLd + '\n</head>');
-            html = html.replace(/<body>/, '<body>\n' + bodyContent);
-
-            const destPath = path.join(CONFIG.distDir, 'comparar', comparisonSlug, 'index.html');
-            ensureDir(path.dirname(destPath));
-            fs.writeFileSync(destPath, html);
-        }
     }
+
+    console.log(`\n✅ Total comparison pages generated: ${totalGenerated}`);
 }
 
 // Generate sitemap
@@ -713,9 +705,9 @@ function generateSitemap(catalogs) {
         { loc: CONFIG.baseUrl + '/', priority: '1.0', changefreq: 'weekly' }
     ];
 
-    for (const [slug, catalog] of Object.entries(catalogs)) {
+    for (const [categorySlug, catalog] of Object.entries(catalogs)) {
         // Category - use canonicalPath if available, otherwise fallback
-        const canonicalPath = catalog.category?.canonicalPath || `/${slug}s/`;
+        const canonicalPath = catalog.category?.canonicalPath || `/${categorySlug}s/`;
         urls.push({
             loc: `${CONFIG.baseUrl}${canonicalPath}`,
             priority: '0.9',
@@ -727,19 +719,21 @@ function generateSitemap(catalogs) {
         // Products
         for (const [productId, product] of products) {
             urls.push({
-                loc: `${CONFIG.baseUrl}/produto/${slug}/${productId}/`,
+                loc: `${CONFIG.baseUrl}/produto/${categorySlug}/${productId}/`,
                 priority: '0.8',
                 changefreq: 'weekly'
             });
         }
 
-        // Comparisons
+        // Comparisons - with category in URL and alphabetical canonicalization
         for (let i = 0; i < products.length; i++) {
             for (let j = i + 1; j < products.length; j++) {
                 const [idA] = products[i];
                 const [idB] = products[j];
+                // Canonicalization: sort slugs alphabetically
+                const [slugFirst, slugSecond] = [idA, idB].sort();
                 urls.push({
-                    loc: `${CONFIG.baseUrl}/comparar/${idA}-vs-${idB}/`,
+                    loc: `${CONFIG.baseUrl}/comparar/${categorySlug}/${slugFirst}-vs-${slugSecond}/`,
                     priority: '0.7',
                     changefreq: 'monthly'
                 });
