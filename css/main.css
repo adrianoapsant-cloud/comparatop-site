@@ -706,7 +706,13 @@ body.menu-open {
 /* Desktop: sidebar completely hidden, main-content full width */
 @media (min-width: 1025px) {
     .sidebar {
-        display: none;
+        display: none !important;
+        visibility: hidden !important;
+        transform: translateX(-100%) !important;
+    }
+
+    .sidebar-overlay {
+        display: none !important;
     }
 
     .main-content {
@@ -722,7 +728,7 @@ body.menu-open {
 
     /* Hide old header elements on desktop */
     .header {
-        display: none;
+        display: none !important;
     }
 }
 
