@@ -500,6 +500,20 @@
         "compacta",
         "branca",
         "classe-a"
+      ],
+      "keywords": [
+        "Brastemp BRM44HB",
+        "BRM44HB",
+        "BRM 44 HB",
+        "BRM44",
+        "Brastemp 375 litros",
+        "Brastemp 375L",
+        "geladeira brastemp duplex",
+        "geladeira brastemp frost free",
+        "brastemp branca 375",
+        "refrigerador brastemp",
+        "geladeira brm44",
+        "brastemp classe A"
       ]
     },
     "tf55": {
@@ -834,6 +848,19 @@
         "branca",
         "painel-digital",
         "blue-touch"
+      ],
+      "keywords": [
+        "Electrolux TF55",
+        "TF55",
+        "TF 55",
+        "Electrolux 431 litros",
+        "Electrolux 431L",
+        "geladeira electrolux top freezer",
+        "geladeira electrolux frost free",
+        "electrolux blue touch",
+        "refrigerador electrolux",
+        "geladeira tf55",
+        "electrolux turbo freezer"
       ]
     },
     "brastemp-bre57ak": {
@@ -860,7 +887,19 @@
         }
       ],
       "lastUpdated": "2025-12-26T12:39:59.135Z",
-      "status": "active"
+      "status": "active",
+      "keywords": [
+        "Brastemp BRE57AK",
+        "BRE57AK",
+        "BRE 57 AK",
+        "Brastemp Inverse 443 litros",
+        "Brastemp 443L",
+        "geladeira brastemp inverse",
+        "geladeira brastemp inox",
+        "brastemp inverse frost free",
+        "refrigerador brastemp inverse",
+        "geladeira bre57"
+      ]
     },
     "samsung-rt46": {
       "id": "samsung-rt46",
@@ -886,7 +925,20 @@
         }
       ],
       "lastUpdated": "2025-12-26T12:39:59.135Z",
-      "status": "active"
+      "status": "active",
+      "keywords": [
+        "Samsung RT46",
+        "RT46",
+        "RT 46",
+        "Samsung Evolution 460 litros",
+        "Samsung 460L",
+        "geladeira samsung inverter",
+        "samsung powervolt",
+        "geladeira samsung duplex",
+        "refrigerador samsung evolution",
+        "geladeira rt46",
+        "samsung evolution rt46"
+      ]
     }
   }
 }

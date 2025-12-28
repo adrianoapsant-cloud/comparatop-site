@@ -134,6 +134,11 @@ function generateProductJsonLd(product, categorySlug, category) {
         "sku": product.id
     };
 
+    // alternateName - variações de nome para SEO (keywords)
+    if (product.keywords && product.keywords.length > 0) {
+        schema.alternateName = product.keywords;
+    }
+
     // Description - só se existir VoC ou specs
     if (product.voc?.thirtySecondSummary) {
         schema.description = product.voc.thirtySecondSummary;
