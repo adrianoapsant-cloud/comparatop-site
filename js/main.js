@@ -791,7 +791,18 @@ function goToProduct(category, productId) {
 }
 
 // ==================== N-WAY COMPARISON ====================
+// Load compareList from localStorage if available
 let compareList = [];
+try {
+    const savedCompareList = localStorage.getItem('compareList');
+    if (savedCompareList) {
+        compareList = JSON.parse(savedCompareList);
+        console.log('Loaded compareList from localStorage:', compareList.length, 'products');
+    }
+} catch (e) {
+    console.warn('Failed to load compareList from localStorage:', e);
+    compareList = [];
+}
 const MAX_COMPARE = 4;
 
 // toggleProductCompare is defined later in the file
