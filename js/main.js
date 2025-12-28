@@ -133,13 +133,16 @@ function showComparePrompt() {
         counter.style.display = 'none';
     }
 
-    // Render selected products
+    // Render selected products with remove button
     productsContainer.innerHTML = compareList.map(p => {
         const scoreText = p.editorialScores?.overall ? `${p.editorialScores.overall}/10` : '';
         return `
-                <div class="compare-prompt-product">
+                <div class="compare-prompt-product" style="display:flex;justify-content:space-between;align-items:center;">
                     <span>✓ ${p.brand} ${p.model}</span>
-                    <span style="color:#10b981;font-weight:600">${scoreText}</span>
+                    <div style="display:flex;align-items:center;gap:0.5rem;">
+                        <span style="color:#10b981;font-weight:600">${scoreText}</span>
+                        <button onclick="removeFromCompare('${p.id}')" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:1rem;padding:0.25rem;" title="Remover">✕</button>
+                    </div>
                 </div>
             `;
     }).join('');
@@ -182,6 +185,24 @@ function hideCompareToast() {
 // Close the compare prompt modal
 function closeComparePrompt() {
     hideCompareToast();
+}
+
+// Remove a product from compare list
+function removeFromCompare(productId) {
+    const index = compareList.findIndex(p => p.id === productId);
+    if (index > -1) {
+        compareList.splice(index, 1);
+        localStorage.setItem('compareList', JSON.stringify(compareList));
+
+        // Re-render the compare prompt
+        if (compareList.length > 0) {
+            showComparePrompt();
+        } else {
+            hideCompareToast();
+        }
+        updateCompareUI();
+        updateBottomBarBadge();
+    }
 }
 
 // Start comparison from the prompt
@@ -2290,6 +2311,44 @@ function toggleCarouselCompare(productId, model, brand, score) {
         const icon = checkbox.querySelector('.carousel-check-icon');
         if (icon) icon.textContent = isNowIn ? '✓' : '+';
     }
+
+    updateCompareUI();
+    showComparePrompt();
+    updateBottomBarBadge();
+}
+
+// Toggle product in compare list from category page cards
+function toggleCategoryCompare(productId, model, brand, score) {
+    const existingIndex = compareList.findIndex(p => p.id === productId);
+    const btn = event.target;
+
+    if (existingIndex > -1) {
+        // Remove from list
+        compareList.splice(existingIndex, 1);
+        if (btn) {
+            btn.textContent = '➕ Adicionar à comparação';
+            btn.classList.remove('added');
+        }
+    } else {
+        // Add to list
+        if (compareList.length >= 4) {
+            showToast('Máximo de 4 produtos na comparação');
+            return;
+        }
+        compareList.push({
+            id: productId,
+            model: model,
+            brand: brand,
+            editorialScores: { overall: score }
+        });
+        if (btn) {
+            btn.textContent = '✓ Na comparação';
+            btn.classList.add('added');
+        }
+    }
+
+    // Save to localStorage
+    localStorage.setItem('compareList', JSON.stringify(compareList));
 
     updateCompareUI();
     showComparePrompt();

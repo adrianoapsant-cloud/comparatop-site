@@ -623,7 +623,7 @@ function generateCategoryPages(template, catalogs) {
             type: 'website'
         });
 
-        // Generate visible product cards
+        // Generate visible product cards with compare button
         const productCardsHtml = products.map(p => {
             const score = p.editorialScores?.overall;
             const scoreHtml = score ? `<span class="ssg-product-score">${score.toFixed(1)}</span>` : '';
@@ -633,16 +633,21 @@ function generateCategoryPages(template, catalogs) {
             const priceHtml = lowestPrice ? `<span class="ssg-product-price">A partir de ${formatBRL(lowestPrice)}</span>` : '';
 
             return `
-                <a href="/produto/${slug}/${p.id}/" class="ssg-product-card">
-                    <div class="ssg-product-image">
-                        <img src="${resolveImageUrl(p.imageUrl)}" alt="${escapeHtml(p.name)}" loading="lazy">
-                    </div>
-                    <div class="ssg-product-info">
-                        <h3 class="ssg-product-name">${escapeHtml(p.brand)} ${escapeHtml(p.model)}</h3>
-                        ${scoreHtml}
-                        ${priceHtml}
-                    </div>
-                </a>`;
+                <div class="ssg-product-card">
+                    <a href="/produto/${slug}/${p.id}/" class="ssg-product-link">
+                        <div class="ssg-product-image">
+                            <img src="${resolveImageUrl(p.imageUrl)}" alt="${escapeHtml(p.name)}" loading="lazy">
+                        </div>
+                        <div class="ssg-product-info">
+                            <h3 class="ssg-product-name">${escapeHtml(p.brand)} ${escapeHtml(p.model)}</h3>
+                            ${scoreHtml}
+                            ${priceHtml}
+                        </div>
+                    </a>
+                    <button class="ssg-compare-btn" onclick="toggleCategoryCompare('${p.id}', '${escapeHtml(p.model)}', '${escapeHtml(p.brand)}', ${score || 0}); event.stopPropagation();">
+                        ➕ Adicionar à comparação
+                    </button>
+                </div>`;
         }).join('\n');
 
         // Main visible content
@@ -771,6 +776,36 @@ function generateCategoryPages(template, catalogs) {
                 font-weight: 600;
                 font-size: 0.95rem;
             }
+            .ssg-product-link {
+                text-decoration: none;
+                color: inherit;
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+            }
+            .ssg-compare-btn {
+                width: 100%;
+                padding: 0.5rem;
+                margin-top: 0.75rem;
+                background: #f1f5f9;
+                color: #1e40af;
+                border: 1px solid #cbd5e1;
+                border-radius: 8px;
+                font-size: 0.85rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+            .ssg-compare-btn:hover {
+                background: #1e40af;
+                color: white;
+                border-color: #1e40af;
+            }
+            .ssg-compare-btn.added {
+                background: #10b981;
+                color: white;
+                border-color: #10b981;
+            }
             @media (max-width: 600px) {
                 .ssg-products-grid {
                     grid-template-columns: repeat(2, 1fr);
@@ -781,6 +816,10 @@ function generateCategoryPages(template, catalogs) {
                 }
                 .ssg-product-name {
                     font-size: 0.9rem;
+                }
+                .ssg-compare-btn {
+                    font-size: 0.75rem;
+                    padding: 0.4rem;
                 }
             }
         </style>
