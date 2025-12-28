@@ -2745,6 +2745,85 @@ document.addEventListener('DOMContentLoaded', function () {
     if (overlay) {
         overlay.addEventListener('click', closeMegaMenu);
     }
+
+    // Update bottom bar badge
+    updateBottomBarBadge();
 });
+
+// ========== MOBILE BOTTOM BAR FUNCTIONS ==========
+
+// Open Mobile Categories Sheet
+function openMobileCategories() {
+    openBottomSheet('categories');
+}
+
+// Open Mobile More Sheet
+function openMobileMore() {
+    openBottomSheet('more');
+}
+
+// Open Compare Modal (uses existing function)
+function openCompareModal() {
+    // Trigger the existing compare functionality
+    if (typeof showComparePrompt === 'function') {
+        showComparePrompt();
+    } else {
+        // Fallback: show comparison page if items exist
+        if (compareList && compareList.length >= 2) {
+            startComparisonFromPrompt();
+        } else {
+            alert('Adicione pelo menos 2 produtos para comparar!');
+        }
+    }
+}
+
+// Open Bottom Sheet
+function openBottomSheet(sheetName) {
+    const sheet = document.getElementById(`ml-sheet-${sheetName}`);
+    if (sheet) {
+        sheet.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('menu-open');
+    }
+}
+
+// Close Bottom Sheet
+function closeBottomSheet(sheetName) {
+    const sheet = document.getElementById(`ml-sheet-${sheetName}`);
+    if (sheet) {
+        sheet.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('menu-open');
+    }
+}
+
+// Navigate from Sheet (close sheet and navigate)
+function navigateFromSheet(url) {
+    // Close all sheets
+    document.querySelectorAll('.ml-bottom-sheet').forEach(sheet => {
+        sheet.setAttribute('aria-hidden', 'true');
+    });
+    document.body.classList.remove('menu-open');
+
+    // Navigate
+    Router.navigate(url);
+}
+
+// Update Bottom Bar Compare Badge
+function updateBottomBarBadge() {
+    const badge = document.getElementById('bottom-compare-badge');
+    if (badge && typeof compareList !== 'undefined') {
+        const count = compareList.length;
+        badge.textContent = count;
+        badge.style.display = count > 0 ? 'flex' : 'none';
+    }
+}
+
+// Hook into existing updateCompareUI to also update bottom bar
+const originalUpdateCompareUI = typeof updateCompareUI === 'function' ? updateCompareUI : null;
+if (originalUpdateCompareUI) {
+    window.updateCompareUI = function () {
+        originalUpdateCompareUI();
+        updateBottomBarBadge();
+    };
+}
 
 // updateCompareUI is defined earlier - no need to redefine

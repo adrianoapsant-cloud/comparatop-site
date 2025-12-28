@@ -995,7 +995,100 @@
     <!-- Share Toast -->
     <div class="share-toast" id="share-toast">✓ Link copiado para a área de transferência!</div>
 
+    <!-- Mobile Bottom Bar -->
+    <nav class="ml-bottom-bar" id="ml-bottom-bar">
+        <a href="/" class="ml-bottom-item" id="bottom-home" onclick="Router.navigate('/'); return false;">
+            <span class="ml-bottom-icon">🏠</span>
+            <span class="ml-bottom-label">Início</span>
+        </a>
+        <button class="ml-bottom-item" id="bottom-categories" onclick="openMobileCategories()">
+            <span class="ml-bottom-icon">📂</span>
+            <span class="ml-bottom-label">Categorias</span>
+        </button>
+        <button class="ml-bottom-item" id="bottom-compare" onclick="openCompareModal()">
+            <span class="ml-bottom-icon">⚖️</span>
+            <span class="ml-bottom-label">Comparar</span>
+            <span class="ml-bottom-badge" id="bottom-compare-badge">0</span>
+        </button>
+        <button class="ml-bottom-item" id="bottom-more" onclick="openMobileMore()">
+            <span class="ml-bottom-icon">☰</span>
+            <span class="ml-bottom-label">Mais</span>
+        </button>
+    </nav>
 
+    <!-- Mobile Bottom Sheet: Categories -->
+    <div class="ml-bottom-sheet" id="ml-sheet-categories" aria-hidden="true">
+        <div class="ml-sheet-overlay" onclick="closeBottomSheet('categories')"></div>
+        <div class="ml-sheet-content">
+            <div class="ml-sheet-handle"></div>
+            <div class="ml-sheet-header">
+                <h3>📂 Categorias</h3>
+                <button class="ml-sheet-close" onclick="closeBottomSheet('categories')">&times;</button>
+            </div>
+            <div class="ml-sheet-body">
+                <a href="/" class="ml-sheet-link" onclick="navigateFromSheet('/'); return false;">
+                    <span>🏠</span> Início
+                </a>
+                <div class="ml-sheet-divider"></div>
+                <div class="ml-sheet-category">
+                    <span class="ml-sheet-cat-icon">❄️</span>
+                    <span class="ml-sheet-cat-name">Refrigeração</span>
+                </div>
+                <a href="/geladeiras/" class="ml-sheet-link sub"
+                    onclick="navigateFromSheet('/geladeiras/'); return false;">
+                    Geladeiras <span class="ml-sheet-count">4</span>
+                </a>
+                <a href="#" class="ml-sheet-link sub disabled">Freezers <span>em breve</span></a>
+                <a href="#" class="ml-sheet-link sub disabled">Frigobares <span>em breve</span></a>
+                <div class="ml-sheet-divider"></div>
+                <div class="ml-sheet-category">
+                    <span class="ml-sheet-cat-icon">🌬️</span>
+                    <span class="ml-sheet-cat-name">Climatização</span>
+                    <span class="ml-sheet-soon">em breve</span>
+                </div>
+                <div class="ml-sheet-category">
+                    <span class="ml-sheet-cat-icon">🔥</span>
+                    <span class="ml-sheet-cat-name">Cocção</span>
+                    <span class="ml-sheet-soon">em breve</span>
+                </div>
+                <div class="ml-sheet-category">
+                    <span class="ml-sheet-cat-icon">🧺</span>
+                    <span class="ml-sheet-cat-name">Lavanderia</span>
+                    <span class="ml-sheet-soon">em breve</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Sheet: More -->
+    <div class="ml-bottom-sheet" id="ml-sheet-more" aria-hidden="true">
+        <div class="ml-sheet-overlay" onclick="closeBottomSheet('more')"></div>
+        <div class="ml-sheet-content">
+            <div class="ml-sheet-handle"></div>
+            <div class="ml-sheet-header">
+                <h3>☰ Menu</h3>
+                <button class="ml-sheet-close" onclick="closeBottomSheet('more')">&times;</button>
+            </div>
+            <div class="ml-sheet-body">
+                <a href="/" class="ml-sheet-link" onclick="navigateFromSheet('/'); return false;">
+                    <span>🏠</span> Início
+                </a>
+                <a href="/metodologia/" class="ml-sheet-link"
+                    onclick="navigateFromSheet('/metodologia/'); return false;">
+                    <span>📊</span> Nossa Metodologia
+                </a>
+                <div class="ml-sheet-divider"></div>
+                <div class="ml-sheet-social">
+                    <span>Siga-nos:</span>
+                    <div class="ml-sheet-social-icons">
+                        <a href="#" title="WhatsApp">📱</a>
+                        <a href="#" title="Instagram">📷</a>
+                        <a href="#" title="Facebook">👤</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="/js/utils.js" defer></script>
     <script src="/js/router.js" defer></script>
