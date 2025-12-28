@@ -260,12 +260,23 @@ function generateComparisonJsonLd(productA, productB, categorySlug) {
 }
 
 // Generate product page content (to inject in body)
-function generateProductContent(product, category) {
+function generateProductContent(product, category, otherProducts = [], categorySlug = '') {
     const specs = product.specs || {};
     const offers = product.offers || [];
     const bestOffer = offers.sort((a, b) => a.price - b.price)[0];
     const editorial = product.editorialScores || {};
     const overall = editorial.overall || 0;
+
+    // Generate comparison links for other products in the same category
+    const comparisonLinks = otherProducts
+        .filter(p => p.id !== product.id)
+        .map(other => {
+            // Canonicalization: sort slugs alphabetically
+            const [slugFirst, slugSecond] = [product.id, other.id].sort();
+            const comparisonUrl = `/comparar/${categorySlug}/${slugFirst}-vs-${slugSecond}/`;
+            return `<li><a href="${comparisonUrl}">${escapeHtml(product.model)} vs ${escapeHtml(other.model)}</a></li>`;
+        })
+        .join('');
 
     return `
     <!-- Pre-rendered content for SEO (bots will see this) -->
@@ -320,6 +331,15 @@ function generateProductContent(product, category) {
                             ${o.installments ? ` (ou ${o.installments})` : ''}
                         </li>
                     `).join('')}
+                </ul>
+            </section>
+            ` : ''}
+            
+            ${comparisonLinks ? `
+            <section class="compare-section">
+                <h2>🔄 Compare com outros modelos</h2>
+                <ul class="compare-links">
+                    ${comparisonLinks}
                 </ul>
             </section>
             ` : ''}
@@ -554,7 +574,10 @@ function generateProductPages(template, catalogs) {
             ]);
 
             const jsonLd = productJsonLd + '\n' + breadcrumbJsonLd;
-            const bodyContent = generateProductContent(product, category);
+
+            // Pass all products in the category for "Compare with" section
+            const allProductsInCategory = Object.values(products);
+            const bodyContent = generateProductContent(product, category, allProductsInCategory, slug);
 
             let html = template;
             html = html.replace(/<title>.*?<\/title>[\s\S]*?(<link href="https:\/\/fonts\.googleapis)/, meta + '\n    $1');
