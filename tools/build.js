@@ -813,7 +813,9 @@ function generateCategoryPages(template, catalogs) {
         let html = template;
         html = html.replace(/<title>.*?<\/title>[\s\S]*?(<link href="https:\/\/fonts\.googleapis)/, meta + '\n    $1');
         html = html.replace('</head>', jsonLd + '\n</head>');
-        html = html.replace(/<body>/, '<body>\n' + mainContent);
+        // Inject content inside main-content, after the closing </header>
+        html = html.replace(/<main class="main-content">([\s\S]*?)<\/header>/,
+            '<main class="main-content">$1</header>\n' + mainContent);
 
         // Write to canonical path (e.g., /geladeiras/index.html)
         const destPath = path.join(CONFIG.distDir, canonicalPath.substring(1), 'index.html');
