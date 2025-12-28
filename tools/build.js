@@ -640,7 +640,7 @@ function generateCategoryPages(template, catalogs) {
 
 // Generate comparison pages (LIMITED to top 50 for SEO scalability)
 // Note: Interactive JS comparison works for ALL products - this limit is only for static SEO pages
-const MAX_COMPARISON_PAGES = 50;
+const MAX_COMPARISON_PAGES = 200;
 
 function generateComparisonPages(template, catalogs) {
     for (const [slug, catalog] of Object.entries(catalogs)) {
