@@ -372,100 +372,125 @@ function generateProductContent(product, category, otherProducts = [], categoryS
         </article>
     </div>
     
-    ${comparisonLinks ? `
-    <!-- Compare Section - Visible to users -->
+    ${(() => {
+            // Limit to top 6 products by editorial score (excluding current product)
+            const MAX_COMPARE_ITEMS = 6;
+            const filteredProducts = otherProducts
+                .filter(p => p.id !== product.id)
+                .sort((a, b) => (b.editorialScores?.overall || 0) - (a.editorialScores?.overall || 0))
+                .slice(0, MAX_COMPARE_ITEMS);
+
+            const totalOthers = otherProducts.filter(p => p.id !== product.id).length;
+            const hasMore = totalOthers > MAX_COMPARE_ITEMS;
+
+            if (filteredProducts.length === 0) return '';
+
+            return `
+    <!-- Compare Section - At bottom of page, after all product info -->
     <section class="compare-section-visible" id="compare-with-others">
-        <h2>🔄 Compare com outros modelos</h2>
-        <div class="compare-cards">
-            ${otherProducts.filter(p => p.id !== product.id).map(other => {
-        const [slugFirst, slugSecond] = [product.id, other.id].sort();
-        const comparisonUrl = `/comparar/${categorySlug}/${slugFirst}-vs-${slugSecond}/`;
-        return `
-                <a href="${comparisonUrl}" class="compare-card">
-                    <span class="vs-badge">VS</span>
-                    <span class="compare-model">${escapeHtml(other.model)}</span>
-                    <span class="compare-brand">${escapeHtml(other.brand)}</span>
-                </a>`;
-    }).join('')}
+        <h2>🔄 Ainda indeciso? Compare com outros modelos</h2>
+        <p class="compare-subtitle">Veja como o ${escapeHtml(product.model)} se compara com outros modelos populares</p>
+        <div class="compare-grid">
+            ${filteredProducts.map(other => {
+                const [slugFirst, slugSecond] = [product.id, other.id].sort();
+                const comparisonUrl = `/comparar/${categorySlug}/${slugFirst}-vs-${slugSecond}/`;
+                const otherScore = other.editorialScores?.overall || '-';
+                return `
+            <a href="${comparisonUrl}" class="compare-item">
+                <span class="compare-item-model">${escapeHtml(other.model)}</span>
+                <span class="compare-item-brand">${escapeHtml(other.brand)}</span>
+                ${otherScore !== '-' ? `<span class="compare-item-score">${otherScore}/10</span>` : ''}
+                <span class="compare-item-cta">Comparar →</span>
+            </a>`;
+            }).join('')}
         </div>
+        ${hasMore ? `
+        <a href="/${categorySlug}s/" class="compare-see-all">Ver todos os ${totalOthers} modelos de ${category.name}</a>
+        ` : ''}
     </section>
-    ` : ''}
+    `;
+        })()}
     
     <style>
         .prerendered-seo-content { display: none; }
         
-        /* Compare Section - Visible styling */
+        /* Compare Section - Compact design for bottom of page */
         .compare-section-visible {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            max-width: 900px;
+            margin: 3rem auto 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
             border-radius: 16px;
+            border: 1px solid #bae6fd;
         }
         .compare-section-visible h2 {
             font-size: 1.25rem;
-            color: #1e3a8a;
-            margin-bottom: 1rem;
+            color: #0c4a6e;
+            margin: 0 0 0.5rem 0;
             text-align: center;
         }
-        .compare-cards {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
+        .compare-subtitle {
+            font-size: 0.9rem;
+            color: #64748b;
+            text-align: center;
+            margin: 0 0 1.5rem 0;
         }
-        .compare-card {
+        .compare-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.75rem;
+        }
+        .compare-item {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            padding: 1rem 1.5rem;
+            padding: 0.875rem;
             background: white;
-            border-radius: 12px;
+            border-radius: 10px;
             text-decoration: none;
             color: #1e293b;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: all 0.2s ease;
-            min-width: 140px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.15s ease;
         }
-        .compare-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(30,64,175,0.15);
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            color: white;
+        .compare-item:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(59,130,246,0.15);
+            transform: translateY(-2px);
         }
-        .compare-card:hover .compare-brand {
-            color: rgba(255,255,255,0.8);
-        }
-        .vs-badge {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: white;
-            background: #1e40af;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            margin-bottom: 0.5rem;
-        }
-        .compare-card:hover .vs-badge {
-            background: white;
+        .compare-item-model {
+            font-size: 0.95rem;
+            font-weight: 600;
             color: #1e40af;
         }
-        .compare-model {
-            font-size: 1rem;
-            font-weight: 600;
-        }
-        .compare-brand {
-            font-size: 0.85rem;
+        .compare-item-brand {
+            font-size: 0.8rem;
             color: #64748b;
         }
-        @media (max-width: 640px) {
-            .compare-cards {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .compare-card {
-                flex-direction: row;
-                justify-content: flex-start;
-                gap: 1rem;
+        .compare-item-score {
+            font-size: 0.75rem;
+            color: #059669;
+            font-weight: 500;
+            margin-top: 0.25rem;
+        }
+        .compare-item-cta {
+            font-size: 0.75rem;
+            color: #3b82f6;
+            margin-top: auto;
+            padding-top: 0.5rem;
+        }
+        .compare-see-all {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #1e40af;
+            text-decoration: none;
+        }
+        .compare-see-all:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 480px) {
+            .compare-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
