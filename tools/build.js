@@ -638,40 +638,68 @@ function generateCategoryPages(template, catalogs) {
     }
 }
 
-// Generate comparison pages
+// Generate comparison pages (LIMITED to top 50 for SEO scalability)
+// Note: Interactive JS comparison works for ALL products - this limit is only for static SEO pages
+const MAX_COMPARISON_PAGES = 50;
+
 function generateComparisonPages(template, catalogs) {
     for (const [slug, catalog] of Object.entries(catalogs)) {
         const category = catalog.category;
         const products = Object.entries(catalog.products || {});
 
-        // Generate all pairwise comparisons
-        for (let i = 0; i < products.length; i++) {
-            for (let j = i + 1; j < products.length; j++) {
-                const [idA, productA] = products[i];
-                const [idB, productB] = products[j];
+        // Sort products by editorial score (highest first) for prioritization
+        const sortedProducts = [...products].sort((a, b) => {
+            const scoreA = a[1].editorialScores?.overall || 0;
+            const scoreB = b[1].editorialScores?.overall || 0;
+            return scoreB - scoreA;
+        });
 
-                const comparisonSlug = `${idA}-vs-${idB}`;
-                console.log(`Generating: /comparar/${comparisonSlug}/index.html`);
+        // Generate comparison pairs, prioritizing top-rated products
+        const comparisonPairs = [];
+        for (let i = 0; i < sortedProducts.length; i++) {
+            for (let j = i + 1; j < sortedProducts.length; j++) {
+                const [idA, productA] = sortedProducts[i];
+                const [idB, productB] = sortedProducts[j];
 
-                const meta = generateMetaTags({
-                    title: `${productA.model} vs ${productB.model} - Qual escolher? | ComparaTop`,
-                    description: `Comparativo completo entre ${productA.name} e ${productB.name}. Veja diferenças de preço, capacidade, consumo e avaliações.`,
-                    url: `${CONFIG.baseUrl}/comparar/${comparisonSlug}`,
-                    type: 'article'
+                // Calculate pair priority (sum of both scores)
+                const priority = (productA.editorialScores?.overall || 0) +
+                    (productB.editorialScores?.overall || 0);
+
+                comparisonPairs.push({
+                    idA, productA, idB, productB, priority
                 });
-
-                const jsonLd = generateComparisonJsonLd(productA, productB, slug);
-                const bodyContent = generateComparisonContent(productA, productB, category);
-
-                let html = template;
-                html = html.replace(/<title>.*?<\/title>[\s\S]*?(<link href="https:\/\/fonts\.googleapis)/, meta + '\n    $1');
-                html = html.replace('</head>', jsonLd + '\n</head>');
-                html = html.replace(/<body>/, '<body>\n' + bodyContent);
-
-                const destPath = path.join(CONFIG.distDir, 'comparar', comparisonSlug, 'index.html');
-                ensureDir(path.dirname(destPath));
-                fs.writeFileSync(destPath, html);
             }
+        }
+
+        // Sort pairs by priority and limit to MAX_COMPARISON_PAGES
+        comparisonPairs.sort((a, b) => b.priority - a.priority);
+        const limitedPairs = comparisonPairs.slice(0, MAX_COMPARISON_PAGES);
+
+        console.log(`Generating ${limitedPairs.length} comparison pages (max ${MAX_COMPARISON_PAGES}, total possible: ${comparisonPairs.length})`);
+
+        for (const pair of limitedPairs) {
+            const { idA, productA, idB, productB } = pair;
+            const comparisonSlug = `${idA}-vs-${idB}`;
+            console.log(`Generating: /comparar/${comparisonSlug}/index.html`);
+
+            const meta = generateMetaTags({
+                title: `${productA.model} vs ${productB.model} - Qual escolher? | ComparaTop`,
+                description: `Comparativo completo entre ${productA.name} e ${productB.name}. Veja diferenças de preço, capacidade, consumo e avaliações.`,
+                url: `${CONFIG.baseUrl}/comparar/${comparisonSlug}`,
+                type: 'article'
+            });
+
+            const jsonLd = generateComparisonJsonLd(productA, productB, slug);
+            const bodyContent = generateComparisonContent(productA, productB, category);
+
+            let html = template;
+            html = html.replace(/<title>.*?<\/title>[\s\S]*?(<link href="https:\/\/fonts\.googleapis)/, meta + '\n    $1');
+            html = html.replace('</head>', jsonLd + '\n</head>');
+            html = html.replace(/<body>/, '<body>\n' + bodyContent);
+
+            const destPath = path.join(CONFIG.distDir, 'comparar', comparisonSlug, 'index.html');
+            ensureDir(path.dirname(destPath));
+            fs.writeFileSync(destPath, html);
         }
     }
 }
