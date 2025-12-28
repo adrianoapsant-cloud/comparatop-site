@@ -810,7 +810,7 @@ function generate404Page(template) {
 function copyStaticAssets() {
     console.log('Copying static assets...');
 
-    const assetDirs = ['js', 'data', 'assets'];
+    const assetDirs = ['css', 'js', 'data', 'assets'];
     const assetFiles = ['robots.txt', 'llms.txt', 'politica-privacidade.html', 'termos-uso.html'];
 
     // Copy from source (root/public for static files)
