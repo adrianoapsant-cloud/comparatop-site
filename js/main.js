@@ -1729,14 +1729,22 @@ function displayProduct(productId) {
                 const url = `/comparar/${catSlug}/${slugFirst}-vs-${slugSecond}/`;
                 const score = other.editorialScores?.overall;
                 const scoreHtml = score ? `<span class="carousel-score">${score.toFixed(1)}</span>` : '';
-                return `<a href="${url}" class="carousel-item">
-                                <div class="carousel-item-content">
-                                    <span class="carousel-model">${other.model}</span>
-                                    <span class="carousel-brand">${other.brand}</span>
-                                    ${scoreHtml}
-                                </div>
-                                <span class="carousel-cta">Comparar →</span>
-                            </a>`;
+                const isSelected = compareList.some(p => p.id === other.id);
+                const checkboxClass = isSelected ? 'checked' : '';
+                return `<div class="carousel-item" style="position:relative;">
+                                <label class="carousel-checkbox ${checkboxClass}" onclick="event.stopPropagation(); toggleCarouselCompare('${other.id}', '${other.model}', '${other.brand}', ${score || 0});">
+                                    <input type="checkbox" ${isSelected ? 'checked' : ''} style="display:none;">
+                                    <span class="carousel-check-icon">${isSelected ? '✓' : '+'}</span>
+                                </label>
+                                <a href="${url}" class="carousel-item-link">
+                                    <div class="carousel-item-content">
+                                        <span class="carousel-model">${other.model}</span>
+                                        <span class="carousel-brand">${other.brand}</span>
+                                        ${scoreHtml}
+                                    </div>
+                                    <span class="carousel-cta">Comparar →</span>
+                                </a>
+                            </div>`;
             }).join('');
 
             return `
@@ -2248,6 +2256,44 @@ function toggleProductCompare(productId) {
 
     updateCompareUI();
     showComparePrompt();
+}
+
+// Toggle product in compare list from carousel
+function toggleCarouselCompare(productId, model, brand, score) {
+    const existingIndex = compareList.findIndex(p => p.id === productId);
+
+    if (existingIndex > -1) {
+        // Remove from list
+        compareList.splice(existingIndex, 1);
+    } else {
+        // Add to list
+        if (compareList.length >= 4) {
+            showToast('Máximo de 4 produtos na comparação');
+            return;
+        }
+        compareList.push({
+            id: productId,
+            model: model,
+            brand: brand,
+            editorialScores: { overall: score }
+        });
+    }
+
+    // Save to localStorage
+    localStorage.setItem('compareList', JSON.stringify(compareList));
+
+    // Update carousel checkbox visual
+    const checkbox = event.target.closest('.carousel-checkbox');
+    if (checkbox) {
+        const isNowIn = compareList.some(p => p.id === productId);
+        checkbox.classList.toggle('checked', isNowIn);
+        const icon = checkbox.querySelector('.carousel-check-icon');
+        if (icon) icon.textContent = isNowIn ? '✓' : '+';
+    }
+
+    updateCompareUI();
+    showComparePrompt();
+    updateBottomBarBadge();
 }
 
 // Energy calculator for single product page

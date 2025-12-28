@@ -3398,6 +3398,50 @@ a:focus-visible {
     margin-top: 0.5rem;
 }
 
+/* Carousel Checkbox for adding to compare */
+.carousel-checkbox {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 24px;
+    height: 24px;
+    background: #f1f5f9;
+    border: 2px solid #cbd5e1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 2;
+}
+
+.carousel-checkbox:hover {
+    background: #3b82f6;
+    border-color: #3b82f6;
+    color: white;
+}
+
+.carousel-checkbox.checked {
+    background: #10b981;
+    border-color: #10b981;
+    color: white;
+}
+
+.carousel-check-icon {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: inherit;
+}
+
+.carousel-item-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
 .carousel-btn {
     flex: 0 0 auto;
     width: 32px;
