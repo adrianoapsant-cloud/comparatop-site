@@ -1700,6 +1700,44 @@ function displayProduct(productId) {
                         </div>
                     </div>
 
+                    <!-- Ver outros modelos - Carrossel -->
+                    ${(() => {
+            const otherProds = Object.values(currentCatalog.products)
+                .filter(p => p.id !== product.id)
+                .sort((a, b) => (b.editorialScores?.overall || 0) - (a.editorialScores?.overall || 0))
+                .slice(0, 10);
+
+            if (otherProds.length === 0) return '';
+
+            const catSlug = currentCatalog.category.slug;
+            const items = otherProds.map(other => {
+                const [slugFirst, slugSecond] = [product.id, other.id].sort();
+                const url = `/comparar/${catSlug}/${slugFirst}-vs-${slugSecond}/`;
+                const score = other.editorialScores?.overall;
+                const scoreHtml = score ? `<span class="carousel-score">${score.toFixed(1)}</span>` : '';
+                return `<a href="${url}" class="carousel-item">
+                                <div class="carousel-item-content">
+                                    <span class="carousel-model">${other.model}</span>
+                                    <span class="carousel-brand">${other.brand}</span>
+                                    ${scoreHtml}
+                                </div>
+                                <span class="carousel-cta">Comparar →</span>
+                            </a>`;
+            }).join('');
+
+            return `
+                    <section class="product-section compare-carousel-section">
+                        <h3>🔄 Ver outros modelos</h3>
+                        <div class="compare-carousel-wrapper">
+                            <button class="carousel-btn carousel-prev" onclick="scrollCarousel(-1)">‹</button>
+                            <div class="compare-carousel" id="compare-carousel">
+                                ${items}
+                            </div>
+                            <button class="carousel-btn carousel-next" onclick="scrollCarousel(1)">›</button>
+                        </div>
+                    </section>`;
+        })()}
+
                     <div class="product-detail-sections">
                         <!-- Specs Section -->
                         <section class="product-section">
@@ -1746,45 +1784,6 @@ function displayProduct(productId) {
                         </section>
                         ${energyCalcHtml}
                         ${nicheCalcHtml}
-                        
-                        <!-- Ver outros modelos - Carrossel -->
-                        ${(() => {
-            const otherProducts = Object.values(currentCatalog.products)
-                .filter(p => p.id !== product.id)
-                .sort((a, b) => (b.editorialScores?.overall || 0) - (a.editorialScores?.overall || 0))
-                .slice(0, 10);
-
-            if (otherProducts.length === 0) return '';
-
-            const categorySlug = currentCatalog.category.slug;
-            const carouselItems = otherProducts.map(other => {
-                const [slugFirst, slugSecond] = [product.id, other.id].sort();
-                const comparisonUrl = `/comparar/${categorySlug}/${slugFirst}-vs-${slugSecond}/`;
-                const otherScore = other.editorialScores?.overall;
-                const scoreHtml = otherScore ? `<span class="carousel-score">${otherScore.toFixed(1)}</span>` : '';
-                return `
-                                    <a href="${comparisonUrl}" class="carousel-item">
-                                        <div class="carousel-item-content">
-                                            <span class="carousel-model">${other.model}</span>
-                                            <span class="carousel-brand">${other.brand}</span>
-                                            ${scoreHtml}
-                                        </div>
-                                        <span class="carousel-cta">Comparar →</span>
-                                    </a>`;
-            }).join('');
-
-            return `
-                        <section class="product-section compare-carousel-section">
-                            <h3>🔄 Ver outros modelos</h3>
-                            <div class="compare-carousel-wrapper">
-                                <button class="carousel-btn carousel-prev" onclick="scrollCarousel(-1)">‹</button>
-                                <div class="compare-carousel" id="compare-carousel">
-                                    ${carouselItems}
-                                </div>
-                                <button class="carousel-btn carousel-next" onclick="scrollCarousel(1)">›</button>
-                            </div>
-                        </section>`;
-        })()}
                     </div>
                 </div>
             `;
