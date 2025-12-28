@@ -388,8 +388,7 @@ function generateProductContent(product, category, otherProducts = [], categoryS
             return `
     <!-- Compare Section - At bottom of page, after all product info -->
     <section class="compare-section-visible" id="compare-with-others">
-        <h2>🔄 Ainda indeciso? Compare com outros modelos</h2>
-        <p class="compare-subtitle">Veja como o ${escapeHtml(product.model)} se compara com outros modelos populares</p>
+        <h2>🔄 Ver outros modelos</h2>
         <div class="compare-grid">
             ${filteredProducts.map(other => {
                 const [slugFirst, slugSecond] = [product.id, other.id].sort();
