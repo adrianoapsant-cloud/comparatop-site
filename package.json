@@ -10,8 +10,9 @@
         "validate:prod": "node tools/validate-prod.js",
         "prebuild": "npm run validate",
         "build": "node tools/build.js",
-        "build:full": "npm run validate && npm run build && npm run redirects",
-        "postbuild": "npm run redirects",
+        "postbuild": "npm run minify && npm run redirects",
+        "minify": "node tools/minify.js",
+        "build:full": "npm run validate && npm run build",
         "serve": "npx serve dist -l 3000",
         "serve:dev": "npx serve . -l 3001",
         "smoke-test": "node tools/smoke-test.js",
@@ -32,5 +33,9 @@
     "license": "ISC",
     "engines": {
         "node": ">=18.0.0"
+    },
+    "devDependencies": {
+        "clean-css": "^5.3.3",
+        "terser": "^5.44.1"
     }
 }
