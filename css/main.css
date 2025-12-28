@@ -677,7 +677,14 @@ body.menu-open {
     min-height: 100vh;
 }
 
-/* Sidebar */
+/* Container centralizado para layout sem sidebar */
+@media (min-width: 1025px) {
+    .app-layout {
+        justify-content: center;
+    }
+}
+
+/* Sidebar - HIDDEN on desktop (ML-like layout) */
 .sidebar {
     width: var(--sidebar-width);
     background: linear-gradient(180deg, var(--c-primary-dark) 0%, #0f172a 100%);
@@ -690,9 +697,33 @@ body.menu-open {
     overflow-y: auto;
     z-index: 900;
     /* Below ml-header */
-    transform: translateX(0);
-    /* Default for desktop */
-    transition: transform 0.3s ease;
+    transform: translateX(-100%);
+    /* Hidden by default on desktop */
+    visibility: hidden;
+    transition: transform 0.3s ease, visibility 0s 0.3s;
+}
+
+/* Desktop: sidebar completely hidden, main-content full width */
+@media (min-width: 1025px) {
+    .sidebar {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+        max-width: 1400px;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .mobile-menu-btn {
+        display: none !important;
+    }
+
+    /* Hide old header elements on desktop */
+    .header {
+        display: none;
+    }
 }
 
 /* Mobile Overlay */
