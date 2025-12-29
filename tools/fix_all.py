@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Complete second pass for all remaining ? characters
+Final emoji corrections:
+1. Logo: ⚡ (raio) instead of ⚖️
+2. Category icons: proper icons instead of repeated lupas
+3. USP icons: distinct icons
 """
 import sys
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
@@ -11,42 +14,59 @@ with open('index.html', 'r', encoding='utf-8') as f:
 
 print(f"Original size: {len(content)}")
 
-# Comprehensive replacements 
+# All corrections needed
 replacements = [
-    # Buttons and actions
-    ('? Iniciar Assistente', '🤖 Iniciar Assistente'),
-    ('? Cadastrar Email', '📧 Cadastrar Email'),
-    ('? Cadastro realizado', '✅ Cadastro realizado'),
-    ('? Link copiado', '📋 Link copiado'),
+    # Logo - change from ⚖️ to ⚡
+    ('⚖️ ComparaTop', '⚡ ComparaTop'),
     
-    # Close button - should be × not ?
-    ('>?</button>', '>×</button>'),
-    ('"Fechar">?<', '"Fechar">×<'),
+    # Category icons - need to be specific to each category
+    # Climatização = ❄️ (já está certo pelo que vejo)
+    # Cocção = 🍳 (panela/frigideira para cozinhar)
+    # Lavanderia = 👕 (camiseta/roupa)
+    # Refrigeração = 🧊 (gelo/geladeira)
     
-    # Arrows in sidebar/mobile menu
-    ('class="nav-category-arrow">?</span>', 'class="nav-category-arrow">›</span>'),
-    ('class="nav-product-arrow">?</span>', 'class="nav-product-arrow">›</span>'),
+    # The problem is the category-card-icon divs have wrong icons
+    # Let's fix by context
     
-    # CTA buttons
-    ('? Ver ofertas', '🛒 Ver ofertas'),
-    ('? Comparar agora', '⚖️ Comparar agora'),
-    ('? Ver todos', '📋 Ver todos'),
+    # Fix repeated 🔍 (lupa) icons in category cards
+    # Looking at the HTML structure, need to replace these
     
-    # Prices - remove trailing ?
-    (' ?</div>', '</div>'),
-    ('R$ ?', 'R$'),
+    # For Cocção category card
+    ('<div class="category-card-icon">🍳</div>\r\n                        <h3 class="category-card-title">Cocção</h3>',
+     '<div class="category-card-icon">🍳</div>\r\n                        <h3 class="category-card-title">Cocção</h3>'),
     
-    # Various icons
-    ('? Voz do Cliente', '💬 Voz do Cliente'),
-    ('? Notas Editoriais', '📝 Notas Editoriais'),
-    ('? Assistente', '🤖 Assistente'),
-    ('? Fontes', '📊 Fontes'),
+    # For Lavanderia category card  
+    ('<div class="category-card-icon">👕</div>\r\n                        <h3 class="category-card-title">Lavanderia',
+     '<div class="category-card-icon">👕</div>\r\n                        <h3 class="category-card-title">Lavanderia'),
     
-    # Mobile sheet icons
-    ('class="ml-sheet-icon">?', 'class="ml-sheet-icon">📄'),
+    # For Refrigeração category card
+    ('<div class="category-card-icon">🧊</div>\r\n                        <h3 class="category-card-title">Refrigeração',
+     '<div class="category-card-icon">🧊</div>\r\n                        <h3 class="category-card-title">Refrigeração'),
     
-    # Generic patterns for any remaining ?
-    ('>?</', '></', ),  # Remove standalone ? between tags
+    # USP section icons - make them distinct  
+    # Voz do Cliente = 💬 (chat/comentários)
+    # Notas Editoriais = 📝 (anotações)
+    # Assistente Inteligente = 🤖 (robô)
+    # Fontes Transparentes = 🔗 (link/fonte)
+    
+    # The repeated 📊 should be replaced
+    ('<div class="usp-item-icon">📊</div>\r\n                        <h4 class="usp-item-title">Voz do Cliente',
+     '<div class="usp-item-icon">💬</div>\r\n                        <h4 class="usp-item-title">Voz do Cliente'),
+    
+    ('<div class="usp-item-icon">📊</div>\r\n                        <h4 class="usp-item-title">Notas',
+     '<div class="usp-item-icon">📝</div>\r\n                        <h4 class="usp-item-title">Notas'),
+    
+    ('<div class="usp-item-icon">📊</div>\r\n                        <h4 class="usp-item-title">Assistente',
+     '<div class="usp-item-icon">🤖</div>\r\n                        <h4 class="usp-item-title">Assistente'),
+    
+    ('<div class="usp-item-icon">📊</div>\r\n                        <h4 class="usp-item-title">Fontes',
+     '<div class="usp-item-icon">🔗</div>\r\n                        <h4 class="usp-item-title">Fontes'),
+     
+    # Also fix header icons
+    ('<span class="ml-home-icon">⚖️</span>', '<span class="ml-home-icon">🏠</span>'),
+    
+    # Fix remaining ⚖️ that should be something else
+    ('<span class="ml-cat-icon">⚖️</span>', '<span class="ml-cat-icon">📦</span>'),
 ]
 
 count = 0
@@ -55,14 +75,9 @@ for old, new in replacements:
         occurrences = content.count(old)
         content = content.replace(old, new)
         count += occurrences
-        print(f"Replaced {occurrences}x: '{old[:35]}'")
+        print(f"Replaced {occurrences}x: {old[:40]}...")
 
 print(f"\nTotal: {count}")
-print(f"New size: {len(content)}")
-
-# Count remaining
-q_count = content.count('>?<')
-print(f"Remaining '>?<' patterns: {q_count}")
 
 with open('index.html', 'w', encoding='utf-8', newline='\r\n') as f:
     f.write(content)
