@@ -216,9 +216,18 @@ function startComparisonFromPrompt() {
         return;
     }
 
-    // Navigate to comparison page with first 2 products (pre-generated static pages are pairs only)
-    const [first, second] = compareList.slice(0, 2).map(p => p.id).sort();
-    window.location.href = `/comparar/geladeira/${first}-vs-${second}/`;
+    // Save compareList to localStorage for dynamic page
+    localStorage.setItem('compareList', JSON.stringify(compareList));
+
+    // For exactly 2 products, use pre-generated static page
+    if (compareList.length === 2) {
+        const [first, second] = compareList.map(p => p.id).sort();
+        window.location.href = `/comparar/geladeira/${first}-vs-${second}/`;
+    } else {
+        // For 3-4 products, use dynamic comparison page with query params
+        const ids = compareList.map(p => p.id).join(',');
+        window.location.href = `/comparar/geladeira/?ids=${ids}`;
+    }
 }
 
 // Safety: Attach listeners on load to ensure buttons work even if inline onclick fails
@@ -3045,3 +3054,242 @@ window.closeComparePrompt = closeComparePrompt;
 window.startComparisonFromPrompt = startComparisonFromPrompt;
 window.handleCompareClick = handleCompareClick;
 window.toggleProductCompare = toggleProductCompare;
+
+// ==================== DYNAMIC COMPARISON PAGE ====================
+// Detects ?ids= query param and renders dynamic comparison on the page
+
+async function initDynamicComparison() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const idsParam = urlParams.get('ids');
+
+    if (!idsParam) return;
+
+    const productIds = idsParam.split(',').map(id => id.trim()).filter(Boolean);
+
+    if (productIds.length < 2) {
+        console.warn('Dynamic comparison requires at least 2 product IDs');
+        return;
+    }
+
+    if (productIds.length > 4) {
+        console.warn('Dynamic comparison supports max 4 products');
+        productIds.splice(4); // Keep only first 4
+    }
+
+    console.log('Dynamic comparison detected:', productIds);
+
+    // Show loading state
+    const pageComparison = document.getElementById('page-comparison');
+    const compContent = document.getElementById('comparison-content');
+    const pageHome = document.getElementById('page-home');
+
+    if (pageHome) pageHome.style.display = 'none';
+    if (pageComparison) pageComparison.style.display = 'block';
+    if (compContent) compContent.innerHTML = '<div style="text-align:center;padding:2rem;color:#64748b;">Carregando comparação...</div>';
+
+    try {
+        // Load catalog
+        const catalogResp = await fetch('/data/catalogs/geladeira.json');
+        if (!catalogResp.ok) throw new Error('Failed to load catalog');
+        const catalog = await catalogResp.json();
+        currentCatalog = catalog;
+
+        // Get products by IDs
+        const products = productIds
+            .map(id => catalog.products[id])
+            .filter(Boolean);
+
+        if (products.length < 2) {
+            compContent.innerHTML = '<div style="text-align:center;padding:2rem;color:#ef4444;">Produtos não encontrados. Verifique os IDs na URL.</div>';
+            return;
+        }
+
+        // Set compareList with found products
+        compareList = products.map(p => ({
+            id: p.id,
+            brand: p.brand,
+            model: p.model,
+            name: p.name,
+            ...p
+        }));
+
+        // Update title
+        const titleEl = document.getElementById('comparison-title');
+        if (titleEl) {
+            titleEl.textContent = `⚖️ Comparando ${products.length} produtos`;
+        }
+
+        // Render comparison table
+        compContent.innerHTML = renderDynamicComparisonContent(products, catalog);
+
+        // Scroll to top
+        window.scrollTo(0, 0);
+
+    } catch (error) {
+        console.error('Dynamic comparison error:', error);
+        if (compContent) {
+            compContent.innerHTML = '<div style="text-align:center;padding:2rem;color:#ef4444;">Erro ao carregar comparação. Tente novamente.</div>';
+        }
+    }
+}
+
+// Render dynamic comparison content for 2-4 products
+function renderDynamicComparisonContent(products, catalog) {
+    const specsToCompare = [
+        { key: 'capacidade_total', label: 'Capacidade Total', unit: 'L', higherBetter: true },
+        { key: 'capacidade_freezer', label: 'Cap. Freezer', unit: 'L', higherBetter: true },
+        { key: 'consumo_kwh', label: 'Consumo Mensal', unit: 'kWh', higherBetter: false },
+        { key: 'largura_cm', label: 'Largura', unit: 'cm', higherBetter: false },
+        { key: 'altura_cm', label: 'Altura', unit: 'cm', higherBetter: null },
+        { key: 'profundidade_cm', label: 'Profundidade', unit: 'cm', higherBetter: null },
+        { key: 'peso_kg', label: 'Peso', unit: 'kg', higherBetter: false },
+        { key: 'selo_procel', label: 'Selo Procel', unit: '', higherBetter: null }
+    ];
+
+    const scoreTopics = catalog.scoringTopics || [];
+
+    // Helper functions
+    function getBestPrice(p) {
+        if (!p.offers?.length) return null;
+        const prices = p.offers.filter(o => o.price).map(o => o.price);
+        return prices.length ? Math.min(...prices) : null;
+    }
+
+    function findSpecWinner(key, higherBetter) {
+        if (higherBetter === null) return [];
+        const values = products.map(p => p.specs?.[key] || 0);
+        const best = higherBetter ? Math.max(...values) : Math.min(...values);
+        return products.filter(p => (p.specs?.[key] || 0) === best).map(p => p.id);
+    }
+
+    function findScoreWinner(topicId) {
+        const values = products.map(p => {
+            const val = p.editorialScores?.[topicId];
+            return typeof val === 'object' ? val?.score : val;
+        });
+        const best = Math.max(...values.filter(v => typeof v === 'number' && !isNaN(v)));
+        if (!isFinite(best)) return [];
+        return products.filter(p => {
+            const val = p.editorialScores?.[topicId];
+            const score = typeof val === 'object' ? val?.score : val;
+            return score === best;
+        }).map(p => p.id);
+    }
+
+    // Start building HTML
+    let html = '<div class="dynamic-comparison-container" style="max-width:1200px;margin:0 auto;padding:1rem;">';
+
+    // Breadcrumb
+    html += `<nav style="margin-bottom:1.5rem;font-size:0.9rem;color:#64748b;">
+        <a href="/" style="color:#3b82f6;text-decoration:none;">Início</a> › 
+        <a href="/geladeiras/" style="color:#3b82f6;text-decoration:none;">Geladeiras</a> › 
+        <span>Comparação Personalizada</span>
+    </nav>`;
+
+    // Header cards
+    html += '<div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));gap:1rem;margin-bottom:2rem;">';
+    products.forEach(p => {
+        const price = getBestPrice(p);
+        const overall = p.editorialScores?.overall || '-';
+        html += `<div style="background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border-radius:12px;padding:1.25rem;text-align:center;">
+            <div style="color:#64748b;font-size:0.85rem;">${p.brand}</div>
+            <div style="font-size:1.1rem;font-weight:700;color:#1e40af;">${p.model}</div>
+            <div style="font-size:1.5rem;font-weight:700;color:#10b981;margin:0.5rem 0;">${overall}<span style="font-size:0.9rem;color:#64748b;">/10</span></div>
+            ${price ? `<div style="color:#64748b;font-size:0.85rem;">A partir de ${Utils.formatBRL(price)}</div>` : ''}
+        </div>`;
+    });
+    html += '</div>';
+
+    // Comparison table
+    html += '<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:0.9rem;">';
+
+    // Table header
+    html += '<thead><tr><th style="text-align:left;padding:0.75rem;background:#1e40af;color:white;border-radius:6px 0 0 0;">Especificação</th>';
+    products.forEach((p, i) => {
+        const isLast = i === products.length - 1;
+        html += `<th style="text-align:center;padding:0.75rem;background:#1e40af;color:white;${isLast ? 'border-radius:0 6px 0 0;' : ''}">${p.model}</th>`;
+    });
+    html += '</tr></thead><tbody>';
+
+    // Price row
+    const prices = products.map(p => getBestPrice(p) || Infinity);
+    const minPrice = Math.min(...prices);
+    html += '<tr><td style="padding:0.75rem;border-bottom:1px solid #e2e8f0;font-weight:600;">💰 Melhor Preço</td>';
+    products.forEach(p => {
+        const price = getBestPrice(p);
+        const isWinner = price === minPrice && isFinite(minPrice);
+        html += `<td style="text-align:center;padding:0.75rem;border-bottom:1px solid #e2e8f0;${isWinner ? 'background:#dcfce7;color:#166534;font-weight:700;' : ''}">${price ? Utils.formatBRL(price) : 'N/A'}</td>`;
+    });
+    html += '</tr>';
+
+    // Section header: Specs
+    html += `<tr><td colspan="${products.length + 1}" style="padding:0.75rem;background:#f1f5f9;font-weight:700;color:#1e40af;">📐 Especificações Técnicas</td></tr>`;
+
+    // Spec rows
+    specsToCompare.forEach(spec => {
+        const winners = findSpecWinner(spec.key, spec.higherBetter);
+        html += `<tr><td style="padding:0.75rem;border-bottom:1px solid #e2e8f0;">${spec.label}</td>`;
+        products.forEach(p => {
+            const value = p.specs?.[spec.key];
+            const isWinner = winners.includes(p.id);
+            const display = value != null ? `${value}${spec.unit ? ' ' + spec.unit : ''}` : '-';
+            html += `<td style="text-align:center;padding:0.75rem;border-bottom:1px solid #e2e8f0;${isWinner ? 'background:#dcfce7;color:#166534;font-weight:600;' : ''}">${display}</td>`;
+        });
+        html += '</tr>';
+    });
+
+    // Section header: Editorial Scores
+    if (scoreTopics.length > 0) {
+        html += `<tr><td colspan="${products.length + 1}" style="padding:0.75rem;background:#f1f5f9;font-weight:700;color:#1e40af;">📊 Notas Editoriais</td></tr>`;
+
+        scoreTopics.forEach(topic => {
+            const winners = findScoreWinner(topic.id);
+            html += `<tr><td style="padding:0.75rem;border-bottom:1px solid #e2e8f0;">${topic.icon || ''} ${topic.label}</td>`;
+            products.forEach(p => {
+                const scoreData = p.editorialScores?.[topic.id];
+                const score = typeof scoreData === 'object' ? scoreData?.score : scoreData;
+                const isWinner = winners.includes(p.id);
+                html += `<td style="text-align:center;padding:0.75rem;border-bottom:1px solid #e2e8f0;${isWinner ? 'background:#dcfce7;color:#166534;font-weight:600;' : ''}">${score ?? '-'}</td>`;
+            });
+            html += '</tr>';
+        });
+    }
+
+    // Overall score row
+    html += '<tr><td style="padding:0.75rem;font-weight:700;background:#f0f9ff;">⭐ Nota Geral</td>';
+    const overalls = products.map(p => p.editorialScores?.overall || 0);
+    const maxOverall = Math.max(...overalls);
+    products.forEach(p => {
+        const overall = p.editorialScores?.overall;
+        const isWinner = overall === maxOverall;
+        html += `<td style="text-align:center;padding:0.75rem;background:#f0f9ff;font-size:1.1rem;font-weight:700;${isWinner ? 'color:#10b981;' : ''}">${overall ?? '-'}/10</td>`;
+    });
+    html += '</tr>';
+
+    html += '</tbody></table></div>';
+
+    // Product links
+    html += '<div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">';
+    products.forEach(p => {
+        html += `<a href="/produto/geladeira/${p.id}/" style="display:inline-block;padding:0.75rem 1.5rem;background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:white;text-decoration:none;border-radius:8px;font-weight:600;">Ver ${p.model} →</a>`;
+    });
+    html += '</div>';
+
+    // Share URL
+    html += `<div style="margin-top:2rem;padding:1rem;background:#f8fafc;border-radius:8px;text-align:center;">
+        <strong>📤 Compartilhe esta comparação:</strong><br>
+        <input type="text" value="${window.location.href}" readonly style="width:100%;max-width:500px;padding:0.5rem;margin-top:0.5rem;border:1px solid #cbd5e1;border-radius:4px;text-align:center;" onclick="this.select();">
+    </div>`;
+
+    html += '</div>';
+
+    return html;
+}
+
+// Initialize dynamic comparison on page load
+document.addEventListener('DOMContentLoaded', () => {
+    // Check if we're on a dynamic comparison page
+    if (window.location.pathname.includes('/comparar/') && window.location.search.includes('ids=')) {
+        initDynamicComparison();
+    }
+});

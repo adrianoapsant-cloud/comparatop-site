@@ -28,10 +28,14 @@ const Router = (function () {
         { pattern: '/categoria/:categoryId/', name: 'category' },
         { pattern: '/produto/:categoryId/:productId', name: 'product' },
         { pattern: '/produto/:categoryId/:productId/', name: 'product' },
+        // Dynamic comparison with query params: /comparar/geladeira/?ids=x,y,z
+        { pattern: '/comparar/:categoryId', name: 'dynamicComparison' },
+        { pattern: '/comparar/:categoryId/', name: 'dynamicComparison' },
+        // Static comparison pages (pre-generated 1v1)
+        { pattern: '/comparar/:comparisonId/:slugs', name: 'comparison' },
+        { pattern: '/comparar/:comparisonId/:slugs/', name: 'comparison' },
         { pattern: '/comparar', name: 'comparison' },
-        { pattern: '/comparar/', name: 'comparison' },
-        { pattern: '/comparar/:comparisonId', name: 'comparison' },
-        { pattern: '/comparar/:comparisonId/', name: 'comparison' }
+        { pattern: '/comparar/', name: 'comparison' }
     ];
 
     /**
@@ -83,7 +87,13 @@ const Router = (function () {
      * @param {boolean} pushState - Whether to add to history (false for initial load)
      */
     function navigate(path, pushState = true) {
-        // Normalize path
+        // Normalize path - separate query string
+        let queryString = '';
+        if (path.includes('?')) {
+            const parts = path.split('?');
+            path = parts[0];
+            queryString = parts[1] || '';
+        }
         if (!path.startsWith('/')) path = '/' + path;
 
         // Mobile UX: Close sidebar automatically on navigation
@@ -94,9 +104,18 @@ const Router = (function () {
         const route = matchRoute(path);
         currentRoute = route;
 
+        // Parse query params and add to route params
+        if (queryString) {
+            const searchParams = new URLSearchParams(queryString);
+            searchParams.forEach((value, key) => {
+                route.params[key] = value;
+            });
+        }
+
         // Update browser URL
+        const fullPath = queryString ? `${path}?${queryString}` : path;
         if (pushState) {
-            history.pushState({ path, route: route.name }, '', path);
+            history.pushState({ path: fullPath, route: route.name }, '', fullPath);
         }
 
         // Call the appropriate handler

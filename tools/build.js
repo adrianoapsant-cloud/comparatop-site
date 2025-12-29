@@ -1189,6 +1189,32 @@ function generateComparisonPages(template, catalogs) {
     }
 
     console.log(`\n✅ Total comparison pages generated: ${totalGenerated}`);
+
+    // Generate dynamic comparison template page for each category
+    // This page handles /comparar/{category}/?ids=x,y,z URLs
+    for (const [categorySlug, catalog] of Object.entries(catalogs)) {
+        const category = catalog.category;
+        const urlPath = `comparar/${categorySlug}`;
+
+        console.log(`  Generating dynamic template: /${urlPath}/index.html`);
+
+        const meta = generateMetaTags({
+            title: `Comparar Geladeiras - Comparação Personalizada | ComparaTop`,
+            description: `Compare até 4 geladeiras lado a lado. Veja diferenças de preço, capacidade, consumo e avaliações em uma tabela comparativa interativa.`,
+            url: `${CONFIG.baseUrl}/${urlPath}/`,
+            type: 'website'
+        });
+
+        // Add noindex for dynamic pages to avoid thin content issues
+        const metaWithNoindex = meta + '\n    <meta name="robots" content="noindex, follow">';
+
+        let html = template;
+        html = html.replace(/<title>.*?<\/title>[\s\S]*?(<link href="https:\/\/fonts\.googleapis)/, metaWithNoindex + '\n    $1');
+
+        const destPath = path.join(CONFIG.distDir, urlPath, 'index.html');
+        ensureDir(path.dirname(destPath));
+        fs.writeFileSync(destPath, html);
+    }
 }
 
 // Generate sitemap
