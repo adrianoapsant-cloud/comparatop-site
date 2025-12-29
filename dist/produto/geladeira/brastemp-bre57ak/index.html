@@ -232,11 +232,11 @@
     <!-- ML-Like Header -->
     <header class="ml-header">
         <div class="ml-header-content">
-            <a href="/" class="ml-home-btn" onclick="Router.navigate('/'); return false;">
+            <a href="/" class="ml-home-btn">
                 <span class="ml-home-icon">🏠</span>
                 <span class="ml-home-text">Início</span>
             </a>
-            <a href="/" class="ml-logo" onclick="Router.navigate('/'); return false;">
+            <a href="/" class="ml-logo">
                 ⚡ ComparaTop
             </a>
             <div class="ml-search-wrapper">
@@ -366,7 +366,7 @@
             </div>
             <nav class="sidebar-nav">
                 <!-- Home -->
-                <a href="/" class="nav-category-header active" onclick="Router.navigate('/'); return false;">
+                <a href="/" class="nav-category-header active">
                     <span class="nav-category-icon">🏠</span>
                     <span>Início</span>
                 </a>
@@ -704,7 +704,9 @@
                                 <div class="category-card-items">
                                     <span class="category-card-tag">Freezers</span>
                                     <span class="category-card-tag">Frigobares</span>
-                                    <a href="/geladeiras/" class="category-card-tag available" onclick="event.stopPropagation(); Router.navigate('/geladeiras/'); return false;">Geladeiras (4)</a>
+                                    <a href="/geladeiras/" class="category-card-tag available"
+                                        onclick="event.stopPropagation(); Router.navigate('/geladeiras/'); return false;">Geladeiras
+                                        (4)</a>
                                 </div>
                             </div>
                         </div>
@@ -1110,7 +1112,7 @@
 
     <!-- Mobile Bottom Bar -->
     <nav class="ml-bottom-bar" id="ml-bottom-bar">
-        <a href="/" class="ml-bottom-item" id="bottom-home" onclick="Router.navigate('/'); return false;">
+        <a href="/" class="ml-bottom-item" id="bottom-home">
             <span class="ml-bottom-icon">🏠</span>
             <span class="ml-bottom-label">Início</span>
         </a>
