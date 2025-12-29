@@ -1003,7 +1003,7 @@ function generateComparisonPages(template, catalogs) {
                 let html = template;
                 html = html.replace(/<title>.*?<\/title>[\s\S]*?(<link href="https:\/\/fonts\.googleapis)/, meta + '\n    $1');
                 html = html.replace('</head>', jsonLd + '\n</head>');
-                html = html.replace(/<body>/, '<body>\n' + bodyContent);
+                html = html.replace(/<div id="page-home">/, bodyContent + '\n<div id="page-home" style="display:none;">');
 
                 const destPath = path.join(CONFIG.distDir, urlPath, 'index.html');
                 ensureDir(path.dirname(destPath));
