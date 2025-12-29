@@ -982,9 +982,9 @@ function renderComparisonTable() {
 
     // Find winners for each spec
     function findWinner(spec, higherIsBetter = true) {
-        const values = products.map(p => p.specs[spec] || 0);
+        const values = products.map(p => p.specs?.[spec] || 0);
         const best = higherIsBetter ? Math.max(...values) : Math.min(...values);
-        return products.filter(p => (p.specs[spec] || 0) === best).map(p => p.id);
+        return products.filter(p => (p.specs?.[spec] || 0) === best).map(p => p.id);
     }
 
     function findScoreWinner(topicId) {
@@ -1042,7 +1042,7 @@ function renderComparisonTable() {
         html += `<tr><td>${SPEC_LABELS[spec] || spec}</td>`;
         products.forEach(p => {
             const isWinner = winners.includes(p.id);
-            html += `<td class="${isWinner ? 'winner' : ''}">${formatSpec(spec, p.specs[spec])}</td>`;
+            html += `<td class="${isWinner ? 'winner' : ''}">${formatSpec(spec, p.specs?.[spec])}</td>`;
         });
         html += '</tr>';
     });
