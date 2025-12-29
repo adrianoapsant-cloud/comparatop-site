@@ -1,42 +1,42 @@
-<!DOCTYPE html>
-<!-- Build: 2025-12-26T22:02 -->
-<html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <script>
-        /**
-         * Debugging Nuclear Console (Head snippet)
-         * Ativa com ?debug=1  (ou localStorage.DEBUG_CONSOLE=1)
-         */
-        (function () {
-            var ENABLE = /(?:\?|&)debug=1(?:&|$)/.test(location.search) || localStorage.getItem("DEBUG_CONSOLE") === "1";
-            var buf = []; var maxLines = 200;
-            function now() { try { return new Date().toISOString().replace('T', ' ').replace('Z', ''); } catch (e) { return ''; } }
-            function push(line) { buf.push(line); if (buf.length > maxLines) buf.shift(); if (ENABLE && window.__dbg && window.__dbg.print) window.__dbg.print(line); }
-            function safeStr(x) { try { if (x instanceof Error) return (x.name + ": " + x.message + (x.stack ? "\n" + x.stack : "")); if (typeof x === "string") return x; return JSON.stringify(x); } catch (e) { try { return String(x); } catch (e2) { return "[unprintable]"; } } }
-            window.addEventListener("error", function (e) { push("[" + now() + "][window.error] " + (e.message || "Error") + " @ " + (e.filename || "?") + ":" + (e.lineno || "?")); if (e.error) push(safeStr(e.error)); });
-            window.addEventListener("unhandledrejection", function (e) { push("[" + now() + "][unhandledrejection] " + safeStr(e.reason)); });
-            (function () {
-                var orig = { log: console.log, info: console.info, warn: console.warn, error: console.error };
-                ["log", "info", "warn", "error"].forEach(function (k) { console[k] = function () { var args = Array.prototype.slice.call(arguments).map(safeStr).join(" "); push("[" + now() + "][console." + k + "] " + args); try { orig[k].apply(console, arguments); } catch (e) { } }; });
-            })();
-            function logPointer(ev) { try { var t = ev.target; var cls = (t && t.className) ? ("" + t.className).toString().replace(/\s+/g, ".") : ""; var tag = (t && t.tagName) ? t.tagName.toLowerCase() : "unknown"; push("[" + now() + "][" + ev.type + "] target=" + tag + (cls ? ("." + cls) : "")); } catch (e) { } }
-            document.addEventListener("click", logPointer, true);
-            function initUI() {
-                if (!ENABLE) return;
-                var wrap = document.createElement("div"); wrap.id = "__dbg_console";
-                wrap.style.cssText = "position:fixed;top:0;left:0;right:0;z-index:2147483647;font:10px monospace;background:rgba(0,0,0,.9);color:#fff;padding:8px;max-height:40vh;overflow:auto;pointer-events:none;";
-                var pre = document.createElement("pre"); pre.style.cssText = "white-space:pre-wrap;margin:0";
-                wrap.appendChild(pre);
-                window.__dbg = { print: function (line) { pre.textContent += line + "\n"; wrap.scrollTop = wrap.scrollHeight; } };
-                buf.forEach(function (l) { window.__dbg.print(l); });
-                document.documentElement.appendChild(wrap);
-            }
-            if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initUI); else initUI();
-        })();
-    </script>
+<!DOCTYPE html>
+<!-- Build: 2025-12-26T22:02 -->
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <script>
+        /**
+         * Debugging Nuclear Console (Head snippet)
+         * Ativa com ?debug=1  (ou localStorage.DEBUG_CONSOLE=1)
+         */
+        (function () {
+            var ENABLE = /(?:\?|&)debug=1(?:&|$)/.test(location.search) || localStorage.getItem("DEBUG_CONSOLE") === "1";
+            var buf = []; var maxLines = 200;
+            function now() { try { return new Date().toISOString().replace('T', ' ').replace('Z', ''); } catch (e) { return ''; } }
+            function push(line) { buf.push(line); if (buf.length > maxLines) buf.shift(); if (ENABLE && window.__dbg && window.__dbg.print) window.__dbg.print(line); }
+            function safeStr(x) { try { if (x instanceof Error) return (x.name + ": " + x.message + (x.stack ? "\n" + x.stack : "")); if (typeof x === "string") return x; return JSON.stringify(x); } catch (e) { try { return String(x); } catch (e2) { return "[unprintable]"; } } }
+            window.addEventListener("error", function (e) { push("[" + now() + "][window.error] " + (e.message || "Error") + " @ " + (e.filename || "?") + ":" + (e.lineno || "?")); if (e.error) push(safeStr(e.error)); });
+            window.addEventListener("unhandledrejection", function (e) { push("[" + now() + "][unhandledrejection] " + safeStr(e.reason)); });
+            (function () {
+                var orig = { log: console.log, info: console.info, warn: console.warn, error: console.error };
+                ["log", "info", "warn", "error"].forEach(function (k) { console[k] = function () { var args = Array.prototype.slice.call(arguments).map(safeStr).join(" "); push("[" + now() + "][console." + k + "] " + args); try { orig[k].apply(console, arguments); } catch (e) { } }; });
+            })();
+            function logPointer(ev) { try { var t = ev.target; var cls = (t && t.className) ? ("" + t.className).toString().replace(/\s+/g, ".") : ""; var tag = (t && t.tagName) ? t.tagName.toLowerCase() : "unknown"; push("[" + now() + "][" + ev.type + "] target=" + tag + (cls ? ("." + cls) : "")); } catch (e) { } }
+            document.addEventListener("click", logPointer, true);
+            function initUI() {
+                if (!ENABLE) return;
+                var wrap = document.createElement("div"); wrap.id = "__dbg_console";
+                wrap.style.cssText = "position:fixed;top:0;left:0;right:0;z-index:2147483647;font:10px monospace;background:rgba(0,0,0,.9);color:#fff;padding:8px;max-height:40vh;overflow:auto;pointer-events:none;";
+                var pre = document.createElement("pre"); pre.style.cssText = "white-space:pre-wrap;margin:0";
+                wrap.appendChild(pre);
+                window.__dbg = { print: function (line) { pre.textContent += line + "\n"; wrap.scrollTop = wrap.scrollHeight; } };
+                buf.forEach(function (l) { window.__dbg.print(l); });
+                document.documentElement.appendChild(wrap);
+            }
+            if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initUI); else initUI();
+        })();
+    </script>
     
     <title>BRE57AK vs RT46 - Qual escolher? | ComparaTop</title>
     
@@ -58,20 +58,20 @@
     <meta name="twitter:description" content="Comparativo completo entre Geladeira Brastemp Frost Free Inverse 443 litros Inox - BRE57AK e Geladeira Samsung Evolution RT46 com POWERvolt Inverter Duplex 460L. Veja diferenças de preço, capacidade, consumo e avaliações.">
     <meta name="twitter:image" content="https://img.comparatop.com.br/assets/og-image.png">
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/main.css?v=20251229a">
-    <script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "ComparaTop",
-  "url": "https://comparatop.com.br",
-  "description": "Compare eletrodom�sticos antes de comprar",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://comparatop.com.br/busca?q={search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
-}</script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css?v=20251229a">
+    <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "ComparaTop",
+  "url": "https://comparatop.com.br",
+  "description": "Compare eletrodomésticos antes de comprar",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://comparatop.com.br/busca?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "WebPage",
@@ -100,345 +100,345 @@
     ]
   }
 }</script>
-</head>
-
-<body>
-
-    <div id="prerendered-content" class="prerendered-seo-content">
-        <h1>ComparaTop - Compare Eletrodom�sticos</h1>
-        <p>Encontre o produto ideal comparando especifica��es, pre�os e avalia��es reais de milhares de compradores.</p>
-        <nav>
-            <h2>Categorias</h2>
-            <ul>
-
-                <li><a href="/categoria/geladeira">Geladeiras</a></li>
-
-            </ul>
-        </nav>
-    </div>
-    <style>
-        .prerendered-seo-content {
-            display: none;
-        }
-    </style>
-
-    <!-- Skip to main content for accessibility -->
-    <a href="#main-content" class="skip-to-content">Pular para o conte�do principal</a>
-
-    <!-- ML-Like Header -->
-    <header class="ml-header">
-        <div class="ml-header-content">
-            <a href="/" class="ml-home-btn">
-                <span class="ml-home-icon">??</span>
-                <span class="ml-home-text">In�cio</span>
-            </a>
-            <a href="/" class="ml-logo">
-                ? ComparaTop
-            </a>
-            <div class="ml-search-wrapper">
-                <input type="text" class="ml-search-input" id="ml-search-input" placeholder="Buscar no ComparaTop"
-                    autocomplete="off">
-                <button class="ml-search-btn" type="button" id="ml-search-btn">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                        <path
-                            d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
-                    </svg>
-                </button>
-                <div class="ml-search-results" id="ml-search-results"></div>
-            </div>
-        </div>
-    </header>
-
-    <!-- ML-Like Categories Bar -->
-    <nav class="ml-categories" id="ml-categories">
-        <button class="ml-cat-btn" data-category="all" aria-expanded="false">
-            <span class="ml-cat-icon">??</span>
-            <span class="ml-cat-text">Tudo</span>
-            <span class="ml-cat-arrow">?</span>
-        </button>
-        <button class="ml-cat-btn" data-category="climatizacao" aria-expanded="false">
-            <span class="ml-cat-icon">???</span>
-            <span class="ml-cat-text">Climatiza��o</span>
-            <span class="ml-cat-arrow">?</span>
-        </button>
-        <button class="ml-cat-btn" data-category="coccao" aria-expanded="false">
-            <span class="ml-cat-icon">??</span>
-            <span class="ml-cat-text">Coc��o</span>
-            <span class="ml-cat-arrow">?</span>
-        </button>
-        <button class="ml-cat-btn" data-category="lavanderia" aria-expanded="false">
-            <span class="ml-cat-icon">??</span>
-            <span class="ml-cat-text">Lavanderia</span>
-            <span class="ml-cat-arrow">?</span>
-        </button>
-        <button class="ml-cat-btn" data-category="refrigeracao" aria-expanded="false">
-            <span class="ml-cat-icon">??</span>
-            <span class="ml-cat-text">Refrigera��o</span>
-            <span class="ml-cat-arrow">?</span>
-        </button>
-    </nav>
-
-    <!-- Mega-Menu Overlay -->
-    <div class="ml-mega-overlay" id="ml-mega-overlay" aria-hidden="true"></div>
-
-    <!-- Mega-Menu "Tudo" -->
-    <div class="ml-mega-menu" id="ml-mega-all" aria-hidden="true">
-        <div class="ml-mega-header">
-            <h2>?? Todas as Categorias</h2>
-            <button class="ml-mega-close" onclick="closeMegaMenu()">&times;</button>
-        </div>
-        <div class="ml-mega-grid">
-            <div class="ml-mega-col">
-                <h3>??? Climatiza��o</h3>
-                <a href="#" class="ml-mega-link disabled">Aquecedores <span>em breve</span></a>
-                <a href="#" class="ml-mega-link disabled">Ar-condicionado <span>em breve</span></a>
-                <a href="#" class="ml-mega-link disabled">Ventiladores <span>em breve</span></a>
-            </div>
-            <div class="ml-mega-col">
-                <h3>?? Coc��o</h3>
-                <a href="#" class="ml-mega-link disabled">Coifas <span>em breve</span></a>
-                <a href="#" class="ml-mega-link disabled">Cooktops <span>em breve</span></a>
-                <a href="#" class="ml-mega-link disabled">Fog�es <span>em breve</span></a>
-                <a href="#" class="ml-mega-link disabled">Fornos <span>em breve</span></a>
-                <a href="#" class="ml-mega-link disabled">Micro-ondas <span>em breve</span></a>
-            </div>
-            <div class="ml-mega-col">
-                <h3>?? Lavanderia</h3>
-                <a href="#" class="ml-mega-link disabled">Lava e Seca <span>em breve</span></a>
-                <a href="#" class="ml-mega-link disabled">Lava-lou�as <span>em breve</span></a>
-                <a href="#" class="ml-mega-link disabled">Lavadoras <span>em breve</span></a>
-                <a href="#" class="ml-mega-link disabled">Secadoras <span>em breve</span></a>
-            </div>
-            <div class="ml-mega-col">
-                <h3>?? Refrigera��o</h3>
-                <a href="/geladeiras/" class="ml-mega-link" onclick="navigateAndClose('/geladeiras/'); return false;">
-                    Geladeiras <span class="ml-mega-count">4</span>
-                </a>
-                <a href="#" class="ml-mega-link disabled">Freezers <span>em breve</span></a>
-                <a href="#" class="ml-mega-link disabled">Frigobares <span>em breve</span></a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Dropdown: Climatiza��o -->
-    <div class="ml-dropdown" id="ml-dropdown-climatizacao" aria-hidden="true">
-        <a href="#" class="ml-dropdown-link disabled">Aquecedores <span>em breve</span></a>
-        <a href="#" class="ml-dropdown-link disabled">Ar-condicionado <span>em breve</span></a>
-        <a href="#" class="ml-dropdown-link disabled">Ventiladores <span>em breve</span></a>
-    </div>
-
-    <!-- Dropdown: Coc��o -->
-    <div class="ml-dropdown" id="ml-dropdown-coccao" aria-hidden="true">
-        <a href="#" class="ml-dropdown-link disabled">Coifas <span>em breve</span></a>
-        <a href="#" class="ml-dropdown-link disabled">Cooktops <span>em breve</span></a>
-        <a href="#" class="ml-dropdown-link disabled">Fog�es <span>em breve</span></a>
-        <a href="#" class="ml-dropdown-link disabled">Fornos <span>em breve</span></a>
-        <a href="#" class="ml-dropdown-link disabled">Micro-ondas <span>em breve</span></a>
-    </div>
-
-    <!-- Dropdown: Lavanderia -->
-    <div class="ml-dropdown" id="ml-dropdown-lavanderia" aria-hidden="true">
-        <a href="#" class="ml-dropdown-link disabled">Lava e Seca <span>em breve</span></a>
-        <a href="#" class="ml-dropdown-link disabled">Lava-lou�as <span>em breve</span></a>
-        <a href="#" class="ml-dropdown-link disabled">Lavadoras <span>em breve</span></a>
-        <a href="#" class="ml-dropdown-link disabled">Secadoras <span>em breve</span></a>
-    </div>
-
-    <!-- Dropdown: Refrigera��o -->
-    <div class="ml-dropdown" id="ml-dropdown-refrigeracao" aria-hidden="true">
-        <a href="/geladeiras/" class="ml-dropdown-link" onclick="navigateAndClose('/geladeiras/'); return false;">
-            Geladeiras <span class="ml-dropdown-count">4</span>
-        </a>
-        <a href="#" class="ml-dropdown-link disabled">Freezers <span>em breve</span></a>
-        <a href="#" class="ml-dropdown-link disabled">Frigobares <span>em breve</span></a>
-    </div>
-
-    <div class="app-layout">
-        <!-- Sidebar -->
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <div class="sidebar-logo">? ComparaTop</div>
-                <div class="sidebar-tagline">Compare antes de comprar</div>
-            </div>
-            <nav class="sidebar-nav">
-                <!-- Home -->
-                <a href="/" class="nav-category-header active">
-                    <span class="nav-category-icon">??</span>
-                    <span>In�cio</span>
-                </a>
-
-                <!-- Climatiza��o -->
-                <div class="nav-category">
-                    <button class="nav-category-header" onclick="toggleCategory(this.parentElement)">
-                        <span class="nav-category-icon">???</span>
-                        <span>Climatiza��o</span>
-                        <span class="nav-category-arrow">?</span>
-                    </button>
-                    <div class="nav-subcategories">
-                        <a href="#" class="nav-subcategory">Aquecedores</a>
-                        <a href="#" class="nav-subcategory">Ar-condicionado</a>
-                        <a href="#" class="nav-subcategory">Ventiladores</a>
-                    </div>
-                </div>
-
-                <!-- Coc��o -->
-                <div class="nav-category">
-                    <button class="nav-category-header" onclick="toggleCategory(this.parentElement)">
-                        <span class="nav-category-icon">??</span>
-                        <span>Coc��o</span>
-                        <span class="nav-category-arrow">?</span>
-                    </button>
-                    <div class="nav-subcategories">
-                        <a href="#" class="nav-subcategory">Coifas e Depuradores</a>
-                        <a href="#" class="nav-subcategory">Cooktops</a>
-                        <a href="#" class="nav-subcategory">Fog�es</a>
-                        <a href="#" class="nav-subcategory">Fornos</a>
-                        <a href="#" class="nav-subcategory">Micro-ondas</a>
-                    </div>
-                </div>
-
-                <!-- Lavanderia -->
-                <div class="nav-category">
-                    <button class="nav-category-header" onclick="toggleCategory(this.parentElement)">
-                        <span class="nav-category-icon">??</span>
-                        <span>Lavanderia</span>
-                        <span class="nav-category-arrow">?</span>
-                    </button>
-                    <div class="nav-subcategories">
-                        <a href="#" class="nav-subcategory">Lava e Seca</a>
-                        <a href="#" class="nav-subcategory">Lava-lou�as</a>
-                        <a href="#" class="nav-subcategory">Lavadoras de Roupa</a>
-                        <a href="#" class="nav-subcategory">Secadoras</a>
-                    </div>
-                </div>
-
-                <!-- Refrigera��o -->
-                <div class="nav-category">
-                    <button class="nav-category-header" onclick="toggleCategory(this.parentElement)">
-                        <span class="nav-category-icon">??</span>
-                        <span>Refrigera��o</span>
-                        <span class="nav-category-arrow">?</span>
-                    </button>
-                    <div class="nav-subcategories">
-                        <a href="/categoria/freezer" class="nav-subcategory"
-                            onclick="Router.navigate('/categoria/freezer'); return false;">
-                            Freezers
-                            <span class="nav-subcategory-badge" style="background:#64748b;">Em breve</span>
-                        </a>
-                        <a href="/categoria/frigobar" class="nav-subcategory"
-                            onclick="Router.navigate('/categoria/frigobar'); return false;">
-                            Frigobares
-                            <span class="nav-subcategory-badge" style="background:#64748b;">Em breve</span>
-                        </a>
-                        <!-- Geladeiras with Product Models -->
-                        <div class="nav-product-group" id="nav-geladeiras">
-                            <button class="nav-subcategory-header" onclick="toggleProductGroup(this.parentElement)">
-                                Geladeiras
-                                <span class="nav-subcategory-badge">4</span>
-                                <span class="nav-product-arrow">?</span>
-                            </button>
+</head>
+
+<body>
+
+    <div id="prerendered-content" class="prerendered-seo-content">
+        <h1>ComparaTop - Compare Eletrodomésticos</h1>
+        <p>Encontre o produto ideal comparando especificações, preços e avaliações reais de milhares de compradores.</p>
+        <nav>
+            <h2>Categorias</h2>
+            <ul>
+
+                <li><a href="/categoria/geladeira">Geladeiras</a></li>
+
+            </ul>
+        </nav>
+    </div>
+    <style>
+        .prerendered-seo-content {
+            display: none;
+        }
+    </style>
+
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-to-content">Pular para o conteúdo principal</a>
+
+    <!-- ML-Like Header -->
+    <header class="ml-header">
+        <div class="ml-header-content">
+            <a href="/" class="ml-home-btn">
+                <span class="ml-home-icon">⚖️</span>
+                <span class="ml-home-text">Início</span>
+            </a>
+            <a href="/" class="ml-logo">
+                ? ComparaTop
+            </a>
+            <div class="ml-search-wrapper">
+                <input type="text" class="ml-search-input" id="ml-search-input" placeholder="Buscar no ComparaTop"
+                    autocomplete="off">
+                <button class="ml-search-btn" type="button" id="ml-search-btn">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path
+                            d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                    </svg>
+                </button>
+                <div class="ml-search-results" id="ml-search-results"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ML-Like Categories Bar -->
+    <nav class="ml-categories" id="ml-categories">
+        <button class="ml-cat-btn" data-category="all" aria-expanded="false">
+            <span class="ml-cat-icon">⚖️</span>
+            <span class="ml-cat-text">Tudo</span>
+            <span class="ml-cat-arrow">?</span>
+        </button>
+        <button class="ml-cat-btn" data-category="climatizacao" aria-expanded="false">
+            <span class="ml-cat-icon">⚖️?</span>
+            <span class="ml-cat-text">Climatização</span>
+            <span class="ml-cat-arrow">?</span>
+        </button>
+        <button class="ml-cat-btn" data-category="coccao" aria-expanded="false">
+            <span class="ml-cat-icon">⚖️</span>
+            <span class="ml-cat-text">Cocção</span>
+            <span class="ml-cat-arrow">?</span>
+        </button>
+        <button class="ml-cat-btn" data-category="lavanderia" aria-expanded="false">
+            <span class="ml-cat-icon">⚖️</span>
+            <span class="ml-cat-text">Lavanderia</span>
+            <span class="ml-cat-arrow">?</span>
+        </button>
+        <button class="ml-cat-btn" data-category="refrigeracao" aria-expanded="false">
+            <span class="ml-cat-icon">⚖️</span>
+            <span class="ml-cat-text">Refrigeração</span>
+            <span class="ml-cat-arrow">?</span>
+        </button>
+    </nav>
+
+    <!-- Mega-Menu Overlay -->
+    <div class="ml-mega-overlay" id="ml-mega-overlay" aria-hidden="true"></div>
+
+    <!-- Mega-Menu "Tudo" -->
+    <div class="ml-mega-menu" id="ml-mega-all" aria-hidden="true">
+        <div class="ml-mega-header">
+            <h2>⚖️ Todas as Categorias</h2>
+            <button class="ml-mega-close" onclick="closeMegaMenu()">&times;</button>
+        </div>
+        <div class="ml-mega-grid">
+            <div class="ml-mega-col">
+                <h3>⚖️? Climatização</h3>
+                <a href="#" class="ml-mega-link disabled">Aquecedores <span>em breve</span></a>
+                <a href="#" class="ml-mega-link disabled">Ar-condicionado <span>em breve</span></a>
+                <a href="#" class="ml-mega-link disabled">Ventiladores <span>em breve</span></a>
+            </div>
+            <div class="ml-mega-col">
+                <h3>⚖️ Cocção</h3>
+                <a href="#" class="ml-mega-link disabled">Coifas <span>em breve</span></a>
+                <a href="#" class="ml-mega-link disabled">Cooktops <span>em breve</span></a>
+                <a href="#" class="ml-mega-link disabled">Fogões <span>em breve</span></a>
+                <a href="#" class="ml-mega-link disabled">Fornos <span>em breve</span></a>
+                <a href="#" class="ml-mega-link disabled">Micro-ondas <span>em breve</span></a>
+            </div>
+            <div class="ml-mega-col">
+                <h3>⚖️ Lavanderia</h3>
+                <a href="#" class="ml-mega-link disabled">Lava e Seca <span>em breve</span></a>
+                <a href="#" class="ml-mega-link disabled">Lava-louças <span>em breve</span></a>
+                <a href="#" class="ml-mega-link disabled">Lavadoras <span>em breve</span></a>
+                <a href="#" class="ml-mega-link disabled">Secadoras <span>em breve</span></a>
+            </div>
+            <div class="ml-mega-col">
+                <h3>⚖️ Refrigeração</h3>
+                <a href="/geladeiras/" class="ml-mega-link" onclick="navigateAndClose('/geladeiras/'); return false;">
+                    Geladeiras <span class="ml-mega-count">4</span>
+                </a>
+                <a href="#" class="ml-mega-link disabled">Freezers <span>em breve</span></a>
+                <a href="#" class="ml-mega-link disabled">Frigobares <span>em breve</span></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dropdown: Climatização -->
+    <div class="ml-dropdown" id="ml-dropdown-climatizacao" aria-hidden="true">
+        <a href="#" class="ml-dropdown-link disabled">Aquecedores <span>em breve</span></a>
+        <a href="#" class="ml-dropdown-link disabled">Ar-condicionado <span>em breve</span></a>
+        <a href="#" class="ml-dropdown-link disabled">Ventiladores <span>em breve</span></a>
+    </div>
+
+    <!-- Dropdown: Cocção -->
+    <div class="ml-dropdown" id="ml-dropdown-coccao" aria-hidden="true">
+        <a href="#" class="ml-dropdown-link disabled">Coifas <span>em breve</span></a>
+        <a href="#" class="ml-dropdown-link disabled">Cooktops <span>em breve</span></a>
+        <a href="#" class="ml-dropdown-link disabled">Fogões <span>em breve</span></a>
+        <a href="#" class="ml-dropdown-link disabled">Fornos <span>em breve</span></a>
+        <a href="#" class="ml-dropdown-link disabled">Micro-ondas <span>em breve</span></a>
+    </div>
+
+    <!-- Dropdown: Lavanderia -->
+    <div class="ml-dropdown" id="ml-dropdown-lavanderia" aria-hidden="true">
+        <a href="#" class="ml-dropdown-link disabled">Lava e Seca <span>em breve</span></a>
+        <a href="#" class="ml-dropdown-link disabled">Lava-louças <span>em breve</span></a>
+        <a href="#" class="ml-dropdown-link disabled">Lavadoras <span>em breve</span></a>
+        <a href="#" class="ml-dropdown-link disabled">Secadoras <span>em breve</span></a>
+    </div>
+
+    <!-- Dropdown: Refrigeração -->
+    <div class="ml-dropdown" id="ml-dropdown-refrigeracao" aria-hidden="true">
+        <a href="/geladeiras/" class="ml-dropdown-link" onclick="navigateAndClose('/geladeiras/'); return false;">
+            Geladeiras <span class="ml-dropdown-count">4</span>
+        </a>
+        <a href="#" class="ml-dropdown-link disabled">Freezers <span>em breve</span></a>
+        <a href="#" class="ml-dropdown-link disabled">Frigobares <span>em breve</span></a>
+    </div>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">? ComparaTop</div>
+                <div class="sidebar-tagline">Compare antes de comprar</div>
+            </div>
+            <nav class="sidebar-nav">
+                <!-- Home -->
+                <a href="/" class="nav-category-header active">
+                    <span class="nav-category-icon">⚖️</span>
+                    <span>Início</span>
+                </a>
+
+                <!-- Climatização -->
+                <div class="nav-category">
+                    <button class="nav-category-header" onclick="toggleCategory(this.parentElement)">
+                        <span class="nav-category-icon">⚖️?</span>
+                        <span>Climatização</span>
+                        <span class="nav-category-arrow">?</span>
+                    </button>
+                    <div class="nav-subcategories">
+                        <a href="#" class="nav-subcategory">Aquecedores</a>
+                        <a href="#" class="nav-subcategory">Ar-condicionado</a>
+                        <a href="#" class="nav-subcategory">Ventiladores</a>
+                    </div>
+                </div>
+
+                <!-- Cocção -->
+                <div class="nav-category">
+                    <button class="nav-category-header" onclick="toggleCategory(this.parentElement)">
+                        <span class="nav-category-icon">⚖️</span>
+                        <span>Cocção</span>
+                        <span class="nav-category-arrow">?</span>
+                    </button>
+                    <div class="nav-subcategories">
+                        <a href="#" class="nav-subcategory">Coifas e Depuradores</a>
+                        <a href="#" class="nav-subcategory">Cooktops</a>
+                        <a href="#" class="nav-subcategory">Fogões</a>
+                        <a href="#" class="nav-subcategory">Fornos</a>
+                        <a href="#" class="nav-subcategory">Micro-ondas</a>
+                    </div>
+                </div>
+
+                <!-- Lavanderia -->
+                <div class="nav-category">
+                    <button class="nav-category-header" onclick="toggleCategory(this.parentElement)">
+                        <span class="nav-category-icon">⚖️</span>
+                        <span>Lavanderia</span>
+                        <span class="nav-category-arrow">?</span>
+                    </button>
+                    <div class="nav-subcategories">
+                        <a href="#" class="nav-subcategory">Lava e Seca</a>
+                        <a href="#" class="nav-subcategory">Lava-louças</a>
+                        <a href="#" class="nav-subcategory">Lavadoras de Roupa</a>
+                        <a href="#" class="nav-subcategory">Secadoras</a>
+                    </div>
+                </div>
+
+                <!-- Refrigeração -->
+                <div class="nav-category">
+                    <button class="nav-category-header" onclick="toggleCategory(this.parentElement)">
+                        <span class="nav-category-icon">⚖️</span>
+                        <span>Refrigeração</span>
+                        <span class="nav-category-arrow">?</span>
+                    </button>
+                    <div class="nav-subcategories">
+                        <a href="/categoria/freezer" class="nav-subcategory"
+                            onclick="Router.navigate('/categoria/freezer'); return false;">
+                            Freezers
+                            <span class="nav-subcategory-badge" style="background:#64748b;">Em breve</span>
+                        </a>
+                        <a href="/categoria/frigobar" class="nav-subcategory"
+                            onclick="Router.navigate('/categoria/frigobar'); return false;">
+                            Frigobares
+                            <span class="nav-subcategory-badge" style="background:#64748b;">Em breve</span>
+                        </a>
+                        <!-- Geladeiras with Product Models -->
+                        <div class="nav-product-group" id="nav-geladeiras">
+                            <button class="nav-subcategory-header" onclick="toggleProductGroup(this.parentElement)">
+                                Geladeiras
+                                <span class="nav-subcategory-badge">4</span>
+                                <span class="nav-product-arrow">?</span>
+                            </button>
                             <div class="nav-product-list" id="nav-geladeiras-products">
                                 <a href="/produto/geladeira/brm44hb" class="nav-subcategory" onclick="Router.navigate('/produto/geladeira/brm44hb'); closeSidebar(); return false;">Brastemp BRM44HB 375L</a>
                                 <a href="/produto/geladeira/tf55" class="nav-subcategory" onclick="Router.navigate('/produto/geladeira/tf55'); closeSidebar(); return false;">Electrolux TF55 431L</a>
                                 <a href="/produto/geladeira/brastemp-bre57ak" class="nav-subcategory" onclick="Router.navigate('/produto/geladeira/brastemp-bre57ak'); closeSidebar(); return false;">Geladeira Brastemp Frost Free Inverse 443 litros Inox - BRE57AK</a>
                                 <a href="/produto/geladeira/samsung-rt46" class="nav-subcategory" onclick="Router.navigate('/produto/geladeira/samsung-rt46'); closeSidebar(); return false;">Geladeira Samsung Evolution RT46 com POWERvolt Inverter Duplex 460L</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <header class="header">
-                <button class="mobile-menu-btn" type="button" style="display:block;">?</button>
-                <div>
-                    <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:nowrap;">
-                        <div class="header-breadcrumb" id="breadcrumb">
-                            <a href="/">In�cio</a>
-                        </div>
-                        <div id="header-title" style="display:none;"></div>
-                        <div class="header-social-icons" style="display:flex;gap:0.3rem;">
-                            <a href="#" class="header-social-btn whatsapp" onclick="trackChannel('whatsapp')"
-                                title="WhatsApp">
-                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                                    <path
-                                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                                </svg>
-                            </a>
-                            <a href="#" class="header-social-btn telegram" onclick="trackChannel('telegram')"
-                                title="Telegram">
-                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                                    <path
-                                        d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
-                                </svg>
-                            </a>
-                            <a href="#" class="header-social-btn facebook" onclick="trackChannel('facebook')"
-                                title="Facebook">
-                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                                    <path
-                                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                                </svg>
-                            </a>
-                            <a href="#" class="header-social-btn instagram" onclick="trackChannel('instagram')"
-                                title="Instagram">
-                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                                    <path
-                                        d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z" />
-                                </svg>
-                            </a>
-                            <a href="#" class="header-social-btn x" onclick="trackChannel('x')" title="X (Twitter)">
-                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                                    <path
-                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                                </svg>
-                            </a>
-                            <a href="#" class="header-social-btn email" onclick="trackChannel('email')" title="Email">
-                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                                    <path
-                                        d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" />
-                                    <path
-                                        d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Search Bar -->
-                <div class="search-container">
-                    <span class="search-icon">??</span>
-                    <input type="text" class="search-input" id="search-input" placeholder="Buscar produtos..."
-                        autocomplete="off">
-                    <span class="search-shortcut">Ctrl+K</span>
-                    <div class="search-results" id="search-results"></div>
-                </div>
-            </header>
-
-            <div class="container">
-                <!-- Home Page -->
-                <div class="container">
-                    <!-- Mobile Overlay Element -->
-                    <div id="sidebar-overlay" class="sidebar-overlay" onclick="handleOverlayClick()"></div>
-
-                    <!-- Compare Toast (Small notification) -->
-                    <div id="compare-prompt"
-                        style="display:none;position:fixed;bottom:1rem;right:1rem;z-index:9999;background:white;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.2);padding:1rem;max-width:280px;opacity:1;">
-                        <button class="compare-prompt-btn secondary" onclick="hideCompareToast()"
-                            style="position:absolute;top:0.5rem;right:0.5rem;background:none;border:none;font-size:1.2rem;cursor:pointer;color:#64748b;padding:0.25rem;">?</button>
-                        <h4 style="margin:0 0 0.75rem;color:var(--c-primary-dark);font-size:1rem;">?? Comparar?</h4>
-                        <div id="compare-prompt-products" class="compare-prompt-products"></div>
-                        <p class="compare-prompt-hint" id="compare-prompt-hint"
-                            style="font-size:0.8rem;color:var(--c-muted);margin:0.5rem 0;"></p>
-                        <div class="compare-prompt-actions" style="justify-content:center;margin-top:1rem;">
-                            <button class="compare-prompt-btn primary" id="compare-prompt-btn-compare"
-                                onclick="startComparisonFromPrompt()"
-                                style="width:100%;padding:0.75rem 1.5rem;font-size:1rem;background:var(--c-primary);color:white;border:none;border-radius:var(--radius-sm);cursor:pointer;">Comparar</button>
-                        </div>
-                    </div>
-
-                    <!-- Home Page -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <button class="mobile-menu-btn" type="button" style="display:block;">?</button>
+                <div>
+                    <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:nowrap;">
+                        <div class="header-breadcrumb" id="breadcrumb">
+                            <a href="/">Início</a>
+                        </div>
+                        <div id="header-title" style="display:none;"></div>
+                        <div class="header-social-icons" style="display:flex;gap:0.3rem;">
+                            <a href="#" class="header-social-btn whatsapp" onclick="trackChannel('whatsapp')"
+                                title="WhatsApp">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                    <path
+                                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                                </svg>
+                            </a>
+                            <a href="#" class="header-social-btn telegram" onclick="trackChannel('telegram')"
+                                title="Telegram">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                    <path
+                                        d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+                                </svg>
+                            </a>
+                            <a href="#" class="header-social-btn facebook" onclick="trackChannel('facebook')"
+                                title="Facebook">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                    <path
+                                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                </svg>
+                            </a>
+                            <a href="#" class="header-social-btn instagram" onclick="trackChannel('instagram')"
+                                title="Instagram">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                    <path
+                                        d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z" />
+                                </svg>
+                            </a>
+                            <a href="#" class="header-social-btn x" onclick="trackChannel('x')" title="X (Twitter)">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                    <path
+                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                                </svg>
+                            </a>
+                            <a href="#" class="header-social-btn email" onclick="trackChannel('email')" title="Email">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                    <path
+                                        d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" />
+                                    <path
+                                        d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <span class="search-icon">⚖️</span>
+                    <input type="text" class="search-input" id="search-input" placeholder="Buscar produtos..."
+                        autocomplete="off">
+                    <span class="search-shortcut">Ctrl+K</span>
+                    <div class="search-results" id="search-results"></div>
+                </div>
+            </header>
+
+            <div class="container">
+                <!-- Home Page -->
+                <div class="container">
+                    <!-- Mobile Overlay Element -->
+                    <div id="sidebar-overlay" class="sidebar-overlay" onclick="handleOverlayClick()"></div>
+
+                    <!-- Compare Toast (Small notification) -->
+                    <div id="compare-prompt"
+                        style="display:none;position:fixed;bottom:1rem;right:1rem;z-index:9999;background:white;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.2);padding:1rem;max-width:280px;opacity:1;">
+                        <button class="compare-prompt-btn secondary" onclick="hideCompareToast()"
+                            style="position:absolute;top:0.5rem;right:0.5rem;background:none;border:none;font-size:1.2rem;cursor:pointer;color:#64748b;padding:0.25rem;">?</button>
+                        <h4 style="margin:0 0 0.75rem;color:var(--c-primary-dark);font-size:1rem;">⚖️ Comparar?</h4>
+                        <div id="compare-prompt-products" class="compare-prompt-products"></div>
+                        <p class="compare-prompt-hint" id="compare-prompt-hint"
+                            style="font-size:0.8rem;color:var(--c-muted);margin:0.5rem 0;"></p>
+                        <div class="compare-prompt-actions" style="justify-content:center;margin-top:1rem;">
+                            <button class="compare-prompt-btn primary" id="compare-prompt-btn-compare"
+                                onclick="startComparisonFromPrompt()"
+                                style="width:100%;padding:0.75rem 1.5rem;font-size:1rem;background:var(--c-primary);color:white;border:none;border-radius:var(--radius-sm);cursor:pointer;">Comparar</button>
+                        </div>
+                    </div>
+
+                    <!-- Home Page -->
                     
     <div id="comparison-content" class="comparison-page-content">
         <nav aria-label="Breadcrumb" class="breadcrumb-nav">
@@ -772,710 +772,710 @@
         }
     </style>
     
-<div id="page-home" style="display:none;">
-                        <!-- Unified Hero + Recommender Section -->
-                        <section class="home-hero"
-                            style="background:linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem;color:white;text-align:center;overflow:hidden;word-wrap:break-word;">
-                            <h1
-                                style="font-size:clamp(1.2rem, 5vw, 1.5rem);margin:0 0 0.75rem;font-weight:700;color:#ffffff;text-shadow:0 2px 4px rgba(0,0,0,0.5);">
-                                ?? Encontre o Produto Ideal</h1>
-                            <p
-                                style="font-size:clamp(0.85rem, 3vw, 1rem);margin:0 auto 1.25rem;color:#ffffff;max-width:600px;padding:0 0.5rem;">
-                                Compare eletrodom�sticos com
-                                an�lises reais de milhares de compradores</p>
-
-                            <!-- Category Selector -->
-                            <div style="margin-bottom:0.5rem;">
-                                <select id="quiz-category-select-hero"
-                                    onchange="document.getElementById('quiz-category-select').value = this.value; startGlobalQuiz();"
-                                    style="width:100%;max-width:320px;padding:0.75rem 1rem;border-radius:8px;border:2px solid rgba(255,255,255,0.3);font-size:1rem;color:#1e293b;background:white;font-weight:500;text-align:center;text-align-last:center;">
-                                    <option value="">?? Selecione uma categoria...</option>
-                                    <optgroup label="??? Climatiza��o">
-                                        <option value="aquecedor" disabled>Aquecedores (em breve)</option>
-                                        <option value="ar-condicionado" disabled>Ar-condicionado (em breve)</option>
-                                        <option value="ventilador" disabled>Ventiladores (em breve)</option>
-                                    </optgroup>
-                                    <optgroup label="?? Coc��o">
-                                        <option value="coifa" disabled>Coifas e Depuradores (em breve)</option>
-                                        <option value="cooktop" disabled>Cooktops (em breve)</option>
-                                        <option value="fogao" disabled>Fog�es (em breve)</option>
-                                        <option value="forno" disabled>Fornos (em breve)</option>
-                                        <option value="microondas" disabled>Micro-ondas (em breve)</option>
-                                    </optgroup>
-                                    <optgroup label="?? Lavanderia">
-                                        <option value="lava-seca" disabled>Lava e Seca (em breve)</option>
-                                        <option value="lava-loucas" disabled>Lava-lou�as (em breve)</option>
-                                        <option value="lavadora" disabled>Lavadoras (em breve)</option>
-                                        <option value="secadora" disabled>Secadoras (em breve)</option>
-                                    </optgroup>
-                                    <optgroup label="?? Refrigera��o">
-                                        <option value="freezer" disabled>Freezers (em breve)</option>
-                                        <option value="frigobar" disabled>Frigobares (em breve)</option>
-                                        <option value="geladeira">Geladeiras ?</option>
-                                    </optgroup>
-                                </select>
-                            </div>
-
-                            <div id="hero-quiz-container"></div>
-                        </section>
-
-                        <section class="usp-section">
-                            <h3 class="usp-title">?? Por que somos diferentes?</h3>
-                            <div class="usp-grid">
-                                <a href="/metodologia/voz-cliente/" class="usp-item">
-                                    <div class="usp-item-icon">???</div>
-                                    <div class="usp-item-title">Voz do Cliente Real</div>
-                                    <div class="usp-item-desc">S�ntese de milhares de reviews: Amazon, Mercado Livre,
-                                        Magazine Luiza, Shopee, YouTube e Reclame Aqui</div>
-                                </a>
-                                <a href="/metodologia/notas/" class="usp-item">
-                                    <div class="usp-item-icon">??</div>
-                                    <div class="usp-item-title">Notas Editoriais</div>
-                                    <div class="usp-item-desc">At� 10 crit�rios avaliados por categoria: durabilidade,
-                                        custo-benef�cio, qualidade e mais</div>
-                                </a>
-                                <a href="/metodologia/assistente/" class="usp-item">
-                                    <div class="usp-item-icon">??</div>
-                                    <div class="usp-item-title">Assistente Inteligente</div>
-                                    <div class="usp-item-desc">Responda perguntas simples e descubra o produto ideal
-                                        para voc�</div>
-                                </a>
-                                <a href="/metodologia/fontes/" class="usp-item">
-                                    <div class="usp-item-icon">??</div>
-                                    <div class="usp-item-title">Fontes Transparentes</div>
-                                    <div class="usp-item-desc">Citamos todas as fontes para voc� verificar</div>
-                                </a>
-                            </div>
-                        </section>
-
-                        <!-- Global Product Recommender (hidden - moved to hero) -->
-                        <section class="recommender-section"
-                            style="display:none;background:linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);border-radius:var(--radius);padding:2rem;margin:2rem 0;color:white;">
-                            <h2 style="margin:0 0 0.5rem;font-size:1.5rem;">?? Encontre o Produto Ideal</h2>
-                            <p style="margin:0 0 1.5rem;opacity:0.9;">Selecione a categoria e responda perguntas r�pidas
-                                para descobrir qual produto combina melhor com voc�!</p>
-
-                            <!-- Category Selector -->
-                            <div id="quiz-category-selector" style="margin-bottom:1.5rem;">
-                                <label style="display:block;margin-bottom:0.5rem;font-weight:600;">Qual categoria voc�
-                                    procura?</label>
-                                <select id="quiz-category-select"
-                                    style="width:100%;max-width:300px;padding:0.75rem;border-radius:var(--radius-sm);border:none;font-size:1rem;color:#1e293b;">
-                                    <option value="">Selecione uma categoria...</option>
-                                    <option value="geladeira">?? Geladeiras</option>
-                                    <option value="fogao" disabled>?? Fog�es (em breve)</option>
-                                    <option value="lavadora" disabled>?? Lavadoras (em breve)</option>
-                                    <option value="ar-condicionado" disabled>??? Ar-condicionado (em breve)</option>
-                                </select>
-                            </div>
-
-                            <div id="global-quiz-container">
-                                <div id="global-quiz-questions"></div>
-                                <div id="global-quiz-result" style="display:none;"></div>
-                            </div>
-
-                            <button class="btn" id="start-global-quiz-btn" onclick="startGlobalQuiz()"
-                                style="background:white;color:#1d4ed8;font-weight:600;padding:0.75rem 2rem;border:none;border-radius:var(--radius);cursor:pointer;font-size:1rem;display:none;">
-                                ? Iniciar Assistente
-                            </button>
-                        </section>
-
-                        <h2 style="color:var(--c-primary-dark);margin:2rem 0 1rem;">?? Explore por Categoria</h2>
-                        <div class="categories-grid">
-                            <!-- Climatiza��o -->
-                            <div class="category-card">
-                                <div class="category-card-icon">???</div>
-                                <div class="category-card-title">Climatiza��o</div>
-                                <div class="category-card-desc">Ar-condicionado, ventiladores e aquecedores para seu
-                                    conforto</div>
-                                <div class="category-card-items">
-                                    <span class="category-card-tag">Aquecedores</span>
-                                    <span class="category-card-tag">Ar-condicionado</span>
-                                    <span class="category-card-tag">Ventiladores</span>
-                                </div>
-                            </div>
-                            <!-- Coc��o -->
-                            <div class="category-card">
-                                <div class="category-card-icon">??</div>
-                                <div class="category-card-title">Coc��o</div>
-                                <div class="category-card-desc">Fog�es, cooktops, fornos e micro-ondas para preparar
-                                    suas
-                                    refei��es</div>
-                                <div class="category-card-items">
-                                    <span class="category-card-tag">Coifas e Depuradores</span>
-                                    <span class="category-card-tag">Cooktops</span>
-                                    <span class="category-card-tag">Fog�es</span>
-                                    <span class="category-card-tag">Fornos</span>
-                                    <span class="category-card-tag">Micro-ondas</span>
-                                </div>
-                            </div>
-                            <!-- Lavanderia -->
-                            <div class="category-card">
-                                <div class="category-card-icon">??</div>
-                                <div class="category-card-title">Lavanderia e Limpeza</div>
-                                <div class="category-card-desc">Lavadoras, secadoras e lava-lou�as para facilitar sua
-                                    rotina
-                                </div>
-                                <div class="category-card-items">
-                                    <span class="category-card-tag">Lava e Seca</span>
-                                    <span class="category-card-tag">Lava-lou�as</span>
-                                    <span class="category-card-tag">Lavadoras</span>
-                                    <span class="category-card-tag">Secadoras</span>
-                                </div>
-                            </div>
-                            <!-- Refrigera��o -->
-                            <div class="category-card" onclick="showCategory('geladeira')">
-                                <div class="category-card-icon">??</div>
-                                <div class="category-card-title">Refrigera��o e Conserva��o</div>
-                                <div class="category-card-desc">Geladeiras, freezers e frigobares para manter seus
-                                    alimentos
-                                    frescos</div>
-                                <div class="category-card-items">
-                                    <span class="category-card-tag">Freezers</span>
-                                    <span class="category-card-tag">Frigobares</span>
-                                    <a href="/geladeiras/" class="category-card-tag available"
-                                        onclick="event.stopPropagation();">Geladeiras (4)</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Produtos Populares Section (SEO) -->
-                        <section class="popular-products-section"
-                            style="margin: 2rem 0; padding: 2rem; background: var(--c-surface); border-radius: var(--radius); box-shadow: var(--shadow-sm);">
-                            <h2 style="color: var(--c-primary-dark); margin-bottom: 1rem; font-size: 1.5rem;">??
-                                Produtos
-                                Populares</h2>
-                            <p style="color: var(--c-muted); margin-bottom: 1.5rem;">Confira os produtos mais buscados
-                                pelos
-                                nossos usu�rios:</p>
-
-                            <div
-                                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
-                                <div class="popular-product-card"
-                                    style="padding: 1.5rem; background: #f8fafc; border-radius: var(--radius-sm); border: 2px solid transparent;">
-                                    <a href="/produto/geladeira/brm44hb/"
-                                        style="display: block; text-decoration: none; color: var(--c-text);">
-                                        <div style="font-weight: 700; color: var(--c-primary-dark);">?? Brastemp BRM44HB
-                                            375L</div>
-                                        <div style="font-size: 0.9rem; color: var(--c-muted); margin-top: 0.5rem;">
-                                            Geladeira Frost Free com compartimento Extra Frio</div>
-                                        <div
-                                            style="font-size: 0.85rem; color: var(--c-success); margin-top: 0.5rem; font-weight: 600;">
-                                            A partir de R$ 3.149,90 ?</div>
-                                    </a>
-                                    <button class="ssg-compare-btn"
-                                        onclick="toggleCarouselCompare('brm44hb', 'BRM44HB 375L', 'Brastemp', 9.2); event.stopPropagation();"
-                                        style="margin-top: 0.75rem; width: 100%; padding: 0.6rem 1rem; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
-                                        ?? Comparar
-                                    </button>
-                                </div>
-                                <div class="popular-product-card"
-                                    style="padding: 1.5rem; background: #f8fafc; border-radius: var(--radius-sm); border: 2px solid transparent;">
-                                    <a href="/produto/geladeira/tf55/"
-                                        style="display: block; text-decoration: none; color: var(--c-text);">
-                                        <div style="font-weight: 700; color: var(--c-primary-dark);">?? Electrolux TF55
-                                            431L</div>
-                                        <div style="font-size: 0.9rem; color: var(--c-muted); margin-top: 0.5rem;">
-                                            Geladeira Frost Free com Blue Touch e prateleiras flex�veis</div>
-                                        <div
-                                            style="font-size: 0.85rem; color: var(--c-success); margin-top: 0.5rem; font-weight: 600;">
-                                            A partir de R$ 3.399,90 ?</div>
-                                    </a>
-                                    <button class="ssg-compare-btn"
-                                        onclick="toggleCarouselCompare('tf55', 'TF55 431L', 'Electrolux', 8.8); event.stopPropagation();"
-                                        style="margin-top: 0.75rem; width: 100%; padding: 0.6rem 1rem; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
-                                        ?? Comparar
-                                    </button>
-                                </div>
-                            </div>
-
-                            <h3 style="color: var(--c-primary-dark); margin: 2rem 0 1rem; font-size: 1.25rem;">??
-                                Compara��es em Destaque</h3>
-                            <div>
-                                <a href="#" onclick="openFeaturedComparison('brm44hb', 'tf55'); return false;"
-                                    style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 1.5rem; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; border-radius: var(--radius-sm); text-decoration: none; font-weight: 600; transition: all 0.2s; cursor: pointer;">
-                                    ?? Brastemp BRM44HB vs Electrolux TF55 � Qual escolher?
-                                </a>
-                            </div>
-                        </section>
-
-                        <!-- Newsletter Section -->
-                        <section class="newsletter-section">
-                            <h3 class="newsletter-title">?? Fique por dentro das melhores ofertas</h3>
-                            <p class="newsletter-desc">Receba alertas de pre�o, novos comparativos e promo��es
-                                exclusivas
-                                pelos seus canais preferidos.</p>
-
-                            <div id="newsletter-form-container">
-                                <div class="newsletter-form">
-                                    <input type="email" class="newsletter-input" id="newsletter-email"
-                                        placeholder="Seu melhor email">
-
-                                    <div class="newsletter-options">
-                                        <label class="newsletter-option">
-                                            <input type="checkbox" id="nl-price" checked> ?? Alertas de pre�o
-                                        </label>
-                                        <label class="newsletter-option">
-                                            <input type="checkbox" id="nl-new" checked> ?? Novos comparativos
-                                        </label>
-                                        <label class="newsletter-option">
-                                            <input type="checkbox" id="nl-promo"> ?? Promo��es semanais
-                                        </label>
-                                    </div>
-
-                                    <button class="newsletter-btn" onclick="subscribeNewsletter()">? Cadastrar
-                                        Email</button>
-
-                                    <!-- Broadcast Channels -->
-                                    <div
-                                        style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.2);">
-                                        <p style="font-size:0.9rem;margin-bottom:0.75rem;">?? Ou siga nossos canais:</p>
-                                        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;">
-                                            <a href="javascript:void(0)"
-                                                onclick="alert('?? Canal do Telegram em cria��o! Enquanto isso, cadastre seu email acima.'); trackChannel('telegram')"
-                                                style="display:flex;align-items:center;gap:0.5rem;background:#0088cc;color:#fff;padding:0.6rem 1rem;border-radius:var(--radius-sm);text-decoration:none;font-weight:600;font-size:0.9rem;cursor:pointer;">
-                                                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                                                    <path
-                                                        d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
-                                                </svg>
-                                                Telegram
-                                            </a>
-                                            <a href="javascript:void(0)"
-                                                onclick="alert('?? Grupo do WhatsApp em cria��o! Enquanto isso, cadastre seu email acima.'); trackChannel('whatsapp')"
-                                                style="display:flex;align-items:center;gap:0.5rem;background:#25D366;color:#fff;padding:0.6rem 1rem;border-radius:var(--radius-sm);text-decoration:none;font-weight:600;font-size:0.9rem;cursor:pointer;">
-                                                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                                                    <path
-                                                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                                                </svg>
-                                                WhatsApp
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="newsletter-privacy">?? Seus dados est�o seguros. N�o fazemos spam e voc� pode
-                                    cancelar a qualquer momento.</p>
-                            </div>
-
-                            <div class="newsletter-success" id="newsletter-success">
-                                ? Cadastro realizado com sucesso! Voc� receber� nossas atualiza��es em breve.
-                            </div>
-                        </section>
-                    </div>
-
-                    <!-- Category Page (dynamic) -->
-                    <div id="page-category" style="display:none;">
-                        <div class="page-header">
-                            <h1 class="page-title" id="category-title">Geladeiras</h1>
-                            <p class="page-desc" id="category-desc">Compare modelos com base em an�lises reais de
-                                compradores</p>
-                        </div>
-
-
-                        <!-- Loading removed: content is SSG -->
-                        <div id="error" class="error" style="display:none;"></div>
-
-                        <!-- Products List - now links to SSG category page -->
-                        <section style="margin-bottom:2rem;">
-                            <h2 style="color:var(--c-primary-dark);margin-bottom:1rem;">?? Modelos Dispon�veis</h2>
-                            <a href="/geladeiras/" onclick="Router.navigate('/geladeiras/'); return false;"
-                                style="display:block;background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); padding: 1.5rem; border-radius: var(--radius); border-left: 4px solid var(--c-primary); text-decoration:none; cursor:pointer; transition:transform 0.2s, box-shadow 0.2s;"
-                                onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)';"
-                                onmouseout="this.style.transform='';this.style.boxShadow='';">
-                                <p style="margin:0; font-size: 1rem; color: var(--c-primary-dark);">
-                                    ?? <strong>Ver todos os modelos de Geladeiras</strong>
-                                </p>
-                                <p style="margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--c-muted);">
-                                    Veja a lista completa com pre�os, notas e compara��es
-                                </p>
-                            </a>
-                            <div id="products-grid" class="products-grid" style="display:none;"></div>
-                        </section>
-
-                        <!-- Assistant Section -->
-                        <section class="assistant-section">
-                            <h3>?? Qual geladeira � ideal para voc�?</h3>
-                            <p style="margin-bottom:1rem;color:var(--c-muted);font-size:0.9rem;">Responda as perguntas e
-                                veja
-                                recomenda��es personalizadas baseadas em <strong>an�lise agregada</strong> de milhares
-                                de
-                                avalia��es.</p>
-
-                            <div class="assistant-form">
-                                <div class="form-group">
-                                    <label>?? Largura do seu nicho (cm):</label>
-                                    <input type="number" id="q-niche" placeholder="Ex: 66" min="50" max="150">
-                                    <small style="color:var(--c-muted);font-size:0.8rem;margin-left:0.5rem;">Deixe em
-                                        branco
-                                        se n�o
-                                        souber</small>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>?? Faixa de or�amento (R$):</label>
-                                    <div class="form-row">
-                                        <span>De</span>
-                                        <input type="number" id="q-budget-min" placeholder="2000" min="1000">
-                                        <span>at�</span>
-                                        <input type="number" id="q-budget-max" placeholder="4000" min="1000">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>?? Uso do freezer:</label>
-                                    <select id="q-freezer">
-                                        <option value="pouco">Pouco (congelo raramente)</option>
-                                        <option value="medio" selected>M�dio (uso normal)</option>
-                                        <option value="muito">Muito (congelo bastante)</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>?? Sua prioridade principal:</label>
-                                    <select id="q-priority">
-                                        <option value="espaco">Caber no espa�o dispon�vel</option>
-                                        <option value="freezer">Freezer grande</option>
-                                        <option value="consumo" selected>Menor consumo de energia</option>
-                                        <option value="funcoes">Fun��es e painel digital</option>
-                                        <option value="custo">Menor pre�o</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>?? Sensibilidade a ru�do:</label>
-                                    <select id="q-noise">
-                                        <option value="sim">Sim, muito sens�vel</option>
-                                        <option value="nao" selected>N�o me incomoda</option>
-                                    </select>
-                                </div>
-
-                                <button class="btn" onclick="runAssistant()">Ver Recomenda��es</button>
-                            </div>
-
-                            <div id="assistant-results"></div>
-                            <!-- Calculators Section -->
-                            <section style="margin-top:2rem;">
-                                <h2 style="color:var(--c-primary-dark);margin-bottom:1rem;">?? Calculadoras</h2>
-                                <div
-                                    style="display:grid;grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));gap:1.5rem;">
-
-                                    <!-- Energy Consumption Calculator -->
-                                    <div
-                                        style="background:var(--c-surface);border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow-sm);">
-                                        <h3 style="color:var(--c-primary-dark);font-size:1.1rem;margin-bottom:1rem;">?
-                                            Calculadora de Consumo Energ�tico</h3>
-                                        <p style="font-size:0.85rem;color:var(--c-muted);margin-bottom:1rem;">Calcule
-                                            quanto
-                                            cada produto vai custar na sua conta de luz por m�s/ano.</p>
-
-                                        <div style="display:flex;flex-direction:column;gap:0.75rem;">
-                                            <div>
-                                                <label style="font-size:0.85rem;font-weight:500;">Tarifa de energia
-                                                    (R$/kWh):</label>
-                                                <input type="number" id="calc-tariff" value="0.85" step="0.01" min="0.1"
-                                                    max="2"
-                                                    style="padding:0.5rem;border:1px solid var(--c-border);border-radius:var(--radius-sm);width:100px;margin-left:0.5rem;">
-                                            </div>
-                                            <div>
-                                                <label style="font-size:0.85rem;font-weight:500;">Voltagem:</label>
-                                                <select id="calc-voltage"
-                                                    style="padding:0.5rem;border:1px solid var(--c-border);border-radius:var(--radius-sm);margin-left:0.5rem;">
-                                                    <option value="110">110V</option>
-                                                    <option value="220">220V</option>
-                                                    <option value="both">Bivolt</option>
-                                                </select>
-                                                <small
-                                                    style="color:var(--c-muted);font-size:0.75rem;display:block;margin-top:0.25rem;">Nota:
-                                                    consumo pode variar ~5% entre 110V e 220V</small>
-                                            </div>
-                                            <button class="btn" onclick="calculateEnergy()"
-                                                style="margin-top:0.5rem;">Calcular Consumo</button>
-                                        </div>
-
-                                        <div id="energy-results" style="margin-top:1rem;display:none;">
-                                            <!-- Results will be rendered here -->
-                                        </div>
-                                    </div>
-
-                                    <!-- Niche/Fit Checker -->
-                                    <div
-                                        style="background:var(--c-surface);border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow-sm);">
-                                        <h3 style="color:var(--c-primary-dark);font-size:1.1rem;margin-bottom:1rem;">??
-                                            Verificador de Encaixe (Nicho)</h3>
-                                        <p style="font-size:0.85rem;color:var(--c-muted);margin-bottom:1rem;">Informe as
-                                            medidas do seu espa�o e veja quais produtos cabem.</p>
-
-                                        <div style="display:flex;flex-direction:column;gap:0.75rem;">
-                                            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-                                                <div>
-                                                    <label style="font-size:0.85rem;font-weight:500;">Largura
-                                                        (cm):</label>
-                                                    <input type="number" id="niche-width" placeholder="70" min="50"
-                                                        max="200"
-                                                        style="padding:0.5rem;border:1px solid var(--c-border);border-radius:var(--radius-sm);width:70px;margin-left:0.25rem;">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size:0.85rem;font-weight:500;">Altura
-                                                        (cm):</label>
-                                                    <input type="number" id="niche-height" placeholder="180" min="100"
-                                                        max="250"
-                                                        style="padding:0.5rem;border:1px solid var(--c-border);border-radius:var(--radius-sm);width:70px;margin-left:0.25rem;">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size:0.85rem;font-weight:500;">Profundidade
-                                                        (cm):</label>
-                                                    <input type="number" id="niche-depth" placeholder="80" min="50"
-                                                        max="150"
-                                                        style="padding:0.5rem;border:1px solid var(--c-border);border-radius:var(--radius-sm);width:70px;margin-left:0.25rem;">
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <label style="font-size:0.85rem;font-weight:500;">Folga m�nima desejada
-                                                    (cm):</label>
-                                                <input type="number" id="niche-gap" value="4" min="0" max="20"
-                                                    style="padding:0.5rem;border:1px solid var(--c-border);border-radius:var(--radius-sm);width:60px;margin-left:0.5rem;">
-                                                <small
-                                                    style="color:var(--c-muted);font-size:0.75rem;display:block;margin-top:0.25rem;">Recomendado:
-                                                    4cm para ventila��o</small>
-                                            </div>
-                                            <button class="btn" onclick="checkNicheFit()"
-                                                style="margin-top:0.5rem;">Verificar Encaixe</button>
-                                        </div>
-
-                                        <div id="niche-results" style="margin-top:1rem;display:none;">
-                                            <!-- Results will be rendered here -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                    </div>
-
-                    <!-- Individual Product Page -->
-                    <div id="page-product" style="display:none;">
-                        <div id="product-content"></div>
-                    </div>
-
-                    <!-- Comparison Page -->
-                    <div id="page-comparison" style="display:none;">
-                        <div class="page-header">
-                            <h1 class="page-title" id="comparison-title">?? Compara��o</h1>
-                            <p class="page-desc">Veja lado a lado as diferen�as entre os produtos selecionados</p>
-                        </div>
-                        <div id="comparison-content"></div>
-                    </div>
-                </div>
-        </main>
-    </div>
-
-    <!-- Comparison Floating Bar -->
-    <div class="compare-bar" id="compare-bar" style="z-index:90;">
-        <div class="compare-bar-products" id="compare-bar-products"></div>
-        <div class="compare-bar-actions">
-            <button class="compare-bar-btn secondary" onclick="clearComparison()">Limpar</button>
-            <button class="compare-bar-btn primary" onclick="showComparison()">?? Comparar</button>
-        </div>
-    </div>
-
-    <!-- Floating Compare Counter Badge -->
-    <div class="compare-counter" id="compare-counter" style="z-index:90;">
-        <button class="compare-counter-close" onclick="hideCompareCounter()" title="Fechar">�</button>
-        <div class="compare-counter-number">0</div>
-        <div class="compare-counter-text">produtos</div>
-        <button class="compare-counter-btn" onclick="showComparison()">Ver Compara��o</button>
-    </div>
-
-    <!-- Comparison Modal -->
-    <div class="compare-modal" id="compare-modal" onclick="if(event.target===this) closeCompareModal()">
-        <div class="compare-modal-content">
-            <div class="compare-modal-header">
-                <div class="compare-modal-title-row">
-                    <h2 class="compare-modal-title">?? Compara��o Detalhada</h2>
-                    <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:nowrap;">
-                        <div class="font-zoom-controls">
-                            <button class="font-zoom-btn" onclick="changeTableFontSize(-1)"
-                                title="Diminuir fonte">A-</button>
-                            <button class="font-zoom-btn" onclick="changeTableFontSize(1)"
-                                title="Aumentar fonte">A+</button>
-                        </div>
-                        <div class="share-buttons" id="share-panel">
-                            <button class="share-social-btn whatsapp" onclick="shareToSocial('whatsapp')"
-                                title="WhatsApp">
-                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                                    <path
-                                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                                </svg>
-                            </button>
-                            <button class="share-social-btn telegram" onclick="shareToSocial('telegram')"
-                                title="Telegram">
-                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                                    <path
-                                        d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
-                                </svg>
-                            </button>
-                            <button class="share-social-btn facebook" onclick="shareToSocial('facebook')"
-                                title="Facebook">
-                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                                    <path
-                                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                                </svg>
-                            </button>
-                            <button class="share-social-btn twitter" onclick="shareToSocial('twitter')"
-                                title="X (Twitter)">
-                                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                                    <path
-                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                                </svg>
-                            </button>
-                            <button class="share-social-btn email" onclick="shareToSocial('email')" title="Email">
-                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                                    <path
-                                        d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" />
-                                    <path
-                                        d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
-                                </svg>
-                            </button>
-                            <button class="share-social-btn copy" onclick="shareToSocial('copy')" title="Copiar Link">
-                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                                    <path
-                                        d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" fill="none" />
-                                </svg>
-                            </button>
-                        </div>
-                        <button class="compare-modal-close" onclick="closeCompareModal()">?</button>
-                    </div>
-                </div>
-            </div>
-            <div class="compare-modal-body" id="compare-modal-body"></div>
-        </div>
-    </div>
-
-    <!-- Share Toast -->
-    <div class="share-toast" id="share-toast">? Link copiado para a �rea de transfer�ncia!</div>
-
-    <!-- Mobile Bottom Bar -->
-    <nav class="ml-bottom-bar" id="ml-bottom-bar">
-        <a href="/" class="ml-bottom-item" id="bottom-home">
-            <span class="ml-bottom-icon">??</span>
-            <span class="ml-bottom-label">In�cio</span>
-        </a>
-        <button class="ml-bottom-item" id="bottom-categories" onclick="openBottomSheet('categories')">
-            <span class="ml-bottom-icon">??</span>
-            <span class="ml-bottom-label">Categorias</span>
-        </button>
-        <button class="ml-bottom-item" id="bottom-compare" onclick="handleCompareClick()">
-            <span class="ml-bottom-icon">??</span>
-            <span class="ml-bottom-label">Comparar</span>
-            <span class="ml-bottom-badge" id="bottom-compare-badge">0</span>
-        </button>
-        <button class="ml-bottom-item" id="bottom-more" onclick="openBottomSheet('more')">
-            <span class="ml-bottom-icon">?</span>
-            <span class="ml-bottom-label">Mais</span>
-        </button>
-    </nav>
-
-    <!-- Mobile Bottom Sheet: Categories -->
-    <div class="ml-bottom-sheet" id="ml-sheet-categories" aria-hidden="true">
-        <div class="ml-sheet-overlay" onclick="closeBottomSheet('categories')"></div>
-        <div class="ml-sheet-content">
-            <div class="ml-sheet-handle"></div>
-            <div class="ml-sheet-header">
-                <h3>?? Categorias</h3>
-                <button class="ml-sheet-close" onclick="closeBottomSheet('categories')">&times;</button>
-            </div>
-            <div class="ml-sheet-body">
-                <a href="/" class="ml-sheet-link" onclick="navigateFromSheet('/'); return false;">
-                    <span>??</span> In�cio
-                </a>
-                <div class="ml-sheet-divider"></div>
-                <div class="ml-sheet-category">
-                    <span class="ml-sheet-cat-icon">??</span>
-                    <span class="ml-sheet-cat-name">Refrigera��o</span>
-                </div>
-                <a href="/geladeiras/" class="ml-sheet-link sub"
-                    onclick="navigateFromSheet('/geladeiras/'); return false;">
-                    Geladeiras <span class="ml-sheet-count">4</span>
-                </a>
-                <a href="#" class="ml-sheet-link sub disabled">Freezers <span>em breve</span></a>
-                <a href="#" class="ml-sheet-link sub disabled">Frigobares <span>em breve</span></a>
-                <div class="ml-sheet-divider"></div>
-                <div class="ml-sheet-category">
-                    <span class="ml-sheet-cat-icon">???</span>
-                    <span class="ml-sheet-cat-name">Climatiza��o</span>
-                    <span class="ml-sheet-soon">em breve</span>
-                </div>
-                <div class="ml-sheet-category">
-                    <span class="ml-sheet-cat-icon">??</span>
-                    <span class="ml-sheet-cat-name">Coc��o</span>
-                    <span class="ml-sheet-soon">em breve</span>
-                </div>
-                <div class="ml-sheet-category">
-                    <span class="ml-sheet-cat-icon">??</span>
-                    <span class="ml-sheet-cat-name">Lavanderia</span>
-                    <span class="ml-sheet-soon">em breve</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Mobile Bottom Sheet: More -->
-    <div class="ml-bottom-sheet" id="ml-sheet-more" aria-hidden="true">
-        <div class="ml-sheet-overlay" onclick="closeBottomSheet('more')"></div>
-        <div class="ml-sheet-content">
-            <div class="ml-sheet-handle"></div>
-            <div class="ml-sheet-header">
-                <h3>? Menu</h3>
-                <button class="ml-sheet-close" onclick="closeBottomSheet('more')">&times;</button>
-            </div>
-            <div class="ml-sheet-body">
-                <a href="/" class="ml-sheet-link">
-                    <span>??</span> In�cio
-                </a>
-                <a href="/metodologia/" class="ml-sheet-link">
-                    <span>??</span> Nossa Metodologia
-                </a>
-                <div class="ml-sheet-divider"></div>
-                <div class="ml-sheet-social">
-                    <span>Siga-nos:</span>
-                    <div class="ml-sheet-social-icons">
-                        <a href="#" title="WhatsApp">??</a>
-                        <a href="#" title="Instagram">??</a>
-                        <a href="#" title="Facebook">??</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Compare Modal -->
-    <div class="compare-modal" id="compare-modal" onclick="if(event.target===this) closeCompareModal()">
-        <div class="compare-modal-content">
-            <div class="compare-modal-header">
-                <div class="compare-modal-title-row">
-                    <h2 class="compare-modal-title">?? Compara��o Detalhada</h2>
-                    <div class="compare-modal-controls" style="display:flex;gap:0.5rem;align-items:center;">
-                        <button onclick="changeTableFontSize(-1)"
-                            style="background:#e2e8f0;border:none;border-radius:4px;padding:0.25rem 0.5rem;cursor:pointer;font-size:1rem;"
-                            title="Diminuir fonte">A-</button>
-                        <button onclick="changeTableFontSize(1)"
-                            style="background:#e2e8f0;border:none;border-radius:4px;padding:0.25rem 0.5rem;cursor:pointer;font-size:1rem;"
-                            title="Aumentar fonte">A+</button>
-                    </div>
-                    <button class="compare-modal-close" onclick="closeCompareModal()">?</button>
-                </div>
-            </div>
-            <div class="compare-modal-body" id="compare-modal-body"></div>
-        </div>
-    </div>
-
-    <script src="/js/utils.js?v=20251229a" defer></script>
-    <script src="/js/router.js?v=20251229a" defer></script>
-    <script src="/js/catalog.js?v=20251229a" defer></script>
-    <script src="/js/ranking.js?v=20251229a" defer></script>
-    <script src="/js/comparator.js?v=20251229a" defer></script>
-    <script src="/js/assistant.js?v=20251229a" defer></script>
-
-    <script src="/js/main.js?v=20251229a" defer></script>
-</body>
-
-</html>
+<div id="page-home" style="display:none;">
+                        <!-- Unified Hero + Recommender Section -->
+                        <section class="home-hero"
+                            style="background:linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem;color:white;text-align:center;overflow:hidden;word-wrap:break-word;">
+                            <h1
+                                style="font-size:clamp(1.2rem, 5vw, 1.5rem);margin:0 0 0.75rem;font-weight:700;color:#ffffff;text-shadow:0 2px 4px rgba(0,0,0,0.5);">
+                                ⚖️ Encontre o Produto Ideal</h1>
+                            <p
+                                style="font-size:clamp(0.85rem, 3vw, 1rem);margin:0 auto 1.25rem;color:#ffffff;max-width:600px;padding:0 0.5rem;">
+                                Compare eletrodomésticos com
+                                análises reais de milhares de compradores</p>
+
+                            <!-- Category Selector -->
+                            <div style="margin-bottom:0.5rem;">
+                                <select id="quiz-category-select-hero"
+                                    onchange="document.getElementById('quiz-category-select').value = this.value; startGlobalQuiz();"
+                                    style="width:100%;max-width:320px;padding:0.75rem 1rem;border-radius:8px;border:2px solid rgba(255,255,255,0.3);font-size:1rem;color:#1e293b;background:white;font-weight:500;text-align:center;text-align-last:center;">
+                                    <option value="">⚖️ Selecione uma categoria...</option>
+                                    <optgroup label="⚖️? Climatização">
+                                        <option value="aquecedor" disabled>Aquecedores (em breve)</option>
+                                        <option value="ar-condicionado" disabled>Ar-condicionado (em breve)</option>
+                                        <option value="ventilador" disabled>Ventiladores (em breve)</option>
+                                    </optgroup>
+                                    <optgroup label="⚖️ Cocção">
+                                        <option value="coifa" disabled>Coifas e Depuradores (em breve)</option>
+                                        <option value="cooktop" disabled>Cooktops (em breve)</option>
+                                        <option value="fogao" disabled>Fogões (em breve)</option>
+                                        <option value="forno" disabled>Fornos (em breve)</option>
+                                        <option value="microondas" disabled>Micro-ondas (em breve)</option>
+                                    </optgroup>
+                                    <optgroup label="⚖️ Lavanderia">
+                                        <option value="lava-seca" disabled>Lava e Seca (em breve)</option>
+                                        <option value="lava-loucas" disabled>Lava-louças (em breve)</option>
+                                        <option value="lavadora" disabled>Lavadoras (em breve)</option>
+                                        <option value="secadora" disabled>Secadoras (em breve)</option>
+                                    </optgroup>
+                                    <optgroup label="⚖️ Refrigeração">
+                                        <option value="freezer" disabled>Freezers (em breve)</option>
+                                        <option value="frigobar" disabled>Frigobares (em breve)</option>
+                                        <option value="geladeira">Geladeiras ?</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+
+                            <div id="hero-quiz-container"></div>
+                        </section>
+
+                        <section class="usp-section">
+                            <h3 class="usp-title">⚖️ Por que somos diferentes?</h3>
+                            <div class="usp-grid">
+                                <a href="/metodologia/voz-cliente/" class="usp-item">
+                                    <div class="usp-item-icon">⚖️?</div>
+                                    <div class="usp-item-title">Voz do Cliente Real</div>
+                                    <div class="usp-item-desc">Síntese de milhares de reviews: Amazon, Mercado Livre,
+                                        Magazine Luiza, Shopee, YouTube e Reclame Aqui</div>
+                                </a>
+                                <a href="/metodologia/notas/" class="usp-item">
+                                    <div class="usp-item-icon">⚖️</div>
+                                    <div class="usp-item-title">Notas Editoriais</div>
+                                    <div class="usp-item-desc">Até 10 critérios avaliados por categoria: durabilidade,
+                                        custo-benefício, qualidade e mais</div>
+                                </a>
+                                <a href="/metodologia/assistente/" class="usp-item">
+                                    <div class="usp-item-icon">⚖️</div>
+                                    <div class="usp-item-title">Assistente Inteligente</div>
+                                    <div class="usp-item-desc">Responda perguntas simples e descubra o produto ideal
+                                        para você</div>
+                                </a>
+                                <a href="/metodologia/fontes/" class="usp-item">
+                                    <div class="usp-item-icon">⚖️</div>
+                                    <div class="usp-item-title">Fontes Transparentes</div>
+                                    <div class="usp-item-desc">Citamos todas as fontes para você verificar</div>
+                                </a>
+                            </div>
+                        </section>
+
+                        <!-- Global Product Recommender (hidden - moved to hero) -->
+                        <section class="recommender-section"
+                            style="display:none;background:linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);border-radius:var(--radius);padding:2rem;margin:2rem 0;color:white;">
+                            <h2 style="margin:0 0 0.5rem;font-size:1.5rem;">⚖️ Encontre o Produto Ideal</h2>
+                            <p style="margin:0 0 1.5rem;opacity:0.9;">Selecione a categoria e responda perguntas rápidas
+                                para descobrir qual produto combina melhor com você!</p>
+
+                            <!-- Category Selector -->
+                            <div id="quiz-category-selector" style="margin-bottom:1.5rem;">
+                                <label style="display:block;margin-bottom:0.5rem;font-weight:600;">Qual categoria você
+                                    procura?</label>
+                                <select id="quiz-category-select"
+                                    style="width:100%;max-width:300px;padding:0.75rem;border-radius:var(--radius-sm);border:none;font-size:1rem;color:#1e293b;">
+                                    <option value="">Selecione uma categoria...</option>
+                                    <option value="geladeira">⚖️ Geladeiras</option>
+                                    <option value="fogao" disabled>⚖️ Fogões (em breve)</option>
+                                    <option value="lavadora" disabled>⚖️ Lavadoras (em breve)</option>
+                                    <option value="ar-condicionado" disabled>⚖️? Ar-condicionado (em breve)</option>
+                                </select>
+                            </div>
+
+                            <div id="global-quiz-container">
+                                <div id="global-quiz-questions"></div>
+                                <div id="global-quiz-result" style="display:none;"></div>
+                            </div>
+
+                            <button class="btn" id="start-global-quiz-btn" onclick="startGlobalQuiz()"
+                                style="background:white;color:#1d4ed8;font-weight:600;padding:0.75rem 2rem;border:none;border-radius:var(--radius);cursor:pointer;font-size:1rem;display:none;">
+                                ? Iniciar Assistente
+                            </button>
+                        </section>
+
+                        <h2 style="color:var(--c-primary-dark);margin:2rem 0 1rem;">⚖️ Explore por Categoria</h2>
+                        <div class="categories-grid">
+                            <!-- Climatização -->
+                            <div class="category-card">
+                                <div class="category-card-icon">⚖️?</div>
+                                <div class="category-card-title">Climatização</div>
+                                <div class="category-card-desc">Ar-condicionado, ventiladores e aquecedores para seu
+                                    conforto</div>
+                                <div class="category-card-items">
+                                    <span class="category-card-tag">Aquecedores</span>
+                                    <span class="category-card-tag">Ar-condicionado</span>
+                                    <span class="category-card-tag">Ventiladores</span>
+                                </div>
+                            </div>
+                            <!-- Cocção -->
+                            <div class="category-card">
+                                <div class="category-card-icon">⚖️</div>
+                                <div class="category-card-title">Cocção</div>
+                                <div class="category-card-desc">Fogões, cooktops, fornos e micro-ondas para preparar
+                                    suas
+                                    refeições</div>
+                                <div class="category-card-items">
+                                    <span class="category-card-tag">Coifas e Depuradores</span>
+                                    <span class="category-card-tag">Cooktops</span>
+                                    <span class="category-card-tag">Fogões</span>
+                                    <span class="category-card-tag">Fornos</span>
+                                    <span class="category-card-tag">Micro-ondas</span>
+                                </div>
+                            </div>
+                            <!-- Lavanderia -->
+                            <div class="category-card">
+                                <div class="category-card-icon">⚖️</div>
+                                <div class="category-card-title">Lavanderia e Limpeza</div>
+                                <div class="category-card-desc">Lavadoras, secadoras e lava-louças para facilitar sua
+                                    rotina
+                                </div>
+                                <div class="category-card-items">
+                                    <span class="category-card-tag">Lava e Seca</span>
+                                    <span class="category-card-tag">Lava-louças</span>
+                                    <span class="category-card-tag">Lavadoras</span>
+                                    <span class="category-card-tag">Secadoras</span>
+                                </div>
+                            </div>
+                            <!-- Refrigeração -->
+                            <div class="category-card" onclick="showCategory('geladeira')">
+                                <div class="category-card-icon">⚖️</div>
+                                <div class="category-card-title">Refrigeração e Conservação</div>
+                                <div class="category-card-desc">Geladeiras, freezers e frigobares para manter seus
+                                    alimentos
+                                    frescos</div>
+                                <div class="category-card-items">
+                                    <span class="category-card-tag">Freezers</span>
+                                    <span class="category-card-tag">Frigobares</span>
+                                    <a href="/geladeiras/" class="category-card-tag available"
+                                        onclick="event.stopPropagation();">Geladeiras (4)</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Produtos Populares Section (SEO) -->
+                        <section class="popular-products-section"
+                            style="margin: 2rem 0; padding: 2rem; background: var(--c-surface); border-radius: var(--radius); box-shadow: var(--shadow-sm);">
+                            <h2 style="color: var(--c-primary-dark); margin-bottom: 1rem; font-size: 1.5rem;">⚖️
+                                Produtos
+                                Populares</h2>
+                            <p style="color: var(--c-muted); margin-bottom: 1.5rem;">Confira os produtos mais buscados
+                                pelos
+                                nossos usuários:</p>
+
+                            <div
+                                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+                                <div class="popular-product-card"
+                                    style="padding: 1.5rem; background: #f8fafc; border-radius: var(--radius-sm); border: 2px solid transparent;">
+                                    <a href="/produto/geladeira/brm44hb/"
+                                        style="display: block; text-decoration: none; color: var(--c-text);">
+                                        <div style="font-weight: 700; color: var(--c-primary-dark);">⚖️ Brastemp BRM44HB
+                                            375L</div>
+                                        <div style="font-size: 0.9rem; color: var(--c-muted); margin-top: 0.5rem;">
+                                            Geladeira Frost Free com compartimento Extra Frio</div>
+                                        <div
+                                            style="font-size: 0.85rem; color: var(--c-success); margin-top: 0.5rem; font-weight: 600;">
+                                            A partir de R$ 3.149,90 ?</div>
+                                    </a>
+                                    <button class="ssg-compare-btn"
+                                        onclick="toggleCarouselCompare('brm44hb', 'BRM44HB 375L', 'Brastemp', 9.2); event.stopPropagation();"
+                                        style="margin-top: 0.75rem; width: 100%; padding: 0.6rem 1rem; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                                        ⚖️ Comparar
+                                    </button>
+                                </div>
+                                <div class="popular-product-card"
+                                    style="padding: 1.5rem; background: #f8fafc; border-radius: var(--radius-sm); border: 2px solid transparent;">
+                                    <a href="/produto/geladeira/tf55/"
+                                        style="display: block; text-decoration: none; color: var(--c-text);">
+                                        <div style="font-weight: 700; color: var(--c-primary-dark);">⚖️ Electrolux TF55
+                                            431L</div>
+                                        <div style="font-size: 0.9rem; color: var(--c-muted); margin-top: 0.5rem;">
+                                            Geladeira Frost Free com Blue Touch e prateleiras flexíveis</div>
+                                        <div
+                                            style="font-size: 0.85rem; color: var(--c-success); margin-top: 0.5rem; font-weight: 600;">
+                                            A partir de R$ 3.399,90 ?</div>
+                                    </a>
+                                    <button class="ssg-compare-btn"
+                                        onclick="toggleCarouselCompare('tf55', 'TF55 431L', 'Electrolux', 8.8); event.stopPropagation();"
+                                        style="margin-top: 0.75rem; width: 100%; padding: 0.6rem 1rem; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                                        ⚖️ Comparar
+                                    </button>
+                                </div>
+                            </div>
+
+                            <h3 style="color: var(--c-primary-dark); margin: 2rem 0 1rem; font-size: 1.25rem;">⚖️
+                                Comparações em Destaque</h3>
+                            <div>
+                                <a href="#" onclick="openFeaturedComparison('brm44hb', 'tf55'); return false;"
+                                    style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 1.5rem; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; border-radius: var(--radius-sm); text-decoration: none; font-weight: 600; transition: all 0.2s; cursor: pointer;">
+                                    ⚖️ Brastemp BRM44HB vs Electrolux TF55  Qual escolher?
+                                </a>
+                            </div>
+                        </section>
+
+                        <!-- Newsletter Section -->
+                        <section class="newsletter-section">
+                            <h3 class="newsletter-title">⚖️ Fique por dentro das melhores ofertas</h3>
+                            <p class="newsletter-desc">Receba alertas de preço, novos comparativos e promoções
+                                exclusivas
+                                pelos seus canais preferidos.</p>
+
+                            <div id="newsletter-form-container">
+                                <div class="newsletter-form">
+                                    <input type="email" class="newsletter-input" id="newsletter-email"
+                                        placeholder="Seu melhor email">
+
+                                    <div class="newsletter-options">
+                                        <label class="newsletter-option">
+                                            <input type="checkbox" id="nl-price" checked> ⚖️ Alertas de preço
+                                        </label>
+                                        <label class="newsletter-option">
+                                            <input type="checkbox" id="nl-new" checked> ⚖️ Novos comparativos
+                                        </label>
+                                        <label class="newsletter-option">
+                                            <input type="checkbox" id="nl-promo"> ⚖️ Promoções semanais
+                                        </label>
+                                    </div>
+
+                                    <button class="newsletter-btn" onclick="subscribeNewsletter()">? Cadastrar
+                                        Email</button>
+
+                                    <!-- Broadcast Channels -->
+                                    <div
+                                        style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.2);">
+                                        <p style="font-size:0.9rem;margin-bottom:0.75rem;">⚖️ Ou siga nossos canais:</p>
+                                        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;">
+                                            <a href="javascript:void(0)"
+                                                onclick="alert('⚖️ Canal do Telegram em criação! Enquanto isso, cadastre seu email acima.'); trackChannel('telegram')"
+                                                style="display:flex;align-items:center;gap:0.5rem;background:#0088cc;color:#fff;padding:0.6rem 1rem;border-radius:var(--radius-sm);text-decoration:none;font-weight:600;font-size:0.9rem;cursor:pointer;">
+                                                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                                                    <path
+                                                        d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+                                                </svg>
+                                                Telegram
+                                            </a>
+                                            <a href="javascript:void(0)"
+                                                onclick="alert('⚖️ Grupo do WhatsApp em criação! Enquanto isso, cadastre seu email acima.'); trackChannel('whatsapp')"
+                                                style="display:flex;align-items:center;gap:0.5rem;background:#25D366;color:#fff;padding:0.6rem 1rem;border-radius:var(--radius-sm);text-decoration:none;font-weight:600;font-size:0.9rem;cursor:pointer;">
+                                                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                                                    <path
+                                                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                                                </svg>
+                                                WhatsApp
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="newsletter-privacy">⚖️ Seus dados estão seguros. Não fazemos spam e você pode
+                                    cancelar a qualquer momento.</p>
+                            </div>
+
+                            <div class="newsletter-success" id="newsletter-success">
+                                ? Cadastro realizado com sucesso! Você receberá nossas atualizações em breve.
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Category Page (dynamic) -->
+                    <div id="page-category" style="display:none;">
+                        <div class="page-header">
+                            <h1 class="page-title" id="category-title">Geladeiras</h1>
+                            <p class="page-desc" id="category-desc">Compare modelos com base em análises reais de
+                                compradores</p>
+                        </div>
+
+
+                        <!-- Loading removed: content is SSG -->
+                        <div id="error" class="error" style="display:none;"></div>
+
+                        <!-- Products List - now links to SSG category page -->
+                        <section style="margin-bottom:2rem;">
+                            <h2 style="color:var(--c-primary-dark);margin-bottom:1rem;">⚖️ Modelos Disponíveis</h2>
+                            <a href="/geladeiras/" onclick="Router.navigate('/geladeiras/'); return false;"
+                                style="display:block;background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); padding: 1.5rem; border-radius: var(--radius); border-left: 4px solid var(--c-primary); text-decoration:none; cursor:pointer; transition:transform 0.2s, box-shadow 0.2s;"
+                                onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)';"
+                                onmouseout="this.style.transform='';this.style.boxShadow='';">
+                                <p style="margin:0; font-size: 1rem; color: var(--c-primary-dark);">
+                                    ⚖️ <strong>Ver todos os modelos de Geladeiras</strong>
+                                </p>
+                                <p style="margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--c-muted);">
+                                    Veja a lista completa com preços, notas e comparações
+                                </p>
+                            </a>
+                            <div id="products-grid" class="products-grid" style="display:none;"></div>
+                        </section>
+
+                        <!-- Assistant Section -->
+                        <section class="assistant-section">
+                            <h3>⚖️ Qual geladeira é ideal para você?</h3>
+                            <p style="margin-bottom:1rem;color:var(--c-muted);font-size:0.9rem;">Responda as perguntas e
+                                veja
+                                recomendações personalizadas baseadas em <strong>análise agregada</strong> de milhares
+                                de
+                                avaliações.</p>
+
+                            <div class="assistant-form">
+                                <div class="form-group">
+                                    <label>⚖️ Largura do seu nicho (cm):</label>
+                                    <input type="number" id="q-niche" placeholder="Ex: 66" min="50" max="150">
+                                    <small style="color:var(--c-muted);font-size:0.8rem;margin-left:0.5rem;">Deixe em
+                                        branco
+                                        se não
+                                        souber</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>⚖️ Faixa de orçamento (R$):</label>
+                                    <div class="form-row">
+                                        <span>De</span>
+                                        <input type="number" id="q-budget-min" placeholder="2000" min="1000">
+                                        <span>até</span>
+                                        <input type="number" id="q-budget-max" placeholder="4000" min="1000">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>⚖️ Uso do freezer:</label>
+                                    <select id="q-freezer">
+                                        <option value="pouco">Pouco (congelo raramente)</option>
+                                        <option value="medio" selected>Médio (uso normal)</option>
+                                        <option value="muito">Muito (congelo bastante)</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>⚖️ Sua prioridade principal:</label>
+                                    <select id="q-priority">
+                                        <option value="espaco">Caber no espaço disponível</option>
+                                        <option value="freezer">Freezer grande</option>
+                                        <option value="consumo" selected>Menor consumo de energia</option>
+                                        <option value="funcoes">Funções e painel digital</option>
+                                        <option value="custo">Menor preço</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>⚖️ Sensibilidade a ruído:</label>
+                                    <select id="q-noise">
+                                        <option value="sim">Sim, muito sensível</option>
+                                        <option value="nao" selected>Não me incomoda</option>
+                                    </select>
+                                </div>
+
+                                <button class="btn" onclick="runAssistant()">Ver Recomendações</button>
+                            </div>
+
+                            <div id="assistant-results"></div>
+                            <!-- Calculators Section -->
+                            <section style="margin-top:2rem;">
+                                <h2 style="color:var(--c-primary-dark);margin-bottom:1rem;">⚖️ Calculadoras</h2>
+                                <div
+                                    style="display:grid;grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));gap:1.5rem;">
+
+                                    <!-- Energy Consumption Calculator -->
+                                    <div
+                                        style="background:var(--c-surface);border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow-sm);">
+                                        <h3 style="color:var(--c-primary-dark);font-size:1.1rem;margin-bottom:1rem;">?
+                                            Calculadora de Consumo Energético</h3>
+                                        <p style="font-size:0.85rem;color:var(--c-muted);margin-bottom:1rem;">Calcule
+                                            quanto
+                                            cada produto vai custar na sua conta de luz por mês/ano.</p>
+
+                                        <div style="display:flex;flex-direction:column;gap:0.75rem;">
+                                            <div>
+                                                <label style="font-size:0.85rem;font-weight:500;">Tarifa de energia
+                                                    (R$/kWh):</label>
+                                                <input type="number" id="calc-tariff" value="0.85" step="0.01" min="0.1"
+                                                    max="2"
+                                                    style="padding:0.5rem;border:1px solid var(--c-border);border-radius:var(--radius-sm);width:100px;margin-left:0.5rem;">
+                                            </div>
+                                            <div>
+                                                <label style="font-size:0.85rem;font-weight:500;">Voltagem:</label>
+                                                <select id="calc-voltage"
+                                                    style="padding:0.5rem;border:1px solid var(--c-border);border-radius:var(--radius-sm);margin-left:0.5rem;">
+                                                    <option value="110">110V</option>
+                                                    <option value="220">220V</option>
+                                                    <option value="both">Bivolt</option>
+                                                </select>
+                                                <small
+                                                    style="color:var(--c-muted);font-size:0.75rem;display:block;margin-top:0.25rem;">Nota:
+                                                    consumo pode variar ~5% entre 110V e 220V</small>
+                                            </div>
+                                            <button class="btn" onclick="calculateEnergy()"
+                                                style="margin-top:0.5rem;">Calcular Consumo</button>
+                                        </div>
+
+                                        <div id="energy-results" style="margin-top:1rem;display:none;">
+                                            <!-- Results will be rendered here -->
+                                        </div>
+                                    </div>
+
+                                    <!-- Niche/Fit Checker -->
+                                    <div
+                                        style="background:var(--c-surface);border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow-sm);">
+                                        <h3 style="color:var(--c-primary-dark);font-size:1.1rem;margin-bottom:1rem;">⚖️
+                                            Verificador de Encaixe (Nicho)</h3>
+                                        <p style="font-size:0.85rem;color:var(--c-muted);margin-bottom:1rem;">Informe as
+                                            medidas do seu espaço e veja quais produtos cabem.</p>
+
+                                        <div style="display:flex;flex-direction:column;gap:0.75rem;">
+                                            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                                                <div>
+                                                    <label style="font-size:0.85rem;font-weight:500;">Largura
+                                                        (cm):</label>
+                                                    <input type="number" id="niche-width" placeholder="70" min="50"
+                                                        max="200"
+                                                        style="padding:0.5rem;border:1px solid var(--c-border);border-radius:var(--radius-sm);width:70px;margin-left:0.25rem;">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size:0.85rem;font-weight:500;">Altura
+                                                        (cm):</label>
+                                                    <input type="number" id="niche-height" placeholder="180" min="100"
+                                                        max="250"
+                                                        style="padding:0.5rem;border:1px solid var(--c-border);border-radius:var(--radius-sm);width:70px;margin-left:0.25rem;">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size:0.85rem;font-weight:500;">Profundidade
+                                                        (cm):</label>
+                                                    <input type="number" id="niche-depth" placeholder="80" min="50"
+                                                        max="150"
+                                                        style="padding:0.5rem;border:1px solid var(--c-border);border-radius:var(--radius-sm);width:70px;margin-left:0.25rem;">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label style="font-size:0.85rem;font-weight:500;">Folga mínima desejada
+                                                    (cm):</label>
+                                                <input type="number" id="niche-gap" value="4" min="0" max="20"
+                                                    style="padding:0.5rem;border:1px solid var(--c-border);border-radius:var(--radius-sm);width:60px;margin-left:0.5rem;">
+                                                <small
+                                                    style="color:var(--c-muted);font-size:0.75rem;display:block;margin-top:0.25rem;">Recomendado:
+                                                    4cm para ventilação</small>
+                                            </div>
+                                            <button class="btn" onclick="checkNicheFit()"
+                                                style="margin-top:0.5rem;">Verificar Encaixe</button>
+                                        </div>
+
+                                        <div id="niche-results" style="margin-top:1rem;display:none;">
+                                            <!-- Results will be rendered here -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                    </div>
+
+                    <!-- Individual Product Page -->
+                    <div id="page-product" style="display:none;">
+                        <div id="product-content"></div>
+                    </div>
+
+                    <!-- Comparison Page -->
+                    <div id="page-comparison" style="display:none;">
+                        <div class="page-header">
+                            <h1 class="page-title" id="comparison-title">⚖️ Comparação</h1>
+                            <p class="page-desc">Veja lado a lado as diferenças entre os produtos selecionados</p>
+                        </div>
+                        <div id="comparison-content"></div>
+                    </div>
+                </div>
+        </main>
+    </div>
+
+    <!-- Comparison Floating Bar -->
+    <div class="compare-bar" id="compare-bar" style="z-index:90;">
+        <div class="compare-bar-products" id="compare-bar-products"></div>
+        <div class="compare-bar-actions">
+            <button class="compare-bar-btn secondary" onclick="clearComparison()">Limpar</button>
+            <button class="compare-bar-btn primary" onclick="showComparison()">⚖️ Comparar</button>
+        </div>
+    </div>
+
+    <!-- Floating Compare Counter Badge -->
+    <div class="compare-counter" id="compare-counter" style="z-index:90;">
+        <button class="compare-counter-close" onclick="hideCompareCounter()" title="Fechar">×</button>
+        <div class="compare-counter-number">0</div>
+        <div class="compare-counter-text">produtos</div>
+        <button class="compare-counter-btn" onclick="showComparison()">Ver Comparação</button>
+    </div>
+
+    <!-- Comparison Modal -->
+    <div class="compare-modal" id="compare-modal" onclick="if(event.target===this) closeCompareModal()">
+        <div class="compare-modal-content">
+            <div class="compare-modal-header">
+                <div class="compare-modal-title-row">
+                    <h2 class="compare-modal-title">⚖️ Comparação Detalhada</h2>
+                    <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:nowrap;">
+                        <div class="font-zoom-controls">
+                            <button class="font-zoom-btn" onclick="changeTableFontSize(-1)"
+                                title="Diminuir fonte">A-</button>
+                            <button class="font-zoom-btn" onclick="changeTableFontSize(1)"
+                                title="Aumentar fonte">A+</button>
+                        </div>
+                        <div class="share-buttons" id="share-panel">
+                            <button class="share-social-btn whatsapp" onclick="shareToSocial('whatsapp')"
+                                title="WhatsApp">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                    <path
+                                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                                </svg>
+                            </button>
+                            <button class="share-social-btn telegram" onclick="shareToSocial('telegram')"
+                                title="Telegram">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                    <path
+                                        d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+                                </svg>
+                            </button>
+                            <button class="share-social-btn facebook" onclick="shareToSocial('facebook')"
+                                title="Facebook">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                    <path
+                                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                </svg>
+                            </button>
+                            <button class="share-social-btn twitter" onclick="shareToSocial('twitter')"
+                                title="X (Twitter)">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                                    <path
+                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                                </svg>
+                            </button>
+                            <button class="share-social-btn email" onclick="shareToSocial('email')" title="Email">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                    <path
+                                        d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" />
+                                    <path
+                                        d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
+                                </svg>
+                            </button>
+                            <button class="share-social-btn copy" onclick="shareToSocial('copy')" title="Copiar Link">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                    <path
+                                        d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" fill="none" />
+                                </svg>
+                            </button>
+                        </div>
+                        <button class="compare-modal-close" onclick="closeCompareModal()">?</button>
+                    </div>
+                </div>
+            </div>
+            <div class="compare-modal-body" id="compare-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Share Toast -->
+    <div class="share-toast" id="share-toast">? Link copiado para a área de transferência!</div>
+
+    <!-- Mobile Bottom Bar -->
+    <nav class="ml-bottom-bar" id="ml-bottom-bar">
+        <a href="/" class="ml-bottom-item" id="bottom-home">
+            <span class="ml-bottom-icon">⚖️</span>
+            <span class="ml-bottom-label">Início</span>
+        </a>
+        <button class="ml-bottom-item" id="bottom-categories" onclick="openBottomSheet('categories')">
+            <span class="ml-bottom-icon">⚖️</span>
+            <span class="ml-bottom-label">Categorias</span>
+        </button>
+        <button class="ml-bottom-item" id="bottom-compare" onclick="handleCompareClick()">
+            <span class="ml-bottom-icon">⚖️</span>
+            <span class="ml-bottom-label">Comparar</span>
+            <span class="ml-bottom-badge" id="bottom-compare-badge">0</span>
+        </button>
+        <button class="ml-bottom-item" id="bottom-more" onclick="openBottomSheet('more')">
+            <span class="ml-bottom-icon">?</span>
+            <span class="ml-bottom-label">Mais</span>
+        </button>
+    </nav>
+
+    <!-- Mobile Bottom Sheet: Categories -->
+    <div class="ml-bottom-sheet" id="ml-sheet-categories" aria-hidden="true">
+        <div class="ml-sheet-overlay" onclick="closeBottomSheet('categories')"></div>
+        <div class="ml-sheet-content">
+            <div class="ml-sheet-handle"></div>
+            <div class="ml-sheet-header">
+                <h3>⚖️ Categorias</h3>
+                <button class="ml-sheet-close" onclick="closeBottomSheet('categories')">&times;</button>
+            </div>
+            <div class="ml-sheet-body">
+                <a href="/" class="ml-sheet-link" onclick="navigateFromSheet('/'); return false;">
+                    <span>⚖️</span> Início
+                </a>
+                <div class="ml-sheet-divider"></div>
+                <div class="ml-sheet-category">
+                    <span class="ml-sheet-cat-icon">⚖️</span>
+                    <span class="ml-sheet-cat-name">Refrigeração</span>
+                </div>
+                <a href="/geladeiras/" class="ml-sheet-link sub"
+                    onclick="navigateFromSheet('/geladeiras/'); return false;">
+                    Geladeiras <span class="ml-sheet-count">4</span>
+                </a>
+                <a href="#" class="ml-sheet-link sub disabled">Freezers <span>em breve</span></a>
+                <a href="#" class="ml-sheet-link sub disabled">Frigobares <span>em breve</span></a>
+                <div class="ml-sheet-divider"></div>
+                <div class="ml-sheet-category">
+                    <span class="ml-sheet-cat-icon">⚖️?</span>
+                    <span class="ml-sheet-cat-name">Climatização</span>
+                    <span class="ml-sheet-soon">em breve</span>
+                </div>
+                <div class="ml-sheet-category">
+                    <span class="ml-sheet-cat-icon">⚖️</span>
+                    <span class="ml-sheet-cat-name">Cocção</span>
+                    <span class="ml-sheet-soon">em breve</span>
+                </div>
+                <div class="ml-sheet-category">
+                    <span class="ml-sheet-cat-icon">⚖️</span>
+                    <span class="ml-sheet-cat-name">Lavanderia</span>
+                    <span class="ml-sheet-soon">em breve</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Sheet: More -->
+    <div class="ml-bottom-sheet" id="ml-sheet-more" aria-hidden="true">
+        <div class="ml-sheet-overlay" onclick="closeBottomSheet('more')"></div>
+        <div class="ml-sheet-content">
+            <div class="ml-sheet-handle"></div>
+            <div class="ml-sheet-header">
+                <h3>? Menu</h3>
+                <button class="ml-sheet-close" onclick="closeBottomSheet('more')">&times;</button>
+            </div>
+            <div class="ml-sheet-body">
+                <a href="/" class="ml-sheet-link">
+                    <span>⚖️</span> Início
+                </a>
+                <a href="/metodologia/" class="ml-sheet-link">
+                    <span>⚖️</span> Nossa Metodologia
+                </a>
+                <div class="ml-sheet-divider"></div>
+                <div class="ml-sheet-social">
+                    <span>Siga-nos:</span>
+                    <div class="ml-sheet-social-icons">
+                        <a href="#" title="WhatsApp">⚖️</a>
+                        <a href="#" title="Instagram">⚖️</a>
+                        <a href="#" title="Facebook">⚖️</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Compare Modal -->
+    <div class="compare-modal" id="compare-modal" onclick="if(event.target===this) closeCompareModal()">
+        <div class="compare-modal-content">
+            <div class="compare-modal-header">
+                <div class="compare-modal-title-row">
+                    <h2 class="compare-modal-title">⚖️ Comparação Detalhada</h2>
+                    <div class="compare-modal-controls" style="display:flex;gap:0.5rem;align-items:center;">
+                        <button onclick="changeTableFontSize(-1)"
+                            style="background:#e2e8f0;border:none;border-radius:4px;padding:0.25rem 0.5rem;cursor:pointer;font-size:1rem;"
+                            title="Diminuir fonte">A-</button>
+                        <button onclick="changeTableFontSize(1)"
+                            style="background:#e2e8f0;border:none;border-radius:4px;padding:0.25rem 0.5rem;cursor:pointer;font-size:1rem;"
+                            title="Aumentar fonte">A+</button>
+                    </div>
+                    <button class="compare-modal-close" onclick="closeCompareModal()">?</button>
+                </div>
+            </div>
+            <div class="compare-modal-body" id="compare-modal-body"></div>
+        </div>
+    </div>
+
+    <script src="/js/utils.js?v=20251229a" defer></script>
+    <script src="/js/router.js?v=20251229a" defer></script>
+    <script src="/js/catalog.js?v=20251229a" defer></script>
+    <script src="/js/ranking.js?v=20251229a" defer></script>
+    <script src="/js/comparator.js?v=20251229a" defer></script>
+    <script src="/js/assistant.js?v=20251229a" defer></script>
+
+    <script src="/js/main.js?v=20251229a" defer></script>
+</body>
+
+</html>
