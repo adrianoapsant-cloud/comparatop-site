@@ -2392,12 +2392,19 @@ function toggleCategoryCompare(productId, model, brand, score) {
             showToast('Máximo de 4 produtos na comparação');
             return;
         }
-        compareList.push({
-            id: productId,
-            model: model,
-            brand: brand,
-            editorialScores: { overall: score }
-        });
+        // Get full product data from catalog
+        const fullProduct = currentCatalog?.products?.[productId];
+        if (fullProduct) {
+            compareList.push({ id: productId, ...fullProduct });
+        } else {
+            // Fallback if catalog not available
+            compareList.push({
+                id: productId,
+                model: model,
+                brand: brand,
+                editorialScores: { overall: score }
+            });
+        }
         if (btn) {
             btn.textContent = '✓ Na comparação';
             btn.classList.add('added');
