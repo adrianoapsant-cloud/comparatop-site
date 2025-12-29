@@ -2999,3 +2999,15 @@ if (originalUpdateCompareUI) {
 }
 
 // updateCompareUI is defined earlier - no need to redefine
+
+// Expose functions globally for onclick handlers in SSG HTML
+window.toggleCategoryCompare = toggleCategoryCompare;
+window.toggleCarouselCompare = toggleCarouselCompare;
+window.removeFromCompare = removeFromCompare;
+window.scrollCarousel = scrollCarousel;
+window.showComparePrompt = showComparePrompt;
+window.hideCompareToast = hideCompareToast;
+window.closeComparePrompt = closeComparePrompt;
+window.startComparisonFromPrompt = startComparisonFromPrompt;
+window.handleCompareClick = handleCompareClick;
+window.toggleProductCompare = toggleProductCompare;
