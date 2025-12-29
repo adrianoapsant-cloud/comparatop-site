@@ -1208,8 +1208,27 @@ function generateComparisonPages(template, catalogs) {
         // Add noindex for dynamic pages to avoid thin content issues
         const metaWithNoindex = meta + '\n    <meta name="robots" content="noindex, follow">';
 
+        // Create dynamic comparison page content (container for JS to populate)
+        const dynamicContent = `
+        <!-- Dynamic Comparison Page -->
+        <div id="page-comparison" style="display:block;">
+            <div class="page-header">
+                <h1 class="page-title" id="comparison-title">⚖️ Carregando comparação...</h1>
+                <p class="page-desc">Veja lado a lado as diferenças entre os produtos selecionados</p>
+            </div>
+            <div id="comparison-content">
+                <div style="text-align:center;padding:3rem;color:#64748b;">
+                    <div style="font-size:2rem;margin-bottom:1rem;">⏳</div>
+                    <p>Carregando produtos para comparação...</p>
+                </div>
+            </div>
+        </div>
+        `;
+
         let html = template;
         html = html.replace(/<title>.*?<\/title>[\s\S]*?(<link href="https:\/\/fonts\.googleapis)/, metaWithNoindex + '\n    $1');
+        // Hide page-home and inject page-comparison before it
+        html = html.replace(/<div id="page-home">/, dynamicContent + '\n<div id="page-home" style="display:none;">');
 
         const destPath = path.join(CONFIG.distDir, urlPath, 'index.html');
         ensureDir(path.dirname(destPath));
