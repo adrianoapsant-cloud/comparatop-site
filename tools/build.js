@@ -486,7 +486,102 @@ function generateComparisonContent(productA, productB, category) {
     </div>
     
     <style>
-        .prerendered-seo-content { display: none; }
+        /* Show comparison content */
+        .prerendered-seo-content { 
+            display: block !important;
+            padding: 1rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        /* Hide homepage elements */
+        #page-home, 
+        .home-hero, 
+        .usp-section, 
+        .recommender-section,
+        .categories-grid,
+        .popular-products-section,
+        .newsletter-section { 
+            display: none !important; 
+        }
+        /* Style the comparison content */
+        .breadcrumb-nav {
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        .breadcrumb-nav a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+        .comparison-intro {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #3b82f6;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        .comparison-table th,
+        .comparison-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .comparison-table th {
+            background: #1e40af;
+            color: white;
+            font-weight: 600;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+        .product-offers {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        .product-offers h3 {
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+        .product-offers ul {
+            list-style: none;
+            padding: 0;
+        }
+        .product-offers li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .decision-section {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+        }
+        .decision-section h2 {
+            margin-bottom: 1rem;
+        }
+        .decision-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .decision-section li {
+            padding: 0.5rem 0;
+        }
     </style>
     `;
 }
