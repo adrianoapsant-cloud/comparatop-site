@@ -210,10 +210,15 @@ function startComparisonFromPrompt() {
     hideCompareToast();
     closeSidebar();
 
-    // Call existing comparison function if available
-    if (typeof showComparison === 'function') {
-        showComparison();
+    // Need at least 2 products to compare
+    if (compareList.length < 2) {
+        showToast('Selecione pelo menos 2 produtos para comparar');
+        return;
     }
+
+    // Navigate to comparison page with first 2 products (pre-generated static pages are pairs only)
+    const [first, second] = compareList.slice(0, 2).map(p => p.id).sort();
+    window.location.href = `/comparar/geladeira/${first}-vs-${second}/`;
 }
 
 // Safety: Attach listeners on load to ensure buttons work even if inline onclick fails
@@ -2281,6 +2286,7 @@ function toggleProductCompare(productId) {
 // Toggle product in compare list from carousel
 function toggleCarouselCompare(productId, model, brand, score) {
     const existingIndex = compareList.findIndex(p => p.id === productId);
+    let added = false;
 
     if (existingIndex > -1) {
         // Remove from list
@@ -2297,6 +2303,7 @@ function toggleCarouselCompare(productId, model, brand, score) {
             brand: brand,
             editorialScores: { overall: score }
         });
+        added = true;
     }
 
     // Save to localStorage
@@ -2316,10 +2323,15 @@ function toggleCarouselCompare(productId, model, brand, score) {
     updateCompareUI();
     updateBottomBarBadge();
 
-    // If we have 2+ products, go to comparison page
-    if (compareList.length >= 2) {
-        const ids = compareList.map(p => p.id).sort().join('-vs-');
-        window.location.href = `/comparar/geladeira/${ids}/`;
+    // Show informative toast
+    if (added) {
+        if (compareList.length === 1) {
+            showToast('Produto adicionado! Adicione mais 1 para comparar.');
+        } else if (compareList.length >= 2) {
+            showToast(`${compareList.length} produtos na comparação. Clique em ⚖️ para ver.`);
+        }
+    } else {
+        showToast('Produto removido da comparação');
     }
 }
 
