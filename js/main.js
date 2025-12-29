@@ -2302,18 +2302,25 @@ function toggleCarouselCompare(productId, model, brand, score) {
     // Save to localStorage
     localStorage.setItem('compareList', JSON.stringify(compareList));
 
-    // Update carousel checkbox visual
-    const checkbox = event.target.closest('.carousel-checkbox');
-    if (checkbox) {
+    // Update carousel button visual
+    const btn = event.target.closest('.carousel-compare-btn');
+    if (btn) {
         const isNowIn = compareList.some(p => p.id === productId);
-        checkbox.classList.toggle('checked', isNowIn);
-        const icon = checkbox.querySelector('.carousel-check-icon');
-        if (icon) icon.textContent = isNowIn ? '✓' : '+';
+        btn.classList.toggle('checked', isNowIn);
+        const icon = btn.querySelector('.carousel-compare-icon');
+        const text = btn.querySelector('.carousel-compare-text');
+        if (icon) icon.textContent = isNowIn ? '✓' : '⚖️';
+        if (text) text.textContent = isNowIn ? 'Na comparação' : 'Comparar';
     }
 
     updateCompareUI();
-    showComparePrompt();
     updateBottomBarBadge();
+
+    // If we have 2+ products, go to comparison page
+    if (compareList.length >= 2) {
+        const ids = compareList.map(p => p.id).sort().join('-vs-');
+        window.location.href = `/comparar/geladeira/${ids}/`;
+    }
 }
 
 // Toggle product in compare list from category page cards
