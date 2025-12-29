@@ -1098,6 +1098,13 @@ function copyStaticAssets() {
     if (fs.existsSync(categoriaSrc)) {
         copyRecursive(categoriaSrc, categoriaDest);
     }
+
+    // Copy public/metodologia folder for methodology pages
+    const metodologiaSrc = path.join(publicDir, 'metodologia');
+    const metodologiaDest = path.join(CONFIG.distDir, 'metodologia');
+    if (fs.existsSync(metodologiaSrc)) {
+        copyRecursive(metodologiaSrc, metodologiaDest);
+    }
 }
 
 function copyRecursive(src, dest) {

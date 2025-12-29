@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistente Inteligente | Metodologia ComparaTop</title>
+    <meta name="description" content="Como nosso assistente inteligente ajuda você a encontrar o produto ideal.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .breadcrumb {
+            margin-bottom: 2rem;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: #1e40af;
+            text-decoration: none;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: #64748b;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .section h2 {
+            color: #1e40af;
+            margin-bottom: 1rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+        }
+
+        .step-list {
+            margin: 1.5rem 0;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #1e40af;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            background: #1e3a8a;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="breadcrumb"><a href="/">Início</a> › <span>Assistente Inteligente</span></nav>
+        <h1>🎯 Assistente Inteligente</h1>
+        <p class="subtitle">Responda perguntas simples e descubra o produto ideal para você</p>
+        <div class="section">
+            <h2>💡 Como Funciona</h2>
+            <p>Nosso assistente inteligente foi desenvolvido para simplificar a escolha do produto ideal. Em vez de
+                analisar dezenas de especificações técnicas, você responde perguntas simples sobre suas necessidades.
+            </p>
+        </div>
+        <div class="section">
+            <h2>📝 Exemplo de Perguntas</h2>
+            <div class="step-list">
+                <div class="step-item"><span class="step-number">1</span><span><strong>Tamanho da família:</strong>
+                        Quantas pessoas moram na sua casa?</span></div>
+                <div class="step-item"><span class="step-number">2</span><span><strong>Uso do freezer:</strong> Você
+                        congela muitos alimentos?</span></div>
+                <div class="step-item"><span class="step-number">3</span><span><strong>Espaço disponível:</strong> Qual
+                        a largura do nicho?</span></div>
+                <div class="step-item"><span class="step-number">4</span><span><strong>Sensibilidade a ruídos:</strong>
+                        A cozinha fica perto de quartos?</span></div>
+                <div class="step-item"><span class="step-number">5</span><span><strong>Prioridade:</strong> Menor preço
+                        ou mais funcionalidades?</span></div>
+            </div>
+        </div>
+        <a href="/" class="back-link">← Voltar ao início</a>
+    </div>
+</body>
+
+</html>

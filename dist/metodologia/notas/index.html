@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notas Editoriais | Metodologia ComparaTop</title>
+    <meta name="description" content="Como criamos nossas notas editoriais: até 10 critérios avaliados por categoria.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .breadcrumb {
+            margin-bottom: 2rem;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: #1e40af;
+            text-decoration: none;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: #64748b;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .section h2 {
+            color: #1e40af;
+            margin-bottom: 1rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+        }
+
+        .criteria-list {
+            display: grid;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+
+        .criteria-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: #f1f5f9;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+        }
+
+        .criteria-score {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #1e40af;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            background: #1e3a8a;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="breadcrumb"><a href="/">Início</a> › <span>Notas Editoriais</span></nav>
+        <h1>📊 Notas Editoriais</h1>
+        <p class="subtitle">Até 10 critérios avaliados por categoria para uma análise completa</p>
+        <div class="section">
+            <h2>🎯 Como Funciona</h2>
+            <p>Nossas notas editoriais são calculadas com base em critérios específicos para cada categoria de produto.
+                Cada critério recebe uma nota de 0 a 10, e a nota geral é uma média ponderada.</p>
+        </div>
+        <div class="section">
+            <h2>📋 Critérios para Geladeiras</h2>
+            <div class="criteria-list">
+                <div class="criteria-item"><span class="criteria-score">1</span><span>Capacidade Total</span></div>
+                <div class="criteria-item"><span class="criteria-score">2</span><span>Capacidade do Freezer</span></div>
+                <div class="criteria-item"><span class="criteria-score">3</span><span>Eficiência Energética</span></div>
+                <div class="criteria-item"><span class="criteria-score">4</span><span>Custo-Benefício</span></div>
+                <div class="criteria-item"><span class="criteria-score">5</span><span>Organização Interna</span></div>
+                <div class="criteria-item"><span class="criteria-score">6</span><span>Nível de Ruído</span></div>
+                <div class="criteria-item"><span class="criteria-score">7</span><span>Tecnologias (Frost Free)</span>
+                </div>
+                <div class="criteria-item"><span class="criteria-score">8</span><span>Durabilidade</span></div>
+                <div class="criteria-item"><span class="criteria-score">9</span><span>Design e Acabamento</span></div>
+                <div class="criteria-item"><span class="criteria-score">10</span><span>Assistência Técnica</span></div>
+            </div>
+        </div>
+        <a href="/" class="back-link">← Voltar ao início</a>
+    </div>
+</body>
+
+</html>
