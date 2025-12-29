@@ -822,12 +822,28 @@ let compareList = [];
 try {
     const savedCompareList = localStorage.getItem('compareList');
     if (savedCompareList) {
-        compareList = JSON.parse(savedCompareList);
+        const parsed = JSON.parse(savedCompareList);
+        // Validate that saved items are valid product objects
+        if (Array.isArray(parsed)) {
+            compareList = parsed.filter(item =>
+                item &&
+                typeof item === 'object' &&
+                item.id &&
+                (item.brand || item.name) &&
+                (item.model || item.name)
+            );
+            // Re-save the cleaned list
+            if (compareList.length !== parsed.length) {
+                localStorage.setItem('compareList', JSON.stringify(compareList));
+                console.log('Cleaned compareList in localStorage');
+            }
+        }
         console.log('Loaded compareList from localStorage:', compareList.length, 'products');
     }
 } catch (e) {
     console.warn('Failed to load compareList from localStorage:', e);
     compareList = [];
+    localStorage.removeItem('compareList');
 }
 const MAX_COMPARE = 4;
 

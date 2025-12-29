@@ -62,7 +62,30 @@ const Catalog = (function () {
      * Compute overall editorial score
      */
     function computeOverall(scores, topics) {
-        const totalWeight = validTopics.reduce((sum, topic) => sum + (topic.weight || 1), 0);
+        if (!scores || !topics || !topics.length) return null;
+
+        // Filter topics that have valid scores
+        const validTopics = topics.filter(topic => {
+            const scoreData = scores[topic.id];
+            if (scoreData == null) return false;
+            const score = typeof scoreData === 'object' ? scoreData.score : scoreData;
+            return score != null && !isNaN(score);
+        });
+
+        if (validTopics.length === 0) return null;
+
+        // Calculate weighted sum
+        let weightedSum = 0;
+        let totalWeight = 0;
+
+        validTopics.forEach(topic => {
+            const scoreData = scores[topic.id];
+            const score = typeof scoreData === 'object' ? scoreData.score : scoreData;
+            const weight = topic.weight || 1;
+            weightedSum += score * weight;
+            totalWeight += weight;
+        });
+
         return Math.round((weightedSum / totalWeight) * 10) / 10;
     }
 
