@@ -395,7 +395,7 @@ function generateComparisonContent(productA, productB, category) {
 
     return `
     <!-- Pre-rendered comparison content for SEO -->
-    <div id="prerendered-content" class="prerendered-seo-content">
+    <div id="comparison-content" class="comparison-page-content">
         <nav aria-label="Breadcrumb" class="breadcrumb-nav">
             <a href="/">Início</a> › 
             <a href="/categoria/${category.slug}">${category.name}</a> › 
@@ -486,10 +486,14 @@ function generateComparisonContent(productA, productB, category) {
     </div>
     
     <style>
-        /* Show comparison content */
+        /* Hide generic SEO block from template */
         .prerendered-seo-content { 
+            display: none !important;
+        }
+        /* Show comparison content */
+        #comparison-content { 
             display: block !important;
-            padding: 1rem;
+            padding: 1.5rem;
             max-width: 1000px;
             margin: 0 auto;
         }
