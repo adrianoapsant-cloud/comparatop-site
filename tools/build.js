@@ -1142,9 +1142,9 @@ function injectSidebar(html, catalogs) {
             `$1${count}$2`
         );
 
-        // Update category-card-tag count (home page cards)
+        // Update category-card-tag count (home page cards) - now uses <a> tag
         html = html.replace(
-            /(<span class="category-card-tag available">Geladeiras \()\d+(\)<\/span>)/g,
+            /(<a [^>]*class="category-card-tag available"[^>]*>Geladeiras \()\d+(\)<\/a>)/g,
             `$1${count}$2`
         );
 

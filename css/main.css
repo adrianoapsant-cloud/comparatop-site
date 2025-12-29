@@ -1149,6 +1149,17 @@ body.menu-open {
     color: #166534;
 }
 
+a.category-card-tag.available {
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+a.category-card-tag.available:hover {
+    background: #bbf7d0;
+    transform: translateY(-1px);
+}
+
 /* USP Section */
 .usp-section {
     background: linear-gradient(135deg, #fef3c7 0%, #fcd34d 100%);
