@@ -3475,6 +3475,42 @@ a:focus-visible {
     border-color: #1e40af;
 }
 
+/* Carousel Compare Button */
+.carousel-compare-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.carousel-compare-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+}
+
+.carousel-compare-btn.checked {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.carousel-compare-icon {
+    font-size: 0.9rem;
+}
+
+.carousel-compare-text {
+    font-size: 0.75rem;
+}
+
 @media (max-width: 640px) {
     .carousel-btn {
         display: none;

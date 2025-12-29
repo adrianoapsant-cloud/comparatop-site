@@ -1746,25 +1746,24 @@ function displayProduct(productId) {
 
             const catSlug = currentCatalog.category.slug;
             const items = otherProds.map(other => {
-                const [slugFirst, slugSecond] = [product.id, other.id].sort();
-                const url = `/comparar/${catSlug}/${slugFirst}-vs-${slugSecond}/`;
+                const productUrl = `/produto/${catSlug}/${other.id}/`;
                 const score = other.editorialScores?.overall;
                 const scoreHtml = score ? `<span class="carousel-score">${score.toFixed(1)}</span>` : '';
                 const isSelected = compareList.some(p => p.id === other.id);
                 const checkboxClass = isSelected ? 'checked' : '';
                 return `<div class="carousel-item" style="position:relative;">
-                                <label class="carousel-checkbox ${checkboxClass}" onclick="event.stopPropagation(); toggleCarouselCompare('${other.id}', '${other.model}', '${other.brand}', ${score || 0});">
-                                    <input type="checkbox" ${isSelected ? 'checked' : ''} style="display:none;">
-                                    <span class="carousel-check-icon">${isSelected ? '✓' : '+'}</span>
-                                </label>
-                                <a href="${url}" class="carousel-item-link">
+                                <a href="${productUrl}" class="carousel-item-link">
                                     <div class="carousel-item-content">
                                         <span class="carousel-model">${other.model}</span>
                                         <span class="carousel-brand">${other.brand}</span>
                                         ${scoreHtml}
                                     </div>
-                                    <span class="carousel-cta">Comparar →</span>
+                                    <span class="carousel-cta">Ver detalhes →</span>
                                 </a>
+                                <button class="carousel-compare-btn ${checkboxClass}" onclick="event.stopPropagation(); toggleCarouselCompare('${other.id}', '${other.model}', '${other.brand}', ${score || 0});">
+                                    <span class="carousel-compare-icon">${isSelected ? '✓' : '⚖️'}</span>
+                                    <span class="carousel-compare-text">${isSelected ? 'Na comparação' : 'Comparar'}</span>
+                                </button>
                             </div>`;
             }).join('');
 
