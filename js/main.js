@@ -3126,6 +3126,7 @@ window.addEventListener('compare:changed', (e) => {
     updateCompareUI();
     showComparePrompt();
     updateBottomBarBadge();
+    updateHeaderCompareBadge();
     
     // Initialize buttons if switching categories
     if (action === 'switch') {
