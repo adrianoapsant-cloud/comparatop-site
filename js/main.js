@@ -2241,8 +2241,12 @@ function displayProduct(productId) {
                 const scoreHtml = score ? `<span class="carousel-score">${score.toFixed(1)}</span>` : '';
                 const isSelected = compareList.some(p => p.id === other.id);
                 const checkboxClass = isSelected ? 'checked' : '';
+                const imageUrl = other.imageUrl || '';
                 return `<div class="carousel-item" style="position:relative;">
                                 <a href="${productUrl}" class="carousel-item-link">
+                                    <div class="carousel-item-img">
+                                        <img src="${imageUrl}" alt="${other.model}" loading="lazy" onerror="this.style.display='none'">
+                                    </div>
                                     <div class="carousel-item-content">
                                         <span class="carousel-model">${other.model}</span>
                                         <span class="carousel-brand">${other.brand}</span>
@@ -2270,55 +2274,55 @@ function displayProduct(productId) {
                     </section>`;
         })()}
 
-                    <div class="product-detail-sections">
-                        <!-- Specs Section -->
-                        <section class="product-section">
-                            <h3>📋 Especificações</h3>
-                            <div class="specs-grid">
-                                ${specsHtml}
-                            </div>
-                        </section>
+<div class="product-detail-sections">
+    <!-- Specs Section -->
+    <section class="product-section">
+        <h3>📋 Especificações</h3>
+        <div class="specs-grid">
+            ${specsHtml}
+        </div>
+    </section>
 
-                        <!-- Editorial Scores -->
-                        <section class="product-section">
-                            <h3>📊 Notas Editoriais</h3>
-                            ${overallScoreHtml}
-                            <div class="scores-grid">
-                                ${scoresHtml}
-                            </div>
-                        </section>
+    <!-- Editorial Scores -->
+    <section class="product-section">
+        <h3>📊 Notas Editoriais</h3>
+        ${overallScoreHtml}
+        <div class="scores-grid">
+            ${scoresHtml}
+        </div>
+    </section>
 
-                        <!-- VoC Section -->
-                        ${vocSectionHtml}
+    <!-- VoC Section -->
+    ${vocSectionHtml}
 
-                        <!-- 5-Question Quick Decision Quiz -->
-                        <section class="product-section quiz-section" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:var(--radius);">
-                            <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
-                                <span style="background:linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);color:white;padding:0.5rem;border-radius:var(--radius-sm);font-size:1.25rem;">🎯</span>
-                                <div>
-                                    <h3 style="margin:0;font-size:1.1rem;color:var(--c-primary-dark);">Decida em 30 Segundos</h3>
-                                    <p style="margin:0;font-size:0.8rem;color:var(--c-muted);">Este produto é ideal para você?</p>
-                                </div>
-                            </div>
-                            
-                            <div id="quiz-container-${product.id}" class="quiz-container"
-                                 data-product-id="${product.id}"
-                                 data-capacity="${product.specs?.capacidade_total || 0}"
-                                 data-freezer="${product.specs?.capacidade_freezer || 0}"
-                                 data-width="${product.specs?.largura_cm || 0}"
-                                 data-noise="${product.editorialScores?.ruido || 5}"
-                                 data-value="${product.editorialScores?.custo_beneficio || 5}"
-                                 data-best-offer="${sortedOffers[0]?.url || '#'}"
-                                 data-best-price="${sortedOffers[0]?.price || 0}">
-                                <div class="quiz-questions" id="quiz-questions-${product.id}"></div>
-                                <div class="quiz-result" id="quiz-result-${product.id}" style="display:none;"></div>
-                            </div>
-                        </section>
-                        ${energyCalcHtml}
-                        ${nicheCalcHtml}
-                    </div>
-                </div>
-            `;
+    <!-- 5-Question Quick Decision Quiz -->
+    <section class="product-section quiz-section" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:var(--radius);">
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+            <span style="background:linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);color:white;padding:0.5rem;border-radius:var(--radius-sm);font-size:1.25rem;">🎯</span>
+            <div>
+                <h3 style="margin:0;font-size:1.1rem;color:var(--c-primary-dark);">Decida em 30 Segundos</h3>
+                <p style="margin:0;font-size:0.8rem;color:var(--c-muted);">Este produto é ideal para você?</p>
+            </div>
+        </div>
+
+        <div id="quiz-container-${product.id}" class="quiz-container"
+            data-product-id="${product.id}"
+            data-capacity="${product.specs?.capacidade_total || 0}"
+            data-freezer="${product.specs?.capacidade_freezer || 0}"
+            data-width="${product.specs?.largura_cm || 0}"
+            data-noise="${product.editorialScores?.ruido || 5}"
+            data-value="${product.editorialScores?.custo_beneficio || 5}"
+            data-best-offer="${sortedOffers[0]?.url || '#'}"
+            data-best-price="${sortedOffers[0]?.price || 0}">
+            <div class="quiz-questions" id="quiz-questions-${product.id}"></div>
+            <div class="quiz-result" id="quiz-result-${product.id}" style="display:none;"></div>
+        </div>
+    </section>
+    ${energyCalcHtml}
+    ${nicheCalcHtml}
+</div>
+                </div >
+    `;
 
     document.getElementById('product-content').innerHTML = html;
 
@@ -2345,7 +2349,7 @@ function scrollCarousel(direction) {
 
 // Initialize 5-question quiz for product decision
 function initQuiz(productId) {
-    const container = document.getElementById(`quiz-container-${productId}`);
+    const container = document.getElementById(`quiz - container - ${productId} `);
     if (!container) return;
 
     const data = container.dataset;
@@ -2386,14 +2390,14 @@ function initQuiz(productId) {
     ];
 
     const userAnswers = [];
-    const questionsDiv = document.getElementById(`quiz-questions-${productId}`);
-    const resultDiv = document.getElementById(`quiz-result-${productId}`);
+    const questionsDiv = document.getElementById(`quiz - questions - ${productId} `);
+    const resultDiv = document.getElementById(`quiz - result - ${productId} `);
 
     function renderQuestions() {
         let html = '';
         questions.forEach((q, i) => {
             html += `
-                        <div class="quiz-question ${i === 0 ? 'active' : ''}" data-question="${i}">
+    < div class="quiz-question ${i === 0 ? 'active' : ''}" data - question="${i}" >
                             <div class="quiz-progress">Pergunta ${i + 1} de 5</div>
                             <p class="quiz-q-text">${q.q}</p>
                             <div class="quiz-options">
@@ -2401,8 +2405,8 @@ function initQuiz(productId) {
                                     <button class="quiz-option" data-q="${i}" data-opt="${j}">${opt}</button>
                                 `).join('')}
                             </div>
-                        </div>
-                    `;
+                        </div >
+    `;
         });
         questionsDiv.innerHTML = html;
 
@@ -2419,7 +2423,7 @@ function initQuiz(productId) {
     function selectOption(qIndex, optIndex) {
         userAnswers[qIndex] = optIndex;
 
-        const questionDiv = questionsDiv.querySelector(`[data-question="${qIndex}"]`);
+        const questionDiv = questionsDiv.querySelector(`[data - question="${qIndex}"]`);
         questionDiv.querySelectorAll('.quiz-option').forEach((btn, idx) => {
             btn.classList.toggle('selected', idx === optIndex);
         });
@@ -2427,7 +2431,7 @@ function initQuiz(productId) {
         setTimeout(() => {
             if (qIndex < 4) {
                 questionDiv.classList.remove('active');
-                questionsDiv.querySelector(`[data-question="${qIndex + 1}"]`).classList.add('active');
+                questionsDiv.querySelector(`[data - question= "${qIndex + 1}"]`).classList.add('active');
             } else {
                 showResult();
             }
@@ -2460,7 +2464,7 @@ function initQuiz(productId) {
         questionsDiv.style.display = 'none';
         resultDiv.style.display = 'block';
         resultDiv.innerHTML = `
-                    <div style="text-align:center;padding:1.5rem;background:linear-gradient(135deg, ${color}20, ${color}10);border:2px solid ${color};border-radius:var(--radius);">
+    < div style = "text-align:center;padding:1.5rem;background:linear-gradient(135deg, ${color}20, ${color}10);border:2px solid ${color};border-radius:var(--radius);" >
                         <div style="font-size:3rem;margin-bottom:0.5rem;">${icon}</div>
                         <div style="font-size:1.5rem;font-weight:700;color:${color};margin-bottom:0.5rem;">${verdict}</div>
                         <div style="font-size:1rem;color:var(--c-muted);">Compatibilidade: ${percent.toFixed(0)}% (${score}/5 critérios)</div>
@@ -2474,11 +2478,11 @@ function initQuiz(productId) {
                                 🔍 Ver Outras Opções
                             </button>
                         `}
-                        <button class="quiz-reset-btn" style="display:block;margin:1rem auto 0;background:none;border:none;color:var(--c-muted);cursor:pointer;text-decoration:underline;">
-                            Refazer quiz
-                        </button>
-                    </div>
-                `;
+<button class="quiz-reset-btn" style="display:block;margin:1rem auto 0;background:none;border:none;color:var(--c-muted);cursor:pointer;text-decoration:underline;">
+    Refazer quiz
+</button>
+                    </div >
+    `;
 
         resultDiv.querySelector('.quiz-reset-btn').addEventListener('click', resetQuiz);
     }
@@ -2526,7 +2530,7 @@ function startGlobalQuiz() {
     const categorySelector = document.getElementById('quiz-category-selector');
     if (categorySelector) categorySelector.style.display = 'none';
 
-    const catalogFile = `/data/catalogs/${selectedCategory}.json`;
+    const catalogFile = `/ data / catalogs / ${selectedCategory}.json`;
 
     fetch(catalogFile)
         .then(r => r.json())
@@ -2585,7 +2589,7 @@ function runGlobalQuiz() {
     function renderQuestion(index) {
         const q = questions[index];
         questionsDiv.innerHTML = `
-                    <div class="global-quiz-question" style="background:rgba(255,255,255,0.15);padding:1.5rem;border-radius:var(--radius);">
+    < div class="global-quiz-question" style = "background:rgba(255,255,255,0.15);padding:1.5rem;border-radius:var(--radius);" >
                         <div style="font-size:0.85rem;opacity:0.8;margin-bottom:0.5rem;color:#ffffff;">Pergunta ${index + 1} de 5</div>
                         <p style="font-size:1.1rem;font-weight:600;margin-bottom:1rem;color:#ffffff;">${q.q}</p>
                         <div style="display:flex;flex-direction:column;gap:0.5rem;">
@@ -2596,8 +2600,8 @@ function runGlobalQuiz() {
                                 </button>
                             `).join('')}
                         </div>
-                    </div>
-                `;
+                    </div >
+    `;
 
         questionsDiv.querySelectorAll('.global-quiz-opt').forEach(btn => {
             btn.addEventListener('click', function () {
@@ -2661,7 +2665,7 @@ function runGlobalQuiz() {
         // Build result HTML with close button
         const topProducts = scoredProducts.slice(0, 3);
         let html = `
-                    <div style="background:rgba(255,255,255,0.95);padding:1.5rem;border-radius:var(--radius);color:#1e293b;position:relative;">
+    < div style = "background:rgba(255,255,255,0.95);padding:1.5rem;border-radius:var(--radius);color:#1e293b;position:relative;" >
                         <button onclick="closeQuizResult()" style="position:absolute;top:0.5rem;right:0.5rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#64748b;padding:0.25rem;">&times;</button>
                         <h3 style="margin:0 0 1rem;color:#1d4ed8;">🏆 Nossas Recomendações para Você</h3>
                         ${topProducts.map((item, idx) => {
@@ -2682,17 +2686,18 @@ function runGlobalQuiz() {
                                     </a>
                                 </div>
                             `;
-        }).join('')}
-                        <div style="display:flex;gap:1rem;margin-top:1rem;justify-content:center;">
-                            <button onclick="closeQuizResult()" style="background:#22c55e;color:white;border:none;padding:0.75rem 1.5rem;border-radius:var(--radius-sm);cursor:pointer;font-size:0.95rem;">
-                                ✓ Fechar
-                            </button>
-                            <button onclick="restartQuizFromResult()" style="background:#64748b;color:white;border:none;padding:0.75rem 1.5rem;border-radius:var(--radius-sm);cursor:pointer;font-size:0.95rem;">
-                                🔄 Refazer Quiz
-                            </button>
-                        </div>
-                    </div>
-                `;
+        }).join('')
+            }
+<div style="display:flex;gap:1rem;margin-top:1rem;justify-content:center;">
+    <button onclick="closeQuizResult()" style="background:#22c55e;color:white;border:none;padding:0.75rem 1.5rem;border-radius:var(--radius-sm);cursor:pointer;font-size:0.95rem;">
+        ✓ Fechar
+    </button>
+    <button onclick="restartQuizFromResult()" style="background:#64748b;color:white;border:none;padding:0.75rem 1.5rem;border-radius:var(--radius-sm);cursor:pointer;font-size:0.95rem;">
+        🔄 Refazer Quiz
+    </button>
+</div>
+                    </div >
+    `;
         questionsDiv.innerHTML = html;
     }
 
@@ -2762,7 +2767,7 @@ function toggleProductCompare(productId) {
     }
 
     // Update button state
-    const btn = document.getElementById(`compare-btn-${productId}`);
+    const btn = document.getElementById(`compare - btn - ${productId} `);
     if (btn) {
         const isNowInCompare = compareList.some(p => p.id === productId);
         btn.textContent = isNowInCompare ? '✓ Na comparação' : '➕ Adicionar ao comparador';
@@ -2836,7 +2841,7 @@ function toggleCarouselCompare(productId, model, brand, score) {
         if (CompareStore.getCount() === 1) {
             showToast('Produto adicionado! Adicione mais 1 para comparar.');
         } else if (CompareStore.getCount() >= 2) {
-            showToast(`${CompareStore.getCount()} produtos na comparação. Clique em ⚖️ para ver.`);
+            showToast(`${CompareStore.getCount()} produtos na comparação.Clique em ⚖️ para ver.`);
         }
     } else {
         showToast('Produto removido da comparação');
@@ -2874,32 +2879,32 @@ function toggleCategoryCompare(productId, model, brand, score) {
 
 // Energy calculator for single product page
 function calculateEnergy(productId, monthlyKwh) {
-    const tariff = parseFloat(document.getElementById(`energy-tariff-${productId}`).value) || 0.75;
+    const tariff = parseFloat(document.getElementById(`energy - tariff - ${productId} `).value) || 0.75;
     const monthlyCost = monthlyKwh * tariff;
     const annualCost = monthlyCost * 12;
 
-    const resultDiv = document.getElementById(`energy-result-${productId}`);
+    const resultDiv = document.getElementById(`energy - result - ${productId} `);
     resultDiv.style.display = 'block';
     resultDiv.innerHTML = `
-        <div style="background:#f0fdf4;border:1px solid #22c55e;border-radius:var(--radius-sm);padding:1rem;">
-            <div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:1rem;text-align:center;">
-                <div>
-                    <div style="font-size:0.85rem;color:var(--c-muted);">Consumo Mensal</div>
-                    <div style="font-size:1.25rem;font-weight:700;color:var(--c-primary-dark);">${monthlyKwh} kWh</div>
-                </div>
-                <div>
-                    <div style="font-size:0.85rem;color:var(--c-muted);">Custo Mensal</div>
-                    <div style="font-size:1.25rem;font-weight:700;color:var(--c-success);">
-                        ${Utils.formatBRL(monthlyCost)}</div>
-                </div>
-                <div style="grid-column:span 2;padding-top:0.5rem;border-top:1px solid #22c55e40;">
-                    <div style="font-size:0.85rem;color:var(--c-muted);">Custo Anual Estimado</div>
-                    <div style="font-size:1.5rem;font-weight:700;color:var(--c-success);">${Utils.formatBRL(annualCost)}
-                    </div>
+    < div style = "background:#f0fdf4;border:1px solid #22c55e;border-radius:var(--radius-sm);padding:1rem;" >
+        <div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:1rem;text-align:center;">
+            <div>
+                <div style="font-size:0.85rem;color:var(--c-muted);">Consumo Mensal</div>
+                <div style="font-size:1.25rem;font-weight:700;color:var(--c-primary-dark);">${monthlyKwh} kWh</div>
+            </div>
+            <div>
+                <div style="font-size:0.85rem;color:var(--c-muted);">Custo Mensal</div>
+                <div style="font-size:1.25rem;font-weight:700;color:var(--c-success);">
+                    ${Utils.formatBRL(monthlyCost)}</div>
+            </div>
+            <div style="grid-column:span 2;padding-top:0.5rem;border-top:1px solid #22c55e40;">
+                <div style="font-size:0.85rem;color:var(--c-muted);">Custo Anual Estimado</div>
+                <div style="font-size:1.5rem;font-weight:700;color:var(--c-success);">${Utils.formatBRL(annualCost)}
                 </div>
             </div>
         </div>
-        `;
+        </div >
+    `;
 }
 
 // Niche fit calculator for single product page
@@ -2907,9 +2912,9 @@ function checkNicheFitSingle(productId) {
     const product = currentCatalog.products[productId];
     if (!product) return;
 
-    const nicheW = parseFloat(document.getElementById(`niche-w-${productId}`).value);
-    const nicheH = parseFloat(document.getElementById(`niche-h-${productId}`).value);
-    const nicheD = parseFloat(document.getElementById(`niche-d-${productId}`).value);
+    const nicheW = parseFloat(document.getElementById(`niche - w - ${productId} `).value);
+    const nicheH = parseFloat(document.getElementById(`niche - h - ${productId} `).value);
+    const nicheD = parseFloat(document.getElementById(`niche - d - ${productId} `).value);
 
     const prodW = product.specs?.largura_cm || 0;
     const prodH = product.specs?.altura_cm || 0;
@@ -2919,11 +2924,11 @@ function checkNicheFitSingle(productId) {
 
     const fitsW = !nicheW || (prodW + gap <= nicheW); const fitsH = !nicheH || (prodH + gap <= nicheH); const
         fitsD = !nicheD || (prodD + gap <= nicheD); const allFit = fitsW && fitsH && fitsD; const
-            resultDiv = document.getElementById(`niche-result-${productId}`); resultDiv.style.display = 'block'; const
+            resultDiv = document.getElementById(`niche - result - ${productId} `); resultDiv.style.display = 'block'; const
                 bgColor = allFit ? '#dcfce7' : '#fee2e2'; const borderColor = allFit ? '#22c55e' : '#ef4444'; const
                     icon = allFit ? '✅' : '❌'; const message = allFit ? 'O produto CABE no seu espaço!'
-                        : 'O produto NÃO CABE no espaço informado'; resultDiv.innerHTML = ` <div
-            style="background:${bgColor};border:1px solid ${borderColor};border-radius:var(--radius-sm);padding:1rem;">
+                        : 'O produto NÃO CABE no espaço informado'; resultDiv.innerHTML = ` < div
+style = "background:${bgColor};border:1px solid ${borderColor};border-radius:var(--radius-sm);padding:1rem;" >
             <div style="font-size:1.25rem;font-weight:700;margin-bottom:0.5rem;">${icon} ${message}</div>
             <div
                 style="font-size:0.9rem;display:grid;grid-template-columns:repeat(3, 1fr);gap:0.5rem;margin-top:0.75rem;">
@@ -2945,8 +2950,8 @@ function checkNicheFitSingle(productId) {
             </div>
             <p style="font-size:0.75rem;color:var(--c-muted);margin-top:0.5rem;">* Considerando folga mínima de ${gap}cm
                 para ventilação</p>
-            </div>
-            `;
+            </div >
+    `;
 }
 
 // Update meta tags dynamically for SEO
@@ -2954,7 +2959,7 @@ function updateMetaTags(product) {
     if (!product) return;
 
     const title = `${product.brand} ${product.model} - Análise Completa | ComparaTop`;
-    const description = `Análise ${product.name}: compare preços em ${product.offers?.length || 0} lojas, veja avaliações reais de ${product.voc?.sample?.totalApprox?.toLocaleString('pt-BR') || 'milhares'} de compradores. Nota ${product.editorialScores?.overall || 'N/A'}/10.`;
+    const description = `Análise ${product.name}: compare preços em ${product.offers?.length || 0} lojas, veja avaliações reais de ${product.voc?.sample?.totalApprox?.toLocaleString('pt-BR') || 'milhares'} de compradores.Nota ${product.editorialScores?.overall || 'N/A'}/10.`;
 
     document.title = title;
 
