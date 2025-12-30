@@ -205,6 +205,7 @@ function removeFromCompare(productId) {
         }
         updateCompareUI();
         updateBottomBarBadge();
+    updateHeaderCompareBadge();
     }
 }
 
@@ -830,6 +831,28 @@ Object.defineProperty(window, 'compareList', {
     }
 });
 const MAX_COMPARE = CompareStore.MAX_ITEMS;
+// Update header compare badge for mobile
+function updateHeaderCompareBadge() {
+    const badge = document.getElementById('header-compare-badge');
+    const count = CompareStore.getCount();
+    if (badge) {
+        badge.textContent = count;
+        badge.classList.toggle('show', count > 0);
+    }
+}
+
+// Handle compare button click - go directly to comparison
+function handleCompareClick() {
+    if (CompareStore.getCount() >= 2) {
+        showComparison();
+    } else if (CompareStore.getCount() === 1) {
+        showToast('Adicione mais 1 produto para comparar');
+    } else {
+        showToast('Adicione produtos para comparar');
+    }
+}
+
+
 
 // Initialize category page compare buttons based on compareList
 function initCategoryCompareButtons() {
@@ -906,6 +929,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initCategoryCompareButtons();
     updateCompareUI();
     updateBottomBarBadge();
+    updateHeaderCompareBadge();
 });
 
 // toggleProductCompare is defined later in the file

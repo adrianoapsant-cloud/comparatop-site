@@ -3628,3 +3628,84 @@ a:focus-visible {
     gap: 1rem;
     width: 100%;
 }
+/* ==================== HEADER COMPARE BUTTON ==================== */
+.ml-header-compare {
+    display: none; /* Hidden on desktop by default */
+}
+
+@media (max-width: 768px) {
+    .ml-header-compare {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        background: white;
+        color: #1e40af;
+        border: none;
+        border-radius: 6px;
+        padding: 0.4rem 0.6rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        position: relative;
+        white-space: nowrap;
+        margin-left: auto;
+    }
+    
+    .ml-header-compare-text {
+        font-size: 0.8rem;
+    }
+    
+    .ml-header-compare-badge {
+        display: none; /* Hidden when 0 */
+        background: #f59e0b;
+        color: white;
+        font-size: 0.7rem;
+        font-weight: 700;
+        border-radius: 50%;
+        min-width: 18px;
+        height: 18px;
+        line-height: 18px;
+        text-align: center;
+    }
+    
+    .ml-header-compare-badge.show {
+        display: inline-block;
+    }
+    
+    /* Reorganize header for mobile */
+    .ml-header-content {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .ml-search-wrapper {
+        order: 3;
+        width: 100%;
+        margin-top: 0.25rem;
+    }
+    
+    .ml-home-btn {
+        order: 1;
+    }
+    
+    .ml-logo {
+        order: 2;
+    }
+    
+    .ml-header-compare {
+        order: 2;
+        margin-left: auto;
+    }
+    
+    /* Hide bottom nav on mobile */
+    .ml-bottom-nav {
+        display: none !important;
+    }
+    
+    /* Adjust page padding since bottom nav is gone */
+    .main-content,
+    .ml-main {
+        padding-bottom: 20px;
+    }
+}
+
