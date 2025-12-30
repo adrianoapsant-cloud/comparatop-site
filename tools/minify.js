@@ -26,6 +26,7 @@ const JS_FILES = [
     'js/ranking.js',
     'js/comparator.js',
     'js/assistant.js',
+    'js/compare-store.js',
     'js/analytics.js',
     'js/analytics-events.js'
 ];

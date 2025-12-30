@@ -122,7 +122,7 @@ function showComparePrompt() {
     const compareBtn = document.getElementById('compare-prompt-btn-compare');
     const counter = document.getElementById('compare-counter');
 
-    if (!prompt || !productsContainer || compareList.length === 0) {
+    if (!prompt || !productsContainer || CompareStore.getActiveList().length === 0) {
         hideCompareToast();
         return;
     }
@@ -134,7 +134,7 @@ function showComparePrompt() {
     }
 
     // Render selected products with remove button
-    productsContainer.innerHTML = compareList.map(p => {
+    productsContainer.innerHTML = CompareStore.getActiveList().map(p => {
         const scoreText = p.editorialScores?.overall ? `${p.editorialScores.overall}/10` : '';
         return `
                 <div class="compare-prompt-product" style="display:flex;justify-content:space-between;align-items:center;">
@@ -148,9 +148,9 @@ function showComparePrompt() {
     }).join('');
 
     // Update hint and button state
-    const remaining = 4 - compareList.length;
-    if (compareList.length < 2) {
-        hint.textContent = `+${2 - compareList.length} para comparar`;
+    const remaining = 4 - CompareStore.getCount();
+    if (CompareStore.getCount() < 2) {
+        hint.textContent = `+${2 - CompareStore.getCount()} para comparar`;
         hint.style.color = '#f59e0b';
         compareBtn.classList.add('disabled');
         compareBtn.disabled = true;
@@ -172,11 +172,11 @@ function hideCompareToast() {
     if (prompt) prompt.style.display = 'none';
 
     // Show counter with updated count when toast is hidden
-    if (counter && compareList.length > 0) {
+    if (counter && CompareStore.getCount() > 0) {
         const numberEl = counter.querySelector('.compare-counter-number');
         const textEl = counter.querySelector('.compare-counter-text');
-        if (numberEl) numberEl.textContent = compareList.length;
-        if (textEl) textEl.textContent = compareList.length === 1 ? 'produto' : 'produtos';
+        if (numberEl) numberEl.textContent = CompareStore.getCount();
+        if (textEl) textEl.textContent = CompareStore.getCount() === 1 ? 'produto' : 'produtos';
         counter.style.display = 'flex';
         counter.classList.add('show');
     }
@@ -189,13 +189,13 @@ function closeComparePrompt() {
 
 // Remove a product from compare list
 function removeFromCompare(productId) {
-    const index = compareList.findIndex(p => p.id === productId);
+    const index = CompareStore.getActiveList().findIndex(p => p.id === productId);
     if (index > -1) {
         compareList.splice(index, 1);
         localStorage.setItem('compareList', JSON.stringify(compareList));
 
         // Re-render the compare prompt
-        if (compareList.length > 0) {
+        if (CompareStore.getCount() > 0) {
             showComparePrompt();
         } else {
             hideCompareToast();
@@ -211,7 +211,7 @@ function startComparisonFromPrompt() {
     closeSidebar();
 
     // Need at least 2 products to compare
-    if (compareList.length < 2) {
+    if (CompareStore.getCount() < 2) {
         showToast('Selecione pelo menos 2 produtos para comparar');
         return;
     }
@@ -819,35 +819,14 @@ function goToProduct(category, productId) {
 }
 
 // ==================== N-WAY COMPARISON ====================
-// Load compareList from localStorage if available
-let compareList = [];
-try {
-    const savedCompareList = localStorage.getItem('compareList');
-    if (savedCompareList) {
-        const parsed = JSON.parse(savedCompareList);
-        // Validate that saved items are valid product objects
-        if (Array.isArray(parsed)) {
-            compareList = parsed.filter(item =>
-                item &&
-                typeof item === 'object' &&
-                item.id &&
-                (item.brand || item.name) &&
-                (item.model || item.name)
-            );
-            // Re-save the cleaned list
-            if (compareList.length !== parsed.length) {
-                localStorage.setItem('compareList', JSON.stringify(compareList));
-                console.log('Cleaned compareList in localStorage');
-            }
-        }
-        console.log('Loaded compareList from localStorage:', compareList.length, 'products');
+// CompareStore handles all comparison logic now
+// This getter provides backward compatibility for existing code
+Object.defineProperty(window, 'compareList', {
+    get: function() {
+        return CompareStore.getActiveList();
     }
-} catch (e) {
-    console.warn('Failed to load compareList from localStorage:', e);
-    compareList = [];
-    localStorage.removeItem('compareList');
-}
-const MAX_COMPARE = 4;
+});
+const MAX_COMPARE = CompareStore.MAX_ITEMS;
 
 // Initialize category page compare buttons based on compareList
 function initCategoryCompareButtons() {
@@ -859,7 +838,7 @@ function initCategoryCompareButtons() {
             const match = onclick.match(/toggleCategoryCompare\(['"]([^'"]+)['"]/);
             if (match && match[1]) {
                 const productId = match[1];
-                const isInCompare = compareList.some(p => p.id === productId);
+                const isInCompare = CompareStore.isInList(productId);
                 if (isInCompare) {
                     btn.textContent = '✓ Na comparação';
                     btn.classList.add('added');
@@ -874,7 +853,7 @@ function initCategoryCompareButtons() {
 
 // Update ALL compare buttons across the page for a specific product
 function updateAllCompareButtonsForProduct(productId) {
-    const isInCompare = compareList.some(p => p.id === productId);
+    const isInCompare = CompareStore.isInList(productId);
 
     // 1. Update carousel buttons
     document.querySelectorAll('.carousel-compare-btn').forEach(btn => {
@@ -929,12 +908,12 @@ document.addEventListener('DOMContentLoaded', () => {
 // toggleProductCompare is defined later in the file
 
 function toggleCompare(productId, productName) {
-    const index = compareList.findIndex(p => p.id === productId);
+    const index = CompareStore.getActiveList().findIndex(p => p.id === productId);
 
     if (index > -1) {
         compareList.splice(index, 1);
     } else {
-        if (compareList.length >= MAX_COMPARE) {
+        if (CompareStore.getCount() >= MAX_COMPARE) {
             alert(`Máximo de ${MAX_COMPARE} produtos para comparação`);
             return;
         }
@@ -970,7 +949,7 @@ function updateCompareUI() {
     const productsContainer = document.getElementById('compare-bar-products');
     const counter = document.getElementById('compare-counter');
 
-    if (compareList.length > 0) {
+    if (CompareStore.getCount() > 0) {
         if (bar) bar.classList.add('show');
 
         // Show and update counter
@@ -978,12 +957,12 @@ function updateCompareUI() {
             counter.classList.add('show');
             const numberEl = counter.querySelector('.compare-counter-number');
             const textEl = counter.querySelector('.compare-counter-text');
-            if (numberEl) numberEl.textContent = compareList.length;
-            if (textEl) textEl.textContent = compareList.length === 1 ? 'produto' : 'produtos';
+            if (numberEl) numberEl.textContent = CompareStore.getCount();
+            if (textEl) textEl.textContent = CompareStore.getCount() === 1 ? 'produto' : 'produtos';
         }
 
         if (productsContainer) {
-            productsContainer.innerHTML = compareList.map(p => `
+            productsContainer.innerHTML = CompareStore.getActiveList().map(p => `
                         <div class="compare-bar-product">
                             <span class="compare-bar-product-name">${p.brand} ${p.model}</span>
                             <button class="compare-bar-remove" onclick="toggleCompare('${p.id}', '${p.name}')">✕</button>
@@ -1039,7 +1018,7 @@ async function openFeaturedComparison(productId1, productId2) {
 }
 
 function showComparison() {
-    if (compareList.length < 2) {
+    if (CompareStore.getCount() < 2) {
         alert('Selecione pelo menos 2 produtos para comparar');
         return;
     }
@@ -1310,12 +1289,12 @@ function checkNicheFit() {
 
 // ==================== SHARE COMPARISON ====================
 function getShareUrl() {
-    const productIds = compareList.map(p => p.id).join(',');
+    const productIds = CompareStore.getActiveList().map(p => p.id).join(',');
     return `${window.location.origin}${window.location.pathname}?compare=${productIds}`;
 }
 
 function getShareText() {
-    const names = compareList.map(p => p.model).join(' vs ');
+    const names = CompareStore.getActiveList().map(p => p.model).join(' vs ');
     return `🏆 Confira minha comparação de ${names} no ComparaTop!`;
 }
 
@@ -1502,7 +1481,7 @@ function toggleSidebarCompare(productId, element) {
     const score = product.editorialScores?.overall || 0;
 
     // Check if already in compare list
-    const existingIndex = compareList.findIndex(p => p.id === productId);
+    const existingIndex = CompareStore.getActiveList().findIndex(p => p.id === productId);
 
     if (existingIndex >= 0) {
         // Remove from list
@@ -1511,7 +1490,7 @@ function toggleSidebarCompare(productId, element) {
         element.style.background = '';
     } else {
         // Add to list (max 4)
-        if (compareList.length >= 4) {
+        if (CompareStore.getCount() >= 4) {
             alert('Máximo de 4 produtos para comparação. Remova um antes de adicionar outro.');
             return;
         }
@@ -2383,11 +2362,11 @@ function toggleProductCompare(productId) {
     const product = currentCatalog.products[productId];
     if (!product) return;
 
-    const existingIndex = compareList.findIndex(p => p.id === productId);
+    const existingIndex = CompareStore.getActiveList().findIndex(p => p.id === productId);
     if (existingIndex > -1) {
         compareList.splice(existingIndex, 1);
     } else {
-        if (compareList.length < 4) {
+        if (CompareStore.getCount() < 4) {
             compareList.push({ id: productId, ...product });
         } else {
             showToast('Máximo de 4 produtos na comparação');
@@ -2416,7 +2395,7 @@ function toggleProductCompare(productId) {
 
 // Toggle product in compare list from carousel
 function toggleCarouselCompare(productId, model, brand, score) {
-    const existingIndex = compareList.findIndex(p => p.id === productId);
+    const existingIndex = CompareStore.getActiveList().findIndex(p => p.id === productId);
     let added = false;
 
     if (existingIndex > -1) {
@@ -2424,7 +2403,7 @@ function toggleCarouselCompare(productId, model, brand, score) {
         compareList.splice(existingIndex, 1);
     } else {
         // Add to list
-        if (compareList.length >= 4) {
+        if (CompareStore.getCount() >= 4) {
             showToast('Máximo de 4 produtos na comparação');
             return;
         }
@@ -2467,10 +2446,10 @@ function toggleCarouselCompare(productId, model, brand, score) {
 
     // Show informative toast
     if (added) {
-        if (compareList.length === 1) {
+        if (CompareStore.getCount() === 1) {
             showToast('Produto adicionado! Adicione mais 1 para comparar.');
-        } else if (compareList.length >= 2) {
-            showToast(`${compareList.length} produtos na comparação. Clique em ⚖️ para ver.`);
+        } else if (CompareStore.getCount() >= 2) {
+            showToast(`${CompareStore.getCount()} produtos na comparação. Clique em ⚖️ para ver.`);
         }
     } else {
         showToast('Produto removido da comparação');
@@ -2479,47 +2458,28 @@ function toggleCarouselCompare(productId, model, brand, score) {
 
 // Toggle product in compare list from category page cards
 function toggleCategoryCompare(productId, model, brand, score) {
-    const existingIndex = compareList.findIndex(p => p.id === productId);
-    const btn = event.target;
-
-    if (existingIndex > -1) {
-        // Remove from list
-        compareList.splice(existingIndex, 1);
-        if (btn) {
-            btn.textContent = '➕ Adicionar à comparação';
-            btn.classList.remove('added');
-        }
-    } else {
-        // Add to list
-        if (compareList.length >= 4) {
-            showToast('Máximo de 4 produtos na comparação');
-            return;
-        }
-        // Get full product data from catalog
-        const fullProduct = currentCatalog?.products?.[productId];
-        if (fullProduct) {
-            compareList.push({ id: productId, ...fullProduct });
-        } else {
-            // Fallback if catalog not available
-            compareList.push({
-                id: productId,
-                model: model,
-                brand: brand,
-                editorialScores: { overall: score }
-            });
-        }
-        if (btn) {
-            btn.textContent = '✓ Na comparação';
-            btn.classList.add('added');
-        }
+    // Get category from current catalog or URL
+    const category = currentCatalog?.category?.slug || getCategoryFromUrl() || 'geladeiras';
+    
+    // Build product object with category
+    const fullProduct = currentCatalog?.products?.[productId];
+    const product = fullProduct 
+        ? { id: productId, category, ...fullProduct }
+        : { id: productId, category, model, brand, editorialScores: { overall: score } };
+    
+    // Use CompareStore (handles add/remove, localStorage, limits)
+    const added = CompareStore.toggleItem(product);
+    
+    // Update button visual
+    const btn = event?.target;
+    if (btn) {
+        const isNow = CompareStore.isInList(productId);
+        btn.textContent = isNow ? '✓ Na comparação' : '➕ Adicionar à comparação';
+        btn.classList.toggle('added', isNow);
     }
 
-    // Save to localStorage
-    localStorage.setItem('compareList', JSON.stringify(compareList));
-
-    // Sync all buttons for this product
+    // Sync all buttons and UI
     updateAllCompareButtonsForProduct(productId);
-
     updateCompareUI();
     showComparePrompt();
     updateBottomBarBadge();
@@ -2787,7 +2747,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Aggressive Compare Counter Fix
     const compareCounter = document.querySelector('.compare-counter');
     if (compareCounter) {
-        if (!compareList || compareList.length === 0) {
+        if (!compareList || CompareStore.getCount() === 0) {
             compareCounter.style.display = 'none';
         }
     }
@@ -3153,7 +3113,7 @@ function navigateFromSheet(url) {
 function updateBottomBarBadge() {
     const badge = document.getElementById('bottom-compare-badge');
     if (badge && typeof compareList !== 'undefined') {
-        const count = compareList.length;
+        const count = CompareStore.getCount();
         badge.textContent = count;
         badge.style.display = count > 0 ? 'flex' : 'none';
     }
@@ -3180,4 +3140,25 @@ window.hideCompareToast = hideCompareToast;
 window.closeComparePrompt = closeComparePrompt;
 window.startComparisonFromPrompt = startComparisonFromPrompt;
 window.handleCompareClick = handleCompareClick;
+
+// Listen to CompareStore changes and sync UI
+window.addEventListener('compare:changed', (e) => {
+    const { action, product, category } = e.detail;
+    
+    // Update all buttons for affected product
+    if (product && product.id) {
+        updateAllCompareButtonsForProduct(product.id);
+    }
+    
+    // Update global UI
+    updateCompareUI();
+    showComparePrompt();
+    updateBottomBarBadge();
+    
+    // Initialize buttons if switching categories
+    if (action === 'switch') {
+        initCategoryCompareButtons();
+    }
+});
+
 window.toggleProductCompare = toggleProductCompare;
