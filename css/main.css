@@ -2945,8 +2945,8 @@ a.category-card-tag.available:hover {
     display: inline-block;
     height: 24px;
     width: 24px;
-    background-color: rgba(255, 255, 255, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 2px solid white;
     border-radius: 6px;
     transition: all 0.2s;
 }
@@ -3291,11 +3291,17 @@ a.category-card-tag.available:hover {
         grid-template-columns: 1fr;
     }
 
+    /* Modal fullscreen on mobile */
+    .compare-modal {
+        padding: 0;
+        align-items: stretch;
+    }
+
     .compare-modal-content {
         width: 100%;
         max-width: 100%;
-        max-height: 100vh;
-        height: 100vh;
+        max-height: 100%;
+        height: 100%;
         border-radius: 0;
         margin: 0;
     }
@@ -3470,17 +3476,18 @@ a.category-card-tag.available:hover {
 
     /* Sticky section headers (first cell only) */
     .compare-section-header td:first-child {
-        position: sticky;
-        left: 0;
-        z-index: 3;
-        background: var(--c-primary);
-        color: white;
+        position: sticky !important;
+        left: 0 !important;
+        z-index: 4 !important;
+        background: var(--c-primary) !important;
+        color: white !important;
         font-weight: 600;
         white-space: nowrap;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.15);
     }
 
     .compare-section-header td {
-        background: var(--c-primary);
+        background: var(--c-primary) !important;
     }
 
     .header-title {
