@@ -98,6 +98,133 @@ function hideCompareCounter() {
     }
 }
 
+// ========== PRODUCT IMAGE GALLERY ==========
+let currentGalleryIndex = 0;
+let galleryImages = [];
+
+function initGallery(images) {
+    galleryImages = images || [];
+    currentGalleryIndex = 0;
+    updateGalleryDisplay();
+}
+
+function updateGalleryDisplay() {
+    const mainImg = document.getElementById('gallery-main-img');
+    const counter = document.getElementById('gallery-counter');
+    const thumbs = document.querySelectorAll('.gallery-thumb');
+
+    if (mainImg && galleryImages.length > 0) {
+        mainImg.src = galleryImages[currentGalleryIndex];
+        mainImg.alt = `Imagem ${currentGalleryIndex + 1} de ${galleryImages.length}`;
+    }
+
+    if (counter) {
+        counter.textContent = `${currentGalleryIndex + 1} / ${galleryImages.length}`;
+    }
+
+    thumbs.forEach((thumb, i) => {
+        thumb.classList.toggle('active', i === currentGalleryIndex);
+    });
+}
+
+function galleryPrev() {
+    if (galleryImages.length === 0) return;
+    currentGalleryIndex = (currentGalleryIndex - 1 + galleryImages.length) % galleryImages.length;
+    updateGalleryDisplay();
+}
+
+function galleryNext() {
+    if (galleryImages.length === 0) return;
+    currentGalleryIndex = (currentGalleryIndex + 1) % galleryImages.length;
+    updateGalleryDisplay();
+}
+
+function galleryGoTo(index) {
+    if (index >= 0 && index < galleryImages.length) {
+        currentGalleryIndex = index;
+        updateGalleryDisplay();
+    }
+}
+
+function openGalleryFullscreen() {
+    const modal = document.getElementById('gallery-fullscreen');
+    const img = document.getElementById('gallery-fullscreen-img');
+    if (modal && img && galleryImages.length > 0) {
+        img.src = galleryImages[currentGalleryIndex];
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeGalleryFullscreen() {
+    const modal = document.getElementById('gallery-fullscreen');
+    if (modal) {
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+}
+
+function galleryFullscreenPrev() {
+    galleryPrev();
+    const img = document.getElementById('gallery-fullscreen-img');
+    if (img && galleryImages.length > 0) {
+        img.src = galleryImages[currentGalleryIndex];
+    }
+}
+
+function galleryFullscreenNext() {
+    galleryNext();
+    const img = document.getElementById('gallery-fullscreen-img');
+    if (img && galleryImages.length > 0) {
+        img.src = galleryImages[currentGalleryIndex];
+    }
+}
+
+// Render gallery HTML
+function renderGalleryHtml(images, mainImageUrl) {
+    const imgs = images && images.length > 0 ? images : (mainImageUrl ? [mainImageUrl] : []);
+
+    if (imgs.length === 0) {
+        return '<div class="product-gallery-main"><div style="display:flex;align-items:center;justify-content:center;height:300px;color:#94a3b8;">📷 Sem imagem</div></div>';
+    }
+
+    if (imgs.length === 1) {
+        return `
+            <div class="product-gallery">
+                <div class="product-gallery-main">
+                    <img src="${imgs[0]}" alt="Imagem do produto" onerror="this.style.display='none'">
+                </div>
+            </div>`;
+    }
+
+    const thumbsHtml = imgs.map((img, i) =>
+        `<div class="gallery-thumb ${i === 0 ? 'active' : ''}" onclick="galleryGoTo(${i})">
+            <img src="${img}" alt="Miniatura ${i + 1}" loading="lazy">
+        </div>`
+    ).join('');
+
+    return `
+        <div class="product-gallery">
+            <div class="product-gallery-main">
+                <button class="gallery-nav prev" onclick="galleryPrev()">‹</button>
+                <img id="gallery-main-img" src="${imgs[0]}" alt="Imagem 1 de ${imgs.length}" onclick="openGalleryFullscreen()">
+                <button class="gallery-nav next" onclick="galleryNext()">›</button>
+                <span class="gallery-counter" id="gallery-counter">1 / ${imgs.length}</span>
+            </div>
+            <div class="product-gallery-thumbs">
+                ${thumbsHtml}
+            </div>
+        </div>
+        
+        <!-- Fullscreen Modal -->
+        <div class="gallery-fullscreen" id="gallery-fullscreen" onclick="if(event.target===this) closeGalleryFullscreen()">
+            <button class="gallery-fullscreen-close" onclick="closeGalleryFullscreen()">×</button>
+            <button class="gallery-nav prev" onclick="galleryFullscreenPrev()">‹</button>
+            <img id="gallery-fullscreen-img" src="${imgs[0]}" alt="Imagem em tela cheia">
+            <button class="gallery-nav next" onclick="galleryFullscreenNext()">›</button>
+        </div>`;
+}
+
 // Combined Toggle function (referenced by HTML onclick)
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
@@ -2071,11 +2198,13 @@ function displayProduct(productId) {
     }
 
     // Render single product view
+    const galleryHtml = renderGalleryHtml(product.images, product.imageUrl);
+
     let html = `
                 <div class="product-detail">
                     <div class="product-detail-grid">
                         <div class="product-detail-image">
-                            <img src="${product.imageUrl}" alt="${product.model}" onerror="this.style.display='none'">
+                            ${galleryHtml}
                         </div>
                         <div class="product-detail-info">
                             <h2 class="product-detail-model">${product.brand} ${product.model}</h2>
@@ -2192,6 +2321,11 @@ function displayProduct(productId) {
             `;
 
     document.getElementById('product-content').innerHTML = html;
+
+    // Initialize image gallery if product has multiple images
+    if (product.images && product.images.length > 1) {
+        initGallery(product.images);
+    }
 
     // Initialize quiz for this product
     initQuiz(product.id);
