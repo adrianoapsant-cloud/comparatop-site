@@ -867,6 +867,12 @@ function handleCompareClick() {
 
 // Navigate directly to 1x1 comparison page
 function navigateToComparisonPage() {
+    // Check if already on comparison page
+    if (window.location.pathname.includes('/comparar/')) {
+        showToast('Você já está na página de comparação!');
+        return;
+    }
+    
     const products = CompareStore.getActiveList();
     if (products.length < 2) return;
     
