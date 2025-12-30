@@ -1299,7 +1299,8 @@ function renderComparisonTable() {
         }).map(p => p.id);
     }
 
-    let html = '<table class="compare-table">';
+    // Wrap table in scroll container for horizontal scrolling with sticky columns
+    let html = '<div class="compare-table-scroll"><table class="compare-table">';
 
     // Header with product names + checkboxes for 1x1 selection
     html += '<thead><tr><th></th>';
@@ -1399,7 +1400,7 @@ function renderComparisonTable() {
     });
     html += '</tr>';
 
-    html += '</tbody></table>';
+    html += '</tbody></table></div>'; // close table and scroll wrapper
 
     // Floating action button for 1x1 navigation (sticky at bottom)
     html += `
