@@ -116,6 +116,11 @@ function handleOverlayClick() {
 
 // Show the compare toast (small notification in bottom right)
 function showComparePrompt() {
+    // Skip on comparison pages - they have their own detailed view
+    if (window.location.pathname.includes('/comparar/')) {
+        return;
+    }
+    
     const prompt = document.getElementById('compare-prompt');
     const productsContainer = document.getElementById('compare-prompt-products');
     const hint = document.getElementById('compare-prompt-hint');
