@@ -1241,10 +1241,10 @@ function updateCompare1x1Selection() {
         const label = cb.nextElementSibling;
         if (label) {
             if (cb.checked) {
-                label.textContent = '☑ OK';
+                label.textContent = 'OK ✓';
                 label.classList.add('selected');
             } else {
-                label.textContent = '☐ Selecione';
+                label.textContent = 'Selecione';
                 label.classList.remove('selected');
             }
         }
@@ -1328,7 +1328,7 @@ function renderComparisonTable() {
                     <label class="compare-select-btn">
                         <input type="checkbox" name="product-1x1-select" value="${p.id}" 
                                onchange="updateCompare1x1Selection()" />
-                        <span class="select-btn-text">☐ Selecione</span>
+                        <span class="select-btn-text">Selecione</span>
                     </label>
                     <div class="product-brand">${p.brand}</div>
                     <div class="product-name">${p.model}</div>
