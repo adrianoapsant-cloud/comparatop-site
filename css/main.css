@@ -2995,6 +2995,18 @@ a.category-card-tag.available:hover {
     margin-top: 0.25rem;
 }
 
+/* Product image in comparison table */
+.compare-product-img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin: 0.5rem auto;
+    display: block;
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 4px;
+}
+
 .compare-section-header {
     background: var(--c-primary) !important;
     color: #fff !important;
@@ -3477,23 +3489,35 @@ a.category-card-tag.available:hover {
         flex-direction: column;
     }
 
-    /* Modal header - keep desktop design, just smaller */
+    /* Modal header - simplified for mobile */
     .compare-modal-header {
         flex-shrink: 0;
-        padding: 0.75rem;
-        padding-top: max(0.75rem, env(safe-area-inset-top));
+        padding: 0.5rem 0.75rem;
+        padding-top: max(0.5rem, env(safe-area-inset-top));
         background: var(--c-primary);
         z-index: 10;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
     }
 
+    /* Hide some social icons on mobile to reduce clutter */
     .compare-modal-header .share-social-btn {
-        width: 28px;
-        height: 28px;
-        font-size: 0.8rem;
+        width: 24px;
+        height: 24px;
+        font-size: 0.7rem;
+    }
+
+    /* Hide less important social buttons on small screens */
+    .compare-modal-header .share-social-btn:nth-child(n+4) {
+        display: none;
     }
 
     .compare-modal-title {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+        flex: 1;
+        min-width: 100px;
     }
 
     .compare-modal-close {

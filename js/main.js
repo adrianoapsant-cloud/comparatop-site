@@ -1451,12 +1451,15 @@ function renderComparisonTable() {
     // Header with product names + selection buttons for 1x1
     html += '<thead><tr><th class="empty-header-cell"></th>';
     products.forEach(p => {
+        const imageUrl = p.imageUrl || '';
+        const imageHtml = imageUrl ? `<img src="${imageUrl}" alt="${p.model}" class="compare-product-img" onerror="this.style.display='none'">` : '';
         html += `<th class="product-cell">
                     <label class="compare-select-btn">
                         <input type="checkbox" name="product-1x1-select" value="${p.id}" 
                                onchange="updateCompare1x1Selection()" />
                         <span class="select-btn-text">Selecione</span>
                     </label>
+                    ${imageHtml}
                     <div class="product-brand">${p.brand}</div>
                     <div class="product-name">${p.model}</div>
                     <span class="score-badge">${p.editorialScores?.overall || '?'}/10</span>
