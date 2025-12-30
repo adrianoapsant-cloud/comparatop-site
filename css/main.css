@@ -1558,6 +1558,8 @@ a.category-card-tag.available:hover {
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--c-success);
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .offer-btn-small {
