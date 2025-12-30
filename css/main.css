@@ -3848,80 +3848,54 @@ a:focus-visible {
     cursor: not-allowed;
 }
 
-/* ==================== MOBILE STACKED SPECS TABLE ==================== */
+
+
+/* ==================== MOBILE HORIZONTAL SCROLL SPECS TABLE ==================== */
 @media (max-width: 768px) {
     .comparison-table-section {
-        overflow-x: visible;
+        position: relative;
+        margin: 0 -1rem; /* Extend to full width */
+        padding: 0 1rem;
     }
     
+    /* Wrapper for horizontal scroll */
     .comparison-table {
         display: block;
-        width: 100%;
-    }
-    
-    .comparison-table thead {
-        display: none;
-    }
-    
-    .comparison-table tbody {
-        display: block;
-    }
-    
-    .comparison-table tr {
-        display: block;
-        margin-bottom: 0.75rem;
-        background: #f8fafc;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        white-space: nowrap;
         border-radius: 8px;
-        overflow: hidden;
         border: 1px solid #e2e8f0;
     }
     
-    /* First cell (label) - full width on top */
+    .comparison-table table {
+        min-width: 100%;
+        white-space: normal;
+    }
+    
+    /* Make first column sticky */
+    .comparison-table th:first-child,
     .comparison-table td:first-child {
-        display: block;
-        width: 100%;
-        background: #1e40af;
-        color: white;
-        font-weight: 600;
-        padding: 0.6rem 1rem;
-        text-align: center;
-        border-bottom: none;
-    }
-    
-    /* Product value cells - side by side */
-    .comparison-table td:nth-child(2),
-    .comparison-table td:nth-child(3) {
-        display: inline-block;
-        width: 50%;
-        box-sizing: border-box;
-        text-align: center;
-        padding: 0.75rem 0.5rem;
-        vertical-align: top;
-        border-bottom: none;
+        position: sticky;
+        left: 0;
         background: white;
+        z-index: 2;
+        box-shadow: 2px 0 4px rgba(0,0,0,0.1);
     }
     
-    /* Add product names above values */
-    .comparison-table td:nth-child(2)::before {
-        content: "BRM44HB";
-        display: block;
-        font-size: 0.7rem;
-        color: #64748b;
-        margin-bottom: 0.25rem;
-        font-weight: 600;
+    .comparison-table th:first-child {
+        background: #1e40af;
     }
     
-    .comparison-table td:nth-child(3)::before {
-        content: "TF55";
-        display: block;
-        font-size: 0.7rem;
-        color: #64748b;
-        margin-bottom: 0.25rem;
-        font-weight: 600;
+    .comparison-table th,
+    .comparison-table td {
+        min-width: 100px;
+        padding: 0.6rem 0.75rem;
+        font-size: 0.85rem;
     }
     
-    /* Left border on middle divider */
-    .comparison-table td:nth-child(3) {
-        border-left: 1px solid #e2e8f0;
+    .comparison-table td:first-child {
+        min-width: 120px;
+        font-weight: 500;
     }
 }
