@@ -1293,7 +1293,7 @@ a.category-card-tag.available:hover {
 
 .product-detail-grid {
     display: grid;
-    grid-template-columns: minmax(280px, 400px) 1fr;
+    grid-template-columns: clamp(200px, 40%, 400px) 1fr;
     gap: 2rem;
     background: var(--c-surface);
     padding: 1.5rem;
@@ -1301,6 +1301,7 @@ a.category-card-tag.available:hover {
     box-shadow: var(--shadow-sm);
     margin-bottom: 2rem;
     align-items: start;
+    max-width: 100%;
 }
 
 .product-detail-image {
@@ -1311,10 +1312,13 @@ a.category-card-tag.available:hover {
     position: sticky;
     top: 80px;
     max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .product-detail-image .product-gallery {
     max-width: 100%;
+    width: 100%;
     margin: 0;
 }
 
