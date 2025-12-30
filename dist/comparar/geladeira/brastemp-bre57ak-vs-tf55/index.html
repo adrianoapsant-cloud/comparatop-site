@@ -1117,7 +1117,7 @@
         .score-bar.bar-b { background: linear-gradient(90deg, #10b981, #059669); }
         .scores-summary { margin-top: 1rem; padding: 1rem; background: #f8fafc; border-radius: 8px; }
         
-        .comparison-table { width: 100%; border-collapse: collapse; }
+        .comparison-table { width: 100%; border-collapse: separate; border-spacing: 0; }
         .comparison-table th, .comparison-table td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
         .comparison-table th { background: #1e40af; color: white; }
         .comparison-table tr:nth-child(even) { background: #f8fafc; }
@@ -1159,6 +1159,12 @@
             #comparison-content h1 { font-size: 1.3rem; }
             .summary-cards { flex-direction: column; }
             .score-row { grid-template-columns: 1fr; }
+            
+            /* Mobile sticky column for specs table */
+            .comparison-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid #e2e8f0; border-radius: 8px; }
+            .comparison-table th:first-child, .comparison-table td:first-child { position: sticky; left: 0; z-index: 2; background: white; min-width: 100px; box-shadow: 2px 0 5px rgba(0,0,0,0.1); }
+            .comparison-table th:first-child { background: #1e40af; z-index: 3; }
+            .comparison-table th, .comparison-table td { padding: 0.5rem 0.35rem; font-size: 0.78rem; }
         }
     </style>
     
