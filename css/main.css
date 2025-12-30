@@ -3847,3 +3847,56 @@ a:focus-visible {
     background: #94a3b8;
     cursor: not-allowed;
 }
+
+/* ==================== COMPACT SPECS TABLE FOR MOBILE ==================== */
+@media (max-width: 768px) {
+    .comparison-table {
+        font-size: 0.8rem;
+        table-layout: fixed;
+        width: 100%;
+    }
+    
+    .comparison-table th,
+    .comparison-table td {
+        padding: 0.5rem 0.4rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    
+    /* First column (Especificação) - 38% */
+    .comparison-table th:first-child,
+    .comparison-table td:first-child {
+        width: 38%;
+        font-size: 0.75rem;
+    }
+    
+    /* Product columns - 31% each */
+    .comparison-table th:nth-child(2),
+    .comparison-table td:nth-child(2),
+    .comparison-table th:nth-child(3),
+    .comparison-table td:nth-child(3) {
+        width: 31%;
+        text-align: center;
+        font-size: 0.8rem;
+    }
+    
+    /* Header compact */
+    .comparison-table th {
+        padding: 0.5rem 0.3rem;
+        font-size: 0.7rem;
+    }
+    
+    /* Rounded corners on right side too */
+    .comparison-table th:last-child {
+        border-top-right-radius: 8px;
+    }
+    
+    .comparison-table tbody tr:last-child td:last-child {
+        border-bottom-right-radius: 8px;
+    }
+}
+
+/* Prevent page horizontal scroll */
+html, body {
+    overflow-x: hidden;
+}
