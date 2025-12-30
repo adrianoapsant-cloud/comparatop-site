@@ -849,6 +849,36 @@ try {
 }
 const MAX_COMPARE = 4;
 
+// Initialize category page compare buttons based on compareList
+function initCategoryCompareButtons() {
+    const buttons = document.querySelectorAll('.ssg-compare-btn');
+    buttons.forEach(btn => {
+        // Extract productId from onclick attribute
+        const onclick = btn.getAttribute('onclick');
+        if (onclick) {
+            const match = onclick.match(/toggleCategoryCompare\(['"]([^'"]+)['"]/);
+            if (match && match[1]) {
+                const productId = match[1];
+                const isInCompare = compareList.some(p => p.id === productId);
+                if (isInCompare) {
+                    btn.textContent = '✓ Na comparação';
+                    btn.classList.add('added');
+                } else {
+                    btn.textContent = '➕ Adicionar à comparação';
+                    btn.classList.remove('added');
+                }
+            }
+        }
+    });
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+    initCategoryCompareButtons();
+    updateCompareUI();
+    updateBottomBarBadge();
+});
+
 // toggleProductCompare is defined later in the file
 
 function toggleCompare(productId, productName) {
