@@ -3856,23 +3856,27 @@ a:focus-visible {
 
 /* ==================== MOBILE SPECS TABLE WITH STICKY COLUMN ==================== */
 @media (max-width: 768px) {
-    /* Wrapper for horizontal scroll */
+    /* Section container */
     .comparison-table-section {
         position: relative;
         overflow: visible;
     }
     
-    /* Create scrollable container around table */
-    .comparison-table {
-        display: block;
+    /* Scroll wrapper - THIS IS THE KEY */
+    .comparison-table-scroll {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
-        white-space: nowrap;
         border: 1px solid #e2e8f0;
         border-radius: 8px;
     }
     
-    /* Make inner table work properly */
+    /* Table inside wrapper */
+    .comparison-table {
+        min-width: 450px;
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
     .comparison-table thead,
     .comparison-table tbody,
     .comparison-table tr {

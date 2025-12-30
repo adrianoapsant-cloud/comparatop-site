@@ -557,6 +557,7 @@ function generateComparisonContent(productA, productB, category) {
             <!-- Specs Table -->
             <section class="comparison-table-section">
                 <h2>📋 Especificações Completas</h2>
+                <div class="comparison-table-scroll">
                 <table class="comparison-table">
                     <thead>
                         <tr><th>Especificação</th><th>${productA.model}</th><th>${productB.model}</th></tr>
@@ -571,6 +572,7 @@ function generateComparisonContent(productA, productB, category) {
                         <tr><td>Nota Editorial</td><td><strong>${scoresA.overall}/10</strong></td><td><strong>${scoresB.overall}/10</strong></td></tr>
                     </tbody>
                 </table>
+                </div>
             </section>
             
             <!-- VoC -->
