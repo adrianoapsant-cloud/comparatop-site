@@ -3435,17 +3435,39 @@ a.category-card-tag.available:hover {
         -webkit-overflow-scrolling: touch;
     }
 
-    /* Compact checkbox on mobile */
+    /* Compact checkbox on mobile - MUST be visible above sticky column */
+    .compare-checkbox-label {
+        position: relative;
+        z-index: 105 !important;
+        /* Higher than sticky column (z-index 3) */
+        display: block !important;
+        margin-bottom: 0.5rem;
+    }
+
     .compare-checkmark {
-        height: 20px;
-        width: 20px;
+        display: inline-block !important;
+        height: 28px;
+        width: 28px;
+        background-color: rgba(255, 255, 255, 0.4);
+        border: 3px solid white;
+        border-radius: 8px;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
 
     .compare-checkbox-label .compare-checkmark:after {
-        left: 7px;
-        top: 3px;
-        width: 5px;
-        height: 10px;
+        left: 9px;
+        top: 4px;
+        width: 7px;
+        height: 13px;
+    }
+
+    /* Product header cells - ensure checkboxes are visible */
+    .compare-table th.product-cell {
+        vertical-align: top;
+        padding-top: 1rem;
+        position: relative;
+        z-index: 10;
     }
 
     /* Floating button for 1x1 navigation - fixed at bottom */
@@ -3457,7 +3479,9 @@ a.category-card-tag.available:hover {
         padding: 0.75rem 1rem;
         padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
         background: linear-gradient(to top, white 90%, transparent);
-        z-index: 100;
+        z-index: 9998;
+        /* Very high - just below modal */
+        pointer-events: auto;
     }
 
     .btn-compare-1x1-floating {
