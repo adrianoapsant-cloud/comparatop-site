@@ -2502,20 +2502,23 @@ a.category-card-tag.available:hover {
     opacity: 0.5;
     cursor: not-allowed;
 }
+
 /* ==================== MOBILE COMPARISON UX ==================== */
 /* Hide floating compare prompt on mobile - use bottom nav instead */
 @media (max-width: 768px) {
     .compare-prompt {
         display: none !important;
     }
-    
+
     .compare-counter {
-        display: none !important; /* Also hide counter - bottom nav has badge */
+        display: none !important;
+        /* Also hide counter - bottom nav has badge */
     }
-    
+
     /* Enhanced toast for mobile */
     .toast-notification {
-        bottom: 80px !important; /* Above bottom nav */
+        bottom: 80px !important;
+        /* Above bottom nav */
         left: 12px !important;
         right: 12px !important;
         max-width: none !important;
@@ -3628,9 +3631,11 @@ a:focus-visible {
     gap: 1rem;
     width: 100%;
 }
+
 /* ==================== HEADER COMPARE BUTTON ==================== */
 .ml-header-compare {
-    display: none; /* Hidden on desktop by default */
+    display: none;
+    /* Hidden on desktop by default */
 }
 
 @media (max-width: 768px) {
@@ -3650,13 +3655,14 @@ a:focus-visible {
         white-space: nowrap;
         margin-left: auto;
     }
-    
+
     .ml-header-compare-text {
         font-size: 0.8rem;
     }
-    
+
     .ml-header-compare-badge {
-        display: none; /* Hidden when 0 */
+        display: none;
+        /* Hidden when 0 */
         background: #f59e0b;
         color: white;
         font-size: 0.7rem;
@@ -3667,41 +3673,41 @@ a:focus-visible {
         line-height: 18px;
         text-align: center;
     }
-    
+
     .ml-header-compare-badge.show {
         display: inline-block;
     }
-    
+
     /* Reorganize header for mobile */
     .ml-header-content {
         flex-wrap: wrap;
         gap: 0.5rem;
     }
-    
+
     .ml-search-wrapper {
         order: 3;
         width: 100%;
         margin-top: 0.25rem;
     }
-    
+
     .ml-home-btn {
         order: 1;
     }
-    
+
     .ml-logo {
         order: 2;
     }
-    
+
     .ml-header-compare {
         order: 2;
         margin-left: auto;
     }
-    
+
     /* Hide bottom nav on mobile */
     .ml-bottom-nav {
         display: none !important;
     }
-    
+
     /* Adjust page padding since bottom nav is gone */
     .main-content,
     .ml-main {
@@ -3856,87 +3862,78 @@ a:focus-visible {
 
 /* ==================== MOBILE SPECS TABLE WITH STICKY COLUMN ==================== */
 @media (max-width: 768px) {
+
     /* Section container */
     .comparison-table-section {
         position: relative;
-        overflow: visible;
     }
-    
-    /* Scroll wrapper - THIS IS THE KEY */
+
+    /* Scroll wrapper - enables horizontal scroll */
     .comparison-table-scroll {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         border: 1px solid #e2e8f0;
         border-radius: 8px;
     }
-    
-    /* Table inside wrapper */
+
+    /* Table - NO display overrides, keep native table display */
     .comparison-table {
-        min-width: 450px;
-        width: 100%;
-        border-collapse: collapse;
+        border-collapse: separate;
+        border-spacing: 0;
     }
-    
-    .comparison-table thead,
-    .comparison-table tbody,
-    .comparison-table tr {
-        display: table;
-        width: 100%;
-        table-layout: fixed;
-    }
-    
-    .comparison-table thead {
-        display: table-header-group;
-    }
-    
-    .comparison-table tbody {
-        display: table-row-group;
-    }
-    
-    /* Sticky first column */
+
+    /* Sticky first column - works because table keeps native display */
     .comparison-table th:first-child,
     .comparison-table td:first-child {
         position: sticky;
         left: 0;
         z-index: 2;
         background: white;
-        min-width: 110px;
-        box-shadow: 2px 0 4px rgba(0,0,0,0.08);
+        min-width: 100px;
+        max-width: 120px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     }
-    
+
     .comparison-table th:first-child {
         background: #1e40af;
         z-index: 3;
     }
-    
+
     /* Product columns sizing */
     .comparison-table th:nth-child(2),
     .comparison-table td:nth-child(2),
     .comparison-table th:nth-child(3),
     .comparison-table td:nth-child(3) {
-        min-width: 100px;
+        min-width: 90px;
         text-align: center;
     }
-    
+
     /* Compact text */
     .comparison-table th,
     .comparison-table td {
-        padding: 0.5rem 0.4rem;
-        font-size: 0.8rem;
-        white-space: normal;
+        padding: 0.5rem 0.35rem;
+        font-size: 0.78rem;
     }
-    
+
     .comparison-table th {
-        font-size: 0.75rem;
+        font-size: 0.72rem;
     }
-    
+
     /* Rounded corners */
     .comparison-table th:first-child {
         border-top-left-radius: 8px;
     }
-    
+
     .comparison-table th:last-child {
         border-top-right-radius: 8px;
+    }
+
+    .comparison-table tbody tr:last-child td:first-child {
+        border-bottom-left-radius: 8px;
+    }
+
+    .comparison-table tbody tr:last-child td:last-child {
+        border-bottom-right-radius: 8px;
     }
 }
 
