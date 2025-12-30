@@ -1158,6 +1158,12 @@ async function openFeaturedComparison(productId1, productId2) {
 }
 
 function showComparison() {
+    // Skip on comparison pages - they already show the detailed 1x1 view
+    if (window.location.pathname.includes('/comparar/')) {
+        console.log('Already on comparison page, skipping modal');
+        return;
+    }
+    
     if (CompareStore.getCount() < 2) {
         alert('Selecione pelo menos 2 produtos para comparar');
         return;
