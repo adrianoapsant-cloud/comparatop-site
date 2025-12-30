@@ -1236,30 +1236,33 @@ function updateCompare1x1Selection() {
 
     if (!btn) return;
 
-    // Update each checkbox's label text
+    // Update each checkbox's label text and style
     allCheckboxes.forEach(cb => {
         const label = cb.nextElementSibling;
         if (label) {
             if (cb.checked) {
-                label.textContent = '✅ Selecionado';
+                label.textContent = '✓ OK';
                 label.classList.add('selected');
             } else {
-                label.textContent = '☐ Selecione';
+                label.textContent = 'Selecione';
                 label.classList.remove('selected');
             }
         }
     });
 
-    if (checkedBoxes.length === 2) {
-        btn.disabled = false;
-        btn.textContent = '🚀 Ver Análise Detalhada →';
-        btn.classList.add('enabled');
-    } else if (checkedBoxes.length > 2) {
-        // Uncheck the first one if more than 2 are selected
+    // Handle max 2 selection
+    if (checkedBoxes.length > 2) {
         const allChecked = document.querySelectorAll('input[name="product-1x1-select"]:checked');
         allChecked[0].checked = false;
         updateCompare1x1Selection();
         return;
+    }
+
+    // Update CTA button
+    if (checkedBoxes.length === 2) {
+        btn.disabled = false;
+        btn.textContent = '🚀 Ver Análise Detalhada →';
+        btn.classList.add('enabled');
     } else {
         btn.disabled = true;
         const remaining = 2 - checkedBoxes.length;
@@ -1325,7 +1328,7 @@ function renderComparisonTable() {
                     <label class="compare-select-btn">
                         <input type="checkbox" name="product-1x1-select" value="${p.id}" 
                                onchange="updateCompare1x1Selection()" />
-                        <span class="select-btn-text">☐ Selecione</span>
+                        <span class="select-btn-text">Selecione</span>
                     </label>
                     <div class="product-brand">${p.brand}</div>
                     <div class="product-name">${p.model}</div>
