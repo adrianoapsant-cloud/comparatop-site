@@ -3803,7 +3803,8 @@ a:focus-visible {
 /* Compare Table */
 .compare-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     min-width: 600px;
 }
 
