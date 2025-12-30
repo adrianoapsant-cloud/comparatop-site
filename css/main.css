@@ -3938,3 +3938,41 @@ a:focus-visible {
         font-size: 0.7rem;
     }
 }
+
+/* ==================== EXTRA COMPACT MOBILE SPECS ==================== */
+@media (max-width: 768px) {
+    .comparison-table-section {
+        margin-left: -1rem;
+        margin-right: -1rem;
+        padding: 0;
+    }
+    
+    .comparison-table-section h2 {
+        padding: 0 1rem;
+    }
+    
+    .comparison-table {
+        font-size: 0.72rem !important;
+        margin: 0 !important;
+    }
+    
+    .comparison-table th,
+    .comparison-table td {
+        padding: 0.4rem 0.25rem !important;
+    }
+    
+    .comparison-table th:first-child,
+    .comparison-table td:first-child {
+        width: 33% !important;
+        font-size: 0.68rem !important;
+        padding-left: 0.5rem !important;
+    }
+    
+    .comparison-table th:nth-child(2),
+    .comparison-table td:nth-child(2),
+    .comparison-table th:nth-child(3),
+    .comparison-table td:nth-child(3) {
+        width: 33.5% !important;
+        font-size: 0.72rem !important;
+    }
+}
