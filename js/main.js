@@ -1335,8 +1335,10 @@ function renderComparisonTable() {
     });
     html += '</tr>';
 
-    // Specs section
-    html += '<tr class="compare-section-header"><td colspan="' + (products.length + 1) + '">📐 Especificações</td></tr>';
+    // Specs section - first cell sticky
+    html += '<tr class="compare-section-header"><td>📐 Especificações</td>';
+    products.forEach(() => html += '<td></td>');
+    html += '</tr>';
 
     specsToCompare.forEach(spec => {
         const higherBetter = ['capacidade_total', 'capacidade_freezer'].includes(spec);
@@ -1351,8 +1353,10 @@ function renderComparisonTable() {
         html += '</tr>';
     });
 
-    // Editorial scores section
-    html += '<tr class="compare-section-header"><td colspan="' + (products.length + 1) + '">📊 Notas Editoriais</td></tr>';
+    // Editorial scores section - first cell sticky
+    html += '<tr class="compare-section-header"><td>📊 Notas Editoriais</td>';
+    products.forEach(() => html += '<td></td>');
+    html += '</tr>';
 
     topics.forEach(topic => {
         const winners = findScoreWinner(topic.id);
@@ -1366,8 +1370,10 @@ function renderComparisonTable() {
         html += '</tr>';
     });
 
-    // VoC summary
-    html += '<tr class="compare-section-header"><td colspan="' + (products.length + 1) + '">🗣️ Voz do Cliente</td></tr>';
+    // VoC summary - first cell sticky
+    html += '<tr class="compare-section-header"><td>🗣️ Voz do Cliente</td>';
+    products.forEach(() => html += '<td></td>');
+    html += '</tr>';
 
     // VoC Overall Score
     html += '<tr><td>📊 Nota Geral VoC</td>';
@@ -1395,13 +1401,10 @@ function renderComparisonTable() {
 
     html += '</tbody></table>';
 
-    // Add 1x1 selection section with dynamic button
+    // Floating action button for 1x1 navigation (sticky at bottom)
     html += `
-    <div class="compare-1x1-section">
-        <p class="compare-1x1-instruction">
-            ☑️ <strong>Marque 2 produtos</strong> acima para ver a comparação 1x1 detalhada
-        </p>
-        <button id="btn-go-1x1" class="btn-compare-1x1" onclick="navigateToSelected1x1()" disabled>
+    <div class="compare-1x1-floating">
+        <button id="btn-go-1x1" class="btn-compare-1x1-floating" onclick="navigateToSelected1x1()" disabled>
             📝 Selecione 2 produtos
         </button>
     </div>`;

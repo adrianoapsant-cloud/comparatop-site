@@ -3020,6 +3020,42 @@ a.category-card-tag.available:hover {
     box-shadow: 0 6px 16px rgba(30, 64, 175, 0.4);
 }
 
+/* Floating 1x1 button container (desktop) */
+.compare-1x1-floating {
+    text-align: center;
+    padding: 1.25rem;
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+    border-radius: 12px;
+    margin-top: 1.5rem;
+}
+
+.btn-compare-1x1-floating {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 2rem;
+    background: #94a3b8;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: not-allowed;
+    transition: all 0.2s;
+}
+
+.btn-compare-1x1-floating.enabled,
+.btn-compare-1x1-floating:not(:disabled) {
+    background: linear-gradient(135deg, #1e40af, #3b82f6);
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+}
+
+.btn-compare-1x1-floating.enabled:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(30, 64, 175, 0.4);
+}
+
 /* Title row with zoom controls */
 .compare-modal-title-row {
     display: flex;
@@ -3256,23 +3292,32 @@ a.category-card-tag.available:hover {
     }
 
     .compare-modal-content {
-        width: 95%;
-        max-height: 90vh;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100vh;
+        height: 100vh;
+        border-radius: 0;
+        margin: 0;
     }
 
-    /* Reorganize modal header for mobile - social buttons + X on top, title below */
+    /* Reorganize modal header for mobile - simple and visible */
     .compare-modal-header {
-        flex-direction: column-reverse;
-        align-items: stretch;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
         gap: 0.5rem;
         padding: 0.75rem 1rem;
+        padding-top: max(0.75rem, env(safe-area-inset-top));
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: var(--c-primary);
     }
 
     .compare-modal-header>div {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        width: 100%;
+        gap: 0.35rem;
     }
 
     .compare-modal-header .share-buttons {
@@ -3281,18 +3326,29 @@ a.category-card-tag.available:hover {
     }
 
     .compare-modal-header .share-social-btn {
-        width: 32px;
-        height: 32px;
-        font-size: 0.9rem;
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
     }
 
     .compare-modal-title {
-        font-size: 1rem;
-        text-align: center;
+        font-size: 0.95rem;
+        flex: 1;
+    }
+
+    .compare-modal-close {
+        width: 36px;
+        height: 36px;
+        font-size: 1.5rem;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
     }
 
     .compare-modal-body {
-        padding: 1rem;
+        padding: 0.5rem;
+        padding-bottom: 80px;
+        /* Space for floating button */
     }
 
     /* Tables with horizontal scroll - except .comparison-table which uses sticky columns */
@@ -3378,18 +3434,53 @@ a.category-card-tag.available:hover {
         height: 10px;
     }
 
-    /* Compact 1x1 section on mobile */
-    .compare-1x1-section {
-        padding: 1rem;
+    /* Floating button for 1x1 navigation - fixed at bottom */
+    .compare-1x1-floating {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 0.75rem 1rem;
+        padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+        background: linear-gradient(to top, white 90%, transparent);
+        z-index: 100;
     }
 
-    .compare-1x1-instruction {
-        font-size: 0.85rem;
+    .btn-compare-1x1-floating {
+        display: block;
+        width: 100%;
+        padding: 0.875rem 1rem;
+        background: #94a3b8;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        cursor: not-allowed;
+        text-align: center;
+        transition: all 0.2s;
     }
 
-    .btn-compare-1x1 {
-        padding: 0.75rem 1.5rem;
-        font-size: 0.9rem;
+    .btn-compare-1x1-floating.enabled,
+    .btn-compare-1x1-floating:not(:disabled) {
+        background: linear-gradient(135deg, #1e40af, #3b82f6);
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(30, 64, 175, 0.4);
+    }
+
+    /* Sticky section headers (first cell only) */
+    .compare-section-header td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 3;
+        background: var(--c-primary);
+        color: white;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .compare-section-header td {
+        background: var(--c-primary);
     }
 
     .header-title {
