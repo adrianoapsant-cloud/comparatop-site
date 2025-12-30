@@ -3900,3 +3900,30 @@ a:focus-visible {
 html, body {
     overflow-x: hidden;
 }
+
+/* ==================== STICKY FIRST COLUMN + HORIZONTAL SCROLL ==================== */
+@media (max-width: 768px) {
+    .comparison-table-section {
+        position: relative;
+        margin: 0 -1rem;
+        padding: 0 1rem;
+    }
+    
+    .comparison-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .comparison-table th:first-child,
+    .comparison-table td:first-child {
+        position: sticky;
+        left: 0;
+        background: white;
+        z-index: 2;
+    }
+    
+    .comparison-table th:first-child {
+        background: #1e40af;
+    }
+}
