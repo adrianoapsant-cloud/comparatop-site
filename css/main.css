@@ -3200,18 +3200,21 @@ a.category-card-tag.available:hover {
         padding: 1rem;
     }
 
-    /* Tables with horizontal scroll */
+    /* Tables with horizontal scroll - except .comparison-table which uses sticky columns */
     .comparison-table-wrapper,
     .specs-table-wrapper,
-    table {
+    table:not(.comparison-table) {
         display: block;
         width: 100%;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
 
+    /* Keep comparison-table as native table for sticky to work */
     .comparison-table {
-        min-width: 600px;
+        display: table;
+        border-collapse: separate;
+        border-spacing: 0;
     }
 
     /* Smaller fonts for compare table on mobile */
