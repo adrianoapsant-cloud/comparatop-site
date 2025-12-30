@@ -161,7 +161,10 @@ function showComparePrompt() {
         compareBtn.disabled = false;
     }
 
-    prompt.style.display = 'block';
+    // Don't show floating prompt on mobile - use bottom nav instead
+    if (window.innerWidth > 768) {
+        prompt.style.display = 'block';
+    }
 }
 
 // Hide the compare toast and show counter if there are products
