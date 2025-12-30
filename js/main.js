@@ -872,6 +872,53 @@ function initCategoryCompareButtons() {
     });
 }
 
+// Update ALL compare buttons across the page for a specific product
+function updateAllCompareButtonsForProduct(productId) {
+    const isInCompare = compareList.some(p => p.id === productId);
+
+    // 1. Update carousel buttons
+    document.querySelectorAll('.carousel-compare-btn').forEach(btn => {
+        const onclick = btn.getAttribute('onclick');
+        if (onclick && onclick.includes(`'${productId}'`)) {
+            btn.classList.toggle('checked', isInCompare);
+            const icon = btn.querySelector('.carousel-compare-icon');
+            const text = btn.querySelector('.carousel-compare-text');
+            if (icon) icon.textContent = isInCompare ? '✓' : '⚖️';
+            if (text) text.textContent = isInCompare ? 'Na comparação' : 'Comparar';
+        }
+    });
+
+    // 2. Update category page buttons (.ssg-compare-btn)
+    document.querySelectorAll('.ssg-compare-btn').forEach(btn => {
+        const onclick = btn.getAttribute('onclick');
+        if (onclick && onclick.includes(`'${productId}'`)) {
+            if (isInCompare) {
+                btn.textContent = '✓ Na comparação';
+                btn.classList.add('added');
+            } else {
+                btn.textContent = '➕ Adicionar à comparação';
+                btn.classList.remove('added');
+            }
+        }
+    });
+
+    // 3. Update product page button
+    const productBtn = document.getElementById(`compare-btn-${productId}`);
+    if (productBtn) {
+        productBtn.textContent = isInCompare ? '✓ Na comparação' : '➕ Adicionar ao comparador';
+        productBtn.classList.toggle('btn-compare-active', isInCompare);
+    }
+
+    // 4. Update sidebar checkboxes
+    const sidebarItems = document.querySelectorAll(`[data-product-id="${productId}"]`);
+    sidebarItems.forEach(item => {
+        const checkbox = item.querySelector('.nav-compare-checkbox');
+        if (checkbox) checkbox.checked = isInCompare;
+        item.classList.toggle('selected', isInCompare);
+        item.style.background = isInCompare ? 'rgba(16, 185, 129, 0.15)' : '';
+    });
+}
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
     initCategoryCompareButtons();
@@ -900,6 +947,9 @@ function toggleCompare(productId, productName) {
 
     // Save to localStorage for sync
     localStorage.setItem('compareList', JSON.stringify(compareList));
+
+    // Sync all buttons for this product
+    updateAllCompareButtonsForProduct(productId);
 
     updateCompareUI();
     showComparePrompt();
@@ -2356,6 +2406,9 @@ function toggleProductCompare(productId) {
     // Save to localStorage for sync
     localStorage.setItem('compareList', JSON.stringify(compareList));
 
+    // Sync all buttons for this product
+    updateAllCompareButtonsForProduct(productId);
+
     updateCompareUI();
     showComparePrompt();
     updateBottomBarBadge();
@@ -2375,12 +2428,19 @@ function toggleCarouselCompare(productId, model, brand, score) {
             showToast('Máximo de 4 produtos na comparação');
             return;
         }
-        compareList.push({
-            id: productId,
-            model: model,
-            brand: brand,
-            editorialScores: { overall: score }
-        });
+        // Get full product data from catalog if available
+        const fullProduct = currentCatalog?.products?.[productId];
+        if (fullProduct) {
+            compareList.push({ id: productId, ...fullProduct });
+        } else {
+            // Fallback to basic data
+            compareList.push({
+                id: productId,
+                model: model,
+                brand: brand,
+                editorialScores: { overall: score }
+            });
+        }
         added = true;
     }
 
@@ -2398,7 +2458,11 @@ function toggleCarouselCompare(productId, model, brand, score) {
         if (text) text.textContent = isNowIn ? 'Na comparação' : 'Comparar';
     }
 
+    // Update ALL other buttons on the page for this product
+    updateAllCompareButtonsForProduct(productId);
+
     updateCompareUI();
+    showComparePrompt();
     updateBottomBarBadge();
 
     // Show informative toast
@@ -2452,6 +2516,9 @@ function toggleCategoryCompare(productId, model, brand, score) {
 
     // Save to localStorage
     localStorage.setItem('compareList', JSON.stringify(compareList));
+
+    // Sync all buttons for this product
+    updateAllCompareButtonsForProduct(productId);
 
     updateCompareUI();
     showComparePrompt();
