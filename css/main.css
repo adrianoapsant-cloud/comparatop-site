@@ -2668,13 +2668,35 @@ a.category-card-tag.available:hover {
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem;
-    border-bottom: 1px solid var(--c-border);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    background: var(--c-primary);
 }
 
 .compare-modal-title {
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--c-primary-dark);
+    color: #ffffff;
+    /* White for contrast on blue background */
+}
+
+/* Font zoom buttons - white with translucent border */
+.font-zoom-btn,
+.font-zoom-controls button {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.font-zoom-btn:hover,
+.font-zoom-controls button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: #ffffff;
 }
 
 .compare-modal-close {
@@ -2682,12 +2704,13 @@ a.category-card-tag.available:hover {
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
-    color: var(--c-muted);
+    color: #ffffff;
+    /* White for contrast */
     padding: 0.25rem;
 }
 
 .compare-modal-close:hover {
-    color: var(--c-text);
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .compare-modal-body {
@@ -2890,6 +2913,12 @@ a.category-card-tag.available:hover {
     left: 0;
     z-index: 5;
     box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Empty header cell in top-left corner - make white/transparent */
+.compare-table th.empty-header-cell {
+    background: #ffffff;
+    box-shadow: none;
 }
 
 .compare-table td.winner {
