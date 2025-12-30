@@ -3502,22 +3502,18 @@ a.category-card-tag.available:hover {
         gap: 0.5rem;
     }
 
-    /* Hide some social icons on mobile to reduce clutter */
+    /* All social icons visible and compact on mobile */
     .compare-modal-header .share-social-btn {
-        width: 24px;
-        height: 24px;
-        font-size: 0.7rem;
-    }
-
-    /* Hide less important social buttons on small screens */
-    .compare-modal-header .share-social-btn:nth-child(n+4) {
-        display: none;
+        width: 26px;
+        height: 26px;
+        font-size: 0.75rem;
+        flex-shrink: 0;
     }
 
     .compare-modal-title {
         font-size: 0.85rem;
-        flex: 1;
-        min-width: 100px;
+        flex: 0 0 auto;
+        white-space: nowrap;
     }
 
     .compare-modal-close {
