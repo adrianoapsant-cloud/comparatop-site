@@ -860,8 +860,8 @@ function handleCompareClick() {
         return;
     }
 
-    // 2+ products: show modal with checkbox selection
-    showProductSelectionModal();
+    // 2+ products: show full comparison table with checkboxes
+    showComparison();
 }
 
 // Navigate directly to 1x1 comparison page
@@ -1228,6 +1228,49 @@ function closeCompareModal() {
     document.body.style.overflow = '';
 }
 
+// Update button state based on checkbox selection
+function updateCompare1x1Selection() {
+    const checkboxes = document.querySelectorAll('input[name="product-1x1-select"]:checked');
+    const btn = document.getElementById('btn-go-1x1');
+
+    if (!btn) return;
+
+    if (checkboxes.length === 2) {
+        btn.disabled = false;
+        btn.textContent = '📝 Ver Comparação 1x1 Detalhada →';
+        btn.classList.add('enabled');
+    } else if (checkboxes.length > 2) {
+        // Uncheck the first one if more than 2 are selected
+        const allChecked = document.querySelectorAll('input[name="product-1x1-select"]:checked');
+        allChecked[0].checked = false;
+        updateCompare1x1Selection();
+        return;
+    } else {
+        btn.disabled = true;
+        btn.textContent = `📝 Selecione ${2 - checkboxes.length} produto${checkboxes.length === 1 ? '' : 's'}`;
+        btn.classList.remove('enabled');
+    }
+}
+
+// Navigate to 1x1 page for selected products
+function navigateToSelected1x1() {
+    const checkboxes = document.querySelectorAll('input[name="product-1x1-select"]:checked');
+    if (checkboxes.length !== 2) {
+        showToast('Selecione exatamente 2 produtos');
+        return;
+    }
+
+    const selectedIds = Array.from(checkboxes).map(cb => cb.value).sort();
+    const category = CompareStore.getActiveCategory() || 'geladeira';
+    const url = `/comparar/${category}/${selectedIds[0]}-vs-${selectedIds[1]}/`;
+
+    closeCompareModal();
+    showToast('Abrindo comparação detalhada...');
+    setTimeout(() => {
+        window.location.href = url;
+    }, 300);
+}
+
 function renderComparisonTable() {
     const products = compareList;
     const specsToCompare = [
@@ -1258,10 +1301,15 @@ function renderComparisonTable() {
 
     let html = '<table class="compare-table">';
 
-    // Header with product names
+    // Header with product names + checkboxes for 1x1 selection
     html += '<thead><tr><th></th>';
     products.forEach(p => {
         html += `<th class="product-cell">
+                    <label class="compare-checkbox-label">
+                        <input type="checkbox" name="product-1x1-select" value="${p.id}" 
+                               onchange="updateCompare1x1Selection()" />
+                        <span class="compare-checkmark"></span>
+                    </label>
                     <div class="product-brand">${p.brand}</div>
                     <div class="product-name">${p.model}</div>
                     <span class="score-badge">${p.editorialScores?.overall || '?'}/10</span>
@@ -1347,26 +1395,16 @@ function renderComparisonTable() {
 
     html += '</tbody></table>';
 
-    // For exactly 2 products, add a prominent link to the rich static page
-    if (products.length === 2) {
-        const [first, second] = products.map(p => p.id).sort();
-        const staticUrl = `/comparar/geladeira/${first}-vs-${second}/`;
-        html += `
-        <div style="text-align:center;margin-top:1.5rem;padding:1.5rem;background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border-radius:12px;">
-            <p style="margin:0 0 1rem;color:#1e40af;font-weight:600;font-size:1rem;">
-                🎯 Quer uma análise mais detalhada?
-            </p>
-            <a href="${staticUrl}" 
-               style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.875rem 2rem;background:linear-gradient(135deg,#1e40af,#3b82f6);color:white;text-decoration:none;border-radius:8px;font-weight:700;font-size:1rem;box-shadow:0 4px 12px rgba(30,64,175,0.3);transition:all 0.2s;"
-               onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 16px rgba(30,64,175,0.4)';"
-               onmouseout="this.style.transform='';this.style.boxShadow='0 4px 12px rgba(30,64,175,0.3)';">
-                📝 Ver análise completa com veredito →
-            </a>
-            <p style="margin:1rem 0 0;color:#64748b;font-size:0.85rem;">
-                Página dedicada com resumo, recomendação final e mais detalhes
-            </p>
-        </div>`;
-    }
+    // Add 1x1 selection section with dynamic button
+    html += `
+    <div class="compare-1x1-section">
+        <p class="compare-1x1-instruction">
+            ☑️ <strong>Marque 2 produtos</strong> acima para ver a comparação 1x1 detalhada
+        </p>
+        <button id="btn-go-1x1" class="btn-compare-1x1" onclick="navigateToSelected1x1()" disabled>
+            📝 Selecione 2 produtos
+        </button>
+    </div>`;
 
     return html;
 }

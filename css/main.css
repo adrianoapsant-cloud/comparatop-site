@@ -2925,6 +2925,101 @@ a.category-card-tag.available:hover {
     font-weight: 600;
 }
 
+/* Checkbox in compare table header */
+.compare-checkbox-label {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+}
+
+.compare-checkbox-label input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.compare-checkmark {
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.compare-checkbox-label:hover .compare-checkmark {
+    border-color: white;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.compare-checkbox-label input:checked~.compare-checkmark {
+    background-color: #10b981;
+    border-color: #10b981;
+}
+
+.compare-checkbox-label .compare-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 9px;
+    top: 5px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg);
+}
+
+.compare-checkbox-label input:checked~.compare-checkmark:after {
+    display: block;
+}
+
+/* 1x1 Selection Section */
+.compare-1x1-section {
+    text-align: center;
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+    border-radius: 12px;
+}
+
+.compare-1x1-instruction {
+    margin: 0 0 1rem;
+    color: #1e40af;
+    font-size: 0.95rem;
+}
+
+.btn-compare-1x1 {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 2rem;
+    background: #94a3b8;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: not-allowed;
+    transition: all 0.2s;
+}
+
+.btn-compare-1x1.enabled,
+.btn-compare-1x1:not(:disabled) {
+    background: linear-gradient(135deg, #1e40af, #3b82f6);
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+}
+
+.btn-compare-1x1.enabled:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(30, 64, 175, 0.4);
+}
+
 /* Title row with zoom controls */
 .compare-modal-title-row {
     display: flex;
@@ -3243,6 +3338,58 @@ a.category-card-tag.available:hover {
     .compare-table .score-badge {
         font-size: 0.7rem;
         padding: 0.15rem 0.4rem;
+    }
+
+    /* Sticky first column for compare-table on mobile */
+    .compare-table th:first-child,
+    .compare-table td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        background: white;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .compare-table thead th:first-child {
+        background: var(--c-primary);
+        z-index: 3;
+    }
+
+    .compare-table .compare-section-header td {
+        position: static;
+    }
+
+    /* Make compare modal body scrollable horizontally */
+    #compare-modal-body {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Compact checkbox on mobile */
+    .compare-checkmark {
+        height: 20px;
+        width: 20px;
+    }
+
+    .compare-checkbox-label .compare-checkmark:after {
+        left: 7px;
+        top: 3px;
+        width: 5px;
+        height: 10px;
+    }
+
+    /* Compact 1x1 section on mobile */
+    .compare-1x1-section {
+        padding: 1rem;
+    }
+
+    .compare-1x1-instruction {
+        font-size: 0.85rem;
+    }
+
+    .btn-compare-1x1 {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
     }
 
     .header-title {
