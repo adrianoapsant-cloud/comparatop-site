@@ -3848,82 +3848,100 @@ a:focus-visible {
     cursor: not-allowed;
 }
 
-/* ==================== COMPACT SPECS TABLE FOR MOBILE ==================== */
-@media (max-width: 768px) {
-    .comparison-table {
-        font-size: 0.8rem;
-        table-layout: fixed;
-        width: 100%;
-    }
-    
-    .comparison-table th,
-    .comparison-table td {
-        padding: 0.5rem 0.4rem;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-    }
-    
-    /* First column (Especificação) - 38% */
-    .comparison-table th:first-child,
-    .comparison-table td:first-child {
-        width: 38%;
-        font-size: 0.75rem;
-    }
-    
-    /* Product columns - 31% each */
-    .comparison-table th:nth-child(2),
-    .comparison-table td:nth-child(2),
-    .comparison-table th:nth-child(3),
-    .comparison-table td:nth-child(3) {
-        width: 31%;
-        text-align: center;
-        font-size: 0.8rem;
-    }
-    
-    /* Header compact */
-    .comparison-table th {
-        padding: 0.5rem 0.3rem;
-        font-size: 0.7rem;
-    }
-    
-    /* Rounded corners on right side too */
-    .comparison-table th:last-child {
-        border-top-right-radius: 8px;
-    }
-    
-    .comparison-table tbody tr:last-child td:last-child {
-        border-bottom-right-radius: 8px;
-    }
-}
 
-/* Prevent page horizontal scroll */
-html, body {
-    overflow-x: hidden;
-}
 
-/* ==================== STICKY FIRST COLUMN + HORIZONTAL SCROLL ==================== */
+
+
+
+
+/* ==================== MOBILE SPECS TABLE WITH STICKY COLUMN ==================== */
 @media (max-width: 768px) {
+    /* Wrapper for horizontal scroll */
     .comparison-table-section {
         position: relative;
-        margin: 0 -1rem;
-        padding: 0 1rem;
+        overflow: visible;
     }
     
+    /* Create scrollable container around table */
     .comparison-table {
         display: block;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        white-space: nowrap;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
     }
     
+    /* Make inner table work properly */
+    .comparison-table thead,
+    .comparison-table tbody,
+    .comparison-table tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+    
+    .comparison-table thead {
+        display: table-header-group;
+    }
+    
+    .comparison-table tbody {
+        display: table-row-group;
+    }
+    
+    /* Sticky first column */
     .comparison-table th:first-child,
     .comparison-table td:first-child {
         position: sticky;
         left: 0;
-        background: white;
         z-index: 2;
+        background: white;
+        min-width: 110px;
+        box-shadow: 2px 0 4px rgba(0,0,0,0.08);
     }
     
     .comparison-table th:first-child {
         background: #1e40af;
+        z-index: 3;
     }
+    
+    /* Product columns sizing */
+    .comparison-table th:nth-child(2),
+    .comparison-table td:nth-child(2),
+    .comparison-table th:nth-child(3),
+    .comparison-table td:nth-child(3) {
+        min-width: 100px;
+        text-align: center;
+    }
+    
+    /* Compact text */
+    .comparison-table th,
+    .comparison-table td {
+        padding: 0.5rem 0.4rem;
+        font-size: 0.8rem;
+        white-space: normal;
+    }
+    
+    .comparison-table th {
+        font-size: 0.75rem;
+    }
+    
+    /* Rounded corners */
+    .comparison-table th:first-child {
+        border-top-left-radius: 8px;
+    }
+    
+    .comparison-table th:last-child {
+        border-top-right-radius: 8px;
+    }
+}
+
+/* Prevent horizontal page scroll */
+html {
+    overflow-x: hidden;
+}
+
+body {
+    overflow-x: hidden;
+    max-width: 100vw;
 }
