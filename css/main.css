@@ -3299,44 +3299,31 @@ a.category-card-tag.available:hover {
         grid-template-columns: 1fr;
     }
 
-    /* Modal fullscreen on mobile */
+    /* Modal fullscreen on mobile - same design as desktop, just fullscreen */
     .compare-modal {
         padding: 0;
-        align-items: stretch;
+        z-index: 99999 !important;
+        /* Above EVERYTHING including site header */
     }
 
     .compare-modal-content {
         width: 100%;
         max-width: 100%;
-        max-height: 100%;
         height: 100%;
+        max-height: 100%;
         border-radius: 0;
         margin: 0;
-    }
-
-    /* Reorganize modal header for mobile - simple and visible */
-    .compare-modal-header {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.5rem;
-        padding: 0.75rem 1rem;
-        padding-top: max(0.75rem, env(safe-area-inset-top));
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        background: var(--c-primary);
-    }
-
-    .compare-modal-header>div {
         display: flex;
-        align-items: center;
-        gap: 0.35rem;
+        flex-direction: column;
     }
 
-    .compare-modal-header .share-buttons {
-        flex-wrap: nowrap;
-        gap: 0.35rem;
+    /* Modal header - keep desktop design, just smaller */
+    .compare-modal-header {
+        flex-shrink: 0;
+        padding: 0.75rem;
+        padding-top: max(0.75rem, env(safe-area-inset-top));
+        background: var(--c-primary);
+        z-index: 10;
     }
 
     .compare-modal-header .share-social-btn {
@@ -3346,22 +3333,24 @@ a.category-card-tag.available:hover {
     }
 
     .compare-modal-title {
-        font-size: 0.95rem;
-        flex: 1;
+        font-size: 0.9rem;
     }
 
     .compare-modal-close {
         width: 36px;
         height: 36px;
         font-size: 1.5rem;
-        display: flex !important;
-        align-items: center;
-        justify-content: center;
+        color: white;
     }
 
+    /* Modal body - scrollable with padding for floating button */
     .compare-modal-body {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
         padding: 0.5rem;
-        padding-bottom: 80px;
+        padding-bottom: 100px;
         /* Space for floating button */
     }
 
