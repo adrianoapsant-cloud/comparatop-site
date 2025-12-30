@@ -2627,7 +2627,7 @@ a.category-card-tag.available:hover {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.6);
-    z-index: 500;
+    z-index: 9999;
     display: none;
     align-items: flex-start;
     justify-content: center;
@@ -2856,7 +2856,8 @@ a.category-card-tag.available:hover {
 
 .compare-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     min-width: 600px;
 }
 
