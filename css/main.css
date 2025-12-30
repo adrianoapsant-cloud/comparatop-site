@@ -3781,31 +3781,9 @@ a:focus-visible {
     padding: 0.5rem 1rem;
 }
 
-.product-selection-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem;
-    margin: 0.5rem 0;
-    background: #f1f5f9;
-    border-radius: 8px;
-}
-
-.product-selection-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
-
 .product-selection-info strong {
     font-size: 0.95rem;
     color: #1e293b;
-}
-
-.product-selection-info span {
-    font-size: 0.8rem;
-    color: #10b981;
-    font-weight: 600;
 }
 
 .product-selection-remove {
@@ -3855,6 +3833,93 @@ a:focus-visible {
 .product-selection-footer .btn-primary:disabled {
     background: #94a3b8;
     cursor: not-allowed;
+}
+
+/* Checkbox selection styles */
+.selection-instructions {
+    color: #64748b;
+    font-size: 0.9rem;
+    padding: 0 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.product-selection-checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    margin-right: 0.75rem;
+}
+
+.product-selection-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.product-selection-checkbox .checkmark {
+    height: 22px;
+    width: 22px;
+    background-color: white;
+    border: 2px solid #cbd5e1;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.product-selection-checkbox:hover .checkmark {
+    border-color: #3b82f6;
+}
+
+.product-selection-checkbox input:checked~.checkmark {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+}
+
+.product-selection-checkbox .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 8px;
+    top: 4px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.product-selection-checkbox input:checked~.checkmark:after {
+    display: block;
+}
+
+.product-selection-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    background: #f1f5f9;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.product-selection-item:hover {
+    background: #e2e8f0;
+}
+
+.product-selection-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.product-score {
+    font-size: 0.8rem;
+    color: #10b981;
+    font-weight: 600;
 }
 
 

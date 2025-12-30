@@ -120,7 +120,7 @@ function showComparePrompt() {
     if (window.location.pathname.includes('/comparar/')) {
         return;
     }
-    
+
     const prompt = document.getElementById('compare-prompt');
     const productsContainer = document.getElementById('compare-prompt-products');
     const hint = document.getElementById('compare-prompt-hint');
@@ -210,7 +210,7 @@ function removeFromCompare(productId) {
         }
         updateCompareUI();
         updateBottomBarBadge();
-    updateHeaderCompareBadge();
+        updateHeaderCompareBadge();
     }
 }
 
@@ -831,7 +831,7 @@ function goToProduct(category, productId) {
 // CompareStore handles all comparison logic now
 // This getter provides backward compatibility for existing code
 Object.defineProperty(window, 'compareList', {
-    get: function() {
+    get: function () {
         return CompareStore.getActiveList();
     }
 });
@@ -849,24 +849,18 @@ function updateHeaderCompareBadge() {
 // Handle compare button click - smart direct navigation
 function handleCompareClick() {
     const count = CompareStore.getCount();
-    
+
     if (count === 0) {
         showToast('Adicione produtos para comparar');
         return;
     }
-    
+
     if (count === 1) {
         showToast('Adicione mais 1 produto para comparar');
         return;
     }
-    
-    if (count === 2) {
-        // Navigate directly to 1x1 comparison page
-        navigateToComparisonPage();
-        return;
-    }
-    
-    // 3+ products: show simple modal to select 2
+
+    // 2+ products: show modal with checkbox selection
     showProductSelectionModal();
 }
 
@@ -877,70 +871,85 @@ function navigateToComparisonPage() {
         showToast('Você já está na página de comparação!');
         return;
     }
-    
+
     const products = CompareStore.getActiveList();
     if (products.length < 2) return;
-    
+
     const category = CompareStore.getActiveCategory() || 'geladeira';
     const [first, second] = products.slice(0, 2).map(p => p.id).sort();
     const url = `/comparar/${category}/${first}-vs-${second}/`;
-    
+
     showToast('Abrindo comparação detalhada...');
     setTimeout(() => {
         window.location.href = url;
     }, 300);
 }
 
-// Show simple modal for 3+ products to select which 2 to compare
+// Show comparison modal with checkbox selection for 1x1 detailed view
 function showProductSelectionModal() {
     const products = CompareStore.getActiveList();
-    
+
     let html = `
     <div class="product-selection-overlay" onclick="closeProductSelectionModal()">
         <div class="product-selection-modal" onclick="event.stopPropagation()">
             <div class="product-selection-header">
-                <h3>⚖️ Selecione 2 produtos</h3>
+                <h3>⚖️ Comparador</h3>
                 <button onclick="closeProductSelectionModal()" class="product-selection-close">✕</button>
             </div>
-            <p style="color:#64748b;font-size:0.9rem;margin-bottom:1rem;">
-                Você tem ${products.length} produtos. Remova ${products.length - 2} para ver a análise detalhada.
+            
+            <p class="selection-instructions">
+                Selecione <strong>2 produtos</strong> abaixo para ver a comparação 1x1 detalhada
             </p>
+            
             <div class="product-selection-list">
     `;
-    
+
     products.forEach(p => {
         html += `
             <div class="product-selection-item">
+                <label class="product-selection-checkbox">
+                    <input type="checkbox" name="compare-select" value="${p.id}" 
+                           onchange="updateCompareSelection()" />
+                    <span class="checkmark"></span>
+                </label>
                 <div class="product-selection-info">
                     <strong>${p.brand} ${p.model}</strong>
-                    <span>${p.editorialScores?.overall || '?'}/10</span>
+                    <span class="product-score">${p.editorialScores?.overall || '?'}/10</span>
                 </div>
-                <button onclick="removeAndUpdateModal('${p.id}')" class="product-selection-remove">🗑️</button>
+                <button onclick="removeFromCompareModal('${p.id}')" class="product-selection-remove" title="Remover">🗑️</button>
             </div>
         `;
     });
-    
+
     html += `
             </div>
+            
             <div class="product-selection-footer">
-                <button onclick="closeProductSelectionModal()" class="btn-secondary">Cancelar</button>
-                <button onclick="navigateToComparisonPage()" class="btn-primary" ${products.length > 2 ? 'disabled' : ''}>
-                    📝 Ver Análise Completa
+                <button onclick="closeProductSelectionModal()" class="btn-secondary">Fechar</button>
+                <button id="btn-detailed-compare" onclick="navigateToSelectedComparison()" class="btn-primary" disabled>
+                    📝 Ver Comparação 1x1
                 </button>
             </div>
         </div>
     </div>
     `;
-    
+
     // Add modal to body
     const existing = document.getElementById('product-selection-container');
     if (existing) existing.remove();
-    
+
     const container = document.createElement('div');
     container.id = 'product-selection-container';
     container.innerHTML = html;
     document.body.appendChild(container);
     document.body.style.overflow = 'hidden';
+
+    // Auto-select first 2 if we have exactly 2
+    if (products.length === 2) {
+        const checkboxes = container.querySelectorAll('input[name="compare-select"]');
+        checkboxes.forEach(cb => cb.checked = true);
+        updateCompareSelection();
+    }
 }
 
 function closeProductSelectionModal() {
@@ -949,14 +958,51 @@ function closeProductSelectionModal() {
     document.body.style.overflow = '';
 }
 
-function removeAndUpdateModal(productId) {
+// Update the "Ver Comparação 1x1" button based on selection
+function updateCompareSelection() {
+    const checkboxes = document.querySelectorAll('input[name="compare-select"]:checked');
+    const btn = document.getElementById('btn-detailed-compare');
+
+    if (checkboxes.length === 2) {
+        btn.disabled = false;
+        btn.textContent = '📝 Ver Comparação 1x1';
+    } else if (checkboxes.length > 2) {
+        // Uncheck the oldest one
+        const allCheckboxes = document.querySelectorAll('input[name="compare-select"]:checked');
+        allCheckboxes[0].checked = false;
+        updateCompareSelection();
+        return;
+    } else {
+        btn.disabled = true;
+        btn.textContent = `📝 Selecione ${2 - checkboxes.length} produto${checkboxes.length === 1 ? '' : 's'}`;
+    }
+}
+
+// Navigate to the 1x1 comparison page for the selected 2 products
+function navigateToSelectedComparison() {
+    const checkboxes = document.querySelectorAll('input[name="compare-select"]:checked');
+    if (checkboxes.length !== 2) {
+        showToast('Selecione exatamente 2 produtos');
+        return;
+    }
+
+    const selectedIds = Array.from(checkboxes).map(cb => cb.value).sort();
+    const category = CompareStore.getActiveCategory() || 'geladeira';
+    const url = `/comparar/${category}/${selectedIds[0]}-vs-${selectedIds[1]}/`;
+
+    closeProductSelectionModal();
+    showToast('Abrindo comparação detalhada...');
+    setTimeout(() => {
+        window.location.href = url;
+    }, 300);
+}
+
+// Remove product from compare list and update modal
+function removeFromCompareModal(productId) {
     CompareStore.removeItem(productId);
     const count = CompareStore.getCount();
-    
-    if (count === 2) {
-        closeProductSelectionModal();
-        navigateToComparisonPage();
-    } else if (count < 2) {
+
+    if (count < 2) {
         closeProductSelectionModal();
         showToast('Adicione mais produtos para comparar');
     } else {
@@ -1163,7 +1209,7 @@ function showComparison() {
         console.log('Already on comparison page, skipping modal');
         return;
     }
-    
+
     if (CompareStore.getCount() < 2) {
         alert('Selecione pelo menos 2 produtos para comparar');
         return;
@@ -2606,16 +2652,16 @@ function toggleCarouselCompare(productId, model, brand, score) {
 function toggleCategoryCompare(productId, model, brand, score) {
     // Get category from current catalog or URL
     const category = currentCatalog?.category?.slug || getCategoryFromUrl() || 'geladeiras';
-    
+
     // Build product object with category
     const fullProduct = currentCatalog?.products?.[productId];
-    const product = fullProduct 
+    const product = fullProduct
         ? { id: productId, category, ...fullProduct }
         : { id: productId, category, model, brand, editorialScores: { overall: score } };
-    
+
     // Use CompareStore (handles add/remove, localStorage, limits)
     const added = CompareStore.toggleItem(product);
-    
+
     // Update button visual
     const btn = event?.target;
     if (btn) {
@@ -3235,18 +3281,18 @@ window.handleCompareClick = handleCompareClick;
 // Listen to CompareStore changes and sync UI
 window.addEventListener('compare:changed', (e) => {
     const { action, product, category } = e.detail;
-    
+
     // Update all buttons for affected product
     if (product && product.id) {
         updateAllCompareButtonsForProduct(product.id);
     }
-    
+
     // Update global UI
     updateCompareUI();
     showComparePrompt();
     updateBottomBarBadge();
     updateHeaderCompareBadge();
-    
+
     // Initialize buttons if switching categories
     if (action === 'switch') {
         initCategoryCompareButtons();
