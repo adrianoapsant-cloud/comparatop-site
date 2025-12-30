@@ -2502,6 +2502,28 @@ a.category-card-tag.available:hover {
     opacity: 0.5;
     cursor: not-allowed;
 }
+/* ==================== MOBILE COMPARISON UX ==================== */
+/* Hide floating compare prompt on mobile - use bottom nav instead */
+@media (max-width: 768px) {
+    .compare-prompt {
+        display: none !important;
+    }
+    
+    .compare-counter {
+        display: none !important; /* Also hide counter - bottom nav has badge */
+    }
+    
+    /* Enhanced toast for mobile */
+    .toast-notification {
+        bottom: 80px !important; /* Above bottom nav */
+        left: 12px !important;
+        right: 12px !important;
+        max-width: none !important;
+        text-align: center;
+    }
+}
+
+
 
 
 /* Comparison Floating Bar - HIDDEN (replaced by compare-counter) */
