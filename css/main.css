@@ -2959,16 +2959,101 @@ a.category-card-tag.available:hover {
     transition: all 0.2s;
 }
 
-.compare-checkbox-label:hover .compare-checkmark {
+/* Product Selection Button (visible text-based) */
+.compare-select-btn {
+    display: inline-block;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+}
+
+.compare-select-btn input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.select-btn-text {
+    display: inline-block;
+    padding: 0.4rem 0.75rem;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.compare-select-btn:hover .select-btn-text {
+    background: rgba(255, 255, 255, 0.3);
     border-color: white;
-    background-color: rgba(255, 255, 255, 0.3);
 }
 
-.compare-checkbox-label input:checked~.compare-checkmark {
-    background-color: #10b981;
+.select-btn-text.selected {
+    background: #10b981;
     border-color: #10b981;
+    color: white;
 }
 
+/* 1x1 CTA Button - Attractive Yellow/Gold */
+.compare-1x1-floating {
+    text-align: center;
+    padding: 1rem;
+    background: linear-gradient(to top, white 80%, transparent);
+}
+
+.btn-compare-1x1-floating {
+    display: inline-block;
+    width: 100%;
+    max-width: 500px;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #1e293b;
+    border: 3px solid #d97706;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+}
+
+.btn-compare-1x1-floating:disabled {
+    background: linear-gradient(135deg, #fde68a, #fcd34d);
+    border-color: #fbbf24;
+    color: #78716c;
+    cursor: default;
+    box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);
+}
+
+.btn-compare-1x1-floating.enabled {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    border-color: #15803d;
+    color: white;
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+    animation: pulse-btn 2s infinite;
+}
+
+.btn-compare-1x1-floating.enabled:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+}
+
+@keyframes pulse-btn {
+
+    0%,
+    100% {
+        box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 4px 25px rgba(34, 197, 94, 0.6);
+    }
+}
+
+/* Old checkbox styles (keep for backwards compatibility) */
 .compare-checkbox-label .compare-checkmark:after {
     content: "";
     position: absolute;

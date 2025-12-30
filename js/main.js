@@ -1230,16 +1230,31 @@ function closeCompareModal() {
 
 // Update button state based on checkbox selection
 function updateCompare1x1Selection() {
-    const checkboxes = document.querySelectorAll('input[name="product-1x1-select"]:checked');
+    const allCheckboxes = document.querySelectorAll('input[name="product-1x1-select"]');
+    const checkedBoxes = document.querySelectorAll('input[name="product-1x1-select"]:checked');
     const btn = document.getElementById('btn-go-1x1');
 
     if (!btn) return;
 
-    if (checkboxes.length === 2) {
+    // Update each checkbox's label text
+    allCheckboxes.forEach(cb => {
+        const label = cb.nextElementSibling;
+        if (label) {
+            if (cb.checked) {
+                label.textContent = '✅ Selecionado';
+                label.classList.add('selected');
+            } else {
+                label.textContent = '☐ Selecione';
+                label.classList.remove('selected');
+            }
+        }
+    });
+
+    if (checkedBoxes.length === 2) {
         btn.disabled = false;
-        btn.textContent = '📝 Ver Comparação 1x1 Detalhada →';
+        btn.textContent = '🚀 Ver Análise Detalhada →';
         btn.classList.add('enabled');
-    } else if (checkboxes.length > 2) {
+    } else if (checkedBoxes.length > 2) {
         // Uncheck the first one if more than 2 are selected
         const allChecked = document.querySelectorAll('input[name="product-1x1-select"]:checked');
         allChecked[0].checked = false;
@@ -1247,7 +1262,8 @@ function updateCompare1x1Selection() {
         return;
     } else {
         btn.disabled = true;
-        btn.textContent = `📝 Selecione ${2 - checkboxes.length} produto${checkboxes.length === 1 ? '' : 's'}`;
+        const remaining = 2 - checkedBoxes.length;
+        btn.textContent = `🔍 Selecione ${remaining} Produto${remaining === 1 ? '' : 's'} para Análise Detalhada`;
         btn.classList.remove('enabled');
     }
 }
@@ -1302,14 +1318,14 @@ function renderComparisonTable() {
     // Wrap table in scroll container for horizontal scrolling with sticky columns
     let html = '<div class="compare-table-scroll"><table class="compare-table">';
 
-    // Header with product names + checkboxes for 1x1 selection
+    // Header with product names + selection buttons for 1x1
     html += '<thead><tr><th></th>';
     products.forEach(p => {
         html += `<th class="product-cell">
-                    <label class="compare-checkbox-label">
+                    <label class="compare-select-btn">
                         <input type="checkbox" name="product-1x1-select" value="${p.id}" 
                                onchange="updateCompare1x1Selection()" />
-                        <span class="compare-checkmark"></span>
+                        <span class="select-btn-text">☐ Selecione</span>
                     </label>
                     <div class="product-brand">${p.brand}</div>
                     <div class="product-name">${p.model}</div>
@@ -1406,7 +1422,7 @@ function renderComparisonTable() {
     html += `
     <div class="compare-1x1-floating">
         <button id="btn-go-1x1" class="btn-compare-1x1-floating" onclick="navigateToSelected1x1()" disabled>
-            📝 Selecione 2 produtos
+            🔍 Selecione 2 Produtos para Análise Detalhada
         </button>
     </div>`;
 
