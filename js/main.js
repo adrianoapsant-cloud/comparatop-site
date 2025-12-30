@@ -868,7 +868,12 @@ function toggleCompare(productId, productName) {
         }
     }
 
+    // Save to localStorage for sync
+    localStorage.setItem('compareList', JSON.stringify(compareList));
+
     updateCompareUI();
+    showComparePrompt();
+    updateBottomBarBadge();
 }
 
 function updateCompareUI() {
@@ -2318,8 +2323,12 @@ function toggleProductCompare(productId) {
         btn.classList.toggle('btn-compare-active', isNowInCompare);
     }
 
+    // Save to localStorage for sync
+    localStorage.setItem('compareList', JSON.stringify(compareList));
+
     updateCompareUI();
     showComparePrompt();
+    updateBottomBarBadge();
 }
 
 // Toggle product in compare list from carousel
