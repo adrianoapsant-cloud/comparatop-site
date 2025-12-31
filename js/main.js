@@ -3672,28 +3672,41 @@ window.toggleProductCompare = toggleProductCompare;
     style.textContent = `
         #whatsapp-float {
             position: fixed;
-            bottom: 150px;
+            bottom: 24px;
             right: 24px;
-            width: 60px;
-            height: 60px;
+            width: 56px;
+            height: 56px;
             background: linear-gradient(135deg, #25d366, #128c7e);
             border-radius: 50%;
-            display: flex;
+            display: none; /* Hidden by default */
             align-items: center;
             justify-content: center;
             color: white;
             box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-            z-index: 9999;
+            z-index: 9990; /* Below compare card (9999) */
             transition: transform 0.3s, box-shadow 0.3s;
             text-decoration: none;
+        }
+        /* Only show on mobile (max-width: 768px) */
+        @media (max-width: 768px) {
+            #whatsapp-float {
+                display: flex;
+                bottom: 80px; /* Above mobile navigation */
+            }
+        }
+        /* Also show on very large screens (min-width: 1600px) where there's margin */
+        @media (min-width: 1600px) {
+            #whatsapp-float {
+                display: flex;
+            }
         }
         #whatsapp-float:hover {
             transform: scale(1.1);
             box-shadow: 0 6px 24px rgba(37, 211, 102, 0.6);
         }
         #whatsapp-float svg {
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
         }
         
         /* Exit Intent Popup */
