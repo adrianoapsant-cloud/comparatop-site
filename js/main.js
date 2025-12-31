@@ -385,11 +385,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Restore compare modal state after page refresh
-    setTimeout(() => {
-        restoreCompareModalState();
-        updateFloatingCompareBtn();
-    }, 500);
+    // Restore compare modal state immediately (no delay)
+    restoreCompareModalState();
+    updateFloatingCompareBtn();
 });
 
 // Global Router Helper that closes sidebar on mobile
