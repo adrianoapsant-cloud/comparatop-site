@@ -367,32 +367,32 @@ function generateProductContent(product, category, otherProducts = [], categoryS
     const productThumb = product.images?.[0] ? resolveImageUrl(product.images[0]) : '';
 
     return `
-    <!-- Pre-rendered content for SEO (bots will see this) -->
+    <!-- Hero Score Badge - Sprint 1.3 (visible to users) -->
+    ${overall > 0 ? `
+    <div class="product-hero-score">
+        <div class="hero-score-gauge">
+            <svg viewBox="0 0 60 60">
+                <circle class="gauge-bg" cx="30" cy="30" r="26"></circle>
+                <circle class="gauge-fill ${scoreClass}" cx="30" cy="30" r="26" 
+                    stroke-dasharray="${circumference}" 
+                    stroke-dashoffset="${dashOffset}"></circle>
+            </svg>
+            <span class="hero-score-value">${overall}</span>
+        </div>
+        <div class="hero-score-info">
+            <div class="hero-score-label">Nota ComparaTop</div>
+            <div class="hero-score-text ${scoreClass}">${scoreLabel}</div>
+        </div>
+    </div>
+    ` : ''}
+
+    <!-- Pre-rendered content for SEO (bots will see this, hidden from users) -->
     <div id="prerendered-content" class="prerendered-seo-content">
         <nav aria-label="Breadcrumb" class="breadcrumb-nav">
             <a href="/">Início</a> › 
             <a href="/categoria/${category.slug}">${category.name}</a> › 
             <span>${product.name}</span>
         </nav>
-        
-        <!-- Hero Score Badge - Sprint 1.3 -->
-        ${overall > 0 ? `
-        <div class="product-hero-score">
-            <div class="hero-score-gauge">
-                <svg viewBox="0 0 60 60">
-                    <circle class="gauge-bg" cx="30" cy="30" r="26"></circle>
-                    <circle class="gauge-fill ${scoreClass}" cx="30" cy="30" r="26" 
-                        stroke-dasharray="${circumference}" 
-                        stroke-dashoffset="${dashOffset}"></circle>
-                </svg>
-                <span class="hero-score-value">${overall}</span>
-            </div>
-            <div class="hero-score-info">
-                <div class="hero-score-label">Nota ComparaTop</div>
-                <div class="hero-score-text ${scoreClass}">${scoreLabel}</div>
-            </div>
-        </div>
-        ` : ''}
         
         <article itemscope itemtype="https://schema.org/Product">
             <h1 itemprop="name">${escapeHtml(product.name)}</h1>
