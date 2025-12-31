@@ -2799,6 +2799,11 @@ a.category-card-tag.available:hover {
     color: #fff;
 }
 
+.share-social-btn.instagram {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: #fff;
+}
+
 .share-social-btn.facebook {
     background: #1877F2;
     color: #fff;
@@ -3492,37 +3497,47 @@ a.category-card-tag.available:hover {
     /* Modal header - simplified for mobile */
     .compare-modal-header {
         flex-shrink: 0;
-        padding: 0.5rem 0.75rem;
-        padding-top: max(0.5rem, env(safe-area-inset-top));
+        padding: 0.4rem 0.5rem;
+        padding-top: max(0.4rem, env(safe-area-inset-top));
         background: var(--c-primary);
         z-index: 10;
         display: flex;
         flex-wrap: nowrap;
         align-items: center;
-        gap: 0.35rem;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+        gap: 0.25rem;
     }
 
-    /* All social icons visible and compact on mobile */
+    /* All 7 social icons visible and compact on mobile */
     .compare-modal-header .share-social-btn {
-        width: 24px;
-        height: 24px;
+        width: 22px;
+        height: 22px;
+        font-size: 0.65rem;
+        flex-shrink: 0;
+    }
+
+    /* Title stacked vertically */
+    .compare-modal-title {
         font-size: 0.7rem;
         flex-shrink: 0;
-    }
-
-    .compare-modal-title {
-        font-size: 0.8rem;
-        flex-shrink: 0;
-        white-space: nowrap;
+        white-space: normal;
+        line-height: 1.1;
+        text-align: left;
     }
 
     .compare-modal-close {
-        width: 36px;
-        height: 36px;
-        font-size: 1.5rem;
+        width: 32px;
+        height: 32px;
+        font-size: 1.3rem;
         color: white;
+        flex-shrink: 0;
+    }
+
+    /* Force 7 icons in one row */
+    .compare-modal-header .share-buttons {
+        display: flex;
+        flex-wrap: nowrap !important;
+        gap: 0.2rem;
+        margin: 0;
     }
 
     /* Modal body - scrollable with padding for floating button */

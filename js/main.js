@@ -1695,6 +1695,11 @@ function shareToSocial(platform) {
         case 'telegram':
             shareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
             break;
+        case 'instagram':
+            // Instagram doesn't have direct share API, copy link and show message
+            copyToClipboard(getShareUrl());
+            showToast('Link copiado! Cole no Instagram Stories ou Direct.');
+            return;
         case 'facebook':
             shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
             break;
