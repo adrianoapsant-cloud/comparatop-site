@@ -2621,6 +2621,73 @@ a.category-card-tag.available:hover {
     }
 }
 
+/* Sticky Bottom Bar - Mobile Comparison Counter */
+.compare-sticky-bottom-bar {
+    position: fixed;
+    bottom: 60px;
+    /* Acima do ml-bottom-bar */
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--c-primary-dark) 0%, var(--c-primary) 100%);
+    color: white;
+    padding: 0.75rem 1rem;
+    display: none;
+    /* Hidden by default */
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    z-index: 1050;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.compare-sticky-bottom-bar.show {
+    display: flex;
+    transform: translateY(0);
+}
+
+.compare-sticky-counter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.compare-sticky-counter-icon {
+    font-size: 1.25rem;
+}
+
+.compare-sticky-btn {
+    background: var(--c-accent);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.25rem;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.compare-sticky-btn:hover {
+    background: var(--c-accent-hover);
+    transform: scale(1.05);
+}
+
+/* Hide sticky bar when modal is open */
+.compare-modal.show~.compare-sticky-bottom-bar {
+    display: none !important;
+}
+
+@media (min-width: 769px) {
+    .compare-sticky-bottom-bar {
+        display: none !important;
+    }
+}
+
 
 
 
@@ -2813,6 +2880,78 @@ a.category-card-tag.available:hover {
     overflow-x: auto;
     overflow-y: auto;
     flex: 1;
+}
+
+/* Sticky Header for Comparison Table */
+.compare-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--c-surface);
+}
+
+.compare-table thead::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.compare-table-scroll.scrolled .compare-table thead::after {
+    opacity: 1;
+}
+
+/* Show Differences Toggle Controls */
+.compare-controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--c-bg);
+    border-radius: var(--radius) var(--radius) 0 0;
+    border-bottom: 1px solid var(--c-border);
+}
+
+.toggle-differences {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--c-text);
+    user-select: none;
+}
+
+.toggle-differences input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--c-primary);
+}
+
+.toggle-differences:hover {
+    color: var(--c-primary);
+}
+
+/* Hidden rows when showing only differences */
+.compare-table tbody tr.hidden-row {
+    display: none;
+}
+
+/* Mobile adjustments for controls */
+@media (max-width: 768px) {
+    .compare-controls {
+        padding: 0.5rem 0.75rem;
+    }
+
+    .toggle-differences {
+        font-size: 0.85rem;
+    }
 }
 
 /* Floating Compare Button for Mobile */
@@ -3093,9 +3232,36 @@ a.category-card-tag.available:hover {
     box-shadow: none;
 }
 
-.compare-table td.winner {
-    background: #dcfce7;
+/* Winner cells - Enhanced with trophy and animation */
+.compare-table td.winner,
+.compare-table th.winner {
+    background: #d1fae5 !important;
+    /* Verde claro mais visível */
     font-weight: 600;
+    position: relative;
+}
+
+.compare-table td.winner::before {
+    content: '🏆 ';
+    font-size: 0.9em;
+    margin-right: 0.25rem;
+}
+
+/* Animação sutil de highlight */
+@keyframes highlightPulse {
+
+    0%,
+    100% {
+        background: #d1fae5;
+    }
+
+    50% {
+        background: #a7f3d0;
+    }
+}
+
+.compare-table td.winner {
+    animation: highlightPulse 1.5s ease-in-out 1;
 }
 
 .compare-table .product-cell {

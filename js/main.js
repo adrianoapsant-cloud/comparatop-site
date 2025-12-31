@@ -509,7 +509,7 @@ async function showCategory(categoryId) {
 }
 
 function formatSpec(key, value) {
-    if (value === null || value === undefined) return 'N/A';
+    if (value === null || value === undefined) return '—';
     if (typeof value === 'boolean') return value ? 'Sim' : 'Não';
     if (Array.isArray(value)) return value.join(', ');
     const unit = SPEC_UNITS[key] || '';
@@ -530,7 +530,7 @@ function renderProducts() {
                             <div class="product-brand">${product.brand}</div>
                             <div class="product-name">${product.model}</div>
                         </div>
-                        <div class="product-score">${product.editorialScores?.overall || 'N/A'}/10</div>
+                        <div class="product-score">${product.editorialScores?.overall || '—'}/10</div>
                     </div>
                     
                     <!-- Specs principais -->
@@ -1327,6 +1327,9 @@ function updateCompareUI() {
     const productsContainer = document.getElementById('compare-bar-products');
     const counter = document.getElementById('compare-counter');
 
+    // Update sticky bottom bar (mobile)
+    const stickyBar = document.getElementById('compare-sticky-bottom-bar');
+
     if (CompareStore.getCount() > 0) {
         if (bar) bar.classList.add('show');
 
@@ -1337,6 +1340,21 @@ function updateCompareUI() {
             const textEl = counter.querySelector('.compare-counter-text');
             if (numberEl) numberEl.textContent = CompareStore.getCount();
             if (textEl) textEl.textContent = CompareStore.getCount() === 1 ? 'produto' : 'produtos';
+        }
+
+        // Show and update sticky bottom bar (mobile only)
+        if (stickyBar) {
+            const modalOpen = document.getElementById('compare-modal')?.classList.contains('show');
+            if (!modalOpen) {
+                stickyBar.classList.add('show');
+                const counterText = stickyBar.querySelector('.compare-sticky-counter span');
+                if (counterText) {
+                    const count = CompareStore.getCount();
+                    counterText.textContent = `${count} ${count === 1 ? 'produto selecionado' : 'produtos selecionados'}`;
+                }
+            } else {
+                stickyBar.classList.remove('show');
+            }
         }
 
         if (productsContainer) {
@@ -1350,6 +1368,7 @@ function updateCompareUI() {
     } else {
         if (bar) bar.classList.remove('show');
         if (counter) counter.classList.remove('show');
+        if (stickyBar) stickyBar.classList.remove('show');
     }
 }
 
@@ -1393,6 +1412,9 @@ async function openFeaturedComparison(productId1, productId2) {
     body.innerHTML = renderComparisonTable();
     modal.classList.add('show');
     document.body.style.overflow = 'hidden';
+
+    // Initialize scroll listener and restore preferences
+    setTimeout(() => initCompareTableScroll(), 100);
 }
 
 function showComparison() {
@@ -1414,11 +1436,17 @@ function showComparison() {
     modal.classList.add('show');
     document.body.style.overflow = 'hidden';
 
+    // Initialize scroll listener and restore preferences
+    setTimeout(() => initCompareTableScroll(), 100);
+
     // Save modal open state
     sessionStorage.setItem('compareModalOpen', 'true');
 
     // Hide floating button when modal is open
     updateFloatingCompareBtn();
+
+    // Update sticky bottom bar visibility
+    updateCompareUI();
 }
 
 function closeCompareModal() {
@@ -1582,7 +1610,14 @@ function renderComparisonTable() {
     }
 
     // Wrap table in scroll container for horizontal scrolling with sticky columns
-    let html = '<div class="compare-table-scroll"><table class="compare-table">';
+    let html = `
+    <div class="compare-controls">
+        <label class="toggle-differences">
+            <input type="checkbox" id="show-differences-toggle" onchange="toggleShowDifferences()" />
+            <span>Mostrar apenas diferenças</span>
+        </label>
+    </div>
+    <div class="compare-table-scroll"><table class="compare-table">`;
 
     // Header with product names + selection buttons for 1x1
     html += '<thead><tr><th class="empty-header-cell"></th>';
@@ -1616,7 +1651,7 @@ function renderComparisonTable() {
             ? (bestOffer?.url
                 ? `<a href="${bestOffer.url}" target="_blank" rel="sponsored nofollow noopener" style="color:inherit;text-decoration:underline;font-weight:700;">${Utils.formatBRL(p.bestPrice)}</a><br><small style="font-size:0.75rem;color:var(--c-muted);">via ${marketplace}</small>`
                 : `${Utils.formatBRL(p.bestPrice)}<br><small style="font-size:0.75rem;color:var(--c-muted);">via ${marketplace}</small>`)
-            : 'N/A';
+            : '—';
         html += `<td class="${isWinner ? 'winner' : ''}">${priceHtml}</td>`;
     });
     html += '</tr>';
@@ -1651,7 +1686,7 @@ function renderComparisonTable() {
             const scoreData = p.editorialScores?.[topic.id];
             const score = typeof scoreData === 'object' ? scoreData?.score : scoreData;
             const isWinner = winners.includes(p.id);
-            html += `<td class="${isWinner ? 'winner' : ''}">${score ? score.toFixed(1) : 'N/A'}</td>`;
+            html += `<td class="${isWinner ? 'winner' : ''}">${score ? score.toFixed(1) : '—'}</td>`;
         });
         html += '</tr>';
     });
@@ -1681,7 +1716,7 @@ function renderComparisonTable() {
 
     html += '<tr><td>Sentimento</td>';
     products.forEach(p => {
-        html += `<td>${p.voc?.sentiment || 'N/A'}</td>`;
+        html += `<td>${p.voc?.sentiment || '—'}</td>`;
     });
     html += '</tr>';
 
@@ -1696,6 +1731,57 @@ function renderComparisonTable() {
     </div>`;
 
     return html;
+}
+
+// Toggle show only differences in comparison table
+function toggleShowDifferences() {
+    const isChecked = document.getElementById('show-differences-toggle')?.checked;
+    const rows = document.querySelectorAll('.compare-table tbody tr:not(.compare-section-header)');
+
+    rows.forEach(row => {
+        const cells = Array.from(row.querySelectorAll('td:not(:first-child)'));
+        const values = cells.map(cell => cell.textContent.trim());
+        const allSame = values.every(v => v === values[0] && v !== '—');
+
+        if (isChecked && allSame) {
+            row.classList.add('hidden-row');
+        } else {
+            row.classList.remove('hidden-row');
+        }
+    });
+
+    // Salvar preferência
+    try {
+        localStorage.setItem('comparatop_show_differences', isChecked);
+    } catch (e) {
+        console.error('Failed to save preference:', e);
+    }
+}
+
+// Add scroll listener for sticky header shadow
+function initCompareTableScroll() {
+    const scrollContainer = document.querySelector('.compare-table-scroll');
+    if (!scrollContainer) return;
+
+    scrollContainer.addEventListener('scroll', function () {
+        if (this.scrollTop > 0) {
+            this.classList.add('scrolled');
+        } else {
+            this.classList.remove('scrolled');
+        }
+    });
+
+    // Restore show differences preference
+    try {
+        const showDifferences = localStorage.getItem('comparatop_show_differences') === 'true';
+        const toggle = document.getElementById('show-differences-toggle');
+        if (toggle && showDifferences) {
+            toggle.checked = true;
+            toggleShowDifferences();
+        }
+    } catch (e) {
+        console.error('Failed to restore preference:', e);
+    }
 }
 // ==================== CALCULATORS ====================
 
