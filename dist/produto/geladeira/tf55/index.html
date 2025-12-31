@@ -281,25 +281,6 @@
 
 <body>
 
-    <!-- Hero Score Badge - Sprint 1.3 (visible to users) -->
-    
-    <div class="product-hero-score">
-        <div class="hero-score-gauge">
-            <svg viewBox="0 0 60 60">
-                <circle class="gauge-bg" cx="30" cy="30" r="26"></circle>
-                <circle class="gauge-fill excellent" cx="30" cy="30" r="26" 
-                    stroke-dasharray="163.36281798666926" 
-                    stroke-dashoffset="42.474332676534004"></circle>
-            </svg>
-            <span class="hero-score-value">7.4</span>
-        </div>
-        <div class="hero-score-info">
-            <div class="hero-score-label">Nota ComparaTop</div>
-            <div class="hero-score-text excellent">Excelente</div>
-        </div>
-    </div>
-    
-
     <!-- Pre-rendered content for SEO (bots will see this, hidden from users) -->
     <div id="prerendered-content" class="prerendered-seo-content">
         <nav aria-label="Breadcrumb" class="breadcrumb-nav">
@@ -402,40 +383,9 @@
         <a href="/comparar/geladeira/brm44hb-vs-tf55/">TF55 vs BRM44HB</a> <a href="/comparar/geladeira/brastemp-bre57ak-vs-tf55/">TF55 vs BRE57AK</a> <a href="/comparar/geladeira/samsung-rt46-vs-tf55/">TF55 vs RT46</a>
     </nav>
     
-    <!-- Quick Buy Card - Mobile only, Sprint 1.3 -->
-    
-    <div class="product-quick-buy">
-        
-        <div class="quick-buy-info">
-            <div class="quick-buy-price">R$ 3.399,90</div>
-            <div class="quick-buy-label">Melhor preço</div>
-        </div>
-        <a href="https://mercadolivre.com/tf55" target="_blank" rel="noopener sponsored" class="quick-buy-btn" 
-            onclick="if(typeof gtag!=='undefined'){gtag('event','cta_offer_click',{product_id:'tf55'});}">
-            Ver Oferta
-        </a>
-    </div>
-    
-    
-    <!-- Sticky Footer CTA - Mobile only, Sprint 1.3 -->
-    
-    <div class="product-sticky-footer" id="product-sticky-footer"
-        data-product-id="tf55"
-        data-product-model="TF55"
-        data-product-price="R$ 3.399,90"
-        data-offer-url="https://mercadolivre.com/tf55"
-        data-product-thumb="">
-        
-        <div class="sticky-footer-info">
-            <div class="sticky-footer-model">TF55</div>
-            <div class="sticky-footer-price">R$ 3.399,90</div>
-        </div>
-        <a href="https://mercadolivre.com/tf55" target="_blank" rel="noopener sponsored" class="sticky-footer-btn"
-            onclick="if(typeof gtag!=='undefined'){gtag('event','cta_offer_click',{product_id:'tf55',source:'sticky_footer'});}">
-            Ver Oferta
-        </a>
-    </div>
-    
+    <!-- NOTE: Quick Buy Card and Sticky Footer CTA removed from SSG -->
+    <!-- Implement these via JavaScript to avoid z-index issues with header -->
+    <!-- See: .agent/workflows/ssg-content-injection.md -->
     
     <style>
         .prerendered-seo-content { display: none; }

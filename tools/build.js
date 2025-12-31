@@ -366,26 +366,12 @@ function generateProductContent(product, category, otherProducts = [], categoryS
     const bestOfferUrl = bestOffer?.url || '#';
     const productThumb = product.images?.[0] ? resolveImageUrl(product.images[0]) : '';
 
-    return `
-    <!-- Hero Score Badge - Sprint 1.3 (visible to users) -->
-    ${overall > 0 ? `
-    <div class="product-hero-score">
-        <div class="hero-score-gauge">
-            <svg viewBox="0 0 60 60">
-                <circle class="gauge-bg" cx="30" cy="30" r="26"></circle>
-                <circle class="gauge-fill ${scoreClass}" cx="30" cy="30" r="26" 
-                    stroke-dasharray="${circumference}" 
-                    stroke-dashoffset="${dashOffset}"></circle>
-            </svg>
-            <span class="hero-score-value">${overall}</span>
-        </div>
-        <div class="hero-score-info">
-            <div class="hero-score-label">Nota ComparaTop</div>
-            <div class="hero-score-text ${scoreClass}">${scoreLabel}</div>
-        </div>
-    </div>
-    ` : ''}
+    // NOTE: Hero Score Badge, Quick Buy Card, and Sticky Footer are REMOVED from SSG output
+    // because they appear ABOVE the header (z-index issue).
+    // These elements should be rendered by JavaScript inside the #product-content container.
+    // See: .agent/workflows/ssg-content-injection.md for best practices.
 
+    return `
     <!-- Pre-rendered content for SEO (bots will see this, hidden from users) -->
     <div id="prerendered-content" class="prerendered-seo-content">
         <nav aria-label="Breadcrumb" class="breadcrumb-nav">
@@ -474,40 +460,9 @@ function generateProductContent(product, category, otherProducts = [], categoryS
     }).join(' ')}
     </nav>
     
-    <!-- Quick Buy Card - Mobile only, Sprint 1.3 -->
-    ${bestOfferPrice ? `
-    <div class="product-quick-buy">
-        ${productThumb ? `<img src="${productThumb}" alt="${escapeHtml(product.model)}" class="quick-buy-thumb">` : ''}
-        <div class="quick-buy-info">
-            <div class="quick-buy-price">${bestOfferPrice}</div>
-            <div class="quick-buy-label">Melhor preço</div>
-        </div>
-        <a href="${bestOfferUrl}" target="_blank" rel="noopener sponsored" class="quick-buy-btn" 
-            onclick="if(typeof gtag!=='undefined'){gtag('event','cta_offer_click',{product_id:'${product.id}'});}">
-            Ver Oferta
-        </a>
-    </div>
-    ` : ''}
-    
-    <!-- Sticky Footer CTA - Mobile only, Sprint 1.3 -->
-    ${bestOfferPrice ? `
-    <div class="product-sticky-footer" id="product-sticky-footer"
-        data-product-id="${product.id}"
-        data-product-model="${escapeHtml(product.model)}"
-        data-product-price="${bestOfferPrice}"
-        data-offer-url="${bestOfferUrl}"
-        data-product-thumb="${productThumb}">
-        ${productThumb ? `<img src="${productThumb}" alt="${escapeHtml(product.model)}" class="sticky-footer-thumb">` : ''}
-        <div class="sticky-footer-info">
-            <div class="sticky-footer-model">${escapeHtml(product.model)}</div>
-            <div class="sticky-footer-price">${bestOfferPrice}</div>
-        </div>
-        <a href="${bestOfferUrl}" target="_blank" rel="noopener sponsored" class="sticky-footer-btn"
-            onclick="if(typeof gtag!=='undefined'){gtag('event','cta_offer_click',{product_id:'${product.id}',source:'sticky_footer'});}">
-            Ver Oferta
-        </a>
-    </div>
-    ` : ''}
+    <!-- NOTE: Quick Buy Card and Sticky Footer CTA removed from SSG -->
+    <!-- Implement these via JavaScript to avoid z-index issues with header -->
+    <!-- See: .agent/workflows/ssg-content-injection.md -->
     
     <style>
         .prerendered-seo-content { display: none; }
@@ -898,7 +853,10 @@ function generateComparisonContent(productA, productB, category) {
 
 
 // Process template and inject content
-function processTemplate(template, { metaTags, jsonLd, bodyContent }) {
+// IMPORTANT: bodyContent goes after <body> (SEO, hidden from users)
+// floatingContent goes before </body> (visible UI elements like Hero Score, Sticky Footer)
+// This separation prevents elements from appearing ABOVE the header - a common z-index issue
+function processTemplate(template, { metaTags, jsonLd, bodyContent, floatingContent = '' }) {
     let html = template;
 
     // Replace meta tags section
@@ -908,8 +866,14 @@ function processTemplate(template, { metaTags, jsonLd, bodyContent }) {
     // Inject JSON-LD before </head>
     html = html.replace('</head>', jsonLd + '\n</head>');
 
-    // Inject body content after <body> tag
+    // Inject SEO body content after <body> tag (hidden from users)
     html = html.replace(/<body>[\s\S]*?<!-- Skip to main content/, bodyContent + '\n    <!-- Skip to main content');
+
+    // Inject floating/visible content before </body> (visible to users)
+    // These elements use position:fixed so they don't need to be in the document flow
+    if (floatingContent) {
+        html = html.replace('</body>', floatingContent + '\n</body>');
+    }
 
     return html;
 }
