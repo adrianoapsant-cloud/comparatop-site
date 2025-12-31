@@ -86,6 +86,21 @@ function changeTableFontSize(delta) {
     cells.forEach(cell => {
         cell.style.padding = `${padding}px ${padding * 1.2}px`;
     });
+
+    // Also adjust header elements (product name, brand, score, select button)
+    const headerElements = table.querySelectorAll('.product-name, .product-brand, .score-badge, .select-btn-text, .compare-select-btn');
+    headerElements.forEach(el => {
+        el.style.fontSize = currentTableFontSize + 'px';
+    });
+
+    // Adjust product image size proportionally
+    const productImages = table.querySelectorAll('.compare-product-img');
+    const imgSize = Math.max(40, Math.min(100, currentTableFontSize * 5));
+    productImages.forEach(img => {
+        img.style.width = imgSize + 'px';
+        img.style.height = imgSize + 'px';
+    });
+
     console.log('Font size changed to:', currentTableFontSize);
 }
 
@@ -1696,9 +1711,10 @@ function shareToSocial(platform) {
             shareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
             break;
         case 'instagram':
-            // Instagram doesn't have direct share API, copy link and show message
+            // Instagram doesn't have direct share API - open Instagram and copy link
             copyToClipboard(getShareUrl());
-            showToast('Link copiado! Cole no Instagram Stories ou Direct.');
+            showToast('Link copiado! Abrindo Instagram...');
+            window.open('https://www.instagram.com/', '_blank');
             return;
         case 'facebook':
             shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
