@@ -3672,8 +3672,8 @@ window.toggleProductCompare = toggleProductCompare;
     style.textContent = `
         #whatsapp-float {
             position: fixed;
-            bottom: 100px;
-            left: 24px;
+            bottom: 150px;
+            right: 24px;
             width: 60px;
             height: 60px;
             background: linear-gradient(135deg, #25d366, #128c7e);
