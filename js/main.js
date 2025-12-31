@@ -3647,76 +3647,65 @@ window.addEventListener('compare:changed', (e) => {
 window.toggleProductCompare = toggleProductCompare;
 
 // ============================================
-// ENGAGEMENT FEATURES
+// ENGAGEMENT FEATURES (Smart Newsletter Only)
 // ============================================
 
-// WhatsApp Floating Button
-(function initWhatsAppButton() {
-    const WHATSAPP_NUMBER = '5519999999999'; // Change to your number
-    const WHATSAPP_MESSAGE = 'Olá! Tenho uma dúvida sobre geladeiras que vi no ComparaTop.';
+// Smart Newsletter Popup
+// Based on UX research recommendations:
+// - Shows after 30s delay OR on exit-intent (whichever first)
+// - Uses benefit-focused copy: "price alerts" not "offers"
+// - Remembers if user has seen/dismissed (localStorage)
+// - Mobile-friendly (slides up from bottom)
+(function initSmartNewsletter() {
+    const DELAY_MS = 30000; // 30 seconds
+    const STORAGE_KEY = 'newsletterSeen';
 
-    const whatsappBtn = document.createElement('a');
-    whatsappBtn.id = 'whatsapp-float';
-    whatsappBtn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
-    whatsappBtn.target = '_blank';
-    whatsappBtn.rel = 'noopener';
-    whatsappBtn.setAttribute('aria-label', 'Fale conosco no WhatsApp');
-    whatsappBtn.innerHTML = `
-        <svg viewBox="0 0 32 32" width="32" height="32" fill="currentColor">
-            <path d="M16 0C7.163 0 0 7.163 0 16c0 2.837.737 5.499 2.022 7.821L0 32l8.367-2.012A15.93 15.93 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm8.003 22.617c-.335.943-1.963 1.753-2.705 1.862-.743.109-1.427.523-4.807-.997-4.082-1.837-6.652-6.088-6.853-6.37-.2-.282-1.647-2.19-1.647-4.175s1.042-2.963 1.412-3.37c.37-.407.807-.51 1.077-.51.27 0 .54.002.777.014.249.013.583-.094.912.695.335.803 1.14 2.78 1.24 2.98.1.2.167.435.033.702-.133.267-.2.433-.397.668-.2.234-.42.523-.6.702-.2.2-.408.418-.175.82s1.033 1.703 2.22 2.76c1.523 1.357 2.807 1.777 3.207 1.977.4.2.633.167.867-.1.233-.267 1-1.17 1.267-1.572.267-.402.533-.335.9-.2.367.133 2.323 1.097 2.722 1.297.4.2.667.3.767.467.1.168.1.968-.235 1.91z"/>
-        </svg>
+    // Skip if already shown
+    if (localStorage.getItem(STORAGE_KEY)) return;
+
+    let hasShown = false;
+
+    // Get category name from page for personalized copy
+    const categoryMeta = document.querySelector('meta[property="og:title"]');
+    const categoryName = categoryMeta?.content?.split(' - ')[0] || 'produtos';
+
+    function showPopup() {
+        if (hasShown) return;
+        hasShown = true;
+        document.getElementById('smart-newsletter').classList.add('active');
+    }
+
+    function closePopup() {
+        document.getElementById('smart-newsletter').classList.remove('active');
+        localStorage.setItem(STORAGE_KEY, 'true');
+    }
+
+    // Create popup HTML
+    const popupHtml = `
+        <div class="smart-newsletter-overlay" id="smart-newsletter">
+            <div class="smart-newsletter-popup">
+                <button class="smart-newsletter-close" onclick="this.closest('.smart-newsletter-overlay').classList.remove('active'); localStorage.setItem('newsletterSeen', 'true');">×</button>
+                <h3>📉 O preço baixou? A gente te avisa.</h3>
+                <p>Monitoramos as maiores lojas diariamente. Receba alertas quando surgirem descontos reais.</p>
+                <form id="smart-newsletter-form">
+                    <input type="email" placeholder="Seu melhor e-mail" required>
+                    <button type="submit">Quero receber alertas</button>
+                </form>
+                <span class="smart-newsletter-privacy">Sem spam. Apenas alertas de preço.</span>
+            </div>
+        </div>
     `;
 
     // Add styles
     const style = document.createElement('style');
     style.textContent = `
-        #whatsapp-float {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, #25d366, #128c7e);
-            border-radius: 50%;
-            display: none; /* Hidden by default */
-            align-items: center;
-            justify-content: center;
-            color: white;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-            z-index: 9990; /* Below compare card (9999) */
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-decoration: none;
-        }
-        /* Only show on mobile (max-width: 768px) */
-        @media (max-width: 768px) {
-            #whatsapp-float {
-                display: flex;
-                bottom: 80px; /* Above mobile navigation */
-            }
-        }
-        /* Also show on very large screens (min-width: 1600px) where there's margin */
-        @media (min-width: 1600px) {
-            #whatsapp-float {
-                display: flex;
-            }
-        }
-        #whatsapp-float:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 24px rgba(37, 211, 102, 0.6);
-        }
-        #whatsapp-float svg {
-            width: 28px;
-            height: 28px;
-        }
-        
-        /* Exit Intent Popup */
-        .exit-popup-overlay {
+        .smart-newsletter-overlay {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.6);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -3725,62 +3714,122 @@ window.toggleProductCompare = toggleProductCompare;
             visibility: hidden;
             transition: opacity 0.3s, visibility 0.3s;
         }
-        .exit-popup-overlay.active {
+        .smart-newsletter-overlay.active {
             opacity: 1;
             visibility: visible;
         }
-        .exit-popup {
+        .smart-newsletter-popup {
             background: white;
             border-radius: 16px;
             padding: 2rem;
-            max-width: 400px;
+            max-width: 420px;
+            margin: 1rem;
             text-align: center;
-            transform: scale(0.9);
+            transform: translateY(20px);
             transition: transform 0.3s;
+            position: relative;
         }
-        .exit-popup-overlay.active .exit-popup {
-            transform: scale(1);
+        .smart-newsletter-overlay.active .smart-newsletter-popup {
+            transform: translateY(0);
         }
-        .exit-popup h3 {
+        .smart-newsletter-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: #94a3b8;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .smart-newsletter-close:hover {
+            color: #1e293b;
+        }
+        .smart-newsletter-popup h3 {
             color: #1e3a8a;
-            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
         }
-        .exit-popup p {
+        .smart-newsletter-popup p {
             color: #64748b;
-            margin-bottom: 1rem;
+            font-size: 1rem;
+            margin-bottom: 1.25rem;
+            line-height: 1.5;
         }
-        .exit-popup input {
+        .smart-newsletter-popup input {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             border: 2px solid #e2e8f0;
             border-radius: 8px;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
             font-size: 1rem;
+            box-sizing: border-box;
         }
-        .exit-popup button {
+        .smart-newsletter-popup input:focus {
+            border-color: #3b82f6;
+            outline: none;
+        }
+        .smart-newsletter-popup button[type="submit"] {
             width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            padding: 14px;
+            background: linear-gradient(135deg, #10b981, #059669);
             color: white;
             border: none;
             border-radius: 8px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
+            transition: transform 0.2s;
         }
-        .exit-popup-close {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 24px;
-            cursor: pointer;
+        .smart-newsletter-popup button[type="submit"]:hover {
+            transform: scale(1.02);
+        }
+        .smart-newsletter-privacy {
+            display: block;
+            margin-top: 0.75rem;
+            font-size: 0.8rem;
             color: #94a3b8;
+        }
+        
+        /* Mobile: slide up from bottom */
+        @media (max-width: 600px) {
+            .smart-newsletter-overlay {
+                align-items: flex-end;
+            }
+            .smart-newsletter-popup {
+                margin: 0;
+                border-radius: 16px 16px 0 0;
+                max-width: 100%;
+                width: 100%;
+            }
         }
     `;
     document.head.appendChild(style);
-    document.body.appendChild(whatsappBtn);
-})();
+    document.body.insertAdjacentHTML('beforeend', popupHtml);
 
-// Exit Intent Popup - REMOVED
-// User feedback: intrusive popups are annoying and rarely convert
-// Newsletter signup is already available in the footer section
+    // Trigger 1: Show after delay
+    setTimeout(showPopup, DELAY_MS);
+
+    // Trigger 2: Exit intent (mouse leaves viewport top)
+    document.addEventListener('mouseout', function (e) {
+        if (e.clientY < 0 && !hasShown) {
+            showPopup();
+        }
+    });
+
+    // Handle form submit
+    document.getElementById('smart-newsletter-form')?.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const email = this.querySelector('input').value;
+
+        // TODO: Send to email service (Mailchimp, etc.)
+        console.log('Newsletter signup:', email);
+
+        // Show success
+        this.innerHTML = '<p style="color: #10b981; font-weight: 600;">✓ Cadastrado com sucesso!</p>';
+        localStorage.setItem(STORAGE_KEY, 'true');
+
+        setTimeout(closePopup, 2000);
+    });
+})();
