@@ -5157,3 +5157,229 @@ body {
         font-size: 0.7rem;
     }
 }
+
+/* ========== SPRINT 1.3: PRODUCT PAGE ENHANCEMENTS ========== */
+
+/* Hero Score Badge - Gauge visual no topo da página de produto */
+.product-hero-score {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-radius: var(--radius);
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.hero-score-gauge {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+}
+
+.hero-score-gauge svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.hero-score-gauge .gauge-bg {
+    fill: none;
+    stroke: #e2e8f0;
+    stroke-width: 8;
+}
+
+.hero-score-gauge .gauge-fill {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s ease-out;
+}
+
+.hero-score-gauge .gauge-fill.excellent {
+    stroke: #10b981;
+}
+
+.hero-score-gauge .gauge-fill.good {
+    stroke: #f59e0b;
+}
+
+.hero-score-gauge .gauge-fill.poor {
+    stroke: #ef4444;
+}
+
+.hero-score-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--c-primary-dark);
+}
+
+.hero-score-info {
+    flex: 1;
+}
+
+.hero-score-label {
+    font-size: 0.85rem;
+    color: var(--c-muted);
+    margin-bottom: 0.25rem;
+}
+
+.hero-score-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--c-primary-dark);
+}
+
+.hero-score-text.excellent {
+    color: #10b981;
+}
+
+.hero-score-text.good {
+    color: #f59e0b;
+}
+
+.hero-score-text.poor {
+    color: #ef4444;
+}
+
+/* Quick Buy Card - Mobile only, após galeria */
+.product-quick-buy {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .product-quick-buy {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: var(--c-surface);
+        border-radius: var(--radius);
+        padding: 1rem;
+        margin: 1rem 0;
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--c-border);
+    }
+
+    .quick-buy-thumb {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        border-radius: var(--radius-sm);
+        background: #f8fafc;
+    }
+
+    .quick-buy-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .quick-buy-price {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--c-success);
+    }
+
+    .quick-buy-label {
+        font-size: 0.75rem;
+        color: var(--c-muted);
+    }
+
+    .quick-buy-btn {
+        background: var(--c-accent);
+        color: white;
+        border: none;
+        padding: 0.75rem 1rem;
+        border-radius: var(--radius-sm);
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background 0.2s;
+    }
+
+    .quick-buy-btn:hover {
+        background: var(--c-accent-hover);
+    }
+}
+
+/* Sticky Footer CTA - Mobile only */
+.product-sticky-footer {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .product-sticky-footer {
+        position: fixed;
+        bottom: 60px;
+        /* Acima do bottom navigation bar */
+        left: 0;
+        right: 0;
+        background: var(--c-surface);
+        border-top: 1px solid var(--c-border);
+        padding: 0.75rem 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        z-index: 1040;
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+        transform: translateY(100%);
+        transition: transform 0.3s ease-out;
+    }
+
+    .product-sticky-footer.show {
+        transform: translateY(0);
+    }
+
+    .sticky-footer-thumb {
+        width: 45px;
+        height: 45px;
+        object-fit: contain;
+        border-radius: var(--radius-sm);
+        background: #f8fafc;
+        flex-shrink: 0;
+    }
+
+    .sticky-footer-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .sticky-footer-model {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--c-text);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .sticky-footer-price {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--c-success);
+    }
+
+    .sticky-footer-btn {
+        background: var(--c-accent);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.25rem;
+        border-radius: var(--radius-sm);
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        white-space: nowrap;
+        flex-shrink: 0;
+        transition: background 0.2s;
+    }
+
+    .sticky-footer-btn:hover {
+        background: var(--c-accent-hover);
+    }
+}

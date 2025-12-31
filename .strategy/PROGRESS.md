@@ -2,7 +2,7 @@
 
 ## Status Geral
 - **Última Atualização:** 2025-12-31
-- **Sprint Atual:** 1
+- **Sprint Atual:** 1.3
 - **Fase:** UX Crítica
 
 ---
@@ -18,26 +18,26 @@
 - [x] Newsletter Exit-Intent
 - [x] Preconnect hints
 
----
-
-## 🔄 Em Progresso
-
-### Sprint 1: Fundação Visual (UX Crítica)
-
-#### 1.1 Sanitização de Dados ✅
+### Sprint 1.1 Sanitização de Dados ✅
 - [x] Substituir "N/A", "undefined" por "—"
 - [x] Fallback para campos vazios
 - [x] Build e deploy concluídos
 
-#### 1.2 Tabela de Comparação - Mobile UX
-- [ ] Sticky Bottom Bar
-- [ ] Sticky Header
-- [ ] Highlight de Vencedor
-- [ ] Toggle "Mostrar Diferenças"
+### Sprint 1.2 Tabela de Comparação - Mobile UX ✅
+- [x] Sticky Bottom Bar (barra azul com "X produtos" + "Ver Comparação")
+- [x] Sticky Header (header fixo ao rolar)
+- [x] Highlight de Vencedor (células verdes)
+- [x] Toggle "Mostrar Diferenças" (oculta linhas idênticas)
+- [x] Documentação mobile testing criada
+- [x] netlify.toml configurado
 
-#### 1.3 Página de Produto - Hierarquia
+---
+
+## 🔄 Em Progresso
+
+### Sprint 1.3 Página de Produto - Hierarquia
 - [ ] Mover Preço + CTA acima da dobra
-- [ ] Adicionar Nota ComparaTop (gauge)
+- [ ] Adicionar Nota ComparaTop (gauge 0-10)
 - [ ] Sticky Footer CTA mobile
 
 ---
@@ -58,7 +58,14 @@
 
 ## 📝 Notas de Sessão
 
-### 2025-12-31
+### 2025-12-31 (Sessão 2)
+- Sprint 1.2 Mobile UX **CONCLUÍDO**
+- Corrigido bug TypeError no modal de comparação
+- Criado netlify.toml com publish=dist
+- Documentação de viewports mobile criada
+- URL Staging: https://majestic-biscuit-69e50b.netlify.app/
+
+### 2025-12-31 (Sessão 1)
 - Criado roadmap completo baseado no Plano Mestre
 - Adicionados itens do feedback Gemini: Cloudflare, Schema Markup, Shopping Feeds
-- Iniciando Sprint 1.1 - Sanitização
+- Iniciado Sprint 1.1 - Sanitização

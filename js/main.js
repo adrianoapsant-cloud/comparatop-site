@@ -3919,3 +3919,52 @@ window.toggleProductCompare = toggleProductCompare;
         setTimeout(closePopup, 2000);
     });
 })();
+
+// ========== PRODUCT STICKY FOOTER CTA (Sprint 1.3) ==========
+// Shows sticky footer CTA when user scrolls past the offers section on product pages
+(function initProductStickyFooter() {
+    const stickyFooter = document.getElementById('product-sticky-footer');
+    if (!stickyFooter) return; // Not on a product page
+
+    let lastScrollY = 0;
+    let isVisible = false;
+    const showThreshold = 400; // Show after scrolling 400px down
+
+    function updateStickyFooterVisibility() {
+        const scrollY = window.scrollY;
+        const viewportHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+
+        // Show footer if scrolled past threshold
+        const shouldShow = scrollY > showThreshold;
+
+        // Hide if near bottom (to not overlap with bottom nav)
+        const nearBottom = (scrollY + viewportHeight) > (documentHeight - 150);
+
+        if (shouldShow && !nearBottom && !isVisible) {
+            stickyFooter.classList.add('show');
+            isVisible = true;
+        } else if ((!shouldShow || nearBottom) && isVisible) {
+            stickyFooter.classList.remove('show');
+            isVisible = false;
+        }
+
+        lastScrollY = scrollY;
+    }
+
+    // Use passive scroll listener for performance
+    let ticking = false;
+    window.addEventListener('scroll', function () {
+        if (!ticking) {
+            window.requestAnimationFrame(function () {
+                updateStickyFooterVisibility();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+
+    // Initial check
+    updateStickyFooterVisibility();
+})();
+

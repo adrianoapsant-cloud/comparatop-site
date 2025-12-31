@@ -6,6 +6,15 @@ description: Como testar responsividade mobile do site ComparaTop
 
 Este workflow define como testar o site em diferentes resoluções de celular.
 
+## URLs de Teste
+
+| Ambiente | URL |
+|----------|-----|
+| **Staging (Netlify)** | https://majestic-biscuit-69e50b.netlify.app/ |
+| **Produção** | https://comparatop.com.br/ |
+
+> **IMPORTANTE**: Sempre teste primeiro no Netlify staging para confirmar deploys antes de validar em produção.
+
 ## Viewports de Teste Obrigatórios
 
 Sempre testar em pelo menos 3 resoluções para garantir responsividade:

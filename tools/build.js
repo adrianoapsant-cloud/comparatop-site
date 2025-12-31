@@ -355,6 +355,17 @@ function generateProductContent(product, category, otherProducts = [], categoryS
         })
         .join('');
 
+    // Hero Score Badge - gauge SVG calculation
+    const scoreClass = overall >= 7 ? 'excellent' : overall >= 5 ? 'good' : 'poor';
+    const scoreLabel = overall >= 7 ? 'Excelente' : overall >= 5 ? 'Bom' : 'Regular';
+    const circumference = 2 * Math.PI * 26; // radius = 26
+    const dashOffset = circumference - (overall / 10) * circumference;
+
+    // Best offer for Quick Buy and Sticky Footer
+    const bestOfferPrice = bestOffer ? formatBRL(bestOffer.price) : null;
+    const bestOfferUrl = bestOffer?.url || '#';
+    const productThumb = product.images?.[0] ? resolveImageUrl(product.images[0]) : '';
+
     return `
     <!-- Pre-rendered content for SEO (bots will see this) -->
     <div id="prerendered-content" class="prerendered-seo-content">
@@ -363,6 +374,25 @@ function generateProductContent(product, category, otherProducts = [], categoryS
             <a href="/categoria/${category.slug}">${category.name}</a> › 
             <span>${product.name}</span>
         </nav>
+        
+        <!-- Hero Score Badge - Sprint 1.3 -->
+        ${overall > 0 ? `
+        <div class="product-hero-score">
+            <div class="hero-score-gauge">
+                <svg viewBox="0 0 60 60">
+                    <circle class="gauge-bg" cx="30" cy="30" r="26"></circle>
+                    <circle class="gauge-fill ${scoreClass}" cx="30" cy="30" r="26" 
+                        stroke-dasharray="${circumference}" 
+                        stroke-dashoffset="${dashOffset}"></circle>
+                </svg>
+                <span class="hero-score-value">${overall}</span>
+            </div>
+            <div class="hero-score-info">
+                <div class="hero-score-label">Nota ComparaTop</div>
+                <div class="hero-score-text ${scoreClass}">${scoreLabel}</div>
+            </div>
+        </div>
+        ` : ''}
         
         <article itemscope itemtype="https://schema.org/Product">
             <h1 itemprop="name">${escapeHtml(product.name)}</h1>
@@ -443,6 +473,41 @@ function generateProductContent(product, category, otherProducts = [], categoryS
         return `<a href="${comparisonUrl}">${escapeHtml(product.model)} vs ${escapeHtml(other.model)}</a>`;
     }).join(' ')}
     </nav>
+    
+    <!-- Quick Buy Card - Mobile only, Sprint 1.3 -->
+    ${bestOfferPrice ? `
+    <div class="product-quick-buy">
+        ${productThumb ? `<img src="${productThumb}" alt="${escapeHtml(product.model)}" class="quick-buy-thumb">` : ''}
+        <div class="quick-buy-info">
+            <div class="quick-buy-price">${bestOfferPrice}</div>
+            <div class="quick-buy-label">Melhor preço</div>
+        </div>
+        <a href="${bestOfferUrl}" target="_blank" rel="noopener sponsored" class="quick-buy-btn" 
+            onclick="if(typeof gtag!=='undefined'){gtag('event','cta_offer_click',{product_id:'${product.id}'});}">
+            Ver Oferta
+        </a>
+    </div>
+    ` : ''}
+    
+    <!-- Sticky Footer CTA - Mobile only, Sprint 1.3 -->
+    ${bestOfferPrice ? `
+    <div class="product-sticky-footer" id="product-sticky-footer"
+        data-product-id="${product.id}"
+        data-product-model="${escapeHtml(product.model)}"
+        data-product-price="${bestOfferPrice}"
+        data-offer-url="${bestOfferUrl}"
+        data-product-thumb="${productThumb}">
+        ${productThumb ? `<img src="${productThumb}" alt="${escapeHtml(product.model)}" class="sticky-footer-thumb">` : ''}
+        <div class="sticky-footer-info">
+            <div class="sticky-footer-model">${escapeHtml(product.model)}</div>
+            <div class="sticky-footer-price">${bestOfferPrice}</div>
+        </div>
+        <a href="${bestOfferUrl}" target="_blank" rel="noopener sponsored" class="sticky-footer-btn"
+            onclick="if(typeof gtag!=='undefined'){gtag('event','cta_offer_click',{product_id:'${product.id}',source:'sticky_footer'});}">
+            Ver Oferta
+        </a>
+    </div>
+    ` : ''}
     
     <style>
         .prerendered-seo-content { display: none; }
