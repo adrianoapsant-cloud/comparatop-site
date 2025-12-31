@@ -10,7 +10,7 @@ const Utils = (function () {
      * Format number as Brazilian Real currency
      */
     function formatBRL(value) {
-        if (value == null) return 'N/A';
+        if (value == null) return '—';
         return new Intl.NumberFormat('pt-BR', {
             style: 'currency',
             currency: 'BRL'
@@ -21,7 +21,7 @@ const Utils = (function () {
      * Format number with Brazilian locale
      */
     function formatNumber(value, decimals = 1) {
-        if (value == null) return 'N/A';
+        if (value == null) return '—';
         return value.toLocaleString('pt-BR', {
             minimumFractionDigits: decimals,
             maximumFractionDigits: decimals

@@ -229,7 +229,7 @@ const Ranking = (function () {
 
     // Utility function
     function formatBRL(value) {
-        if (value == null) return 'N/A';
+        if (value == null) return '—';
         return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
     }
 

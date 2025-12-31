@@ -103,7 +103,7 @@ const Comparator = (function () {
      * Format spec value for display
      */
     function formatSpec(value, def) {
-        if (value === null || value === undefined) return 'N/A';
+        if (value === null || value === undefined) return '—';
         if (typeof value === 'boolean') return value ? 'Sim' : 'Não';
         if (Array.isArray(value)) return value.join(', ');
         if (typeof value === 'number' && def?.unit) {
@@ -222,7 +222,7 @@ const Comparator = (function () {
             productName: p.name,
             bestPrice: p.bestPrice,
             bestOffer: p.bestOffer,
-            formatted: p.bestPrice ? formatBRL(p.bestPrice) : 'N/A'
+            formatted: p.bestPrice ? formatBRL(p.bestPrice) : '—'
         }));
 
         const validPrices = values.filter(v => v.bestPrice !== null);
@@ -377,7 +377,7 @@ const Comparator = (function () {
 
     // Utility
     function formatBRL(value) {
-        if (value == null) return 'N/A';
+        if (value == null) return '—';
         return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
     }
 

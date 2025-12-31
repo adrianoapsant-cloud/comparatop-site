@@ -303,7 +303,7 @@ const Assistant = (function () {
      * Format BRL currency
      */
     function formatBRL(value) {
-        if (value == null) return 'N/A';
+        if (value == null) return '—';
         return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
     }
 
