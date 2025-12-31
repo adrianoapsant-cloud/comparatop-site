@@ -2323,6 +2323,52 @@ a.category-card-tag.available:hover {
     background: rgba(255, 255, 255, 0.4);
 }
 
+/* WhatsApp Contact Section */
+.whatsapp-contact-section {
+    margin: 1.5rem 0;
+}
+
+.whatsapp-contact-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-contact-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+.whatsapp-icon {
+    font-size: 1.5rem;
+}
+
+.whatsapp-arrow {
+    opacity: 0.8;
+    transition: transform 0.2s;
+}
+
+.whatsapp-contact-link:hover .whatsapp-arrow {
+    transform: translateX(4px);
+}
+
+/* Hide section on mobile where floating button is shown */
+@media (max-width: 768px) {
+    .whatsapp-contact-section {
+        display: none;
+    }
+}
+
 /* Newsletter Section */
 .newsletter-section {
     background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
