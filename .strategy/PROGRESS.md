@@ -24,10 +24,10 @@
 
 ### Sprint 1: Fundação Visual (UX Crítica)
 
-#### 1.1 Sanitização de Dados
-- [ ] Substituir "N/A", "undefined" por "—"
-- [ ] Fallback para campos vazios
-- [ ] Testar em produto e comparação
+#### 1.1 Sanitização de Dados ✅
+- [x] Substituir "N/A", "undefined" por "—"
+- [x] Fallback para campos vazios
+- [x] Build e deploy concluídos
 
 #### 1.2 Tabela de Comparação - Mobile UX
 - [ ] Sticky Bottom Bar
