@@ -280,7 +280,42 @@ function generateBreadcrumbJsonLd(items) {
     return `<script type="application/ld+json">${JSON.stringify(schema, null, 2)}</script>`;
 }
 
+// Generate FAQPage JSON-LD for rich snippets
+function generateFAQJsonLd(faqs) {
+    if (!faqs || faqs.length === 0) return '';
 
+    const schema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.question,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer
+            }
+        }))
+    };
+    return `<script type="application/ld+json">${JSON.stringify(schema, null, 2)}</script>`;
+}
+
+// Generate HowTo JSON-LD for step-by-step guides
+function generateHowToJsonLd(title, steps) {
+    if (!steps || steps.length === 0) return '';
+
+    const schema = {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": title,
+        "step": steps.map((step, idx) => ({
+            "@type": "HowToStep",
+            "position": idx + 1,
+            "name": step.name,
+            "text": step.text
+        }))
+    };
+    return `<script type="application/ld+json">${JSON.stringify(schema, null, 2)}</script>`;
+}
 // Generate JSON-LD for comparison
 function generateComparisonJsonLd(productA, productB, categorySlug) {
     const schema = {
@@ -1154,7 +1189,10 @@ function generateCategoryPages(template, catalogs) {
             { name: category.name }
         ]);
 
-        const jsonLd = itemListJsonLd + '\n' + breadcrumbJsonLd;
+        // FAQ Schema se a categoria tiver FAQs
+        const faqJsonLd = category.faq ? generateFAQJsonLd(category.faq) : '';
+
+        const jsonLd = itemListJsonLd + '\n' + breadcrumbJsonLd + '\n' + faqJsonLd;
 
         let html = template;
         html = html.replace(/<title>.*?<\/title>[\s\S]*?(<link href="https:\/\/fonts\.googleapis)/, meta + '\n    $1');

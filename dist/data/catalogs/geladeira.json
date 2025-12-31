@@ -8,7 +8,29 @@
     "description": "Comparativo de geladeiras frost-free, duplex e side-by-side",
     "icon": "❄️",
     "heroTitle": "Encontre a geladeira ideal para você",
-    "heroSubtitle": "Compare especificações, consumo e opiniões reais de compradores"
+    "heroSubtitle": "Compare especificações, consumo e opiniões reais de compradores",
+    "faq": [
+      {
+        "question": "Qual a melhor marca de geladeira?",
+        "answer": "As marcas mais bem avaliadas no Brasil são Brastemp, Electrolux e Samsung. Cada uma tem pontos fortes: Brastemp em durabilidade, Electrolux em espaço interno, Samsung em tecnologia."
+      },
+      {
+        "question": "Geladeira frost-free vale a pena?",
+        "answer": "Sim. A tecnologia frost-free elimina a necessidade de descongelar manualmente, economiza tempo e mantém os alimentos melhor conservados. O consumo é ligeiramente maior, mas a praticidade compensa."
+      },
+      {
+        "question": "Quanto consome uma geladeira por mês?",
+        "answer": "Uma geladeira frost-free de 400L consome em média 40-50 kWh/mês, o que representa cerca de R$ 30-40 na conta de luz. Modelos com selo Procel A são mais econômicos."
+      },
+      {
+        "question": "Qual tamanho de geladeira para 4 pessoas?",
+        "answer": "Para uma família de 4 pessoas, recomendamos geladeiras de 350 a 450 litros. Considere 100L por pessoa como referência básica."
+      },
+      {
+        "question": "Geladeira inverse ou duplex: qual escolher?",
+        "answer": "Geladeira inverse (freezer embaixo) é ideal para quem usa mais o refrigerador no dia a dia. Duplex (freezer em cima) é mais tradicional e geralmente mais barata."
+      }
+    ]
   },
   "meta": {
     "lastUpdated": "2025-12-26",
