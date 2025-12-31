@@ -75,11 +75,27 @@ function loadCatalogs() {
     return catalogs;
 }
 
-// Generate meta tags replacement
-function generateMetaTags({ title, description, url, image, type = 'website' }) {
+// Generate meta tags replacement (includes Pinterest Rich Pins support)
+function generateMetaTags({ title, description, url, image, type = 'website', product = null }) {
     // Default OG Image also goes to R2
     const defaultImage = resolveImageUrl('/assets/og-image.png');
     const finalImage = image ? resolveImageUrl(image) : defaultImage;
+
+    // Pinterest Rich Pins require specific meta tags
+    let pinterestMeta = '';
+    if (product) {
+        const offers = (product.offers || []).filter(o => o.price && o.price > 0);
+        const bestPrice = offers.length > 0 ? Math.min(...offers.map(o => o.price)) : null;
+
+        pinterestMeta = `
+    <!-- Pinterest Rich Pins (Product) -->
+    <meta property="og:price:amount" content="${bestPrice || ''}">
+    <meta property="og:price:currency" content="BRL">
+    <meta property="product:availability" content="${offers.some(o => o.inStock !== false) ? 'in stock' : 'out of stock'}">
+    <meta property="product:brand" content="${product.brand}">
+    <meta property="product:condition" content="new">
+    <meta name="pinterest-rich-pin" content="true">`;
+    }
 
     return `
     <title>${escapeHtml(title)}</title>
@@ -89,12 +105,17 @@ function generateMetaTags({ title, description, url, image, type = 'website' }) 
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="${url.endsWith('/') ? url : url + '/'}">
     
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph / Facebook / Pinterest -->
     <meta property="og:type" content="${type}">
     <meta property="og:url" content="${url.endsWith('/') ? url : url + '/'}">
     <meta property="og:title" content="${escapeHtml(title)}">
     <meta property="og:description" content="${escapeHtml(description)}">
     <meta property="og:image" content="${finalImage}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="ComparaTop">
+    <meta property="og:locale" content="pt_BR">
+    ${pinterestMeta}
     
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
@@ -850,7 +871,8 @@ function generateProductPages(template, catalogs) {
                 description: product.voc?.thirtySecondSummary || `Análise completa do ${product.name}. Compare preços, veja especificações e opiniões reais de compradores.`,
                 url: `${CONFIG.baseUrl}/produto/${slug}/${productId}`,
                 image: resolveImageUrl(product.imageUrl), // USE R2
-                type: 'product'
+                type: 'product',
+                product: product  // Pass product for Pinterest Rich Pins
             });
 
             // JSON-LD com category para contexto + relatedLink para comparações
