@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     <url>
         <loc>https://comparatop.com.br/</loc>
         <lastmod>2025-12-31</lastmod>
@@ -17,12 +18,57 @@
         <lastmod>2025-12-31</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://img.comparatop.com.br/assets/images/products/geladeira/brm44hb/brastemp-brm44hb-geladeira-visao-frontal-fechada.jpg</image:loc>
+            <image:title>Brastemp BRM44HB 375L - Visão frontal da geladeira fechada em fundo branco</image:title>
+            <image:caption>Brastemp BRM44HB - Geladeiras</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://img.comparatop.com.br/assets/images/products/geladeira/brm44hb/brastemp-brm44hb-geladeira-porta-aberta-interior.jpg</image:loc>
+            <image:title>Brastemp BRM44HB 375L - Interior da geladeira com porta aberta mostrando prateleiras</image:title>
+            <image:caption>Brastemp BRM44HB - Geladeiras</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://img.comparatop.com.br/assets/images/products/geladeira/brm44hb/brastemp-brm44hb-geladeira-freezer-congelador-detalhe.jpg</image:loc>
+            <image:title>Brastemp BRM44HB 375L - Detalhe do freezer/congelador com gavetas</image:title>
+            <image:caption>Brastemp BRM44HB - Geladeiras</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://img.comparatop.com.br/assets/images/products/geladeira/brm44hb/brastemp-brm44hb-geladeira-prateleiras-organizacao-interna.jpg</image:loc>
+            <image:title>Brastemp BRM44HB 375L - Prateleiras de vidro organizadas no interior</image:title>
+            <image:caption>Brastemp BRM44HB - Geladeiras</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://img.comparatop.com.br/assets/images/products/geladeira/brm44hb/brastemp-brm44hb-geladeira-gaveta-legumes-verduras.jpg</image:loc>
+            <image:title>Brastemp BRM44HB 375L - Gaveta para legumes e verduras Fresh Zone</image:title>
+            <image:caption>Brastemp BRM44HB - Geladeiras</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://img.comparatop.com.br/assets/images/products/geladeira/brm44hb/brastemp-brm44hb-geladeira-porta-compartimentos-garrafas.jpg</image:loc>
+            <image:title>Brastemp BRM44HB 375L - Compartimentos na porta para garrafas e condimentos</image:title>
+            <image:caption>Brastemp BRM44HB - Geladeiras</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://img.comparatop.com.br/assets/images/products/geladeira/brm44hb/brastemp-brm44hb-geladeira-painel-controle-display.jpg</image:loc>
+            <image:title>Brastemp BRM44HB 375L - Painel de controle digital de temperatura</image:title>
+            <image:caption>Brastemp BRM44HB - Geladeiras</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://img.comparatop.com.br/assets/images/products/geladeira/brm44hb/brastemp-brm44hb-geladeira-dimensoes-medidas.jpg</image:loc>
+            <image:title>Brastemp BRM44HB 375L - Diagrama com dimensões e medidas</image:title>
+            <image:caption>Brastemp BRM44HB - Geladeiras</image:caption>
+        </image:image>
     </url>
     <url>
         <loc>https://comparatop.com.br/produto/geladeira/tf55/</loc>
         <lastmod>2025-12-31</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://img.comparatop.com.br/assets/products/tf55.webp</image:loc>
+            <image:title>Electrolux TF55 431L</image:title>
+            <image:caption>Electrolux TF55 - Geladeiras</image:caption>
+        </image:image>
     </url>
     <url>
         <loc>https://comparatop.com.br/produto/geladeira/brastemp-bre57ak/</loc>

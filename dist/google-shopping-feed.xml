@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+<channel>
+    <title>ComparaTop - Produtos</title>
+    <link>https://comparatop.com.br</link>
+    <description>Comparativo de eletrodomésticos - ComparaTop</description>
+    <item>
+        <g:id>brm44hb</g:id>
+        <title>Brastemp BRM44HB 375L</title>
+        <description>Brastemp BRM44HB - Geladeiras</description>
+        <link>https://comparatop.com.br/produto/geladeira/brm44hb/</link>
+        <g:image_link>https://img.comparatop.com.br/assets/images/products/geladeira/brm44hb/brastemp-brm44hb-geladeira-visao-frontal-fechada.jpg</g:image_link>
+        <g:price>3149.90 BRL</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:brand>Brastemp</g:brand>
+        <g:condition>new</g:condition>
+        <g:google_product_category>2559</g:google_product_category>
+        <g:product_type>Geladeiras</g:product_type>
+        <g:mpn>BRM44HB</g:mpn>
+    </item>
+    <item>
+        <g:id>tf55</g:id>
+        <title>Electrolux TF55 431L</title>
+        <description>Electrolux TF55 - Geladeiras</description>
+        <link>https://comparatop.com.br/produto/geladeira/tf55/</link>
+        <g:image_link>https://img.comparatop.com.br/assets/products/tf55.webp</g:image_link>
+        <g:price>3399.90 BRL</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:brand>Electrolux</g:brand>
+        <g:condition>new</g:condition>
+        <g:google_product_category>2559</g:google_product_category>
+        <g:product_type>Geladeiras</g:product_type>
+        <g:mpn>TF55</g:mpn>
+    </item>
+    <item>
+        <g:id>brastemp-bre57ak</g:id>
+        <title>Geladeira Brastemp Frost Free Inverse 443 litros Inox - BRE57AK</title>
+        <description>Brastemp BRE57AK - Geladeiras</description>
+        <link>https://comparatop.com.br/produto/geladeira/brastemp-bre57ak/</link>
+        <g:image_link></g:image_link>
+        <g:price>4299.00 BRL</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:brand>Brastemp</g:brand>
+        <g:condition>new</g:condition>
+        <g:google_product_category>2559</g:google_product_category>
+        <g:product_type>Geladeiras</g:product_type>
+        <g:mpn>BRE57AK</g:mpn>
+    </item>
+    <item>
+        <g:id>samsung-rt46</g:id>
+        <title>Geladeira Samsung Evolution RT46 com POWERvolt Inverter Duplex 460L</title>
+        <description>Samsung RT46 - Geladeiras</description>
+        <link>https://comparatop.com.br/produto/geladeira/samsung-rt46/</link>
+        <g:image_link></g:image_link>
+        <g:price>3899.00 BRL</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:brand>Samsung</g:brand>
+        <g:condition>new</g:condition>
+        <g:google_product_category>2559</g:google_product_category>
+        <g:product_type>Geladeiras</g:product_type>
+        <g:mpn>RT46</g:mpn>
+    </item>
+</channel>
+</rss>

@@ -167,8 +167,15 @@ function generateProductJsonLd(product, categorySlug, category, otherProducts = 
         schema.description = `${product.brand} ${product.model} - ${category?.name || 'Eletrodoméstico'} ${product.specs.capacidade_total}L`;
     }
 
-    // Image - só se existir (USE R2)
-    if (product.imageUrl) {
+    // Image - Enhanced with ImageObject for better SEO
+    if (product.images && product.images.length > 0) {
+        const imageAlts = product.imageAlts || {};
+        schema.image = product.images.map(imgPath => ({
+            "@type": "ImageObject",
+            "url": resolveImageUrl(imgPath),
+            "name": imageAlts[imgPath] || product.name
+        }));
+    } else if (product.imageUrl) {
         schema.image = resolveImageUrl(product.imageUrl);
     }
 
@@ -1223,11 +1230,11 @@ function generateComparisonPages(template, catalogs) {
 
 // Generate sitemap
 function generateSitemap(catalogs) {
-    console.log('Generating: /sitemap.xml');
+    console.log('Generating: /sitemap.xml (with Google Images)');
 
     const today = new Date().toISOString().split('T')[0];
     const urls = [
-        { loc: CONFIG.baseUrl + '/', priority: '1.0', changefreq: 'weekly' }
+        { loc: CONFIG.baseUrl + '/', priority: '1.0', changefreq: 'weekly', images: [] }
     ];
 
     for (const [categorySlug, catalog] of Object.entries(catalogs)) {
@@ -1236,17 +1243,34 @@ function generateSitemap(catalogs) {
         urls.push({
             loc: `${CONFIG.baseUrl}${canonicalPath}`,
             priority: '0.9',
-            changefreq: 'weekly'
+            changefreq: 'weekly',
+            images: []
         });
 
         const products = Object.entries(catalog.products || {});
 
-        // Products
+        // Products - with images for Google Images
         for (const [productId, product] of products) {
+            const productImages = [];
+
+            // Add all product images to sitemap
+            const allImages = product.images || (product.imageUrl ? [product.imageUrl] : []);
+            const imageAlts = product.imageAlts || {};
+
+            allImages.forEach(imgPath => {
+                const altText = imageAlts[imgPath] || `${product.name}`;
+                productImages.push({
+                    loc: resolveImageUrl(imgPath),
+                    title: altText,
+                    caption: `${product.brand} ${product.model} - ${catalog.category?.name || 'Produto'}`
+                });
+            });
+
             urls.push({
                 loc: `${CONFIG.baseUrl}/produto/${categorySlug}/${productId}/`,
                 priority: '0.8',
-                changefreq: 'weekly'
+                changefreq: 'weekly',
+                images: productImages
             });
         }
 
@@ -1260,20 +1284,32 @@ function generateSitemap(catalogs) {
                 urls.push({
                     loc: `${CONFIG.baseUrl}/comparar/${categorySlug}/${slugFirst}-vs-${slugSecond}/`,
                     priority: '0.7',
-                    changefreq: 'monthly'
+                    changefreq: 'monthly',
+                    images: []
                 });
             }
         }
     }
 
+    // Generate XML with Google Image Sitemap extension
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map(u => `    <url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+${urls.map(u => {
+        const imageXml = u.images.map(img => `
+        <image:image>
+            <image:loc>${escapeHtml(img.loc)}</image:loc>
+            <image:title>${escapeHtml(img.title)}</image:title>
+            <image:caption>${escapeHtml(img.caption)}</image:caption>
+        </image:image>`).join('');
+
+        return `    <url>
         <loc>${u.loc}</loc>
         <lastmod>${today}</lastmod>
         <changefreq>${u.changefreq}</changefreq>
-        <priority>${u.priority}</priority>
-    </url>`).join('\n')}
+        <priority>${u.priority}</priority>${imageXml}
+    </url>`;
+    }).join('\n')}
 </urlset>`;
 
     fs.writeFileSync(path.join(CONFIG.distDir, 'sitemap.xml'), xml);
@@ -1345,6 +1381,155 @@ function generatePinterestFeed(catalogs) {
 
     fs.writeFileSync(path.join(CONFIG.distDir, 'pinterest-feed.tsv'), tsv);
     console.log(`  ✅ Pinterest feed generated with ${products.length} products`);
+}
+
+// Generate Google Shopping Feed (RSS 2.0 format for Google Merchant Center)
+function generateGoogleShoppingFeed(catalogs) {
+    console.log('Generating: /google-shopping-feed.xml');
+
+    const items = [];
+
+    for (const [slug, catalog] of Object.entries(catalogs)) {
+        const category = catalog.category;
+
+        for (const [productId, product] of Object.entries(catalog.products || {})) {
+            if (product.status !== 'active') continue;
+
+            const offers = (product.offers || []).filter(o => o.price && o.price > 0);
+            const bestOffer = offers.sort((a, b) => a.price - b.price)[0];
+
+            if (!bestOffer) continue;
+
+            items.push({
+                id: product.id,
+                title: product.name,
+                description: product.voc?.thirtySecondSummary || `${product.brand} ${product.model} - ${category.name}`,
+                link: `${CONFIG.baseUrl}/produto/${slug}/${productId}/`,
+                image_link: resolveImageUrl(product.imageUrl),
+                price: bestOffer.price.toFixed(2),
+                availability: offers.some(o => o.inStock !== false) ? 'in_stock' : 'out_of_stock',
+                brand: product.brand,
+                condition: 'new',
+                google_product_category: '2559', // Appliances > Refrigerators & Freezers
+                product_type: category.name,
+                mpn: product.model,
+                gtin: '' // Could add EAN if available
+            });
+        }
+    }
+
+    if (items.length === 0) {
+        console.log('  No products for Google Shopping feed');
+        return;
+    }
+
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+<channel>
+    <title>ComparaTop - Produtos</title>
+    <link>${CONFIG.baseUrl}</link>
+    <description>Comparativo de eletrodomésticos - ComparaTop</description>
+${items.map(item => `    <item>
+        <g:id>${escapeHtml(item.id)}</g:id>
+        <title>${escapeHtml(item.title)}</title>
+        <description>${escapeHtml(item.description)}</description>
+        <link>${item.link}</link>
+        <g:image_link>${escapeHtml(item.image_link)}</g:image_link>
+        <g:price>${item.price} BRL</g:price>
+        <g:availability>${item.availability}</g:availability>
+        <g:brand>${escapeHtml(item.brand)}</g:brand>
+        <g:condition>${item.condition}</g:condition>
+        <g:google_product_category>${item.google_product_category}</g:google_product_category>
+        <g:product_type>${escapeHtml(item.product_type)}</g:product_type>
+        <g:mpn>${escapeHtml(item.mpn)}</g:mpn>
+    </item>`).join('\n')}
+</channel>
+</rss>`;
+
+    fs.writeFileSync(path.join(CONFIG.distDir, 'google-shopping-feed.xml'), xml);
+    console.log(`  ✅ Google Shopping feed generated with ${items.length} products`);
+}
+
+// Generate Facebook/Instagram Product Catalog (TSV format)
+function generateFacebookCatalogFeed(catalogs) {
+    console.log('Generating: /facebook-catalog.tsv');
+
+    const products = [];
+
+    for (const [slug, catalog] of Object.entries(catalogs)) {
+        const category = catalog.category;
+
+        for (const [productId, product] of Object.entries(catalog.products || {})) {
+            if (product.status !== 'active') continue;
+
+            const offers = (product.offers || []).filter(o => o.price && o.price > 0);
+            const bestOffer = offers.sort((a, b) => a.price - b.price)[0];
+
+            if (!bestOffer) continue;
+
+            products.push({
+                id: product.id,
+                title: product.name,
+                description: product.voc?.oneLiner || `${product.brand} ${product.model}`,
+                availability: offers.some(o => o.inStock !== false) ? 'in stock' : 'out of stock',
+                condition: 'new',
+                price: `${bestOffer.price.toFixed(2)} BRL`,
+                link: `${CONFIG.baseUrl}/produto/${slug}/${productId}/`,
+                image_link: resolveImageUrl(product.imageUrl),
+                brand: product.brand,
+                google_product_category: 'Eletrodomésticos > Geladeiras',
+                fb_product_category: 'home & garden > kitchen & dining > kitchen appliances > refrigerators'
+            });
+        }
+    }
+
+    if (products.length === 0) return;
+
+    const headers = ['id', 'title', 'description', 'availability', 'condition', 'price', 'link', 'image_link', 'brand', 'google_product_category', 'fb_product_category'];
+    const rows = products.map(p => headers.map(h => String(p[h] || '').replace(/[\t\n\r]/g, ' ')).join('\t'));
+    const tsv = headers.join('\t') + '\n' + rows.join('\n');
+
+    fs.writeFileSync(path.join(CONFIG.distDir, 'facebook-catalog.tsv'), tsv);
+    console.log(`  ✅ Facebook catalog generated with ${products.length} products`);
+}
+
+// Generate Bing Shopping Feed (TSV for Microsoft Merchant Center)
+function generateBingShoppingFeed(catalogs) {
+    console.log('Generating: /bing-shopping-feed.txt');
+
+    const products = [];
+
+    for (const [slug, catalog] of Object.entries(catalogs)) {
+        for (const [productId, product] of Object.entries(catalog.products || {})) {
+            if (product.status !== 'active') continue;
+
+            const offers = (product.offers || []).filter(o => o.price && o.price > 0);
+            const bestOffer = offers.sort((a, b) => a.price - b.price)[0];
+
+            if (!bestOffer) continue;
+
+            products.push({
+                MPID: product.id,
+                Title: product.name,
+                ProductURL: `${CONFIG.baseUrl}/produto/${slug}/${productId}/`,
+                Price: bestOffer.price.toFixed(2),
+                Description: product.voc?.oneLiner || `${product.brand} ${product.model}`,
+                ImageURL: resolveImageUrl(product.imageUrl),
+                Brand: product.brand,
+                Condition: 'New',
+                Availability: offers.some(o => o.inStock !== false) ? 'In Stock' : 'Out of Stock'
+            });
+        }
+    }
+
+    if (products.length === 0) return;
+
+    const headers = ['MPID', 'Title', 'ProductURL', 'Price', 'Description', 'ImageURL', 'Brand', 'Condition', 'Availability'];
+    const rows = products.map(p => headers.map(h => String(p[h] || '').replace(/[\t\n\r]/g, ' ')).join('\t'));
+    const txt = headers.join('\t') + '\n' + rows.join('\n');
+
+    fs.writeFileSync(path.join(CONFIG.distDir, 'bing-shopping-feed.txt'), txt);
+    console.log(`  ✅ Bing shopping feed generated with ${products.length} products`);
 }
 
 // Generate 404 page - lightweight standalone version
@@ -1573,6 +1758,15 @@ async function build() {
 
     // 5b. Generate Pinterest Product Feed
     generatePinterestFeed(catalogs);
+
+    // 5c. Generate Google Shopping Feed
+    generateGoogleShoppingFeed(catalogs);
+
+    // 5d. Generate Facebook/Instagram Catalog
+    generateFacebookCatalogFeed(catalogs);
+
+    // 5e. Generate Bing Shopping Feed
+    generateBingShoppingFeed(catalogs);
 
     // 6. Generate 404 Page (Lightweight)
     generate404Page(template);
