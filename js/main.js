@@ -3781,45 +3781,6 @@ window.toggleProductCompare = toggleProductCompare;
     document.body.appendChild(whatsappBtn);
 })();
 
-// Exit Intent Newsletter Popup
-(function initExitIntentPopup() {
-    let shown = false;
-    const hasSeenPopup = localStorage.getItem('exitPopupSeen');
-
-    if (hasSeenPopup) return;
-
-    // Create popup HTML
-    const popupHtml = `
-        <div class="exit-popup-overlay" id="exit-popup">
-            <div class="exit-popup">
-                <span class="exit-popup-close" onclick="document.getElementById('exit-popup').classList.remove('active')">&times;</span>
-                <h3>🎯 Não perca as melhores ofertas!</h3>
-                <p>Receba alertas de preço e comparativos exclusivos.</p>
-                <form id="exit-popup-form">
-                    <input type="email" placeholder="Seu melhor e-mail" required>
-                    <button type="submit">Quero receber!</button>
-                </form>
-            </div>
-        </div>
-    `;
-
-    document.body.insertAdjacentHTML('beforeend', popupHtml);
-
-    // Show popup on exit intent (mouse leaves viewport)
-    document.addEventListener('mouseout', function (e) {
-        if (!shown && e.clientY < 0) {
-            shown = true;
-            document.getElementById('exit-popup').classList.add('active');
-        }
-    });
-
-    // Handle form submit
-    document.getElementById('exit-popup-form')?.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const email = this.querySelector('input').value;
-        console.log('Newsletter signup:', email);
-        localStorage.setItem('exitPopupSeen', 'true');
-        document.getElementById('exit-popup').classList.remove('active');
-        alert('Obrigado! Você receberá nossas atualizações.');
-    });
-})();
+// Exit Intent Popup - REMOVED
+// User feedback: intrusive popups are annoying and rarely convert
+// Newsletter signup is already available in the footer section
