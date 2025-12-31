@@ -2147,6 +2147,16 @@
 
 
 
+        <!-- Floating Compare Button for Mobile -->
+    <div class="floating-compare-btn" id="floating-compare-btn" style="display:none;">
+        <button class="floating-compare-close" onclick="hideFloatingCompareBtn()" title="Fechar">&times;</button>
+        <button class="floating-compare-main" onclick="showComparison()">
+            <span class="floating-compare-icon">⚖️</span>
+            <span class="floating-compare-text">Comparar</span>
+            <span class="floating-compare-count" id="floating-compare-count">0</span>
+        </button>
+    </div>
+
     <!-- Comparison Modal -->
 
     <div class="compare-modal" id="compare-modal" onclick="if(event.target===this) closeCompareModal()">
@@ -2487,5 +2497,6 @@
 
 
 </html>
+
 
 

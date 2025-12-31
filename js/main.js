@@ -986,7 +986,49 @@ function updateHeaderCompareBadge() {
         badge.textContent = count;
         badge.classList.toggle('show', count > 0);
     }
+    // Also update floating button
+    updateFloatingCompareBtn();
 }
+
+// Update and show/hide floating compare button
+function updateFloatingCompareBtn() {
+    const floatingBtn = document.getElementById('floating-compare-btn');
+    const floatingCount = document.getElementById('floating-compare-count');
+    const count = CompareStore.getCount();
+
+    if (floatingBtn) {
+        // Check if we're on mobile and not on compare modal open
+        const isMobile = window.innerWidth <= 768;
+        const modalOpen = document.getElementById('compare-modal')?.classList.contains('show');
+
+        if (count > 0 && isMobile && !modalOpen && !floatingBtnHidden) {
+            floatingBtn.classList.add('show');
+            if (floatingCount) {
+                floatingCount.textContent = count;
+            }
+        } else {
+            floatingBtn.classList.remove('show');
+        }
+    }
+}
+
+// Track if user manually closed the floating button
+let floatingBtnHidden = false;
+
+// Hide floating compare button (user clicked X)
+function hideFloatingCompareBtn() {
+    const floatingBtn = document.getElementById('floating-compare-btn');
+    if (floatingBtn) {
+        floatingBtn.classList.remove('show');
+        floatingBtnHidden = true;
+    }
+}
+
+// Reset floating button hidden state when products change
+window.addEventListener('compare:changed', () => {
+    floatingBtnHidden = false;
+    updateFloatingCompareBtn();
+});
 
 // Handle compare button click - smart direct navigation
 function handleCompareClick() {
@@ -1434,6 +1476,7 @@ function navigateToSelected1x1() {
 
 function renderComparisonTable() {
     const products = compareList;
+    console.log('[DEBUG] renderComparisonTable - products:', products?.length, 'activeCategory:', CompareStore.getActiveCategory());
     const specsToCompare = [
         'capacidade_total', 'capacidade_freezer', 'consumo_kwh',
         'largura_cm', 'altura_cm', 'profundidade_cm', 'peso_kg'

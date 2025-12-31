@@ -2764,6 +2764,78 @@ a.category-card-tag.available:hover {
     flex: 1;
 }
 
+/* Floating Compare Button for Mobile */
+.floating-compare-btn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9998;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.floating-compare-btn.show {
+    display: flex !important;
+}
+
+.floating-compare-close {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #64748b;
+    color: white;
+    border: none;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.floating-compare-close:hover {
+    background: #475569;
+}
+
+.floating-compare-main {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+    transition: all 0.2s;
+}
+
+.floating-compare-main:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+}
+
+.floating-compare-icon {
+    font-size: 1.2rem;
+}
+
+.floating-compare-count {
+    background: #fbbf24;
+    color: #1e293b;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    min-width: 20px;
+    text-align: center;
+}
+
 /* Social Share Buttons */
 .share-buttons {
     display: flex;
