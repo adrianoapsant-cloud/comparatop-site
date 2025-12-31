@@ -21,7 +21,23 @@ import os
 import sys
 import json
 import shutil
+import re
 from pathlib import Path
+
+def strip_number_prefix(filename):
+    """
+    Remove number prefixes like '1. ', '2 - ', '01_' from filenames.
+    These are often used to track bestseller rankings on Amazon.
+    
+    Examples:
+        '1. Image.jpg' -> 'Image.jpg'
+        '2 - Product.png' -> 'Product.png'
+        '01_foto.jpg' -> 'foto.jpg'
+        '123. item.webp' -> 'item.webp'
+    """
+    # Pattern matches: digits followed by optional '. ', ' - ', '_ ', '-', or '_'
+    pattern = r'^(\d+[\.\-_]?\s*[-_]?\s*)'
+    return re.sub(pattern, '', filename)
 
 # Mapeamento de tipos de imagem baseado em análise visual
 # (Este mapeamento será preenchido manualmente após análise)
@@ -102,6 +118,21 @@ def process_images(produto_slug, marca, modelo, categoria="geladeira"):
     if not images:
         print(f"[ERRO] Nenhuma imagem encontrada em: {input_dir}")
         return
+    
+    # Auto-rename files that have number prefixes (e.g., "1. Image-0.jpg" -> "Image-0.jpg")
+    renamed_any = False
+    for img in images:
+        clean_name = strip_number_prefix(img.name)
+        if clean_name != img.name:
+            new_path = img.parent / clean_name
+            if not new_path.exists():
+                print(f"[AUTO] Removendo prefixo numerico: {img.name} -> {clean_name}")
+                img.rename(new_path)
+                renamed_any = True
+    
+    # Re-list images after renaming
+    if renamed_any:
+        images = [f for f in input_dir.iterdir() if f.suffix.lower() in image_extensions]
     
     print(f"\n[INFO] Encontradas {len(images)} imagens para processar")
     print(f"   Marca: {marca}")

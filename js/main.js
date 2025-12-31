@@ -116,9 +116,11 @@ function hideCompareCounter() {
 // ========== PRODUCT IMAGE GALLERY ==========
 let currentGalleryIndex = 0;
 let galleryImages = [];
+let galleryAltTexts = {}; // Map of image path -> alt text
 
-function initGallery(images) {
+function initGallery(images, imageAlts) {
     galleryImages = images || [];
+    galleryAltTexts = imageAlts || {};
     currentGalleryIndex = 0;
     updateGalleryDisplay();
 }
@@ -129,8 +131,10 @@ function updateGalleryDisplay() {
     const thumbs = document.querySelectorAll('.gallery-thumb');
 
     if (mainImg && galleryImages.length > 0) {
-        mainImg.src = galleryImages[currentGalleryIndex];
-        mainImg.alt = `Imagem ${currentGalleryIndex + 1} de ${galleryImages.length}`;
+        const imgPath = galleryImages[currentGalleryIndex];
+        mainImg.src = imgPath;
+        // Use SEO alt text from JSON if available, otherwise fallback to generic
+        mainImg.alt = galleryAltTexts[imgPath] || `Imagem ${currentGalleryIndex + 1} de ${galleryImages.length}`;
     }
 
     if (counter) {
@@ -2469,7 +2473,7 @@ function displayProduct(productId) {
 
     // Initialize image gallery if product has multiple images
     if (product.images && product.images.length > 1) {
-        initGallery(product.images);
+        initGallery(product.images, product.imageAlts);
     }
 
     // Initialize quiz for this product
