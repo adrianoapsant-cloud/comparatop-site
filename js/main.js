@@ -1460,10 +1460,26 @@ function restoreCompareModalState() {
             return;
         }
 
-        body.innerHTML = renderComparisonTable();
-        modal.classList.add('show');
-        document.body.style.overflow = 'hidden';
-        console.log('[restoreCompareModalState] Modal restored successfully');
+        // Check if currentCatalog is available (needed by renderComparisonTable)
+        if (typeof currentCatalog === 'undefined' || !currentCatalog) {
+            console.log('[restoreCompareModalState] currentCatalog not ready, retrying... attempt:', restoreAttempts);
+            if (restoreAttempts < 30) {
+                setTimeout(restoreCompareModalState, 100);
+            }
+            return;
+        }
+
+        try {
+            body.innerHTML = renderComparisonTable();
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            console.log('[restoreCompareModalState] Modal restored successfully');
+        } catch (err) {
+            console.error('[restoreCompareModalState] Error rendering table:', err);
+            if (restoreAttempts < 30) {
+                setTimeout(restoreCompareModalState, 200);
+            }
+        }
     } else if (shouldOpen && count < 2) {
         // Clear the flag if not enough products
         sessionStorage.removeItem('compareModalOpen');
