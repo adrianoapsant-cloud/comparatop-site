@@ -24,6 +24,11 @@
     padding: 0;
 }
 
+/* Hide header compare button - using floating button instead */
+.ml-header-compare {
+    display: none !important;
+}
+
 body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     background: var(--c-bg);

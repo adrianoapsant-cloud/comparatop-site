@@ -384,6 +384,12 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleSidebar();
         });
     }
+
+    // Restore compare modal state after page refresh
+    setTimeout(() => {
+        restoreCompareModalState();
+        updateFloatingCompareBtn();
+    }, 500);
 });
 
 // Global Router Helper that closes sidebar on mobile
@@ -1405,11 +1411,36 @@ function showComparison() {
     body.innerHTML = renderComparisonTable();
     modal.classList.add('show');
     document.body.style.overflow = 'hidden';
+
+    // Save modal open state
+    sessionStorage.setItem('compareModalOpen', 'true');
+
+    // Hide floating button when modal is open
+    updateFloatingCompareBtn();
 }
 
 function closeCompareModal() {
     document.getElementById('compare-modal').classList.remove('show');
     document.body.style.overflow = '';
+
+    // Clear modal open state
+    sessionStorage.removeItem('compareModalOpen');
+
+    // Show floating button again
+    updateFloatingCompareBtn();
+}
+
+// Restore modal state after page load
+function restoreCompareModalState() {
+    if (sessionStorage.getItem('compareModalOpen') === 'true' && CompareStore.getCount() >= 2) {
+        const modal = document.getElementById('compare-modal');
+        const body = document.getElementById('compare-modal-body');
+        if (modal && body) {
+            body.innerHTML = renderComparisonTable();
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+    }
 }
 
 // Update button state based on checkbox selection
