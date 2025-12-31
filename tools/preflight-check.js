@@ -64,6 +64,14 @@ function validateCatalogs() {
             info.push(`${file}: ${data.category.faq.length} FAQ items`);
         }
 
+        // Check feed category fields (for shopping feeds)
+        if (!data.category?.googleProductCategory) {
+            warnings.push(`${file}: No googleProductCategory - feeds will use generic category`);
+        }
+        if (!data.category?.fbProductCategory) {
+            warnings.push(`${file}: No fbProductCategory - Facebook feed will use generic category`);
+        }
+
         // Check products
         const products = data.products || {};
         const productCount = Object.keys(products).length;

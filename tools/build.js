@@ -1384,7 +1384,7 @@ function generatePinterestFeed(catalogs) {
                 availability: offers.some(o => o.inStock !== false) ? 'in stock' : 'out of stock',
                 brand: product.brand,
                 condition: 'new',
-                google_product_category: 'Eletrodomésticos > Geladeiras e Freezers',
+                google_product_category: category.googleProductCategory || category.name,
                 product_type: category.name,
                 item_group_id: product.brand.toLowerCase(),
                 custom_label_0: product.specs?.selo_procel || '',
@@ -1515,8 +1515,8 @@ function generateFacebookCatalogFeed(catalogs) {
                 link: `${CONFIG.baseUrl}/produto/${slug}/${productId}/`,
                 image_link: resolveImageUrl(product.imageUrl),
                 brand: product.brand,
-                google_product_category: 'Eletrodomésticos > Geladeiras',
-                fb_product_category: 'home & garden > kitchen & dining > kitchen appliances > refrigerators'
+                google_product_category: category.googleProductCategory || category.name,
+                fb_product_category: category.fbProductCategory || 'home & garden'
             });
         }
     }
@@ -1714,50 +1714,45 @@ function copyRecursive(src, dest) {
     }
 }
 
-// Helper: Inject sidebar content (SSG)
+// Helper: Inject sidebar content (SSG) - DYNAMIC for any category
 function injectSidebar(html, catalogs) {
-    // 1. Geladeiras
-    if (catalogs.geladeira) {
-        const allProducts = Object.values(catalogs.geladeira.products || {})
+    // Iterate over ALL catalogs dynamically
+    for (const [slug, catalog] of Object.entries(catalogs)) {
+        const category = catalog.category;
+        const allProducts = Object.values(catalog.products || {})
             .filter(p => p.status === 'active');
 
-        const productsWithScore = allProducts
-            .filter(p => (p.editorialScores?.overall || 0) > 0)
-            .sort((a, b) => (b.editorialScores?.overall || 0) - (a.editorialScores?.overall || 0));
-
         const count = allProducts.length;
+        const categoryName = category.namePlural || category.name;
+        const navId = `nav-${category.canonicalPath?.replace(/\//g, '') || slug}-products`;
 
-        // Update nav-subcategory-badge count
-        html = html.replace(
-            /(Geladeiras\s*<span class="nav-subcategory-badge">)\d+(<\/span>)/g,
-            `$1${count}$2`
+        // Update nav-subcategory-badge count (e.g., "Geladeiras <span>4</span>")
+        const badgeRegex = new RegExp(
+            `(${categoryName}\\s*<span class="nav-subcategory-badge">)\\d+(<\\/span>)`,
+            'g'
         );
+        html = html.replace(badgeRegex, `$1${count}$2`);
 
-        // Update category-card-tag count (home page cards) - now uses <a> tag
-        html = html.replace(
-            /(<a [^>]*class="category-card-tag available"[^>]*>Geladeiras \()\d+(\)<\/a>)/g,
-            `$1${count}$2`
+        // Update category-card-tag count (home page cards)
+        const cardRegex = new RegExp(
+            `(<a [^>]*class="category-card-tag available"[^>]*>${categoryName} \\()\\d+(\\)<\\/a>)`,
+            'g'
         );
+        html = html.replace(cardRegex, `$1${count}$2`);
 
-        // Also update plain "Geladeiras 2" without parentheses
-        html = html.replace(
-            /(Geladeiras\s+)2(\s*<)/g,
-            `$1${count}$2`
-        );
-
-        // Generate Links (SSG) - List ALL active products, sorted by score if available
+        // Generate product list links for sidebar
         const sortedProducts = [...allProducts].sort((a, b) =>
             (b.editorialScores?.overall || 0) - (a.editorialScores?.overall || 0)
         );
         const listHtml = sortedProducts.map(p =>
-            `<a href="/produto/geladeira/${p.id}" class="nav-subcategory" onclick="Router.navigate('/produto/geladeira/${p.id}'); closeSidebar(); return false;">${p.name}</a>`
+            `<a href="/produto/${slug}/${p.id}" class="nav-subcategory" onclick="Router.navigate('/produto/${slug}/${p.id}'); closeSidebar(); return false;">${p.name}</a>`
         ).join('\n                                ');
 
-        // Inject Links
-        html = html.replace(
-            /(<div class="nav-product-list" id="nav-geladeiras-products">)[\s\S]*?(<\/div>)/,
-            `$1\n                                ${listHtml}\n                            $2`
+        // Inject Links into nav-product-list
+        const listRegex = new RegExp(
+            `(<div class="nav-product-list" id="${navId}">)[\\s\\S]*?(<\\/div>)`
         );
+        html = html.replace(listRegex, `$1\n                                ${listHtml}\n                            $2`);
     }
     return html;
 }

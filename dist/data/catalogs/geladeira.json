@@ -9,6 +9,8 @@
     "icon": "❄️",
     "heroTitle": "Encontre a geladeira ideal para você",
     "heroSubtitle": "Compare especificações, consumo e opiniões reais de compradores",
+    "googleProductCategory": "Eletrodomésticos > Geladeiras e Freezers",
+    "fbProductCategory": "home & garden > kitchen & dining > kitchen appliances > refrigerators",
     "faq": [
       {
         "question": "Qual a melhor marca de geladeira?",
