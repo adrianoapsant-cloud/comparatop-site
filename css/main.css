@@ -1,4 +1,29 @@
-﻿:root {
+﻿/*
+ * ComparaTop - Main Stylesheet
+ * 
+ * BREAKPOINTS:
+ *   - max-width: 480px  → Small mobile (compact phones)
+ *   - max-width: 768px  → Mobile (hide sidebar, show bottom bar)
+ *   - min-width: 769px  → Tablet/Desktop
+ *   - min-width: 1024px → Large desktop (sidebar always visible)
+ *
+ * MOBILE VIEWPORTS FOR TESTING:
+ *   - Samsung M52/S21+: 412x915 (20:9 ratio)
+ *   - iPhone 14 Pro:    393x852 (19.5:9 ratio)
+ *   - Android Small:    360x640 (16:9 ratio)
+ *   - iPhone SE:        375x667 (16:9 ratio)
+ *
+ * MOBILE-ONLY COMPONENTS (max-width: 768px):
+ *   - .ml-bottom-bar           → Bottom navigation bar
+ *   - .compare-sticky-bottom-bar → Compare counter (above bottom bar)
+ *   - .ml-bottom-sheet         → Slide-up menus
+ *   - .floating-compare-btn    → Floating action button
+ *
+ * See: docs/MOBILE-VIEWPORTS.md for testing checklist
+ * See: .agent/workflows/mobile-testing.md for full testing workflow
+ */
+
+:root {
     --c-primary: #1e40af;
     --c-primary-dark: #1e3a8a;
     --c-accent: #f59e0b;
