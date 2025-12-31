@@ -74,10 +74,10 @@ def generate_alt_text(image_type, marca, modelo, categoria="geladeira"):
     }
     return alt_texts.get(image_type, f"{marca} {modelo} - Imagem do produto")
 
-def generate_seo_filename(marca, modelo_slug, image_type, index, categoria="geladeira"):
-    """Gera nome de arquivo otimizado para SEO"""
+def generate_seo_filename(marca, modelo_slug, image_type, categoria="geladeira"):
+    """Gera nome de arquivo otimizado para SEO (sem numeração)"""
     type_suffix = IMAGE_TYPES.get(image_type, "imagem")
-    return f"{marca.lower()}-{modelo_slug}-{categoria}-{type_suffix}-{index:02d}.jpg"
+    return f"{marca.lower()}-{modelo_slug}-{categoria}-{type_suffix}.jpg"
 
 def create_image_manifest(images_data, output_path):
     """Cria arquivo JSON com dados das imagens para uso no build"""
@@ -177,7 +177,7 @@ def process_images(produto_slug, marca, modelo, categoria="geladeira"):
         img_type = img_info.get("type", "frontal")
         
         # Gerar novo nome
-        new_filename = generate_seo_filename(marca, modelo_slug, img_type, idx, categoria)
+        new_filename = generate_seo_filename(marca, modelo_slug, img_type, categoria)
         
         # Gerar alt text
         alt_text = generate_alt_text(img_type, marca, modelo, categoria)
