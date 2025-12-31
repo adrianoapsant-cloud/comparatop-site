@@ -1429,28 +1429,41 @@ function closeCompareModal() {
 }
 
 // Restore modal state after page load
+let restoreAttempts = 0;
 function restoreCompareModalState() {
+    restoreAttempts++;
+
     // Check if CompareStore is ready
     if (typeof CompareStore === 'undefined' || !CompareStore.getCount) {
-        console.log('[restoreCompareModalState] CompareStore not ready, retrying...');
-        setTimeout(restoreCompareModalState, 100);
+        console.log('[restoreCompareModalState] CompareStore not ready, retrying... attempt:', restoreAttempts);
+        if (restoreAttempts < 30) {
+            setTimeout(restoreCompareModalState, 100);
+        }
         return;
     }
 
     const count = CompareStore.getCount();
     const shouldOpen = sessionStorage.getItem('compareModalOpen') === 'true';
 
-    console.log('[restoreCompareModalState] count:', count, 'shouldOpen:', shouldOpen);
+    console.log('[restoreCompareModalState] count:', count, 'shouldOpen:', shouldOpen, 'attempt:', restoreAttempts);
 
     if (shouldOpen && count >= 2) {
         const modal = document.getElementById('compare-modal');
         const body = document.getElementById('compare-modal-body');
-        if (modal && body) {
-            body.innerHTML = renderComparisonTable();
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-            console.log('[restoreCompareModalState] Modal restored successfully');
+
+        // If elements don't exist yet, retry
+        if (!modal || !body) {
+            console.log('[restoreCompareModalState] DOM elements not ready, retrying... modal:', !!modal, 'body:', !!body, 'attempt:', restoreAttempts);
+            if (restoreAttempts < 30) {
+                setTimeout(restoreCompareModalState, 100);
+            }
+            return;
         }
+
+        body.innerHTML = renderComparisonTable();
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        console.log('[restoreCompareModalState] Modal restored successfully');
     } else if (shouldOpen && count < 2) {
         // Clear the flag if not enough products
         sessionStorage.removeItem('compareModalOpen');
