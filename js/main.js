@@ -1476,7 +1476,6 @@ function navigateToSelected1x1() {
 
 function renderComparisonTable() {
     const products = compareList;
-    console.log('[DEBUG] renderComparisonTable - products:', products?.length, 'activeCategory:', CompareStore.getActiveCategory());
     const specsToCompare = [
         'capacidade_total', 'capacidade_freezer', 'consumo_kwh',
         'largura_cm', 'altura_cm', 'profundidade_cm', 'peso_kg'
