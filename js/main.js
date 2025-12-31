@@ -1430,14 +1430,31 @@ function closeCompareModal() {
 
 // Restore modal state after page load
 function restoreCompareModalState() {
-    if (sessionStorage.getItem('compareModalOpen') === 'true' && CompareStore.getCount() >= 2) {
+    // Check if CompareStore is ready
+    if (typeof CompareStore === 'undefined' || !CompareStore.getCount) {
+        console.log('[restoreCompareModalState] CompareStore not ready, retrying...');
+        setTimeout(restoreCompareModalState, 100);
+        return;
+    }
+
+    const count = CompareStore.getCount();
+    const shouldOpen = sessionStorage.getItem('compareModalOpen') === 'true';
+
+    console.log('[restoreCompareModalState] count:', count, 'shouldOpen:', shouldOpen);
+
+    if (shouldOpen && count >= 2) {
         const modal = document.getElementById('compare-modal');
         const body = document.getElementById('compare-modal-body');
         if (modal && body) {
             body.innerHTML = renderComparisonTable();
             modal.classList.add('show');
             document.body.style.overflow = 'hidden';
+            console.log('[restoreCompareModalState] Modal restored successfully');
         }
+    } else if (shouldOpen && count < 2) {
+        // Clear the flag if not enough products
+        sessionStorage.removeItem('compareModalOpen');
+        document.body.style.overflow = '';
     }
 }
 
