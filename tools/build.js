@@ -1279,6 +1279,74 @@ ${urls.map(u => `    <url>
     fs.writeFileSync(path.join(CONFIG.distDir, 'sitemap.xml'), xml);
 }
 
+// Generate Pinterest Product Feed (TSV format for Pinterest Catalogs)
+// Pinterest Catalogs: https://help.pinterest.com/en/business/article/data-source-ingestion
+function generatePinterestFeed(catalogs) {
+    console.log('Generating: /pinterest-feed.tsv');
+
+    const products = [];
+
+    for (const [slug, catalog] of Object.entries(catalogs)) {
+        const category = catalog.category;
+
+        for (const [productId, product] of Object.entries(catalog.products || {})) {
+            if (product.status !== 'active') continue;
+
+            const offers = (product.offers || []).filter(o => o.price && o.price > 0);
+            const bestOffer = offers.sort((a, b) => a.price - b.price)[0];
+
+            if (!bestOffer) continue;
+
+            // Get the main affiliate link
+            const affiliateUrl = bestOffer.url || '';
+
+            products.push({
+                id: product.id,
+                title: product.name,
+                description: product.voc?.oneLiner || `${product.brand} ${product.model} - ${category.name}`,
+                link: `${CONFIG.baseUrl}/produto/${slug}/${productId}/`,
+                image_link: resolveImageUrl(product.imageUrl),
+                price: `${bestOffer.price.toFixed(2)} BRL`,
+                availability: offers.some(o => o.inStock !== false) ? 'in stock' : 'out of stock',
+                brand: product.brand,
+                condition: 'new',
+                google_product_category: 'Eletrodomésticos > Geladeiras e Freezers',
+                product_type: category.name,
+                item_group_id: product.brand.toLowerCase(),
+                custom_label_0: product.specs?.selo_procel || '',
+                custom_label_1: product.editorialScores?.overall ? `Nota ${product.editorialScores.overall}/10` : '',
+                affiliate_link: affiliateUrl
+            });
+        }
+    }
+
+    if (products.length === 0) {
+        console.log('  No products to include in Pinterest feed');
+        return;
+    }
+
+    // TSV Header (Pinterest required fields + optional)
+    const headers = [
+        'id', 'title', 'description', 'link', 'image_link', 'price',
+        'availability', 'brand', 'condition', 'google_product_category',
+        'product_type', 'item_group_id', 'custom_label_0', 'custom_label_1', 'affiliate_link'
+    ];
+
+    // Generate TSV content
+    const rows = products.map(p =>
+        headers.map(h => {
+            const val = p[h] || '';
+            // Escape tabs and newlines
+            return String(val).replace(/[\t\n\r]/g, ' ');
+        }).join('\t')
+    );
+
+    const tsv = headers.join('\t') + '\n' + rows.join('\n');
+
+    fs.writeFileSync(path.join(CONFIG.distDir, 'pinterest-feed.tsv'), tsv);
+    console.log(`  ✅ Pinterest feed generated with ${products.length} products`);
+}
+
 // Generate 404 page - lightweight standalone version
 function generate404Page(template) {
     console.log('Generating: /404.html (lightweight)');
@@ -1502,6 +1570,9 @@ async function build() {
 
     // 5. Generate Sitemap
     generateSitemap(catalogs);
+
+    // 5b. Generate Pinterest Product Feed
+    generatePinterestFeed(catalogs);
 
     // 6. Generate 404 Page (Lightweight)
     generate404Page(template);
