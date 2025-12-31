@@ -1,0 +1,48 @@
+# Netlify configuration file
+
+[build]
+  # Publish directory - where the static files are located
+  publish = "dist"
+
+  # No build command needed - we pre-build locally
+  command = "echo 'Using pre-built dist folder'"
+
+# Headers for cache control
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/data/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+# Redirects
+[[redirects]]
+  from = "/categoria/geladeira/"
+  to = "/geladeiras/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/categoria/geladeira"
+  to = "/geladeiras/"
+  status = 301
+  force = true
+
+# SPA fallback - but we're SSG so this is for 404
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
