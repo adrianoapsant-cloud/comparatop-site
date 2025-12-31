@@ -12,6 +12,12 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
 
+    <!-- PWA Support -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1e3a8a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
     <script>
 
         /**
@@ -100,9 +106,14 @@
         content="Compare as melhores geladeiras do Brasil. Análise de 4 modelos com preços, especificações e avaliações.">
     <meta name="twitter:image" content="https://img.comparatop.com.br/assets/og-image.png">
 
+    <!-- Core Web Vitals: Preconnect to external origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts with display=swap for better FCP -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/css/main.css?v=20251229a">
+    <link rel="stylesheet" href="/css/main.css?v=20251231a">
 
     <script type="application/ld+json">{
 
@@ -2477,11 +2488,22 @@
 
     <script src="/js/comparator.js?v=20251229a" defer></script>
 
-    <script src="/js/assistant.js?v=20251229a" defer></script>
+    <script src="/js/assistant.js?v=20251231a" defer></script>
 
 
 
-    <script src="/js/main.js?v=20251229a" defer></script>
+    <script src="/js/main.js?v=20251231a" defer></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('[SW] Registered:', reg.scope))
+                    .catch(err => console.log('[SW] Registration failed:', err));
+            });
+        }
+    </script>
 
 </body>
 
