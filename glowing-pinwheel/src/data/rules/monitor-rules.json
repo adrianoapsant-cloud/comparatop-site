@@ -1,0 +1,145 @@
+{
+    "category_id": "monitor",
+    "category_name": "Monitor",
+    "available_contexts": [
+        {
+            "id": "gaming",
+            "name": "Gaming Competitivo",
+            "description": "Alta taxa de atualização e resposta.",
+            "icon": "🎮",
+            "group": "Uso"
+        },
+        {
+            "id": "criacao",
+            "name": "Criação / Design",
+            "description": "Precisão de cores para edição.",
+            "icon": "🎨",
+            "group": "Uso"
+        },
+        {
+            "id": "escritorio",
+            "name": "Escritório / Produtividade",
+            "description": "Conforto para longas horas.",
+            "icon": "💼",
+            "group": "Uso"
+        },
+        {
+            "id": "espaco_limitado",
+            "name": "Mesa Pequena",
+            "description": "Espaço limitado.",
+            "icon": "🏠",
+            "group": "Espaço"
+        },
+        {
+            "id": "console",
+            "name": "Console (PS5/Xbox)",
+            "description": "Compatibilidade com 4K/120Hz.",
+            "icon": "🕹️",
+            "group": "Plataforma"
+        }
+    ],
+    "rules": [
+        {
+            "id": "monitor_low_refresh_gaming",
+            "condition": "facts.refresh_rate_hz < 144",
+            "target_contexts": [
+                "gaming"
+            ],
+            "penalty": -2.0,
+            "label": "Taxa de atualização baixa (<144Hz) para competitivo",
+            "severity": "high"
+        },
+        {
+            "id": "monitor_slow_response_gaming",
+            "condition": "facts.response_time_ms > 5",
+            "target_contexts": [
+                "gaming"
+            ],
+            "penalty": -1.5,
+            "label": "Tempo de resposta alto (>5ms) - ghosting",
+            "severity": "medium"
+        },
+        {
+            "id": "monitor_poor_color_creation",
+            "condition": "facts.srgb_coverage < 99",
+            "target_contexts": [
+                "criacao"
+            ],
+            "penalty": -2.0,
+            "label": "Cobertura sRGB baixa (<99%) - cores imprecisas",
+            "severity": "high"
+        },
+        {
+            "id": "monitor_no_adjustable_office",
+            "condition": "facts.height_adjustable === false",
+            "target_contexts": [
+                "escritorio"
+            ],
+            "penalty": -1.0,
+            "label": "Sem ajuste de altura - ergonomia comprometida",
+            "severity": "medium"
+        },
+        {
+            "id": "monitor_too_large_small_desk",
+            "condition": "facts.size_inches > 27",
+            "target_contexts": [
+                "espaco_limitado"
+            ],
+            "penalty": -1.0,
+            "label": "Muito grande (>27\") para mesa pequena",
+            "severity": "medium"
+        },
+        {
+            "id": "monitor_no_hdmi21_console",
+            "condition": "facts.has_hdmi_21 === false",
+            "target_contexts": [
+                "console"
+            ],
+            "penalty": -2.0,
+            "label": "Sem HDMI 2.1 - não suporta 4K/120Hz",
+            "severity": "high"
+        },
+        {
+            "id": "monitor_high_refresh_bonus",
+            "condition": "facts.refresh_rate_hz >= 240",
+            "target_contexts": [
+                "gaming"
+            ],
+            "bonus": 2.0,
+            "label": "Ultra alta taxa (≥240Hz) - competitivo",
+            "severity": "low"
+        },
+        {
+            "id": "monitor_factory_calibrated_bonus",
+            "condition": "facts.factory_calibrated === true",
+            "target_contexts": [
+                "criacao"
+            ],
+            "bonus": 2.0,
+            "label": "Calibrado de fábrica - cores precisas",
+            "severity": "low"
+        },
+        {
+            "id": "monitor_usb_c_bonus",
+            "condition": "facts.has_usb_c_pd === true",
+            "target_contexts": [
+                "escritorio",
+                "criacao"
+            ],
+            "bonus": 1.5,
+            "label": "USB-C com Power Delivery - cabo único",
+            "severity": "low"
+        },
+        {
+            "id": "monitor_vrr_bonus",
+            "condition": "facts.has_vrr === true",
+            "target_contexts": [
+                "gaming",
+                "console"
+            ],
+            "bonus": 1.5,
+            "label": "VRR (FreeSync/G-Sync) - sem tearing",
+            "severity": "low"
+        }
+    ]
+}

@@ -1,0 +1,324 @@
+{
+    "category_id": "microondas",
+    "category_name": "Micro-ondas",
+    "available_contexts": [
+        {
+            "id": "litoral_durabilidade",
+            "name": "Litoral / Durabilidade",
+            "description": "Prioridade para resistência à maresia e umidade.",
+            "icon": "🏖️",
+            "group": "Localização"
+        },
+        {
+            "id": "idoso_acessibilidade",
+            "name": "Idosos / Acessibilidade",
+            "description": "Prioridade para interface simples e legível.",
+            "icon": "👴",
+            "group": "Acessibilidade",
+            "accessibility_senior": true
+        },
+        {
+            "id": "familia_grande",
+            "name": "Família Grande",
+            "description": "Prioridade para capacidade e potência.",
+            "icon": "👨‍👩‍👧‍👦",
+            "group": "Uso"
+        },
+        {
+            "id": "design_cozinha",
+            "name": "Design / Cozinha Planejada",
+            "description": "Prioridade para embutir e estética.",
+            "icon": "🏠",
+            "group": "Estética"
+        },
+        {
+            "id": "culinaria_avancada",
+            "name": "Culinária Avançada",
+            "description": "Prioridade para funções extras como grill e convecção.",
+            "icon": "👨‍🍳",
+            "group": "Uso"
+        }
+    ],
+    "rules": [
+        {
+            "id": "mw_rust_prone_coastal",
+            "condition": "facts.body_material === 'painted_steel'",
+            "target_contexts": [
+                "litoral_durabilidade"
+            ],
+            "penalty": -2.0,
+            "label": "Aço pintado oxida rápido no litoral",
+            "severity": "high"
+        },
+        {
+            "id": "mw_sensitive_board_coastal",
+            "condition": "facts.board_protected === false",
+            "target_contexts": [
+                "litoral_durabilidade"
+            ],
+            "penalty": -1.5,
+            "label": "Placa sem proteção - vulnerável à umidade",
+            "severity": "medium"
+        },
+        {
+            "id": "mw_membrane_panel_coastal",
+            "condition": "facts.panel_type === 'membrane'",
+            "target_contexts": [
+                "litoral_durabilidade"
+            ],
+            "penalty": -1.0,
+            "label": "Painel de membrana descola com umidade",
+            "severity": "medium"
+        },
+        {
+            "id": "mw_stainless_coastal_bonus",
+            "condition": "facts.body_material === 'stainless_steel'",
+            "target_contexts": [
+                "litoral_durabilidade"
+            ],
+            "bonus": 2.0,
+            "label": "Corpo em inox - resiste à maresia",
+            "severity": "low"
+        },
+        {
+            "id": "mw_sealed_panel_coastal_bonus",
+            "condition": "facts.panel_type === 'touch_sealed'",
+            "target_contexts": [
+                "litoral_durabilidade"
+            ],
+            "bonus": 1.5,
+            "label": "Painel touch selado - resistente à umidade",
+            "severity": "low"
+        },
+        {
+            "id": "mw_membrane_dark_senior",
+            "condition": "facts.panel_type === 'membrane' && facts.panel_contrast === 'low'",
+            "target_contexts": [
+                "idoso_acessibilidade"
+            ],
+            "penalty": -1.5,
+            "label": "Painel de membrana escuro - difícil leitura",
+            "severity": "medium"
+        },
+        {
+            "id": "mw_complex_menu_senior",
+            "condition": "facts.button_count > 20",
+            "target_contexts": [
+                "idoso_acessibilidade"
+            ],
+            "penalty": -1.5,
+            "label": "Muitos botões (>20) - confuso para idosos",
+            "severity": "medium"
+        },
+        {
+            "id": "mw_small_display_senior",
+            "condition": "facts.display_size === 'small' || facts.display_type === 'none'",
+            "target_contexts": [
+                "idoso_acessibilidade"
+            ],
+            "penalty": -1.0,
+            "label": "Display pequeno ou inexistente - difícil acompanhar",
+            "severity": "medium"
+        },
+        {
+            "id": "mw_touch_only_senior",
+            "condition": "facts.has_physical_buttons === false",
+            "target_contexts": [
+                "idoso_acessibilidade"
+            ],
+            "penalty": -1.0,
+            "label": "Apenas touch - confuso sem feedback tátil",
+            "severity": "medium"
+        },
+        {
+            "id": "mw_dial_control_senior_bonus",
+            "condition": "facts.has_dial_control === true",
+            "target_contexts": [
+                "idoso_acessibilidade"
+            ],
+            "bonus": 2.0,
+            "label": "Controle por dial - intuitivo e fácil",
+            "severity": "low"
+        },
+        {
+            "id": "mw_large_display_senior_bonus",
+            "condition": "facts.display_size === 'large' && facts.display_contrast === 'high'",
+            "target_contexts": [
+                "idoso_acessibilidade"
+            ],
+            "bonus": 1.5,
+            "label": "Display grande e alto contraste - fácil leitura",
+            "severity": "low"
+        },
+        {
+            "id": "mw_voice_feedback_senior_bonus",
+            "condition": "facts.has_voice_feedback === true",
+            "target_contexts": [
+                "idoso_acessibilidade"
+            ],
+            "bonus": 1.0,
+            "label": "Feedback sonoro de voz - auxilia deficientes visuais",
+            "severity": "low"
+        },
+        {
+            "id": "mw_small_capacity_family",
+            "condition": "facts.capacity_liters < 25",
+            "target_contexts": [
+                "familia_grande"
+            ],
+            "penalty": -2.0,
+            "label": "Capacidade pequena (<25L) - não cabe travessa grande",
+            "severity": "high"
+        },
+        {
+            "id": "mw_low_power_family",
+            "condition": "facts.power_watts < 900",
+            "target_contexts": [
+                "familia_grande"
+            ],
+            "penalty": -1.5,
+            "label": "Potência baixa (<900W) - demora para esquentar",
+            "severity": "medium"
+        },
+        {
+            "id": "mw_small_turntable_family",
+            "condition": "facts.turntable_diameter_cm < 30",
+            "target_contexts": [
+                "familia_grande"
+            ],
+            "penalty": -1.0,
+            "label": "Prato giratório pequeno - travessa não gira",
+            "severity": "medium"
+        },
+        {
+            "id": "mw_large_capacity_family_bonus",
+            "condition": "facts.capacity_liters >= 35",
+            "target_contexts": [
+                "familia_grande"
+            ],
+            "bonus": 2.0,
+            "label": "Capacidade grande (≥35L) - cabe tudo",
+            "severity": "low"
+        },
+        {
+            "id": "mw_high_power_family_bonus",
+            "condition": "facts.power_watts >= 1200",
+            "target_contexts": [
+                "familia_grande"
+            ],
+            "bonus": 1.5,
+            "label": "Alta potência (≥1200W) - esquenta rápido",
+            "severity": "low"
+        },
+        {
+            "id": "mw_flatbed_family_bonus",
+            "condition": "facts.has_flatbed === true",
+            "target_contexts": [
+                "familia_grande"
+            ],
+            "bonus": 1.0,
+            "label": "Flatbed (sem prato giratório) - espaço máximo",
+            "severity": "low"
+        },
+        {
+            "id": "mw_ugly_design_design",
+            "condition": "facts.design_finish === 'basic' || facts.design_finish === 'white_plastic'",
+            "target_contexts": [
+                "design_cozinha"
+            ],
+            "penalty": -1.5,
+            "label": "Design básico - não combina com cozinha planejada",
+            "severity": "medium"
+        },
+        {
+            "id": "mw_cant_embed_design",
+            "condition": "facts.can_be_embedded === false",
+            "target_contexts": [
+                "design_cozinha"
+            ],
+            "penalty": -2.0,
+            "label": "Não pode ser embutido - exige ventilação exposta",
+            "severity": "high"
+        },
+        {
+            "id": "mw_mirror_finish_design_bonus",
+            "condition": "facts.design_finish === 'mirror' || facts.design_finish === 'stainless'",
+            "target_contexts": [
+                "design_cozinha"
+            ],
+            "bonus": 2.0,
+            "label": "Acabamento espelhado/inox - visual premium",
+            "severity": "low"
+        },
+        {
+            "id": "mw_embeddable_design_bonus",
+            "condition": "facts.can_be_embedded === true && facts.has_trim_kit === true",
+            "target_contexts": [
+                "design_cozinha"
+            ],
+            "bonus": 2.0,
+            "label": "Modelo embutível com kit de acabamento",
+            "severity": "low"
+        },
+        {
+            "id": "mw_no_grill_advanced",
+            "condition": "facts.has_grill === false",
+            "target_contexts": [
+                "culinaria_avancada"
+            ],
+            "penalty": -1.5,
+            "label": "Sem função grill - não doura/gratina",
+            "severity": "medium"
+        },
+        {
+            "id": "mw_no_convection_advanced",
+            "condition": "facts.has_convection === false",
+            "target_contexts": [
+                "culinaria_avancada"
+            ],
+            "penalty": -1.0,
+            "label": "Sem convecção - limitado para receitas assadas",
+            "severity": "medium"
+        },
+        {
+            "id": "mw_grill_advanced_bonus",
+            "condition": "facts.has_grill === true",
+            "target_contexts": [
+                "culinaria_avancada"
+            ],
+            "bonus": 2.0,
+            "label": "Função grill - doura e gratina",
+            "severity": "low"
+        },
+        {
+            "id": "mw_convection_advanced_bonus",
+            "condition": "facts.has_convection === true",
+            "target_contexts": [
+                "culinaria_avancada"
+            ],
+            "bonus": 2.0,
+            "label": "Convecção - funciona como forno elétrico",
+            "severity": "low"
+        },
+        {
+            "id": "mw_steam_advanced_bonus",
+            "condition": "facts.has_steam === true",
+            "target_contexts": [
+                "culinaria_avancada"
+            ],
+            "bonus": 1.5,
+            "label": "Função vapor - cozinha saudável",
+            "severity": "low"
+        },
+        {
+            "id": "mw_sensor_cooking_advanced_bonus",
+            "condition": "facts.has_sensor_cooking === true",
+            "target_contexts": [
+                "culinaria_avancada"
+            ],
+            "bonus": 1.0,
+            "label": "Sensor de cozimento - ajusta tempo automaticamente",
+            "severity": "low"
+        }
+    ]
+}

@@ -1,0 +1,138 @@
+{
+    "category_id": "robot-vacuum",
+    "category_name": "Robô Aspirador",
+    "available_contexts": [
+        {
+            "id": "pets",
+            "name": "Casa com Pets",
+            "description": "Pelos e sujeira de animais.",
+            "icon": "🐕",
+            "group": "Ambiente"
+        },
+        {
+            "id": "casa_grande",
+            "name": "Casa Grande / Multi-Cômodos",
+            "description": "Área ampla para cobrir.",
+            "icon": "🏠",
+            "group": "Tamanho"
+        },
+        {
+            "id": "autonomo",
+            "name": "Máxima Autonomia",
+            "description": "Mínima intervenção manual.",
+            "icon": "🤖",
+            "group": "Automação"
+        },
+        {
+            "id": "tapetes",
+            "name": "Casa com Tapetes",
+            "description": "Transição piso/tapete.",
+            "icon": "🧶",
+            "group": "Superfície"
+        },
+        {
+            "id": "mop",
+            "name": "Precisa de Mop (Piso Duro)",
+            "description": "Limpeza úmida.",
+            "icon": "🧹",
+            "group": "Uso"
+        }
+    ],
+    "rules": [
+        {
+            "id": "robot_no_tangle_free_pets",
+            "condition": "facts.has_tangle_free_brush === false",
+            "target_contexts": [
+                "pets"
+            ],
+            "penalty": -2.0,
+            "label": "Escova emaranha pelos - manutenção constante",
+            "severity": "high"
+        },
+        {
+            "id": "robot_low_battery_big_house",
+            "condition": "facts.battery_minutes < 120",
+            "target_contexts": [
+                "casa_grande"
+            ],
+            "penalty": -1.5,
+            "label": "Bateria curta (<120min) - não cobre área grande",
+            "severity": "medium"
+        },
+        {
+            "id": "robot_no_auto_empty_autonomy",
+            "condition": "facts.has_auto_empty === false",
+            "target_contexts": [
+                "autonomo"
+            ],
+            "penalty": -2.0,
+            "label": "Sem auto-esvaziamento - precisa esvaziar toda semana",
+            "severity": "high"
+        },
+        {
+            "id": "robot_low_suction_carpets",
+            "condition": "facts.suction_pa < 4000",
+            "target_contexts": [
+                "tapetes",
+                "pets"
+            ],
+            "penalty": -1.5,
+            "label": "Sucção fraca (<4000Pa) - não limpa tapetes bem",
+            "severity": "medium"
+        },
+        {
+            "id": "robot_no_mop_mop",
+            "condition": "facts.has_mop === false",
+            "target_contexts": [
+                "mop"
+            ],
+            "penalty": -3.0,
+            "label": "Sem função mop",
+            "severity": "critical"
+        },
+        {
+            "id": "robot_auto_empty_bonus",
+            "condition": "facts.has_auto_empty === true",
+            "target_contexts": [
+                "autonomo",
+                "pets"
+            ],
+            "bonus": 2.0,
+            "label": "Auto-esvaziamento - semanas sem intervenção",
+            "severity": "low"
+        },
+        {
+            "id": "robot_lidar_bonus",
+            "condition": "facts.navigation === 'lidar'",
+            "target_contexts": [
+                "casa_grande",
+                "autonomo"
+            ],
+            "bonus": 1.5,
+            "label": "Navegação LiDAR - mapeamento preciso",
+            "severity": "low"
+        },
+        {
+            "id": "robot_high_suction_bonus",
+            "condition": "facts.suction_pa >= 6000",
+            "target_contexts": [
+                "pets",
+                "tapetes"
+            ],
+            "bonus": 2.0,
+            "label": "Alta sucção (≥6000Pa) - limpa tudo",
+            "severity": "low"
+        },
+        {
+            "id": "robot_auto_mop_lift_bonus",
+            "condition": "facts.has_mop_lift === true",
+            "target_contexts": [
+                "mop",
+                "tapetes"
+            ],
+            "bonus": 1.5,
+            "label": "Mop levanta em tapetes - não molha",
+            "severity": "low"
+        }
+    ]
+}

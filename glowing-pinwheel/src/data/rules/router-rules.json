@@ -1,0 +1,137 @@
+{
+    "category_id": "router",
+    "category_name": "Roteador",
+    "available_contexts": [
+        {
+            "id": "gaming",
+            "name": "Gaming / Baixa Latência",
+            "description": "Prioridade para jogos online.",
+            "icon": "🎮",
+            "group": "Uso"
+        },
+        {
+            "id": "casa_grande",
+            "name": "Casa Grande / Multi-Andares",
+            "description": "Cobertura ampla.",
+            "icon": "🏠",
+            "group": "Cobertura"
+        },
+        {
+            "id": "muitos_dispositivos",
+            "name": "Muitos Dispositivos IoT",
+            "description": "Casa inteligente com muitos aparelhos.",
+            "icon": "📱",
+            "group": "Uso"
+        },
+        {
+            "id": "streaming",
+            "name": "Streaming 4K / Trabalho Remoto",
+            "description": "Alta largura de banda.",
+            "icon": "📺",
+            "group": "Uso"
+        },
+        {
+            "id": "seguranca",
+            "name": "Segurança Prioritária",
+            "description": "Proteção de rede.",
+            "icon": "🔒",
+            "group": "Segurança"
+        }
+    ],
+    "rules": [
+        {
+            "id": "router_no_qos_gaming",
+            "condition": "facts.has_qos === false",
+            "target_contexts": [
+                "gaming"
+            ],
+            "penalty": -2.0,
+            "label": "Sem QoS - não prioriza tráfego de games",
+            "severity": "high"
+        },
+        {
+            "id": "router_single_band_many_devices",
+            "condition": "facts.bands === 1",
+            "target_contexts": [
+                "muitos_dispositivos",
+                "streaming"
+            ],
+            "penalty": -2.0,
+            "label": "Banda única - congestionamento com muitos dispositivos",
+            "severity": "high"
+        },
+        {
+            "id": "router_wifi5_limitation",
+            "condition": "facts.wifi_standard === 'wifi5'",
+            "target_contexts": [
+                "muitos_dispositivos",
+                "streaming"
+            ],
+            "penalty": -1.0,
+            "label": "WiFi 5 - limitado para uso intenso",
+            "severity": "medium"
+        },
+        {
+            "id": "router_low_coverage_big_house",
+            "condition": "facts.coverage_sqm < 150",
+            "target_contexts": [
+                "casa_grande"
+            ],
+            "penalty": -2.0,
+            "label": "Cobertura limitada (<150m²)",
+            "severity": "high"
+        },
+        {
+            "id": "router_no_security_features",
+            "condition": "facts.has_security_suite === false",
+            "target_contexts": [
+                "seguranca"
+            ],
+            "penalty": -1.5,
+            "label": "Sem proteção integrada contra ameaças",
+            "severity": "medium"
+        },
+        {
+            "id": "router_wifi6_bonus",
+            "condition": "facts.wifi_standard === 'wifi6' || facts.wifi_standard === 'wifi6e'",
+            "target_contexts": [
+                "gaming",
+                "muitos_dispositivos",
+                "streaming"
+            ],
+            "bonus": 2.0,
+            "label": "WiFi 6/6E - alta performance e capacidade",
+            "severity": "low"
+        },
+        {
+            "id": "router_mesh_bonus",
+            "condition": "facts.is_mesh === true",
+            "target_contexts": [
+                "casa_grande"
+            ],
+            "bonus": 2.0,
+            "label": "Sistema Mesh - cobertura sem pontos mortos",
+            "severity": "low"
+        },
+        {
+            "id": "router_gaming_mode_bonus",
+            "condition": "facts.has_gaming_mode === true",
+            "target_contexts": [
+                "gaming"
+            ],
+            "bonus": 1.5,
+            "label": "Modo gaming - otimização automática",
+            "severity": "low"
+        },
+        {
+            "id": "router_parental_control_bonus",
+            "condition": "facts.has_parental_control === true",
+            "target_contexts": [
+                "seguranca"
+            ],
+            "bonus": 1.0,
+            "label": "Controle parental integrado",
+            "severity": "low"
+        }
+    ]
+}

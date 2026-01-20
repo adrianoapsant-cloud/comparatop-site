@@ -1,0 +1,273 @@
+{
+    "category_id": "smartphone",
+    "category_name": "Smartphones",
+    "available_contexts": [
+        {
+            "id": "urbano_sol",
+            "name": "Uso Urbano / Sol Forte",
+            "description": "Prioridade para visibilidade sob luz solar intensa.",
+            "icon": "☀️",
+            "group": "Ambiente"
+        },
+        {
+            "id": "criador_conteudo",
+            "name": "Criador de Conteúdo",
+            "description": "Prioridade para câmera de qualidade em apps sociais.",
+            "icon": "📸",
+            "group": "Uso"
+        },
+        {
+            "id": "gamer_mobile",
+            "name": "Gamer Mobile",
+            "description": "Prioridade para performance sustentada e refrigeração.",
+            "icon": "🎮",
+            "group": "Uso"
+        },
+        {
+            "id": "durabilidade",
+            "name": "Durabilidade / Uso Intenso",
+            "description": "Prioridade para resistência física e bateria longa.",
+            "icon": "🛡️",
+            "group": "Uso"
+        },
+        {
+            "id": "custo_beneficio",
+            "name": "Custo-Benefício / Revenda",
+            "description": "Prioridade para retenção de valor e liquidez.",
+            "icon": "💰",
+            "group": "Economia"
+        }
+    ],
+    "rules": [
+        {
+            "id": "phone_low_brightness_urban",
+            "condition": "facts.peak_brightness_nits < 800",
+            "target_contexts": [
+                "urbano_sol"
+            ],
+            "penalty": -1.5,
+            "label": "Brilho baixo (<800 nits) - tela invisível no sol",
+            "severity": "medium"
+        },
+        {
+            "id": "phone_no_hbm_urban",
+            "condition": "facts.has_hbm === false",
+            "target_contexts": [
+                "urbano_sol"
+            ],
+            "penalty": -1.0,
+            "label": "Sem modo High Brightness - visibilidade limitada",
+            "severity": "medium"
+        },
+        {
+            "id": "phone_high_brightness_urban_bonus",
+            "condition": "facts.peak_brightness_nits >= 1500",
+            "target_contexts": [
+                "urbano_sol"
+            ],
+            "bonus": 2.0,
+            "label": "Brilho excepcional (≥1500 nits) - perfeito para sol forte",
+            "severity": "low"
+        },
+        {
+            "id": "phone_bad_social_camera",
+            "condition": "facts.social_camera_quality === 'poor'",
+            "target_contexts": [
+                "criador_conteudo"
+            ],
+            "penalty": -2.0,
+            "label": "Qualidade ruim dentro do Instagram/TikTok",
+            "severity": "high"
+        },
+        {
+            "id": "phone_no_ois_creator",
+            "condition": "facts.has_ois === false",
+            "target_contexts": [
+                "criador_conteudo"
+            ],
+            "penalty": -1.5,
+            "label": "Sem estabilização óptica (OIS) - vídeos tremidos",
+            "severity": "medium"
+        },
+        {
+            "id": "phone_inconsistent_colors_creator",
+            "condition": "facts.has_color_consistency === false",
+            "target_contexts": [
+                "criador_conteudo"
+            ],
+            "penalty": -1.0,
+            "label": "Inconsistência de cor entre lentes",
+            "severity": "medium"
+        },
+        {
+            "id": "phone_200mp_slow_creator",
+            "condition": "facts.main_camera_mp >= 200 && facts.camera_shutter_lag > 500",
+            "target_contexts": [
+                "criador_conteudo"
+            ],
+            "penalty": -1.5,
+            "label": "Câmera 200MP lenta - trava ao tirar foto",
+            "severity": "medium"
+        },
+        {
+            "id": "phone_iphone_social_bonus",
+            "condition": "facts.brand === 'Apple'",
+            "target_contexts": [
+                "criador_conteudo"
+            ],
+            "bonus": 2.0,
+            "label": "iPhone - integração nativa perfeita com apps sociais",
+            "severity": "low"
+        },
+        {
+            "id": "phone_samsung_s_social_bonus",
+            "condition": "facts.brand === 'Samsung' && (facts.model_line === 'Galaxy S' || facts.model_line === 'Galaxy Z')",
+            "target_contexts": [
+                "criador_conteudo"
+            ],
+            "bonus": 1.5,
+            "label": "Samsung S/Z - excelente integração com redes sociais",
+            "severity": "low"
+        },
+        {
+            "id": "phone_thermal_throttling_gamer",
+            "condition": "facts.thermal_throttling_percent > 20",
+            "target_contexts": [
+                "gamer_mobile"
+            ],
+            "penalty": -2.0,
+            "label": "Throttling térmico severo (>20%) - performance cai em jogos",
+            "severity": "high"
+        },
+        {
+            "id": "phone_overheating_gamer",
+            "condition": "facts.max_temp_gaming_celsius > 45",
+            "target_contexts": [
+                "gamer_mobile"
+            ],
+            "penalty": -1.5,
+            "label": "Superaquecimento em jogos (>45°C) - desconfortável",
+            "severity": "medium"
+        },
+        {
+            "id": "phone_60hz_gamer",
+            "condition": "facts.refresh_rate < 90",
+            "target_contexts": [
+                "gamer_mobile"
+            ],
+            "penalty": -1.0,
+            "label": "Apenas 60Hz - fluidez limitada em jogos",
+            "severity": "medium"
+        },
+        {
+            "id": "phone_vapor_chamber_gamer_bonus",
+            "condition": "facts.has_vapor_chamber === true",
+            "target_contexts": [
+                "gamer_mobile"
+            ],
+            "bonus": 1.5,
+            "label": "Vapor chamber - refrigeração eficiente para gaming",
+            "severity": "low"
+        },
+        {
+            "id": "phone_120hz_gamer_bonus",
+            "condition": "facts.refresh_rate >= 120 && facts.touch_sampling_rate >= 240",
+            "target_contexts": [
+                "gamer_mobile"
+            ],
+            "bonus": 2.0,
+            "label": "120Hz + touch 240Hz - resposta instantânea",
+            "severity": "low"
+        },
+        {
+            "id": "phone_no_ip_durability",
+            "condition": "facts.ip_rating === null || facts.ip_rating === 'none'",
+            "target_contexts": [
+                "durabilidade"
+            ],
+            "penalty": -2.0,
+            "label": "Sem certificação IP - vulnerável a água e poeira",
+            "severity": "high"
+        },
+        {
+            "id": "phone_fragile_glass_durability",
+            "condition": "facts.glass_type === 'basic' || facts.glass_type === 'Gorilla Glass 3'",
+            "target_contexts": [
+                "durabilidade"
+            ],
+            "penalty": -1.5,
+            "label": "Vidro frágil - risca e quebra fácil",
+            "severity": "medium"
+        },
+        {
+            "id": "phone_low_battery_durability",
+            "condition": "facts.battery_mah < 4000",
+            "target_contexts": [
+                "durabilidade"
+            ],
+            "penalty": -1.0,
+            "label": "Bateria pequena (<4000mAh) - não dura o dia todo",
+            "severity": "medium"
+        },
+        {
+            "id": "phone_ip68_durability_bonus",
+            "condition": "facts.ip_rating === 'IP68'",
+            "target_contexts": [
+                "durabilidade"
+            ],
+            "bonus": 2.0,
+            "label": "IP68 - resistente a mergulho",
+            "severity": "low"
+        },
+        {
+            "id": "phone_victus_durability_bonus",
+            "condition": "facts.glass_type === 'Gorilla Glass Victus' || facts.glass_type === 'Gorilla Glass Victus 2'",
+            "target_contexts": [
+                "durabilidade"
+            ],
+            "bonus": 1.5,
+            "label": "Gorilla Glass Victus - altamente resistente a quedas",
+            "severity": "low"
+        },
+        {
+            "id": "phone_white_label_resale",
+            "condition": "facts.brand === 'Positivo' || facts.brand === 'Multilaser' || facts.brand === 'LG'",
+            "target_contexts": [
+                "custo_beneficio"
+            ],
+            "penalty": -2.0,
+            "label": "Marca sem valor de revenda no mercado secundário",
+            "severity": "high"
+        },
+        {
+            "id": "phone_high_depreciation_resale",
+            "condition": "facts.depreciation_6months_percent > 40",
+            "target_contexts": [
+                "custo_beneficio"
+            ],
+            "penalty": -1.5,
+            "label": "Alta desvalorização em 6 meses (>40%)",
+            "severity": "medium"
+        },
+        {
+            "id": "phone_iphone_resale_bonus",
+            "condition": "facts.brand === 'Apple'",
+            "target_contexts": [
+                "custo_beneficio"
+            ],
+            "bonus": 2.5,
+            "label": "iPhone - maior retenção de valor do mercado",
+            "severity": "low"
+        },
+        {
+            "id": "phone_popular_galaxy_resale_bonus",
+            "condition": "facts.brand === 'Samsung' && (facts.model_line === 'Galaxy A' || facts.model_line === 'Galaxy S')",
+            "target_contexts": [
+                "custo_beneficio"
+            ],
+            "bonus": 1.5,
+            "label": "Galaxy popular - alta liquidez de revenda",
+            "severity": "low"
+        }
+    ]
+}

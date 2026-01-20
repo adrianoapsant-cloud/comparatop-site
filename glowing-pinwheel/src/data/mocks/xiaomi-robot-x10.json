@@ -1,0 +1,158 @@
+{
+    "product": {
+        "id": "xiaomi-robot-x10",
+        "name": "XIAOMI Robot Vacuum X10 com Auto-Esvaziamento",
+        "brand": "Xiaomi",
+        "categoryId": "robot-vacuum"
+    },
+    "header": {
+        "score": 8.43,
+        "scoreLabel": "ComparaTop Score",
+        "title": "LDS Premium com Base Auto-Esvaziante",
+        "badges": [
+            "premium-pick",
+            "editors-choice"
+        ]
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "Base auto-esvaziante que coleta pó automaticamente - zero trabalho manual por semanas",
+                "Navegação LDS (Laser) com mapeamento 3D de múltiplos andares",
+                "180 minutos de autonomia - a maior da categoria, ideal para casas grandes",
+                "Integração nativa com Alexa e Google - ecossistema Xiaomi confiável"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "Escova padrão com cerdas enrola cabelo e pelos de pets - limpeza semanal necessária",
+                "Mop estático NÃO vibratório: arrasta pano úmido, não esfrega manchas",
+                "Altura 9.5cm padrão LiDAR pode travar em móveis planejados baixos"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "O Xiaomi X10 é a escolha ideal para quem quer esquecer que o robô existe. A base auto-esvaziante elimina o trabalho de esvaziar o reservatório, e a bateria de 180min cobre casas de até 200m². Comparado ao Roborock Q7 L5 (R$ 2.106), você paga R$ 900 a mais pelo auto-esvaziamento, mas perde as escovas anti-emaranhamento. Se tem pets com muito pelo, considere o Roborock. Se quer automação máxima, o Xiaomi X10 vence."
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "Seu orçamento é apertado (R$ 3.000 é investimento significativo)",
+                "Tem múltiplos pets com muito pelo (escovas não são anti-emaranhamento)",
+                "Precisa de mop que esfrega manchas (use mop manual para retoques)",
+                "Seus móveis têm vão menor que 10cm (torre LiDAR não passa)"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões PARR-BR para Robôs Aspiradores",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Navegação & Mapeamento",
+                "shortName": "Navegação",
+                "score": 9.5,
+                "description": "Sistema LDS (Laser Distance Sensor) com mapeamento 3D multi-andares. Zonas de restrição inteligentes configuráveis pelo app."
+            },
+            {
+                "id": "c2",
+                "name": "App & Conectividade",
+                "shortName": "App/Voz",
+                "score": 9.0,
+                "description": "App Xiaomi Home estável integrado ao ecossistema. Alexa e Google funcionam nativamente sem gambiarras."
+            },
+            {
+                "id": "c3",
+                "name": "Sistema de Mop",
+                "shortName": "Mop",
+                "score": 7.5,
+                "description": "Mop estático com controle eletrônico de 3 níveis de água. Remove poeira fina, mas não esfrega manchas."
+            },
+            {
+                "id": "c4",
+                "name": "Escovas & Sucção",
+                "shortName": "Escovas",
+                "score": 7.0,
+                "description": "4000Pa de sucção adequado. Escova padrão com cerdas - não anti-emaranhamento como Roborock Q7."
+            },
+            {
+                "id": "c5",
+                "name": "Altura & Passagem",
+                "shortName": "Altura",
+                "score": 7.0,
+                "description": "9.5cm de altura padrão LiDAR. Verifique o vão dos seus móveis antes de comprar."
+            },
+            {
+                "id": "c6",
+                "name": "Peças no Brasil",
+                "shortName": "Peças BR",
+                "score": 7.0,
+                "description": "Xiaomi tem presença no Brasil com peças no Mercado Livre e Shopee. Melhor que marcas 100% importadas."
+            },
+            {
+                "id": "c7",
+                "name": "Bateria & Autonomia",
+                "shortName": "Bateria",
+                "score": 9.5,
+                "description": "5200mAh = 180 minutos! A maior autonomia da categoria. Recharge & Resume para casas grandes."
+            },
+            {
+                "id": "c8",
+                "name": "Nível de Ruído",
+                "shortName": "Ruído",
+                "score": 7.0,
+                "description": "Nível médio (~65dB). Não é silencioso, mas não incomoda para uso diário."
+            },
+            {
+                "id": "c9",
+                "name": "Base & Dock",
+                "shortName": "Base",
+                "score": 10.0,
+                "description": "DIFERENCIAL: Base AUTO-ESVAZIANTE inclusa! Coleta pó automaticamente. Zero trabalho manual."
+            },
+            {
+                "id": "c10",
+                "name": "IA & Detecção",
+                "shortName": "IA",
+                "score": 7.5,
+                "description": "Sistema anticolisão e antiqueda funcionam bem. Não tem câmera para objetos pequenos."
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "status": "warning",
+            "message": "Com 9.5cm de altura, o X10 tem o perfil padrão LiDAR. Verifique se passa sob seus móveis planejados.",
+            "idealRange": {
+                "min": 6,
+                "max": 9
+            }
+        },
+        "soundAlert": {
+            "status": "acceptable",
+            "message": "Mop estático com 3 níveis de controle de água. Limpa poeira fina, mas não esfrega manchas pesadas.",
+            "suggestions": [
+                {
+                    "condition": "Para manchas",
+                    "product": "MOP manual ou esfregão elétrico",
+                    "reason": "Use para retoques nas manchas que o robô não remove"
+                }
+            ]
+        },
+        "energyAlert": {
+            "rating": "A",
+            "message": "Bateria 5200mAh com 180min de autonomia. Baixo consumo elétrico."
+        }
+    }
+}

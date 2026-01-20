@@ -1,0 +1,178 @@
+{
+    "product": {
+        "id": "wap-robot-w400",
+        "name": "WAP Aspirador de Pó Robô ROBOT W400 3 em 1",
+        "brand": "WAP",
+        "category": "robot-vacuum",
+        "releaseYear": 2024
+    },
+    "header": {
+        "overallScore": 5.35,
+        "scoreLabel": "Básico",
+        "title": "WAP Robot W400",
+        "subtitle": "Automação básica com controle por voz por menos de R$ 1.200 — ideal para quem está começando",
+        "badges": [
+            {
+                "type": "feature",
+                "label": "Alexa & Google",
+                "icon": "mic"
+            },
+            {
+                "type": "feature",
+                "label": "3 em 1 (Aspira, Varre, Mop)",
+                "icon": "droplet"
+            },
+            {
+                "type": "certification",
+                "label": "Marca Nacional",
+                "icon": "shield"
+            }
+        ]
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "Controle por voz via Alexa e Google — raro nessa faixa de preço",
+                "Altura de 7.5cm (ultra-slim) passa facilmente sob sofás e camas baixas",
+                "Marca nacional WAP com peças disponíveis no Mercado Livre",
+                "3 em 1: aspira, varre e passa pano em uma passada"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "Navegação aleatória (bate-volta) — ineficiente para casas grandes",
+                "Mop passivo apenas arrasta pano, não esfrega manchas",
+                "Escova de cerdas mistas enrola cabelo e pelos de pets",
+                "Sem base auto-esvaziante — esvaziar manualmente a cada uso"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "O WAP W400 é uma porta de entrada honesta para robôs aspiradores. Entrega automação básica para apartamentos até 60m² com o diferencial de controle por voz. A navegação aleatória é o maior ponto fraco — para casas maiores ou plantas complexas, considere modelos LiDAR. Se você quer experimentar a categoria sem gastar R$ 2.000+, é uma escolha válida."
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "Sua casa tem mais de 60m² ou planta com muitos cômodos",
+                "Você tem pets com pelo longo ou cabelo comprido em casa",
+                "Você precisa que o mop remova manchas do piso, não só poeira"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões PARR-BR para Robôs Aspiradores",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Navegação & Mapeamento",
+                "shortName": "Navegação",
+                "score": 2.5,
+                "description": "Navegação ALEATÓRIA (bate-e-volta) — NÃO tem giroscópio. W1000/W3000 sim, W400 NÃO."
+            },
+            {
+                "id": "c2",
+                "name": "Software & Conectividade",
+                "shortName": "App/Voz",
+                "score": 7.5,
+                "description": "Alexa e Google integrados — diferencial na faixa de preço"
+            },
+            {
+                "id": "c3",
+                "name": "Sistema de Mop",
+                "shortName": "Mop",
+                "score": 7.0,
+                "description": "Mop estático com reservatório de água. Controle de fluxo básico."
+            },
+            {
+                "id": "c4",
+                "name": "Engenharia de Escovas",
+                "shortName": "Escovas",
+                "score": 5.5,
+                "description": "Escova de cerdas mistas — enrola cabelo, exige limpeza frequente"
+            },
+            {
+                "id": "c5",
+                "name": "Altura e Acessibilidade",
+                "shortName": "Altura",
+                "score": 9.5,
+                "description": "7.5cm Ultra-slim confirmado — passa sob móveis planejados BR"
+            },
+            {
+                "id": "c6",
+                "name": "Manutenibilidade",
+                "shortName": "Peças",
+                "score": 9.0,
+                "description": "WAP é marca nacional com peças fáceis de encontrar"
+            },
+            {
+                "id": "c7",
+                "name": "Bateria e Autonomia",
+                "shortName": "Bateria",
+                "score": 4.0,
+                "description": "100min autonomia, mas PENALIDADE: SEM Recharge & Resume"
+            },
+            {
+                "id": "c8",
+                "name": "Acústica",
+                "shortName": "Ruído",
+                "score": 6.0,
+                "description": "65dB — ruído médio, motor convencional"
+            },
+            {
+                "id": "c9",
+                "name": "Base de Carregamento",
+                "shortName": "Base",
+                "score": 5.0,
+                "description": "Base de carregamento simples inclusa — sem autoesvaziamento"
+            },
+            {
+                "id": "c10",
+                "name": "Recursos de IA",
+                "shortName": "IA",
+                "score": 2.0,
+                "description": "SEM detecção de objetos via câmera — apenas bate e desvia"
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "status": "optimal",
+            "message": "Com apenas 7.5cm de altura (ultra-slim), passa facilmente sob sofás, camas e móveis planejados. A maioria dos móveis padrão brasileiros tem 10-12cm de vão.",
+            "idealRange": {
+                "min": 6,
+                "max": 9
+            }
+        },
+        "soundAlert": {
+            "status": "acceptable",
+            "message": "Mop estático com reservatório de água (200ml). Remove poeira fina do piso, mas NÃO esfrega manchas pesadas. Ideal para manutenção diária, não limpeza profunda.",
+            "suggestions": [
+                {
+                    "condition": "Para manchas pesadas",
+                    "product": "Mop vibratório (Dreame, Roborock)",
+                    "reason": "Vibração de 3000rpm remove sujeira incrustada"
+                },
+                {
+                    "condition": "Para pisos de madeira",
+                    "product": "Mop com controle de fluxo",
+                    "reason": "Evita excesso de água que danifica madeira"
+                }
+            ]
+        },
+        "energyAlert": {
+            "rating": "A",
+            "message": "Consumo de 30W é muito baixo. Impacto na conta de luz é mínimo (~R$ 3/mês com uso diário)."
+        }
+    }
+}

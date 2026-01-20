@@ -1,0 +1,137 @@
+{
+    "category_id": "drill",
+    "category_name": "Parafusadeira / Furadeira",
+    "available_contexts": [
+        {
+            "id": "diy",
+            "name": "DIY / Uso Doméstico",
+            "description": "Reparos ocasionais.",
+            "icon": "🏠",
+            "group": "Uso"
+        },
+        {
+            "id": "profissional",
+            "name": "Profissional / Obra",
+            "description": "Uso intensivo diário.",
+            "icon": "🔨",
+            "group": "Uso"
+        },
+        {
+            "id": "concreto",
+            "name": "Furar Concreto/Alvenaria",
+            "description": "Paredes duras.",
+            "icon": "🧱",
+            "group": "Material"
+        },
+        {
+            "id": "madeira_metal",
+            "name": "Madeira e Metal",
+            "description": "Materiais diversos.",
+            "icon": "🪵",
+            "group": "Material"
+        },
+        {
+            "id": "espacos_apertados",
+            "name": "Espaços Apertados",
+            "description": "Cantos e móveis.",
+            "icon": "📦",
+            "group": "Espaço"
+        }
+    ],
+    "rules": [
+        {
+            "id": "drill_no_hammer_concrete",
+            "condition": "facts.has_hammer === false",
+            "target_contexts": [
+                "concreto"
+            ],
+            "penalty": -3.0,
+            "label": "Sem função impacto - não fura concreto",
+            "severity": "critical"
+        },
+        {
+            "id": "drill_low_torque_pro",
+            "condition": "facts.torque_nm < 50",
+            "target_contexts": [
+                "profissional"
+            ],
+            "penalty": -2.0,
+            "label": "Baixo torque (<50Nm) para uso intenso",
+            "severity": "high"
+        },
+        {
+            "id": "drill_short_battery_pro",
+            "condition": "facts.battery_ah < 2",
+            "target_contexts": [
+                "profissional"
+            ],
+            "penalty": -1.5,
+            "label": "Bateria fraca (<2Ah) - pouca autonomia",
+            "severity": "medium"
+        },
+        {
+            "id": "drill_heavy_spaces",
+            "condition": "facts.weight_kg > 2",
+            "target_contexts": [
+                "espacos_apertados",
+                "diy"
+            ],
+            "penalty": -1.5,
+            "label": "Pesada (>2kg) - cansa em uso prolongado",
+            "severity": "medium"
+        },
+        {
+            "id": "drill_corded_only_diy",
+            "condition": "facts.is_cordless === false",
+            "target_contexts": [
+                "diy",
+                "espacos_apertados"
+            ],
+            "penalty": -1.0,
+            "label": "Com fio - limitada em mobilidade",
+            "severity": "medium"
+        },
+        {
+            "id": "drill_high_torque_bonus",
+            "condition": "facts.torque_nm >= 80",
+            "target_contexts": [
+                "profissional",
+                "concreto"
+            ],
+            "bonus": 2.0,
+            "label": "Alto torque (≥80Nm) - potência para tudo",
+            "severity": "low"
+        },
+        {
+            "id": "drill_brushless_bonus",
+            "condition": "facts.motor_type === 'brushless'",
+            "target_contexts": [
+                "profissional"
+            ],
+            "bonus": 2.0,
+            "label": "Motor brushless - durável e eficiente",
+            "severity": "low"
+        },
+        {
+            "id": "drill_compact_bonus",
+            "condition": "facts.is_compact === true",
+            "target_contexts": [
+                "espacos_apertados",
+                "diy"
+            ],
+            "bonus": 1.5,
+            "label": "Design compacto - acessa cantos",
+            "severity": "low"
+        },
+        {
+            "id": "drill_two_batteries_bonus",
+            "condition": "facts.batteries_included >= 2",
+            "target_contexts": [
+                "profissional"
+            ],
+            "bonus": 1.5,
+            "label": "2 baterias inclusas - trabalho contínuo",
+            "severity": "low"
+        }
+    ]
+}

@@ -1,0 +1,134 @@
+{
+    "category_id": "case",
+    "category_name": "Gabinete",
+    "available_contexts": [
+        {
+            "id": "airflow",
+            "name": "Airflow / Refrigeração",
+            "description": "Máximo fluxo de ar.",
+            "icon": "💨",
+            "group": "Térmico"
+        },
+        {
+            "id": "silencioso",
+            "name": "PC Silencioso",
+            "description": "Baixo ruído prioritário.",
+            "icon": "🔇",
+            "group": "Conforto"
+        },
+        {
+            "id": "compacto",
+            "name": "Build Compacto / ITX",
+            "description": "Espaço mínimo.",
+            "icon": "📦",
+            "group": "Tamanho"
+        },
+        {
+            "id": "showcase",
+            "name": "Showcase / RGB",
+            "description": "Visual impressionante.",
+            "icon": "🌈",
+            "group": "Visual"
+        },
+        {
+            "id": "custom_loop",
+            "name": "Water Cooling Custom",
+            "description": "Espaço para radiadores.",
+            "icon": "💧",
+            "group": "Cooling"
+        }
+    ],
+    "rules": [
+        {
+            "id": "case_closed_front_airflow",
+            "condition": "facts.front_panel === 'solid'",
+            "target_contexts": [
+                "airflow"
+            ],
+            "penalty": -2.0,
+            "label": "Frontal fechado - restringe entrada de ar",
+            "severity": "high"
+        },
+        {
+            "id": "case_no_sound_dampening_silent",
+            "condition": "facts.has_sound_dampening === false",
+            "target_contexts": [
+                "silencioso"
+            ],
+            "penalty": -1.5,
+            "label": "Sem isolamento acústico",
+            "severity": "medium"
+        },
+        {
+            "id": "case_full_tower_compact",
+            "condition": "facts.size === 'full_tower'",
+            "target_contexts": [
+                "compacto"
+            ],
+            "penalty": -3.0,
+            "label": "Full Tower - muito grande",
+            "severity": "critical"
+        },
+        {
+            "id": "case_no_glass_showcase",
+            "condition": "facts.has_tempered_glass === false",
+            "target_contexts": [
+                "showcase"
+            ],
+            "penalty": -2.0,
+            "label": "Sem vidro temperado - não exibe componentes",
+            "severity": "high"
+        },
+        {
+            "id": "case_no_360_rad_water",
+            "condition": "facts.max_radiator_mm < 360",
+            "target_contexts": [
+                "custom_loop"
+            ],
+            "penalty": -2.0,
+            "label": "Não suporta radiador 360mm",
+            "severity": "high"
+        },
+        {
+            "id": "case_mesh_front_bonus",
+            "condition": "facts.front_panel === 'mesh'",
+            "target_contexts": [
+                "airflow"
+            ],
+            "bonus": 2.0,
+            "label": "Frontal mesh - excelente fluxo de ar",
+            "severity": "low"
+        },
+        {
+            "id": "case_included_fans_bonus",
+            "condition": "facts.included_fans >= 4",
+            "target_contexts": [
+                "airflow"
+            ],
+            "bonus": 1.5,
+            "label": "4+ fans inclusos - pronto para uso",
+            "severity": "low"
+        },
+        {
+            "id": "case_itx_bonus",
+            "condition": "facts.size === 'itx'",
+            "target_contexts": [
+                "compacto"
+            ],
+            "bonus": 2.0,
+            "label": "Formato ITX - ultra compacto",
+            "severity": "low"
+        },
+        {
+            "id": "case_dual_chamber_bonus",
+            "condition": "facts.is_dual_chamber === true",
+            "target_contexts": [
+                "airflow",
+                "showcase"
+            ],
+            "bonus": 1.5,
+            "label": "Dual chamber - separa PSU/cabos",
+            "severity": "low"
+        }
+    ]
+}

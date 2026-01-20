@@ -1,0 +1,141 @@
+{
+    "category_id": "power-strip",
+    "category_name": "Filtro de Linha / Protetor",
+    "available_contexts": [
+        {
+            "id": "pc_gamer",
+            "name": "PC Gamer / Workstation",
+            "description": "Proteção para hardware caro.",
+            "icon": "🎮",
+            "group": "Uso"
+        },
+        {
+            "id": "home_theater",
+            "name": "Home Theater",
+            "description": "TV, receiver, console.",
+            "icon": "📺",
+            "group": "Uso"
+        },
+        {
+            "id": "rede_instavel",
+            "name": "Rede Elétrica Instável",
+            "description": "Oscilações frequentes.",
+            "icon": "⚡",
+            "group": "Infraestrutura"
+        },
+        {
+            "id": "muitos_aparelhos",
+            "name": "Muitos Aparelhos",
+            "description": "Várias tomadas necessárias.",
+            "icon": "🔌",
+            "group": "Capacidade"
+        },
+        {
+            "id": "usb",
+            "name": "Carregar Dispositivos USB",
+            "description": "Celulares e tablets.",
+            "icon": "📱",
+            "group": "Uso"
+        }
+    ],
+    "rules": [
+        {
+            "id": "strip_no_surge_pc",
+            "condition": "facts.surge_protection_joules < 500",
+            "target_contexts": [
+                "pc_gamer",
+                "home_theater"
+            ],
+            "penalty": -2.5,
+            "label": "Proteção contra surto fraca (<500J) - risco",
+            "severity": "critical"
+        },
+        {
+            "id": "strip_no_filter_unstable",
+            "condition": "facts.has_emi_filter === false",
+            "target_contexts": [
+                "rede_instavel",
+                "pc_gamer"
+            ],
+            "penalty": -1.5,
+            "label": "Sem filtro EMI/RFI - ruído elétrico passa",
+            "severity": "medium"
+        },
+        {
+            "id": "strip_few_outlets_many",
+            "condition": "facts.outlet_count < 6",
+            "target_contexts": [
+                "muitos_aparelhos",
+                "home_theater"
+            ],
+            "penalty": -1.5,
+            "label": "Poucas tomadas (<6)",
+            "severity": "medium"
+        },
+        {
+            "id": "strip_no_usb",
+            "condition": "facts.usb_ports === 0",
+            "target_contexts": [
+                "usb"
+            ],
+            "penalty": -2.0,
+            "label": "Sem portas USB",
+            "severity": "high"
+        },
+        {
+            "id": "strip_low_amperage_many",
+            "condition": "facts.max_amps < 10",
+            "target_contexts": [
+                "muitos_aparelhos",
+                "pc_gamer"
+            ],
+            "penalty": -1.5,
+            "label": "Baixa amperagem (<10A) - não aguenta carga",
+            "severity": "medium"
+        },
+        {
+            "id": "strip_high_joules_bonus",
+            "condition": "facts.surge_protection_joules >= 2000",
+            "target_contexts": [
+                "pc_gamer",
+                "home_theater",
+                "rede_instavel"
+            ],
+            "bonus": 2.0,
+            "label": "Alta proteção (≥2000J) - equipamento seguro",
+            "severity": "low"
+        },
+        {
+            "id": "strip_individual_switches_bonus",
+            "condition": "facts.has_individual_switches === true",
+            "target_contexts": [
+                "home_theater",
+                "muitos_aparelhos"
+            ],
+            "bonus": 1.0,
+            "label": "Chaves individuais - controle por tomada",
+            "severity": "low"
+        },
+        {
+            "id": "strip_usb_c_bonus",
+            "condition": "facts.has_usb_c === true",
+            "target_contexts": [
+                "usb"
+            ],
+            "bonus": 1.5,
+            "label": "USB-C - carregamento rápido moderno",
+            "severity": "low"
+        },
+        {
+            "id": "strip_many_outlets_bonus",
+            "condition": "facts.outlet_count >= 8",
+            "target_contexts": [
+                "muitos_aparelhos",
+                "home_theater"
+            ],
+            "bonus": 1.5,
+            "label": "Muitas tomadas (≥8)",
+            "severity": "low"
+        }
+    ]
+}

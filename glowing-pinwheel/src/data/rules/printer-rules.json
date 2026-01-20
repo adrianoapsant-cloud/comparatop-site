@@ -1,0 +1,137 @@
+{
+    "category_id": "printer",
+    "category_name": "Impressora",
+    "available_contexts": [
+        {
+            "id": "alto_volume",
+            "name": "Alto Volume de Impressão",
+            "description": "Escritório ou uso intenso.",
+            "icon": "📄",
+            "group": "Uso"
+        },
+        {
+            "id": "fotos",
+            "name": "Impressão de Fotos",
+            "description": "Qualidade fotográfica.",
+            "icon": "📷",
+            "group": "Uso"
+        },
+        {
+            "id": "economico",
+            "name": "Custo por Página Baixo",
+            "description": "Economia em tinta/toner.",
+            "icon": "💰",
+            "group": "Economia"
+        },
+        {
+            "id": "home_office",
+            "name": "Home Office / Uso Ocasional",
+            "description": "Poucas impressões por mês.",
+            "icon": "🏠",
+            "group": "Uso"
+        },
+        {
+            "id": "multifuncional",
+            "name": "Multifuncional (Scan/Cópia)",
+            "description": "Necessidade de scanner.",
+            "icon": "🖨️",
+            "group": "Funcionalidades"
+        }
+    ],
+    "rules": [
+        {
+            "id": "printer_cartridge_high_volume",
+            "condition": "facts.ink_system === 'cartridge'",
+            "target_contexts": [
+                "alto_volume",
+                "economico"
+            ],
+            "penalty": -2.5,
+            "label": "Sistema de cartucho - custo altíssimo por página",
+            "severity": "critical"
+        },
+        {
+            "id": "printer_low_dpi_photos",
+            "condition": "facts.max_dpi < 4800",
+            "target_contexts": [
+                "fotos"
+            ],
+            "penalty": -1.5,
+            "label": "Resolução baixa (<4800dpi) para fotos",
+            "severity": "medium"
+        },
+        {
+            "id": "printer_no_wifi_home",
+            "condition": "facts.has_wifi === false",
+            "target_contexts": [
+                "home_office"
+            ],
+            "penalty": -1.5,
+            "label": "Sem WiFi - precisa de cabo",
+            "severity": "medium"
+        },
+        {
+            "id": "printer_no_scanner_multi",
+            "condition": "facts.has_scanner === false",
+            "target_contexts": [
+                "multifuncional"
+            ],
+            "penalty": -3.0,
+            "label": "Sem scanner - não é multifuncional",
+            "severity": "critical"
+        },
+        {
+            "id": "printer_slow_high_volume",
+            "condition": "facts.ppm < 15",
+            "target_contexts": [
+                "alto_volume"
+            ],
+            "penalty": -1.5,
+            "label": "Lenta (<15ppm) para alto volume",
+            "severity": "medium"
+        },
+        {
+            "id": "printer_ecotank_bonus",
+            "condition": "facts.ink_system === 'tank'",
+            "target_contexts": [
+                "alto_volume",
+                "economico"
+            ],
+            "bonus": 2.5,
+            "label": "Sistema tanque - custo/página baixíssimo",
+            "severity": "low"
+        },
+        {
+            "id": "printer_6_color_bonus",
+            "condition": "facts.color_count >= 6",
+            "target_contexts": [
+                "fotos"
+            ],
+            "bonus": 2.0,
+            "label": "6+ cores - qualidade fotográfica profissional",
+            "severity": "low"
+        },
+        {
+            "id": "printer_duplex_bonus",
+            "condition": "facts.has_duplex === true",
+            "target_contexts": [
+                "alto_volume",
+                "home_office"
+            ],
+            "bonus": 1.0,
+            "label": "Impressão frente e verso automática",
+            "severity": "low"
+        },
+        {
+            "id": "printer_adf_bonus",
+            "condition": "facts.has_adf === true",
+            "target_contexts": [
+                "alto_volume",
+                "multifuncional"
+            ],
+            "bonus": 1.5,
+            "label": "Alimentador automático de documentos",
+            "severity": "low"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" fill="none">
+  <rect width="300" height="400" fill="#f3f4f6"/>
+  <!-- Fridge body - dark glass style -->
+  <rect x="50" y="20" width="200" height="360" rx="12" fill="#111827"/>
+  <!-- Freezer door -->
+  <rect x="60" y="30" width="180" height="120" rx="8" fill="#1f2937"/>
+  <!-- Fridge door -->
+  <rect x="60" y="160" width="180" height="210" rx="8" fill="#1f2937"/>
+  <!-- LED indicator -->
+  <circle cx="150" cy="80" r="5" fill="#22c55e"/>
+  <!-- Handle - black glass style -->
+  <rect x="215" y="70" width="15" height="40" rx="4" fill="#374151"/>
+  <rect x="215" y="240" width="15" height="50" rx="4" fill="#374151"/>
+  <!-- Brand text -->
+  <text x="150" y="275" text-anchor="middle" fill="#9ca3af" font-family="system-ui" font-size="14">Panasonic</text>
+  <text x="150" y="295" text-anchor="middle" fill="#6b7280" font-family="system-ui" font-size="11">BB71 Black Glass</text>
+</svg>

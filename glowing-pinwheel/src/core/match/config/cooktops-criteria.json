@@ -1,0 +1,102 @@
+[
+    {
+        "id": "potencia",
+        "label": "Potência das Bocas",
+        "icon": "🔥",
+        "tech_field": "scores.c1",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "BTUs e distribuição de calor"
+    },
+    {
+        "id": "distribuicao",
+        "label": "Distribuição de Calor",
+        "icon": "🌡️",
+        "tech_field": "scores.c2",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Uniformidade do aquecimento"
+    },
+    {
+        "id": "material",
+        "label": "Material da Superfície",
+        "icon": "✨",
+        "tech_field": "scores.c3",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Vidro temperado, inox, vitrocerâmica"
+    },
+    {
+        "id": "limpeza",
+        "label": "Facilidade de Limpeza",
+        "icon": "🧹",
+        "tech_field": "scores.c4",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Design e material anti-aderente"
+    },
+    {
+        "id": "seguranca",
+        "label": "Recursos de Segurança",
+        "icon": "🛡️",
+        "tech_field": "scores.c5",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Válvulas de segurança, trava para crianças"
+    },
+    {
+        "id": "ignicao",
+        "label": "Sistema de Ignição",
+        "icon": "⚡",
+        "tech_field": "scores.c6",
+        "target_value": 8,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Acendimento automático"
+    },
+    {
+        "id": "design",
+        "label": "Design e Acabamento",
+        "icon": "♨️",
+        "tech_field": "scores.c7",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Estética e integração"
+    },
+    {
+        "id": "durabilidade",
+        "label": "Durabilidade",
+        "icon": "🔧",
+        "tech_field": "scores.c8",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Vida útil e resistência"
+    },
+    {
+        "id": "instalacao",
+        "label": "Instalação",
+        "icon": "📐",
+        "tech_field": "scores.c9",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Facilidade de instalação"
+    },
+    {
+        "id": "custo_beneficio",
+        "label": "Custo-Benefício",
+        "icon": "💰",
+        "tech_field": "scores.c10",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Valor pelo preço pago"
+    }
+]

@@ -1,0 +1,143 @@
+{
+    "category_id": "gpu",
+    "category_name": "Placa de Vídeo (GPU)",
+    "available_contexts": [
+        {
+            "id": "gaming_1080p",
+            "name": "Gaming 1080p",
+            "description": "Jogos em Full HD.",
+            "icon": "🎮",
+            "group": "Resolução"
+        },
+        {
+            "id": "gaming_4k",
+            "name": "Gaming 4K / High-End",
+            "description": "Jogos em ultra resolução.",
+            "icon": "🖥️",
+            "group": "Resolução"
+        },
+        {
+            "id": "criacao",
+            "name": "Criação / Render",
+            "description": "Edição de vídeo e 3D.",
+            "icon": "🎬",
+            "group": "Uso"
+        },
+        {
+            "id": "silencioso",
+            "name": "PC Silencioso",
+            "description": "Baixo ruído prioritário.",
+            "icon": "🔇",
+            "group": "Conforto"
+        },
+        {
+            "id": "gabinete_pequeno",
+            "name": "Gabinete Compacto / ITX",
+            "description": "Espaço limitado.",
+            "icon": "📦",
+            "group": "Espaço"
+        },
+        {
+            "id": "ray_tracing",
+            "name": "Ray Tracing Prioritário",
+            "description": "Realismo visual.",
+            "icon": "✨",
+            "group": "Tecnologia"
+        }
+    ],
+    "rules": [
+        {
+            "id": "gpu_low_vram_4k",
+            "condition": "facts.vram_gb < 12",
+            "target_contexts": [
+                "gaming_4k",
+                "criacao"
+            ],
+            "penalty": -2.0,
+            "label": "VRAM baixa (<12GB) - insuficiente para 4K",
+            "severity": "high"
+        },
+        {
+            "id": "gpu_old_gen_rt",
+            "condition": "facts.rt_generation < 2",
+            "target_contexts": [
+                "ray_tracing"
+            ],
+            "penalty": -2.0,
+            "label": "Ray tracing de 1ª geração - performance limitada",
+            "severity": "high"
+        },
+        {
+            "id": "gpu_high_tdp_silent",
+            "condition": "facts.tdp_watts > 300",
+            "target_contexts": [
+                "silencioso"
+            ],
+            "penalty": -2.0,
+            "label": "Alto TDP (>300W) - muito ruído e calor",
+            "severity": "high"
+        },
+        {
+            "id": "gpu_long_card_itx",
+            "condition": "facts.length_mm > 280",
+            "target_contexts": [
+                "gabinete_pequeno"
+            ],
+            "penalty": -2.5,
+            "label": "Muito longa (>280mm) - não cabe em ITX",
+            "severity": "critical"
+        },
+        {
+            "id": "gpu_weak_for_1080p",
+            "condition": "facts.performance_tier < 3",
+            "target_contexts": [
+                "gaming_1080p"
+            ],
+            "penalty": -1.5,
+            "label": "Performance fraca para 1080p moderno",
+            "severity": "medium"
+        },
+        {
+            "id": "gpu_high_vram_bonus",
+            "condition": "facts.vram_gb >= 16",
+            "target_contexts": [
+                "gaming_4k",
+                "criacao"
+            ],
+            "bonus": 2.0,
+            "label": "Alta VRAM (≥16GB) - futuro garantido",
+            "severity": "low"
+        },
+        {
+            "id": "gpu_dlss_bonus",
+            "condition": "facts.has_dlss === true",
+            "target_contexts": [
+                "gaming_4k",
+                "ray_tracing"
+            ],
+            "bonus": 1.5,
+            "label": "DLSS/FSR - melhor performance",
+            "severity": "low"
+        },
+        {
+            "id": "gpu_encoder_bonus",
+            "condition": "facts.encoder_quality >= 8",
+            "target_contexts": [
+                "criacao"
+            ],
+            "bonus": 1.5,
+            "label": "Encoder de qualidade - streaming/render",
+            "severity": "low"
+        },
+        {
+            "id": "gpu_compact_bonus",
+            "condition": "facts.length_mm <= 220",
+            "target_contexts": [
+                "gabinete_pequeno"
+            ],
+            "bonus": 2.0,
+            "label": "Compacta (≤220mm) - cabe em qualquer gabinete",
+            "severity": "low"
+        }
+    ]
+}

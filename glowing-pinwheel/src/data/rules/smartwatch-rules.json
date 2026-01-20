@@ -1,0 +1,134 @@
+{
+    "category_id": "smartwatch",
+    "category_name": "Smartwatch",
+    "available_contexts": [
+        {
+            "id": "fitness",
+            "name": "Fitness / Treino",
+            "description": "Monitoramento de exercícios.",
+            "icon": "🏃",
+            "group": "Uso"
+        },
+        {
+            "id": "saude",
+            "name": "Monitoramento de Saúde",
+            "description": "ECG, SpO2, sono.",
+            "icon": "❤️",
+            "group": "Saúde"
+        },
+        {
+            "id": "notificacoes",
+            "name": "Produtividade / Notificações",
+            "description": "Extensão do smartphone.",
+            "icon": "📱",
+            "group": "Uso"
+        },
+        {
+            "id": "bateria_longa",
+            "name": "Bateria Longa",
+            "description": "Menos recarga.",
+            "icon": "🔋",
+            "group": "Autonomia"
+        },
+        {
+            "id": "natacao",
+            "name": "Natação / Esportes Aquáticos",
+            "description": "Uso na água.",
+            "icon": "🏊",
+            "group": "Esporte"
+        }
+    ],
+    "rules": [
+        {
+            "id": "watch_no_gps_fitness",
+            "condition": "facts.has_gps === false",
+            "target_contexts": [
+                "fitness"
+            ],
+            "penalty": -2.0,
+            "label": "Sem GPS - precisa do celular para corrida",
+            "severity": "high"
+        },
+        {
+            "id": "watch_no_ecg_health",
+            "condition": "facts.has_ecg === false",
+            "target_contexts": [
+                "saude"
+            ],
+            "penalty": -1.5,
+            "label": "Sem ECG - monitoramento cardíaco limitado",
+            "severity": "medium"
+        },
+        {
+            "id": "watch_poor_app_ecosystem",
+            "condition": "facts.app_store_size < 1000",
+            "target_contexts": [
+                "notificacoes"
+            ],
+            "penalty": -1.0,
+            "label": "Ecossistema de apps limitado",
+            "severity": "medium"
+        },
+        {
+            "id": "watch_short_battery",
+            "condition": "facts.battery_days < 3",
+            "target_contexts": [
+                "bateria_longa"
+            ],
+            "penalty": -2.0,
+            "label": "Bateria curta (<3 dias)",
+            "severity": "high"
+        },
+        {
+            "id": "watch_low_water_resistance",
+            "condition": "facts.water_resistance_atm < 5",
+            "target_contexts": [
+                "natacao"
+            ],
+            "penalty": -2.5,
+            "label": "Resistência à água insuficiente para natação",
+            "severity": "critical"
+        },
+        {
+            "id": "watch_built_in_gps_bonus",
+            "condition": "facts.has_gps === true && facts.gps_type === 'multiband'",
+            "target_contexts": [
+                "fitness"
+            ],
+            "bonus": 2.0,
+            "label": "GPS multiband - precisão superior",
+            "severity": "low"
+        },
+        {
+            "id": "watch_ecg_spo2_bonus",
+            "condition": "facts.has_ecg === true && facts.has_spo2 === true",
+            "target_contexts": [
+                "saude"
+            ],
+            "bonus": 2.0,
+            "label": "ECG + SpO2 - monitoramento completo",
+            "severity": "low"
+        },
+        {
+            "id": "watch_long_battery_bonus",
+            "condition": "facts.battery_days >= 14",
+            "target_contexts": [
+                "bateria_longa"
+            ],
+            "bonus": 2.0,
+            "label": "Bateria longa (≥14 dias)",
+            "severity": "low"
+        },
+        {
+            "id": "watch_cellular_bonus",
+            "condition": "facts.has_lte === true",
+            "target_contexts": [
+                "fitness",
+                "notificacoes"
+            ],
+            "bonus": 1.5,
+            "label": "LTE - independente do celular",
+            "severity": "low"
+        }
+    ]
+}

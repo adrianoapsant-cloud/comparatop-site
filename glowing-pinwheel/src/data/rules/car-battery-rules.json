@@ -1,0 +1,137 @@
+{
+    "category_id": "car-battery",
+    "category_name": "Bateria Automotiva",
+    "available_contexts": [
+        {
+            "id": "start_stop",
+            "name": "Veículo Start-Stop",
+            "description": "Sistema liga/desliga automático.",
+            "icon": "🔄",
+            "group": "Sistema"
+        },
+        {
+            "id": "acessorios",
+            "name": "Muitos Acessórios",
+            "description": "Som, alarme, câmeras.",
+            "icon": "🔌",
+            "group": "Uso"
+        },
+        {
+            "id": "clima_extremo",
+            "name": "Clima Extremo (Calor/Frio)",
+            "description": "Temperaturas severas.",
+            "icon": "🌡️",
+            "group": "Clima"
+        },
+        {
+            "id": "economia",
+            "name": "Custo-Benefício",
+            "description": "Melhor preço por durabilidade.",
+            "icon": "💰",
+            "group": "Economia"
+        },
+        {
+            "id": "caminhonete",
+            "name": "Caminhonete / Diesel",
+            "description": "Alta demanda de partida.",
+            "icon": "🛻",
+            "group": "Veículo"
+        }
+    ],
+    "rules": [
+        {
+            "id": "battery_flooded_start_stop",
+            "condition": "facts.type === 'flooded'",
+            "target_contexts": [
+                "start_stop"
+            ],
+            "penalty": -3.0,
+            "label": "Bateria convencional - não suporta Start-Stop",
+            "severity": "critical"
+        },
+        {
+            "id": "battery_low_ah_accessories",
+            "condition": "facts.ampere_hours < 60",
+            "target_contexts": [
+                "acessorios",
+                "caminhonete"
+            ],
+            "penalty": -2.0,
+            "label": "Baixa capacidade (<60Ah) - não aguenta acessórios",
+            "severity": "high"
+        },
+        {
+            "id": "battery_no_extreme_temp_rating",
+            "condition": "facts.extreme_temp_rated === false",
+            "target_contexts": [
+                "clima_extremo"
+            ],
+            "penalty": -2.0,
+            "label": "Não certificada para temperaturas extremas",
+            "severity": "high"
+        },
+        {
+            "id": "battery_short_warranty_economy",
+            "condition": "facts.warranty_months < 18",
+            "target_contexts": [
+                "economia"
+            ],
+            "penalty": -1.5,
+            "label": "Garantia curta (<18 meses)",
+            "severity": "medium"
+        },
+        {
+            "id": "battery_low_cca_truck",
+            "condition": "facts.cca < 600",
+            "target_contexts": [
+                "caminhonete",
+                "clima_extremo"
+            ],
+            "penalty": -2.0,
+            "label": "CCA baixo (<600A) - partida fraca no frio/diesel",
+            "severity": "high"
+        },
+        {
+            "id": "battery_agm_bonus",
+            "condition": "facts.type === 'AGM'",
+            "target_contexts": [
+                "start_stop",
+                "acessorios"
+            ],
+            "bonus": 2.5,
+            "label": "AGM - ideal para Start-Stop e alta demanda",
+            "severity": "low"
+        },
+        {
+            "id": "battery_efb_bonus",
+            "condition": "facts.type === 'EFB'",
+            "target_contexts": [
+                "start_stop"
+            ],
+            "bonus": 1.5,
+            "label": "EFB - compatível com Start-Stop básico",
+            "severity": "low"
+        },
+        {
+            "id": "battery_high_cca_bonus",
+            "condition": "facts.cca >= 800",
+            "target_contexts": [
+                "caminhonete",
+                "clima_extremo"
+            ],
+            "bonus": 2.0,
+            "label": "Alto CCA (≥800A) - partida garantida",
+            "severity": "low"
+        },
+        {
+            "id": "battery_long_warranty_bonus",
+            "condition": "facts.warranty_months >= 24",
+            "target_contexts": [
+                "economia"
+            ],
+            "bonus": 1.5,
+            "label": "Garantia longa (≥24 meses)",
+            "severity": "low"
+        }
+    ]
+}

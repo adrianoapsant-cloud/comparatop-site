@@ -1,0 +1,102 @@
+[
+    {
+        "id": "eficiencia_tco",
+        "label": "Eficiência Energética",
+        "icon": "⚡",
+        "tech_field": "scores.c1",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Custo total de energia ao longo do tempo"
+    },
+    {
+        "id": "durabilidade_cobre",
+        "label": "Durabilidade (Cobre)",
+        "icon": "🔧",
+        "tech_field": "scores.c2",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Componentes de cobre vs alumínio"
+    },
+    {
+        "id": "conforto_acustico",
+        "label": "Silêncio Noturno",
+        "icon": "🔇",
+        "tech_field": "scores.c3",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Nível de ruído para uso durante o sono"
+    },
+    {
+        "id": "pos_venda",
+        "label": "Pós-Venda/Peças",
+        "icon": "🛡️",
+        "tech_field": "scores.c4",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Disponibilidade de peças e assistência"
+    },
+    {
+        "id": "conforto_termico",
+        "label": "Conforto Térmico",
+        "icon": "🌬️",
+        "tech_field": "scores.c5",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Direção do vento e estabilidade de temperatura"
+    },
+    {
+        "id": "robustez_eletrica",
+        "label": "Robustez Elétrica",
+        "icon": "⚠️",
+        "tech_field": "scores.c6",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Proteção contra picos de energia"
+    },
+    {
+        "id": "conectividade_smart",
+        "label": "Wi-Fi e Smart Home",
+        "icon": "📱",
+        "tech_field": "scores.c7",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Controle via app e automação"
+    },
+    {
+        "id": "qualidade_ar",
+        "label": "Qualidade do Ar",
+        "icon": "🌿",
+        "tech_field": "scores.c8",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Filtros e sanitização"
+    },
+    {
+        "id": "versatilidade",
+        "label": "Versatilidade Instalação",
+        "icon": "📐",
+        "tech_field": "scores.c9",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Adaptação a diferentes espaços"
+    },
+    {
+        "id": "reputacao",
+        "label": "Reputação da Marca",
+        "icon": "🏆",
+        "tech_field": "scores.c10",
+        "target_value": 8,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Confiança geral e valor de revenda"
+    }
+]

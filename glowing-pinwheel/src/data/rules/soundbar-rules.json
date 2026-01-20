@@ -1,0 +1,136 @@
+{
+    "category_id": "soundbar",
+    "category_name": "Soundbar",
+    "available_contexts": [
+        {
+            "id": "home_cinema",
+            "name": "Home Cinema / Filmes",
+            "description": "Experiência imersiva de cinema.",
+            "icon": "🎬",
+            "group": "Uso"
+        },
+        {
+            "id": "gaming",
+            "name": "Gaming",
+            "description": "Jogos com áudio posicional.",
+            "icon": "🎮",
+            "group": "Uso"
+        },
+        {
+            "id": "musica",
+            "name": "Música / Streaming",
+            "description": "Qualidade para ouvir música.",
+            "icon": "🎵",
+            "group": "Uso"
+        },
+        {
+            "id": "dialogos",
+            "name": "Prioridade Diálogos",
+            "description": "Clareza de vozes para idosos ou filmes.",
+            "icon": "🗣️",
+            "group": "Acessibilidade"
+        },
+        {
+            "id": "espaco_pequeno",
+            "name": "Sala Pequena",
+            "description": "Ambiente compacto.",
+            "icon": "🏠",
+            "group": "Espaço"
+        }
+    ],
+    "rules": [
+        {
+            "id": "soundbar_no_atmos_cinema",
+            "condition": "facts.has_dolby_atmos === false",
+            "target_contexts": [
+                "home_cinema"
+            ],
+            "penalty": -1.5,
+            "label": "Sem Dolby Atmos - perde imersão",
+            "severity": "medium"
+        },
+        {
+            "id": "soundbar_high_latency_gaming",
+            "condition": "facts.has_game_mode === false",
+            "target_contexts": [
+                "gaming"
+            ],
+            "penalty": -1.5,
+            "label": "Sem modo game - possível atraso de áudio",
+            "severity": "medium"
+        },
+        {
+            "id": "soundbar_no_subwoofer_music",
+            "condition": "facts.has_subwoofer === false",
+            "target_contexts": [
+                "musica"
+            ],
+            "penalty": -1.0,
+            "label": "Sem subwoofer - graves limitados",
+            "severity": "medium"
+        },
+        {
+            "id": "soundbar_no_center_channel_dialog",
+            "condition": "facts.has_center_channel === false",
+            "target_contexts": [
+                "dialogos"
+            ],
+            "penalty": -2.0,
+            "label": "Sem canal central - diálogos abafados",
+            "severity": "high"
+        },
+        {
+            "id": "soundbar_too_wide_small_room",
+            "condition": "facts.width_cm > 100",
+            "target_contexts": [
+                "espaco_pequeno"
+            ],
+            "penalty": -1.0,
+            "label": "Muito larga para sala pequena",
+            "severity": "medium"
+        },
+        {
+            "id": "soundbar_atmos_bonus",
+            "condition": "facts.has_dolby_atmos === true",
+            "target_contexts": [
+                "home_cinema",
+                "gaming"
+            ],
+            "bonus": 2.0,
+            "label": "Dolby Atmos - áudio 3D imersivo",
+            "severity": "low"
+        },
+        {
+            "id": "soundbar_earc_bonus",
+            "condition": "facts.has_earc === true",
+            "target_contexts": [
+                "home_cinema",
+                "gaming"
+            ],
+            "bonus": 1.0,
+            "label": "eARC - full bitrate de áudio",
+            "severity": "low"
+        },
+        {
+            "id": "soundbar_dialog_mode_bonus",
+            "condition": "facts.has_dialog_mode === true",
+            "target_contexts": [
+                "dialogos"
+            ],
+            "bonus": 1.5,
+            "label": "Modo diálogo - realça vozes",
+            "severity": "low"
+        },
+        {
+            "id": "soundbar_wireless_sub_bonus",
+            "condition": "facts.subwoofer_wireless === true",
+            "target_contexts": [
+                "espaco_pequeno",
+                "musica"
+            ],
+            "bonus": 1.0,
+            "label": "Subwoofer sem fio - instalação flexível",
+            "severity": "low"
+        }
+    ]
+}

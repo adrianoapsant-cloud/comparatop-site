@@ -1,0 +1,154 @@
+{
+    "category_id": "tws",
+    "category_name": "Fone TWS (True Wireless)",
+    "available_contexts": [
+        {
+            "id": "exercicios",
+            "name": "Academia / Corrida",
+            "description": "Uso durante exercícios físicos.",
+            "icon": "🏃",
+            "group": "Uso"
+        },
+        {
+            "id": "chamadas",
+            "name": "Chamadas de Trabalho",
+            "description": "Foco em qualidade de voz.",
+            "icon": "📞",
+            "group": "Uso"
+        },
+        {
+            "id": "transporte",
+            "name": "Transporte Público / Rua",
+            "description": "Ambiente barulhento.",
+            "icon": "🚇",
+            "group": "Ambiente"
+        },
+        {
+            "id": "audiofilo",
+            "name": "Audiófilo / Qualidade Sonora",
+            "description": "Prioridade para qualidade de áudio.",
+            "icon": "🎧",
+            "group": "Experiência"
+        },
+        {
+            "id": "bateria_longa",
+            "name": "Uso Prolongado / Viagens",
+            "description": "Necessidade de longa autonomia.",
+            "icon": "🔋",
+            "group": "Autonomia"
+        }
+    ],
+    "rules": [
+        {
+            "id": "tws_no_secure_fit_exercise",
+            "condition": "facts.has_ear_hooks === false && facts.has_wing_tips === false",
+            "target_contexts": [
+                "exercicios"
+            ],
+            "penalty": -1.5,
+            "label": "Sem encaixe seguro - pode cair durante exercício",
+            "severity": "medium"
+        },
+        {
+            "id": "tws_no_water_resistance_exercise",
+            "condition": "facts.ip_rating === 'none' || facts.ip_rating === 'IPX2'",
+            "target_contexts": [
+                "exercicios"
+            ],
+            "penalty": -2.0,
+            "label": "Sem proteção contra suor",
+            "severity": "high"
+        },
+        {
+            "id": "tws_poor_mic_calls",
+            "condition": "facts.mic_count < 2",
+            "target_contexts": [
+                "chamadas"
+            ],
+            "penalty": -1.5,
+            "label": "Microfone único - voz pode ficar abafada",
+            "severity": "medium"
+        },
+        {
+            "id": "tws_no_anc_commute",
+            "condition": "facts.has_anc === false",
+            "target_contexts": [
+                "transporte"
+            ],
+            "penalty": -2.0,
+            "label": "Sem cancelamento de ruído - barulho externo atrapalha",
+            "severity": "high"
+        },
+        {
+            "id": "tws_basic_codec_audiophile",
+            "condition": "facts.supports_ldac === false && facts.supports_aptx_hd === false",
+            "target_contexts": [
+                "audiofilo"
+            ],
+            "penalty": -1.5,
+            "label": "Sem codec HD (LDAC/aptX HD) - qualidade limitada",
+            "severity": "medium"
+        },
+        {
+            "id": "tws_short_battery_travel",
+            "condition": "facts.battery_hours < 6",
+            "target_contexts": [
+                "bateria_longa"
+            ],
+            "penalty": -1.5,
+            "label": "Bateria curta (<6h) - insuficiente para viagens",
+            "severity": "medium"
+        },
+        {
+            "id": "tws_ipx5_plus_bonus",
+            "condition": "facts.ip_rating === 'IPX5' || facts.ip_rating === 'IPX7'",
+            "target_contexts": [
+                "exercicios"
+            ],
+            "bonus": 1.5,
+            "label": "Resistência à água (IPX5+) - ideal para esportes",
+            "severity": "low"
+        },
+        {
+            "id": "tws_anc_bonus",
+            "condition": "facts.has_anc === true",
+            "target_contexts": [
+                "transporte",
+                "chamadas"
+            ],
+            "bonus": 2.0,
+            "label": "ANC - isola ruído externo",
+            "severity": "low"
+        },
+        {
+            "id": "tws_multipoint_bonus",
+            "condition": "facts.has_multipoint === true",
+            "target_contexts": [
+                "chamadas"
+            ],
+            "bonus": 1.5,
+            "label": "Multipoint - conecta a 2 dispositivos",
+            "severity": "low"
+        },
+        {
+            "id": "tws_long_battery_bonus",
+            "condition": "facts.battery_hours >= 10",
+            "target_contexts": [
+                "bateria_longa"
+            ],
+            "bonus": 2.0,
+            "label": "Longa autonomia (≥10h)",
+            "severity": "low"
+        },
+        {
+            "id": "tws_ldac_bonus",
+            "condition": "facts.supports_ldac === true",
+            "target_contexts": [
+                "audiofilo"
+            ],
+            "bonus": 1.5,
+            "label": "Suporte LDAC - áudio hi-res",
+            "severity": "low"
+        }
+    ]
+}

@@ -1,0 +1,137 @@
+{
+    "category_id": "camera",
+    "category_name": "Câmera Digital",
+    "available_contexts": [
+        {
+            "id": "iniciante",
+            "name": "Iniciante / Hobby",
+            "description": "Aprendendo fotografia.",
+            "icon": "📷",
+            "group": "Experiência"
+        },
+        {
+            "id": "profissional",
+            "name": "Profissional / Comercial",
+            "description": "Uso para trabalho.",
+            "icon": "💼",
+            "group": "Experiência"
+        },
+        {
+            "id": "video",
+            "name": "Vídeo / YouTube",
+            "description": "Gravação de vídeo prioritária.",
+            "icon": "🎬",
+            "group": "Uso"
+        },
+        {
+            "id": "viagem",
+            "name": "Viagem / Portátil",
+            "description": "Leve e prático.",
+            "icon": "✈️",
+            "group": "Portabilidade"
+        },
+        {
+            "id": "esportes",
+            "name": "Esportes / Ação",
+            "description": "Movimento rápido.",
+            "icon": "🏃",
+            "group": "Uso"
+        }
+    ],
+    "rules": [
+        {
+            "id": "camera_complex_beginner",
+            "condition": "facts.body_type === 'pro' && facts.has_guided_mode === false",
+            "target_contexts": [
+                "iniciante"
+            ],
+            "penalty": -1.5,
+            "label": "Sem modos guiados - curva de aprendizado alta",
+            "severity": "medium"
+        },
+        {
+            "id": "camera_no_dual_slot_pro",
+            "condition": "facts.card_slots < 2",
+            "target_contexts": [
+                "profissional"
+            ],
+            "penalty": -2.0,
+            "label": "Slot único de cartão - risco de perda de dados",
+            "severity": "high"
+        },
+        {
+            "id": "camera_no_4k60_video",
+            "condition": "facts.max_video !== '4K60'",
+            "target_contexts": [
+                "video"
+            ],
+            "penalty": -1.5,
+            "label": "Sem 4K 60fps - limitado para vídeo moderno",
+            "severity": "medium"
+        },
+        {
+            "id": "camera_heavy_travel",
+            "condition": "facts.weight_g > 700",
+            "target_contexts": [
+                "viagem"
+            ],
+            "penalty": -1.5,
+            "label": "Pesada (>700g) - cansa em viagens",
+            "severity": "medium"
+        },
+        {
+            "id": "camera_slow_burst_sports",
+            "condition": "facts.burst_fps < 10",
+            "target_contexts": [
+                "esportes"
+            ],
+            "penalty": -2.0,
+            "label": "Burst lento (<10fps) - perde momentos",
+            "severity": "high"
+        },
+        {
+            "id": "camera_touchscreen_bonus",
+            "condition": "facts.has_touchscreen === true",
+            "target_contexts": [
+                "iniciante",
+                "video"
+            ],
+            "bonus": 1.0,
+            "label": "Touchscreen - interface intuitiva",
+            "severity": "low"
+        },
+        {
+            "id": "camera_weather_sealed_bonus",
+            "condition": "facts.weather_sealed === true",
+            "target_contexts": [
+                "profissional",
+                "viagem"
+            ],
+            "bonus": 1.5,
+            "label": "Selada contra intempéries",
+            "severity": "low"
+        },
+        {
+            "id": "camera_ibis_bonus",
+            "condition": "facts.has_ibis === true",
+            "target_contexts": [
+                "video",
+                "viagem"
+            ],
+            "bonus": 2.0,
+            "label": "Estabilização no corpo - vídeo suave",
+            "severity": "low"
+        },
+        {
+            "id": "camera_fast_af_bonus",
+            "condition": "facts.af_points > 500",
+            "target_contexts": [
+                "esportes",
+                "profissional"
+            ],
+            "bonus": 2.0,
+            "label": "AF com 500+ pontos - foco preciso",
+            "severity": "low"
+        }
+    ]
+}

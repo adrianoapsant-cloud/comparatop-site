@@ -1,0 +1,102 @@
+[
+    {
+        "id": "limpeza",
+        "label": "Qualidade de Limpeza",
+        "icon": "✨",
+        "tech_field": "scores.c1",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Remoção de sujeira e gordura"
+    },
+    {
+        "id": "secagem",
+        "label": "Sistema de Secagem",
+        "icon": "💨",
+        "tech_field": "scores.c2",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Louça seca ao final do ciclo"
+    },
+    {
+        "id": "capacidade",
+        "label": "Capacidade (Serviços)",
+        "icon": "📦",
+        "tech_field": "scores.c3",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Quantidade de louça por ciclo"
+    },
+    {
+        "id": "consumo",
+        "label": "Consumo de Água/Energia",
+        "icon": "💧",
+        "tech_field": "scores.c4",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Eficiência em recursos"
+    },
+    {
+        "id": "silencio",
+        "label": "Nível de Ruído",
+        "icon": "🔇",
+        "tech_field": "scores.c5",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "dB em operação"
+    },
+    {
+        "id": "programas",
+        "label": "Variedade de Programas",
+        "icon": "⚙️",
+        "tech_field": "scores.c6",
+        "target_value": 8,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Ciclos para diferentes necessidades"
+    },
+    {
+        "id": "interior",
+        "label": "Material Interno",
+        "icon": "🛡️",
+        "tech_field": "scores.c7",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Inox vs plástico"
+    },
+    {
+        "id": "durabilidade",
+        "label": "Durabilidade",
+        "icon": "🔧",
+        "tech_field": "scores.c8",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Vida útil do produto"
+    },
+    {
+        "id": "design",
+        "label": "Design e Instalação",
+        "icon": "🍽️",
+        "tech_field": "scores.c9",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Integração na cozinha"
+    },
+    {
+        "id": "custo_beneficio",
+        "label": "Custo-Benefício",
+        "icon": "💰",
+        "tech_field": "scores.c10",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Valor pelo preço pago"
+    }
+]

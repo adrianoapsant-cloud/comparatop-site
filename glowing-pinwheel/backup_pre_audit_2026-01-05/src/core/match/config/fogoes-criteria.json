@@ -1,0 +1,102 @@
+[
+    {
+        "id": "potencia_bocas",
+        "label": "Potência das Bocas",
+        "icon": "🔥",
+        "tech_field": "scores.c1",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "BTUs e distribuição de calor"
+    },
+    {
+        "id": "forno",
+        "label": "Qualidade do Forno",
+        "icon": "🍕",
+        "tech_field": "scores.c2",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Distribuição de calor e capacidade"
+    },
+    {
+        "id": "material",
+        "label": "Material e Acabamento",
+        "icon": "✨",
+        "tech_field": "scores.c3",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Inox, esmaltado, vidro"
+    },
+    {
+        "id": "limpeza",
+        "label": "Facilidade de Limpeza",
+        "icon": "🧹",
+        "tech_field": "scores.c4",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Grades removíveis e superfície"
+    },
+    {
+        "id": "seguranca",
+        "label": "Recursos de Segurança",
+        "icon": "🛡️",
+        "tech_field": "scores.c5",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Válvulas, trava, luz do forno"
+    },
+    {
+        "id": "ignicao",
+        "label": "Sistema de Ignição",
+        "icon": "⚡",
+        "tech_field": "scores.c6",
+        "target_value": 8,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Acendimento automático"
+    },
+    {
+        "id": "timer",
+        "label": "Timer e Funções",
+        "icon": "⏱️",
+        "tech_field": "scores.c7",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Recursos adicionais"
+    },
+    {
+        "id": "durabilidade",
+        "label": "Durabilidade",
+        "icon": "🔧",
+        "tech_field": "scores.c8",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Vida útil e resistência"
+    },
+    {
+        "id": "consumo",
+        "label": "Consumo de Gás",
+        "icon": "⛽",
+        "tech_field": "scores.c9",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Eficiência no consumo"
+    },
+    {
+        "id": "custo_beneficio",
+        "label": "Custo-Benefício",
+        "icon": "💰",
+        "tech_field": "scores.c10",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Valor pelo preço pago"
+    }
+]

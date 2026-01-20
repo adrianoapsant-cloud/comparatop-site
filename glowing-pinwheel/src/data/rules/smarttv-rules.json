@@ -1,0 +1,254 @@
+{
+    "category_id": "smart-tv",
+    "category_name": "Smart TVs",
+    "available_contexts": [
+        {
+            "id": "cinema_sala_escura",
+            "name": "Cinema / Sala Escura",
+            "description": "Prioridade para pretos profundos e contraste em ambiente controlado.",
+            "icon": "🎬",
+            "group": "Ambiente"
+        },
+        {
+            "id": "esportes_sala_clara",
+            "name": "Esportes / Sala Clara",
+            "description": "Prioridade para brilho alto e fluidez de movimento.",
+            "icon": "⚽",
+            "group": "Ambiente"
+        },
+        {
+            "id": "gamer",
+            "name": "Gamer (PS5/Xbox/PC)",
+            "description": "Prioridade para input lag baixo, 120Hz e HDMI 2.1.",
+            "icon": "🎮",
+            "group": "Uso"
+        },
+        {
+            "id": "tv_aberta_upscaling",
+            "name": "TV Aberta / Streaming",
+            "description": "Prioridade para upscaling de conteúdo não-4K.",
+            "icon": "📺",
+            "group": "Uso"
+        },
+        {
+            "id": "rede_instavel",
+            "name": "Rede Elétrica Instável",
+            "description": "Regiões com quedas de energia frequentes.",
+            "icon": "⚡",
+            "group": "Infraestrutura",
+            "voltage_unstable": true
+        }
+    ],
+    "rules": [
+        {
+            "id": "tv_ips_dark_room",
+            "condition": "facts.panel_type === 'IPS' || facts.panel_type === 'ADS'",
+            "target_contexts": [
+                "cinema_sala_escura"
+            ],
+            "penalty": -2.0,
+            "label": "Painel IPS/ADS tem pretos acinzentados em sala escura",
+            "severity": "high"
+        },
+        {
+            "id": "tv_light_bleed_dark_room",
+            "condition": "facts.has_light_bleed === true",
+            "target_contexts": [
+                "cinema_sala_escura"
+            ],
+            "penalty": -1.5,
+            "label": "Vazamento de luz nas bordas (Light Bleed)",
+            "severity": "medium"
+        },
+        {
+            "id": "tv_oled_dark_room_bonus",
+            "condition": "facts.panel_type === 'OLED' || facts.panel_type === 'QD-OLED'",
+            "target_contexts": [
+                "cinema_sala_escura"
+            ],
+            "bonus": 2.0,
+            "label": "OLED - preto infinito perfeito para cinema",
+            "severity": "low"
+        },
+        {
+            "id": "tv_va_local_dimming_dark_room_bonus",
+            "condition": "facts.panel_type === 'VA' && facts.local_dimming_zones > 50",
+            "target_contexts": [
+                "cinema_sala_escura"
+            ],
+            "bonus": 1.5,
+            "label": "Painel VA com Local Dimming eficaz - ótimo contraste",
+            "severity": "low"
+        },
+        {
+            "id": "tv_miniled_dark_room_bonus",
+            "condition": "facts.backlight_type === 'Mini LED'",
+            "target_contexts": [
+                "cinema_sala_escura"
+            ],
+            "bonus": 1.5,
+            "label": "Mini LED - milhares de zonas de escurecimento",
+            "severity": "low"
+        },
+        {
+            "id": "tv_low_brightness_bright_room",
+            "condition": "facts.peak_brightness_nits < 500",
+            "target_contexts": [
+                "esportes_sala_clara"
+            ],
+            "penalty": -2.0,
+            "label": "Brilho baixo (<500 nits) - vira espelho de dia",
+            "severity": "high"
+        },
+        {
+            "id": "tv_reflective_screen_bright_room",
+            "condition": "facts.screen_finish === 'glossy' && facts.has_antireflective === false",
+            "target_contexts": [
+                "esportes_sala_clara"
+            ],
+            "penalty": -1.5,
+            "label": "Tela brilhante sem antirreflexo - reflexos incomodam",
+            "severity": "medium"
+        },
+        {
+            "id": "tv_high_brightness_bright_room_bonus",
+            "condition": "facts.peak_brightness_nits >= 1000",
+            "target_contexts": [
+                "esportes_sala_clara"
+            ],
+            "bonus": 2.0,
+            "label": "Alto brilho (≥1000 nits) - excelente visibilidade",
+            "severity": "low"
+        },
+        {
+            "id": "tv_qled_bright_room_bonus",
+            "condition": "facts.display_tech === 'QLED' || facts.display_tech === 'Neo QLED'",
+            "target_contexts": [
+                "esportes_sala_clara"
+            ],
+            "bonus": 1.0,
+            "label": "QLED - cores vibrantes em ambiente iluminado",
+            "severity": "low"
+        },
+        {
+            "id": "tv_60hz_gamer",
+            "condition": "facts.refresh_rate < 120",
+            "target_contexts": [
+                "gamer"
+            ],
+            "penalty": -2.5,
+            "label": "Apenas 60Hz - inadequado para games modernos",
+            "severity": "critical"
+        },
+        {
+            "id": "tv_no_hdmi21_gamer",
+            "condition": "facts.hdmi_21_ports === 0",
+            "target_contexts": [
+                "gamer"
+            ],
+            "penalty": -2.0,
+            "label": "Sem HDMI 2.1 - não suporta 4K@120Hz",
+            "severity": "high"
+        },
+        {
+            "id": "tv_high_input_lag_gamer",
+            "condition": "facts.input_lag_ms > 15",
+            "target_contexts": [
+                "gamer"
+            ],
+            "penalty": -1.5,
+            "label": "Input lag alto (>15ms) - atraso perceptível",
+            "severity": "medium"
+        },
+        {
+            "id": "tv_vrr_flicker_gamer",
+            "condition": "facts.has_vrr_flicker === true",
+            "target_contexts": [
+                "gamer"
+            ],
+            "penalty": -1.0,
+            "label": "VRR com flicker em cenas escuras",
+            "severity": "medium"
+        },
+        {
+            "id": "tv_120hz_hdmi21_gamer_bonus",
+            "condition": "facts.refresh_rate >= 120 && facts.hdmi_21_ports >= 2",
+            "target_contexts": [
+                "gamer"
+            ],
+            "bonus": 2.0,
+            "label": "120Hz + múltiplas HDMI 2.1 - setup gamer completo",
+            "severity": "low"
+        },
+        {
+            "id": "tv_144hz_gamer_bonus",
+            "condition": "facts.refresh_rate >= 144",
+            "target_contexts": [
+                "gamer"
+            ],
+            "bonus": 1.0,
+            "label": "144Hz - ideal para PC Gaming",
+            "severity": "low"
+        },
+        {
+            "id": "tv_game_mode_gamer_bonus",
+            "condition": "facts.has_game_bar === true && facts.input_lag_ms <= 10",
+            "target_contexts": [
+                "gamer"
+            ],
+            "bonus": 1.5,
+            "label": "Game Bar + input lag baixíssimo (≤10ms)",
+            "severity": "low"
+        },
+        {
+            "id": "tv_bad_upscaling",
+            "condition": "facts.upscaling_quality === 'poor'",
+            "target_contexts": [
+                "tv_aberta_upscaling"
+            ],
+            "penalty": -2.0,
+            "label": "Upscaling ruim - imagem pixelada em TV aberta",
+            "severity": "high"
+        },
+        {
+            "id": "tv_no_ai_processor_upscaling",
+            "condition": "facts.has_ai_upscaling === false",
+            "target_contexts": [
+                "tv_aberta_upscaling"
+            ],
+            "penalty": -1.0,
+            "label": "Sem processador de IA - upscaling básico",
+            "severity": "medium"
+        },
+        {
+            "id": "tv_ai_upscaling_bonus",
+            "condition": "facts.has_ai_upscaling === true && facts.upscaling_quality === 'excellent'",
+            "target_contexts": [
+                "tv_aberta_upscaling"
+            ],
+            "bonus": 2.0,
+            "label": "Upscaling com IA excelente - conteúdo SD fica nítido",
+            "severity": "low"
+        },
+        {
+            "id": "tv_no_voltage_protection",
+            "condition": "facts.voltage_protection === false",
+            "target_contexts": [
+                "rede_instavel"
+            ],
+            "penalty": -2.0,
+            "label": "Sem proteção de voltagem - risco de queima",
+            "severity": "critical"
+        },
+        {
+            "id": "tv_known_failure_line",
+            "condition": "facts.model_line === 'Crystal UHD' || facts.model_line === 'TU' || facts.model_line === 'AU'",
+            "target_contexts": [
+                "rede_instavel"
+            ],
+            "penalty": -1.5,
+            "label": "Linha com histórico de falhas elétricas",
+            "severity": "high"
+        }
+    ]
+}

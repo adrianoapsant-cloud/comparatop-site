@@ -1,0 +1,102 @@
+[
+    {
+        "id": "durabilidade_motor",
+        "label": "Durabilidade do Motor",
+        "icon": "⚙️",
+        "tech_field": "scores.c1",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Qualidade do compressor e sistema de gás - crítico para longevidade"
+    },
+    {
+        "id": "consumo_energia",
+        "label": "Economia de Energia",
+        "icon": "⚡",
+        "tech_field": "scores.c2",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Consumo mensal de energia elétrica"
+    },
+    {
+        "id": "custo_reparo",
+        "label": "Custo de Reparo",
+        "icon": "🔧",
+        "tech_field": "scores.c3",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Acessibilidade de peças e facilidade de manutenção"
+    },
+    {
+        "id": "acabamento",
+        "label": "Acabamento Durável",
+        "icon": "✨",
+        "tech_field": "scores.c4",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Resistência a ferrugem e qualidade dos materiais"
+    },
+    {
+        "id": "silencio",
+        "label": "Silenciosa",
+        "icon": "🔇",
+        "tech_field": "scores.c5",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Nível de ruído em operação"
+    },
+    {
+        "id": "conservacao",
+        "label": "Conservação de Alimentos",
+        "icon": "🥗",
+        "tech_field": "scores.c6",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Tecnologias de frescor e controle de umidade"
+    },
+    {
+        "id": "espaco_ergonomia",
+        "label": "Espaço e Ergonomia",
+        "icon": "📦",
+        "tech_field": "scores.c7",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Capacidade útil e organização interna"
+    },
+    {
+        "id": "calor_externo",
+        "label": "Baixo Calor Lateral",
+        "icon": "🌡️",
+        "tech_field": "scores.c8",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Dissipação de calor para ambientes embutidos"
+    },
+    {
+        "id": "agua_gelo",
+        "label": "Dispenser Água/Gelo",
+        "icon": "💧",
+        "tech_field": "scores.c9",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Dispenser de água e gelo na porta"
+    },
+    {
+        "id": "smart",
+        "label": "Tecnologia Smart",
+        "icon": "📱",
+        "tech_field": "scores.c10",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Conectividade Wi-Fi e recursos inteligentes"
+    }
+]

@@ -1,0 +1,136 @@
+{
+    "category_id": "console",
+    "category_name": "Console de Videogame",
+    "available_contexts": [
+        {
+            "id": "exclusivos",
+            "name": "Foco em Exclusivos",
+            "description": "Jogos exclusivos da plataforma.",
+            "icon": "🎮",
+            "group": "Jogos"
+        },
+        {
+            "id": "multimidia",
+            "name": "Central de Entretenimento",
+            "description": "Streaming, Blu-ray, apps.",
+            "icon": "📺",
+            "group": "Uso"
+        },
+        {
+            "id": "performance",
+            "name": "Performance / 4K 120fps",
+            "description": "Máxima qualidade gráfica.",
+            "icon": "⚡",
+            "group": "Performance"
+        },
+        {
+            "id": "portatil",
+            "name": "Portabilidade",
+            "description": "Jogar em qualquer lugar.",
+            "icon": "🎒",
+            "group": "Mobilidade"
+        },
+        {
+            "id": "familia",
+            "name": "Família / Multiplayer Local",
+            "description": "Jogos para todos.",
+            "icon": "👨‍👩‍👧‍👦",
+            "group": "Uso"
+        }
+    ],
+    "rules": [
+        {
+            "id": "console_digital_only_media",
+            "condition": "facts.has_disc_drive === false",
+            "target_contexts": [
+                "multimidia"
+            ],
+            "penalty": -2.0,
+            "label": "Sem leitor de disco - sem Blu-ray/DVDs",
+            "severity": "high"
+        },
+        {
+            "id": "console_low_storage_performance",
+            "condition": "facts.storage_gb < 500",
+            "target_contexts": [
+                "performance"
+            ],
+            "penalty": -1.5,
+            "label": "Armazenamento limitado (<500GB)",
+            "severity": "medium"
+        },
+        {
+            "id": "console_no_120fps_performance",
+            "condition": "facts.supports_120fps === false",
+            "target_contexts": [
+                "performance"
+            ],
+            "penalty": -2.0,
+            "label": "Não suporta 120fps",
+            "severity": "high"
+        },
+        {
+            "id": "console_heavy_portable",
+            "condition": "facts.is_portable === false",
+            "target_contexts": [
+                "portatil"
+            ],
+            "penalty": -3.0,
+            "label": "Console de mesa - não é portátil",
+            "severity": "critical"
+        },
+        {
+            "id": "console_few_family_games",
+            "condition": "facts.family_game_catalog < 50",
+            "target_contexts": [
+                "familia"
+            ],
+            "penalty": -1.0,
+            "label": "Catálogo limitado de jogos família",
+            "severity": "medium"
+        },
+        {
+            "id": "console_game_pass_bonus",
+            "condition": "facts.has_subscription_service === true",
+            "target_contexts": [
+                "exclusivos",
+                "familia"
+            ],
+            "bonus": 2.0,
+            "label": "Serviço de assinatura com muitos jogos",
+            "severity": "low"
+        },
+        {
+            "id": "console_vr_support_bonus",
+            "condition": "facts.has_vr_support === true",
+            "target_contexts": [
+                "exclusivos",
+                "performance"
+            ],
+            "bonus": 1.5,
+            "label": "Suporte a VR",
+            "severity": "low"
+        },
+        {
+            "id": "console_4k_uhd_bonus",
+            "condition": "facts.supports_4k_uhd === true",
+            "target_contexts": [
+                "multimidia",
+                "performance"
+            ],
+            "bonus": 1.5,
+            "label": "4K UHD nativo",
+            "severity": "low"
+        },
+        {
+            "id": "console_backward_compat_bonus",
+            "condition": "facts.backward_compatible === true",
+            "target_contexts": [
+                "exclusivos"
+            ],
+            "bonus": 1.5,
+            "label": "Retrocompatibilidade - jogue gerações anteriores",
+            "severity": "low"
+        }
+    ]
+}

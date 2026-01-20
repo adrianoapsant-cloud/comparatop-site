@@ -1,0 +1,135 @@
+{
+    "category_id": "tvbox",
+    "category_name": "TV Box / Streaming Stick",
+    "available_contexts": [
+        {
+            "id": "4k_hdr",
+            "name": "4K HDR / Dolby Vision",
+            "description": "Máxima qualidade de imagem.",
+            "icon": "📺",
+            "group": "Qualidade"
+        },
+        {
+            "id": "gaming",
+            "name": "Cloud Gaming",
+            "description": "Jogar via streaming.",
+            "icon": "🎮",
+            "group": "Uso"
+        },
+        {
+            "id": "iptv",
+            "name": "IPTV / Apps Diversos",
+            "description": "Flexibilidade de apps.",
+            "icon": "📡",
+            "group": "Uso"
+        },
+        {
+            "id": "simplicidade",
+            "name": "Simplicidade / Idosos",
+            "description": "Interface fácil.",
+            "icon": "👴",
+            "group": "Experiência"
+        },
+        {
+            "id": "audio",
+            "name": "Áudio Surround",
+            "description": "Atmos/DTS passthrough.",
+            "icon": "🔊",
+            "group": "Áudio"
+        }
+    ],
+    "rules": [
+        {
+            "id": "tvbox_no_4k_hdr",
+            "condition": "facts.supports_4k === false",
+            "target_contexts": [
+                "4k_hdr"
+            ],
+            "penalty": -3.0,
+            "label": "Não suporta 4K",
+            "severity": "critical"
+        },
+        {
+            "id": "tvbox_no_dv_hdr",
+            "condition": "facts.supports_dolby_vision === false",
+            "target_contexts": [
+                "4k_hdr"
+            ],
+            "penalty": -1.5,
+            "label": "Sem Dolby Vision - HDR limitado",
+            "severity": "medium"
+        },
+        {
+            "id": "tvbox_low_ram_gaming",
+            "condition": "facts.ram_gb < 4",
+            "target_contexts": [
+                "gaming",
+                "iptv"
+            ],
+            "penalty": -1.5,
+            "label": "Pouca RAM (<4GB) - lags em apps pesados",
+            "severity": "medium"
+        },
+        {
+            "id": "tvbox_closed_system_iptv",
+            "condition": "facts.allows_sideload === false",
+            "target_contexts": [
+                "iptv"
+            ],
+            "penalty": -2.0,
+            "label": "Sistema fechado - não instala apps externos",
+            "severity": "high"
+        },
+        {
+            "id": "tvbox_complex_interface_simple",
+            "condition": "facts.interface_complexity === 'high'",
+            "target_contexts": [
+                "simplicidade"
+            ],
+            "penalty": -1.5,
+            "label": "Interface complexa - difícil para idosos",
+            "severity": "medium"
+        },
+        {
+            "id": "tvbox_no_atmos_audio",
+            "condition": "facts.supports_atmos === false",
+            "target_contexts": [
+                "audio"
+            ],
+            "penalty": -2.0,
+            "label": "Sem passthrough Dolby Atmos",
+            "severity": "high"
+        },
+        {
+            "id": "tvbox_dv_atmos_bonus",
+            "condition": "facts.supports_dolby_vision === true && facts.supports_atmos === true",
+            "target_contexts": [
+                "4k_hdr",
+                "audio"
+            ],
+            "bonus": 2.0,
+            "label": "Dolby Vision + Atmos - experiência completa",
+            "severity": "low"
+        },
+        {
+            "id": "tvbox_controller_included_bonus",
+            "condition": "facts.controller_included === true",
+            "target_contexts": [
+                "gaming"
+            ],
+            "bonus": 1.5,
+            "label": "Controle incluso - pronto para jogar",
+            "severity": "low"
+        },
+        {
+            "id": "tvbox_voice_remote_bonus",
+            "condition": "facts.has_voice_remote === true",
+            "target_contexts": [
+                "simplicidade"
+            ],
+            "bonus": 1.5,
+            "label": "Controle com voz - fácil de usar",
+            "severity": "low"
+        }
+    ]
+}

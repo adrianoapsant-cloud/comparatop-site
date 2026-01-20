@@ -1,0 +1,102 @@
+[
+    {
+        "id": "capacidade",
+        "label": "Capacidade (Litros)",
+        "icon": "📦",
+        "tech_field": "scores.c1",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Volume útil de armazenamento"
+    },
+    {
+        "id": "congelamento",
+        "label": "Potência de Congelamento",
+        "icon": "❄️",
+        "tech_field": "scores.c2",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Velocidade de congelamento"
+    },
+    {
+        "id": "consumo",
+        "label": "Consumo de Energia",
+        "icon": "⚡",
+        "tech_field": "scores.c3",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Selo Procel e kWh/mês"
+    },
+    {
+        "id": "silencio",
+        "label": "Nível de Ruído",
+        "icon": "🔇",
+        "tech_field": "scores.c4",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "dB em operação"
+    },
+    {
+        "id": "organizacao",
+        "label": "Organização Interna",
+        "icon": "🗂️",
+        "tech_field": "scores.c5",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Prateleiras e gavetas"
+    },
+    {
+        "id": "degelo",
+        "label": "Sistema de Degelo",
+        "icon": "💧",
+        "tech_field": "scores.c6",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Frost free ou manual"
+    },
+    {
+        "id": "durabilidade",
+        "label": "Durabilidade",
+        "icon": "🛡️",
+        "tech_field": "scores.c7",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Qualidade do compressor"
+    },
+    {
+        "id": "design",
+        "label": "Design e Acabamento",
+        "icon": "🥶",
+        "tech_field": "scores.c8",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Estética e material"
+    },
+    {
+        "id": "funcoes",
+        "label": "Funções Extras",
+        "icon": "⚙️",
+        "tech_field": "scores.c9",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Turbo freeze, alarme"
+    },
+    {
+        "id": "custo_beneficio",
+        "label": "Custo-Benefício",
+        "icon": "💰",
+        "tech_field": "scores.c10",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Valor pelo preço pago"
+    }
+]

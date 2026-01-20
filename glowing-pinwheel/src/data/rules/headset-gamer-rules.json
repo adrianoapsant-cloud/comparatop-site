@@ -1,0 +1,145 @@
+{
+    "category_id": "headset-gamer",
+    "category_name": "Headset Gamer",
+    "available_contexts": [
+        {
+            "id": "fps",
+            "name": "FPS / Competitivo",
+            "description": "Jogos de tiro onde áudio posicional é crítico.",
+            "icon": "🎯",
+            "group": "Gênero"
+        },
+        {
+            "id": "streaming",
+            "name": "Streaming / Criação",
+            "description": "Qualidade de microfone para transmissão.",
+            "icon": "📹",
+            "group": "Uso"
+        },
+        {
+            "id": "longas_sessoes",
+            "name": "Longas Sessões",
+            "description": "Uso prolongado de 4+ horas.",
+            "icon": "⏰",
+            "group": "Conforto"
+        },
+        {
+            "id": "console",
+            "name": "Console (PS5/Xbox)",
+            "description": "Compatibilidade com consoles.",
+            "icon": "🎮",
+            "group": "Plataforma"
+        },
+        {
+            "id": "wireless",
+            "name": "Preferência Wireless",
+            "description": "Liberdade de movimento.",
+            "icon": "📶",
+            "group": "Conectividade"
+        }
+    ],
+    "rules": [
+        {
+            "id": "headset_no_surround_fps",
+            "condition": "facts.has_surround === false",
+            "target_contexts": [
+                "fps"
+            ],
+            "penalty": -1.5,
+            "label": "Sem surround virtual - perde posicionamento",
+            "severity": "medium"
+        },
+        {
+            "id": "headset_poor_mic_streaming",
+            "condition": "facts.mic_quality_rating < 7",
+            "target_contexts": [
+                "streaming"
+            ],
+            "penalty": -2.0,
+            "label": "Microfone de baixa qualidade para stream",
+            "severity": "high"
+        },
+        {
+            "id": "headset_heavy_long_sessions",
+            "condition": "facts.weight_g > 350",
+            "target_contexts": [
+                "longas_sessoes"
+            ],
+            "penalty": -1.5,
+            "label": "Pesado (>350g) - causa fadiga",
+            "severity": "medium"
+        },
+        {
+            "id": "headset_no_console_compat",
+            "condition": "facts.console_compatible === false",
+            "target_contexts": [
+                "console"
+            ],
+            "penalty": -2.5,
+            "label": "Não compatível com console",
+            "severity": "critical"
+        },
+        {
+            "id": "headset_short_battery_wireless",
+            "condition": "facts.is_wireless === true && facts.battery_hours < 15",
+            "target_contexts": [
+                "wireless",
+                "longas_sessoes"
+            ],
+            "penalty": -1.5,
+            "label": "Bateria curta (<15h) para wireless",
+            "severity": "medium"
+        },
+        {
+            "id": "headset_surround_bonus",
+            "condition": "facts.has_surround === true",
+            "target_contexts": [
+                "fps"
+            ],
+            "bonus": 1.5,
+            "label": "Surround 7.1 - audio posicional preciso",
+            "severity": "low"
+        },
+        {
+            "id": "headset_detachable_mic_bonus",
+            "condition": "facts.mic_detachable === true",
+            "target_contexts": [
+                "streaming"
+            ],
+            "bonus": 1.0,
+            "label": "Microfone destacável - usa mic externo",
+            "severity": "low"
+        },
+        {
+            "id": "headset_light_bonus",
+            "condition": "facts.weight_g <= 280",
+            "target_contexts": [
+                "longas_sessoes"
+            ],
+            "bonus": 1.5,
+            "label": "Leve (≤280g) - confortável por horas",
+            "severity": "low"
+        },
+        {
+            "id": "headset_memory_foam_bonus",
+            "condition": "facts.earcup_material === 'memory_foam'",
+            "target_contexts": [
+                "longas_sessoes"
+            ],
+            "bonus": 1.0,
+            "label": "Espuma memory foam - máximo conforto",
+            "severity": "low"
+        },
+        {
+            "id": "headset_2_4ghz_bonus",
+            "condition": "facts.connection_type === '2.4ghz'",
+            "target_contexts": [
+                "wireless",
+                "fps"
+            ],
+            "bonus": 1.5,
+            "label": "2.4GHz - baixa latência",
+            "severity": "low"
+        }
+    ]
+}

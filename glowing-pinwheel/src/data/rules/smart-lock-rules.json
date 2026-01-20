@@ -1,0 +1,135 @@
+{
+    "category_id": "smart-lock",
+    "category_name": "Fechadura Digital",
+    "available_contexts": [
+        {
+            "id": "familia",
+            "name": "Família com Crianças",
+            "description": "Múltiplos usuários.",
+            "icon": "👨‍👩‍👧‍👦",
+            "group": "Uso"
+        },
+        {
+            "id": "airbnb",
+            "name": "Aluguel / Airbnb",
+            "description": "Senhas temporárias.",
+            "icon": "🏠",
+            "group": "Uso"
+        },
+        {
+            "id": "emergencia",
+            "name": "Acesso de Emergência",
+            "description": "Backup mecânico.",
+            "icon": "🚨",
+            "group": "Segurança"
+        },
+        {
+            "id": "integracao",
+            "name": "Casa Inteligente",
+            "description": "Automações e assistentes.",
+            "icon": "🤖",
+            "group": "Compatibilidade"
+        },
+        {
+            "id": "retrofit",
+            "name": "Retrofit (Não Trocar Porta)",
+            "description": "Instalação na porta existente.",
+            "icon": "🔧",
+            "group": "Instalação"
+        }
+    ],
+    "rules": [
+        {
+            "id": "lock_few_users_family",
+            "condition": "facts.max_users < 10",
+            "target_contexts": [
+                "familia"
+            ],
+            "penalty": -1.5,
+            "label": "Poucas contas de usuário (<10)",
+            "severity": "medium"
+        },
+        {
+            "id": "lock_no_temp_codes_airbnb",
+            "condition": "facts.has_temporary_codes === false",
+            "target_contexts": [
+                "airbnb"
+            ],
+            "penalty": -2.5,
+            "label": "Sem senhas temporárias - impraticável para aluguel",
+            "severity": "critical"
+        },
+        {
+            "id": "lock_no_key_backup_emergency",
+            "condition": "facts.has_physical_key === false",
+            "target_contexts": [
+                "emergencia"
+            ],
+            "penalty": -2.0,
+            "label": "Sem chave física de backup",
+            "severity": "high"
+        },
+        {
+            "id": "lock_no_wifi_integration",
+            "condition": "facts.has_wifi === false",
+            "target_contexts": [
+                "integracao"
+            ],
+            "penalty": -1.5,
+            "label": "Sem WiFi - não conecta à casa inteligente",
+            "severity": "medium"
+        },
+        {
+            "id": "lock_invasive_install_retrofit",
+            "condition": "facts.replaces_entire_lock === true",
+            "target_contexts": [
+                "retrofit"
+            ],
+            "penalty": -1.5,
+            "label": "Substitui fechadura inteira - obra necessária",
+            "severity": "medium"
+        },
+        {
+            "id": "lock_many_users_bonus",
+            "condition": "facts.max_users >= 50",
+            "target_contexts": [
+                "familia",
+                "airbnb"
+            ],
+            "bonus": 1.5,
+            "label": "Muitos usuários (≥50) - flexibilidade",
+            "severity": "low"
+        },
+        {
+            "id": "lock_fingerprint_bonus",
+            "condition": "facts.has_fingerprint === true",
+            "target_contexts": [
+                "familia"
+            ],
+            "bonus": 2.0,
+            "label": "Biometria - acesso rápido e seguro",
+            "severity": "low"
+        },
+        {
+            "id": "lock_remote_access_bonus",
+            "condition": "facts.has_remote_unlock === true",
+            "target_contexts": [
+                "airbnb",
+                "integracao"
+            ],
+            "bonus": 2.0,
+            "label": "Destravamento remoto via app",
+            "severity": "low"
+        },
+        {
+            "id": "lock_retrofit_friendly_bonus",
+            "condition": "facts.is_retrofit_compatible === true",
+            "target_contexts": [
+                "retrofit"
+            ],
+            "bonus": 2.0,
+            "label": "Instala sobre fechadura existente",
+            "severity": "low"
+        }
+    ]
+}

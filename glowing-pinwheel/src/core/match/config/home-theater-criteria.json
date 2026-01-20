@@ -1,0 +1,102 @@
+[
+    {
+        "id": "qualidade_som",
+        "label": "Qualidade de Áudio",
+        "icon": "🎵",
+        "tech_field": "scores.c1",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Clareza e fidelidade sonora"
+    },
+    {
+        "id": "surround",
+        "label": "Som Surround Real",
+        "icon": "🔊",
+        "tech_field": "scores.c2",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Canais físicos e imersão"
+    },
+    {
+        "id": "subwoofer",
+        "label": "Potência do Subwoofer",
+        "icon": "💥",
+        "tech_field": "scores.c3",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Graves impactantes"
+    },
+    {
+        "id": "conectividade",
+        "label": "Conectividade",
+        "icon": "🔌",
+        "tech_field": "scores.c4",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "HDMI eARC, Bluetooth, óptico"
+    },
+    {
+        "id": "dialogos",
+        "label": "Clareza de Diálogos",
+        "icon": "🎙️",
+        "tech_field": "scores.c5",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Vozes nítidas em filmes"
+    },
+    {
+        "id": "setup",
+        "label": "Facilidade de Setup",
+        "icon": "⚙️",
+        "tech_field": "scores.c6",
+        "target_value": 8,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Instalação e calibração"
+    },
+    {
+        "id": "design",
+        "label": "Design na Sala",
+        "icon": "🎬",
+        "tech_field": "scores.c7",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Estética e integração"
+    },
+    {
+        "id": "smart",
+        "label": "Recursos Smart",
+        "icon": "📱",
+        "tech_field": "scores.c8",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Streaming e assistentes"
+    },
+    {
+        "id": "potencia",
+        "label": "Potência Total (W)",
+        "icon": "🔋",
+        "tech_field": "scores.c9",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Watts RMS combinados"
+    },
+    {
+        "id": "custo_beneficio",
+        "label": "Custo-Benefício",
+        "icon": "💰",
+        "tech_field": "scores.c10",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Valor pelo preço pago"
+    }
+]

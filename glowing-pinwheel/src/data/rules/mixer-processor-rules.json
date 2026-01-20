@@ -1,0 +1,117 @@
+{
+    "category_id": "mixer-processor",
+    "category_name": "Batedeira / Processador",
+    "available_contexts": [
+        {
+            "id": "confeitaria",
+            "name": "Confeitaria / Massas Pesadas",
+            "description": "Preparo de bolos, pães e massas densas.",
+            "icon": "🎂",
+            "group": "Uso"
+        },
+        {
+            "id": "uso_leve",
+            "name": "Uso Leve / Ocasional",
+            "description": "Receitas simples esporadicamente.",
+            "icon": "🥣",
+            "group": "Uso"
+        },
+        {
+            "id": "espaco_limitado",
+            "name": "Espaço Limitado",
+            "description": "Cozinha pequena.",
+            "icon": "🏠",
+            "group": "Espaço"
+        },
+        {
+            "id": "versatilidade",
+            "name": "Máxima Versatilidade",
+            "description": "Múltiplas funções em um aparelho.",
+            "icon": "🔧",
+            "group": "Uso"
+        }
+    ],
+    "rules": [
+        {
+            "id": "mixer_low_power_heavy_dough",
+            "condition": "facts.power_watts < 500",
+            "target_contexts": [
+                "confeitaria"
+            ],
+            "penalty": -2.5,
+            "label": "Potência baixa (<500W) - não aguenta massas pesadas",
+            "severity": "critical"
+        },
+        {
+            "id": "mixer_no_planetary_heavy_dough",
+            "condition": "facts.movement_type !== 'planetary'",
+            "target_contexts": [
+                "confeitaria"
+            ],
+            "penalty": -2.0,
+            "label": "Sem movimento planetário - mistura desigual",
+            "severity": "high"
+        },
+        {
+            "id": "mixer_too_large_light_use",
+            "condition": "facts.bowl_capacity_liters > 5",
+            "target_contexts": [
+                "uso_leve"
+            ],
+            "penalty": -0.5,
+            "label": "Muito grande para uso ocasional",
+            "severity": "low"
+        },
+        {
+            "id": "mixer_heavy_small_space",
+            "condition": "facts.weight_kg > 6",
+            "target_contexts": [
+                "espaco_limitado"
+            ],
+            "penalty": -1.0,
+            "label": "Pesado demais para guardar/mover frequentemente",
+            "severity": "medium"
+        },
+        {
+            "id": "mixer_planetary_bonus",
+            "condition": "facts.movement_type === 'planetary'",
+            "target_contexts": [
+                "confeitaria"
+            ],
+            "bonus": 1.5,
+            "label": "Movimento planetário - mistura uniforme",
+            "severity": "low"
+        },
+        {
+            "id": "mixer_high_power_bonus",
+            "condition": "facts.power_watts >= 800",
+            "target_contexts": [
+                "confeitaria"
+            ],
+            "bonus": 1.5,
+            "label": "Alta potência (≥800W) - aguenta qualquer massa",
+            "severity": "low"
+        },
+        {
+            "id": "mixer_compact_bonus",
+            "condition": "facts.is_portable === true",
+            "target_contexts": [
+                "uso_leve",
+                "espaco_limitado"
+            ],
+            "bonus": 1.0,
+            "label": "Portátil - fácil de guardar",
+            "severity": "low"
+        },
+        {
+            "id": "mixer_many_attachments_bonus",
+            "condition": "facts.attachment_count >= 5",
+            "target_contexts": [
+                "versatilidade"
+            ],
+            "bonus": 2.0,
+            "label": "Muitos acessórios inclusos - multiuso",
+            "severity": "low"
+        }
+    ]
+}

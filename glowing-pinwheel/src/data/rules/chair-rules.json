@@ -1,0 +1,135 @@
+{
+    "category_id": "chair",
+    "category_name": "Cadeira Gamer / Escritório",
+    "available_contexts": [
+        {
+            "id": "longas_sessoes",
+            "name": "Longas Sessões (8h+)",
+            "description": "Trabalho ou gaming intenso.",
+            "icon": "⏰",
+            "group": "Uso"
+        },
+        {
+            "id": "ergonomia",
+            "name": "Problemas nas Costas",
+            "description": "Suporte lombar essencial.",
+            "icon": "🦴",
+            "group": "Saúde"
+        },
+        {
+            "id": "peso_alto",
+            "name": "Usuário Pesado (100kg+)",
+            "description": "Suporte de peso robusto.",
+            "icon": "⚖️",
+            "group": "Físico"
+        },
+        {
+            "id": "espaco_pequeno",
+            "name": "Espaço Limitado",
+            "description": "Quarto ou escritório pequeno.",
+            "icon": "🏠",
+            "group": "Espaço"
+        },
+        {
+            "id": "estetica",
+            "name": "Estética / Setup",
+            "description": "Visual do ambiente.",
+            "icon": "✨",
+            "group": "Visual"
+        }
+    ],
+    "rules": [
+        {
+            "id": "chair_no_lumbar_long",
+            "condition": "facts.has_lumbar_support === false",
+            "target_contexts": [
+                "longas_sessoes",
+                "ergonomia"
+            ],
+            "penalty": -2.5,
+            "label": "Sem suporte lombar - dor nas costas garantida",
+            "severity": "critical"
+        },
+        {
+            "id": "chair_no_adjustable_arms_long",
+            "condition": "facts.armrest_adjustable === false",
+            "target_contexts": [
+                "longas_sessoes"
+            ],
+            "penalty": -1.5,
+            "label": "Apoio de braço fixo - desconforto",
+            "severity": "medium"
+        },
+        {
+            "id": "chair_low_weight_capacity",
+            "condition": "facts.max_weight_kg < 120",
+            "target_contexts": [
+                "peso_alto"
+            ],
+            "penalty": -2.0,
+            "label": "Capacidade baixa (<120kg)",
+            "severity": "high"
+        },
+        {
+            "id": "chair_large_footprint_small",
+            "condition": "facts.base_diameter_cm > 70",
+            "target_contexts": [
+                "espaco_pequeno"
+            ],
+            "penalty": -1.0,
+            "label": "Base grande - ocupa muito espaço",
+            "severity": "medium"
+        },
+        {
+            "id": "chair_poor_material_aesthetic",
+            "condition": "facts.material === 'mesh_cheap'",
+            "target_contexts": [
+                "estetica"
+            ],
+            "penalty": -1.0,
+            "label": "Material de baixa qualidade visual",
+            "severity": "medium"
+        },
+        {
+            "id": "chair_adjustable_lumbar_bonus",
+            "condition": "facts.lumbar_adjustable === true",
+            "target_contexts": [
+                "ergonomia",
+                "longas_sessoes"
+            ],
+            "bonus": 2.0,
+            "label": "Lombar ajustável - personalização total",
+            "severity": "low"
+        },
+        {
+            "id": "chair_4d_armrest_bonus",
+            "condition": "facts.armrest_type === '4D'",
+            "target_contexts": [
+                "longas_sessoes"
+            ],
+            "bonus": 1.5,
+            "label": "Apoio de braço 4D - ajuste completo",
+            "severity": "low"
+        },
+        {
+            "id": "chair_high_capacity_bonus",
+            "condition": "facts.max_weight_kg >= 150",
+            "target_contexts": [
+                "peso_alto"
+            ],
+            "bonus": 2.0,
+            "label": "Alta capacidade (≥150kg) - robusto",
+            "severity": "low"
+        },
+        {
+            "id": "chair_breathable_mesh_bonus",
+            "condition": "facts.material === 'mesh_premium'",
+            "target_contexts": [
+                "longas_sessoes"
+            ],
+            "bonus": 1.5,
+            "label": "Mesh respirável - não esquenta",
+            "severity": "low"
+        }
+    ]
+}

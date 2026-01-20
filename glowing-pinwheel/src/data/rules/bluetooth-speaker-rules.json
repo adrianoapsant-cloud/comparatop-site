@@ -1,0 +1,146 @@
+{
+    "category_id": "bluetooth-speaker",
+    "category_name": "Caixa de Som Bluetooth",
+    "available_contexts": [
+        {
+            "id": "outdoor",
+            "name": "Uso Externo / Praia",
+            "description": "Resistência a água e poeira.",
+            "icon": "🏖️",
+            "group": "Uso"
+        },
+        {
+            "id": "festa",
+            "name": "Festas / Alto Volume",
+            "description": "Potência para ambientes grandes.",
+            "icon": "🎉",
+            "group": "Uso"
+        },
+        {
+            "id": "portatil",
+            "name": "Portabilidade Máxima",
+            "description": "Leve e compacta para carregar.",
+            "icon": "🎒",
+            "group": "Portabilidade"
+        },
+        {
+            "id": "qualidade_audio",
+            "name": "Qualidade de Áudio",
+            "description": "Fidelidade sonora.",
+            "icon": "🎵",
+            "group": "Experiência"
+        },
+        {
+            "id": "bateria_longa",
+            "name": "Autonomia Estendida",
+            "description": "Uso prolongado sem recarga.",
+            "icon": "🔋",
+            "group": "Autonomia"
+        }
+    ],
+    "rules": [
+        {
+            "id": "speaker_no_water_outdoor",
+            "condition": "facts.ip_rating === 'none' || facts.ip_rating === 'IPX4'",
+            "target_contexts": [
+                "outdoor"
+            ],
+            "penalty": -2.0,
+            "label": "Proteção insuficiente - risco na praia/piscina",
+            "severity": "high"
+        },
+        {
+            "id": "speaker_low_power_party",
+            "condition": "facts.power_watts < 20",
+            "target_contexts": [
+                "festa"
+            ],
+            "penalty": -2.0,
+            "label": "Potência baixa (<20W) - não preenche ambiente",
+            "severity": "high"
+        },
+        {
+            "id": "speaker_heavy_portable",
+            "condition": "facts.weight_kg > 1",
+            "target_contexts": [
+                "portatil"
+            ],
+            "penalty": -1.5,
+            "label": "Pesada (>1kg) - difícil carregar",
+            "severity": "medium"
+        },
+        {
+            "id": "speaker_no_stereo_audio",
+            "condition": "facts.is_stereo === false",
+            "target_contexts": [
+                "qualidade_audio"
+            ],
+            "penalty": -1.0,
+            "label": "Mono - sem separação estéreo",
+            "severity": "medium"
+        },
+        {
+            "id": "speaker_short_battery_long",
+            "condition": "facts.battery_hours < 10",
+            "target_contexts": [
+                "bateria_longa",
+                "outdoor"
+            ],
+            "penalty": -1.5,
+            "label": "Bateria curta (<10h)",
+            "severity": "medium"
+        },
+        {
+            "id": "speaker_ip67_bonus",
+            "condition": "facts.ip_rating === 'IP67'",
+            "target_contexts": [
+                "outdoor"
+            ],
+            "bonus": 2.0,
+            "label": "IP67 - submerge na água",
+            "severity": "low"
+        },
+        {
+            "id": "speaker_high_power_bonus",
+            "condition": "facts.power_watts >= 40",
+            "target_contexts": [
+                "festa"
+            ],
+            "bonus": 2.0,
+            "label": "Alta potência (≥40W) - som para festa",
+            "severity": "low"
+        },
+        {
+            "id": "speaker_tws_pairing_bonus",
+            "condition": "facts.has_tws_pairing === true",
+            "target_contexts": [
+                "festa",
+                "qualidade_audio"
+            ],
+            "bonus": 1.0,
+            "label": "Pareamento TWS - conecta duas caixas",
+            "severity": "low"
+        },
+        {
+            "id": "speaker_long_battery_bonus",
+            "condition": "facts.battery_hours >= 20",
+            "target_contexts": [
+                "bateria_longa",
+                "outdoor"
+            ],
+            "bonus": 2.0,
+            "label": "Longa autonomia (≥20h)",
+            "severity": "low"
+        },
+        {
+            "id": "speaker_compact_bonus",
+            "condition": "facts.weight_kg <= 0.5",
+            "target_contexts": [
+                "portatil"
+            ],
+            "bonus": 1.5,
+            "label": "Ultra compacta (≤500g)",
+            "severity": "low"
+        }
+    ]
+}

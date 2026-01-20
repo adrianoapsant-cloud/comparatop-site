@@ -1,0 +1,117 @@
+{
+    "category_id": "builtin-oven",
+    "category_name": "Forno de Embutir",
+    "available_contexts": [
+        {
+            "id": "confeitaria",
+            "name": "Confeitaria / Panificação",
+            "description": "Preparo de bolos, pães e doces.",
+            "icon": "🎂",
+            "group": "Uso"
+        },
+        {
+            "id": "carnes",
+            "name": "Carnes / Assados",
+            "description": "Foco em assados grandes.",
+            "icon": "🍖",
+            "group": "Uso"
+        },
+        {
+            "id": "praticidade",
+            "name": "Praticidade / Uso Rápido",
+            "description": "Dia a dia sem complicação.",
+            "icon": "⚡",
+            "group": "Experiência"
+        },
+        {
+            "id": "economia",
+            "name": "Economia de Energia",
+            "description": "Foco em eficiência.",
+            "icon": "💡",
+            "group": "Economia"
+        }
+    ],
+    "rules": [
+        {
+            "id": "oven_no_convection_baking",
+            "condition": "facts.has_convection === false",
+            "target_contexts": [
+                "confeitaria"
+            ],
+            "penalty": -2.0,
+            "label": "Sem convecção - assamento desigual",
+            "severity": "high"
+        },
+        {
+            "id": "oven_small_capacity_roasts",
+            "condition": "facts.capacity_liters < 60",
+            "target_contexts": [
+                "carnes"
+            ],
+            "penalty": -1.5,
+            "label": "Capacidade pequena (<60L) - não cabe peru",
+            "severity": "medium"
+        },
+        {
+            "id": "oven_no_presets_practical",
+            "condition": "facts.preset_count < 5",
+            "target_contexts": [
+                "praticidade"
+            ],
+            "penalty": -1.0,
+            "label": "Poucos programas automáticos",
+            "severity": "medium"
+        },
+        {
+            "id": "oven_high_consumption_economy",
+            "condition": "facts.power_watts > 3000",
+            "target_contexts": [
+                "economia"
+            ],
+            "penalty": -1.0,
+            "label": "Alto consumo (>3000W)",
+            "severity": "medium"
+        },
+        {
+            "id": "oven_convection_bonus",
+            "condition": "facts.has_convection === true",
+            "target_contexts": [
+                "confeitaria",
+                "carnes"
+            ],
+            "bonus": 1.5,
+            "label": "Convecção - assamento uniforme",
+            "severity": "low"
+        },
+        {
+            "id": "oven_large_capacity_bonus",
+            "condition": "facts.capacity_liters >= 80",
+            "target_contexts": [
+                "carnes"
+            ],
+            "bonus": 1.5,
+            "label": "Grande capacidade (≥80L)",
+            "severity": "low"
+        },
+        {
+            "id": "oven_self_cleaning_bonus",
+            "condition": "facts.has_self_cleaning === true",
+            "target_contexts": [
+                "praticidade"
+            ],
+            "bonus": 2.0,
+            "label": "Autolimpeza - praticidade máxima",
+            "severity": "low"
+        },
+        {
+            "id": "oven_grill_bonus",
+            "condition": "facts.has_grill === true",
+            "target_contexts": [
+                "carnes"
+            ],
+            "bonus": 1.0,
+            "label": "Função grill inclusa",
+            "severity": "low"
+        }
+    ]
+}

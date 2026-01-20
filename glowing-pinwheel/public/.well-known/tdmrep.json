@@ -1,0 +1,21 @@
+{
+    "tdm-reservation": 1,
+    "tdm-policy": "https://comparatop.com.br/licenciamento-ia",
+    "rules": [
+        {
+            "target": "/*",
+            "tdm-reservation": 1,
+            "tdm-policy": "https://comparatop.com.br/licenciamento-ia"
+        },
+        {
+            "target": "/analises/*",
+            "tdm-reservation": 1,
+            "tdm-policy": "https://comparatop.com.br/licenciamento-ia"
+        },
+        {
+            "target": "/produto/*",
+            "tdm-reservation": 1,
+            "tdm-policy": "https://comparatop.com.br/licenciamento-ia"
+        }
+    ]
+}

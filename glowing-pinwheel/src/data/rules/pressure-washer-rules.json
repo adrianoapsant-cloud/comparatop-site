@@ -1,0 +1,136 @@
+{
+    "category_id": "pressure-washer",
+    "category_name": "Lavadora de Alta Pressão",
+    "available_contexts": [
+        {
+            "id": "residencial",
+            "name": "Uso Residencial",
+            "description": "Casa e carro.",
+            "icon": "🏠",
+            "group": "Uso"
+        },
+        {
+            "id": "profissional",
+            "name": "Uso Profissional / Intensivo",
+            "description": "Lava-jato, fazenda.",
+            "icon": "💼",
+            "group": "Uso"
+        },
+        {
+            "id": "agua_quente",
+            "name": "Limpeza Pesada (Óleo/Graxa)",
+            "description": "Sujeira industrial.",
+            "icon": "🔥",
+            "group": "Uso"
+        },
+        {
+            "id": "portatil",
+            "name": "Portabilidade",
+            "description": "Fácil de mover.",
+            "icon": "🚗",
+            "group": "Mobilidade"
+        },
+        {
+            "id": "economia_agua",
+            "name": "Economia de Água",
+            "description": "Regiões com restrição.",
+            "icon": "💧",
+            "group": "Economia"
+        }
+    ],
+    "rules": [
+        {
+            "id": "washer_low_pressure_pro",
+            "condition": "facts.pressure_bar < 130",
+            "target_contexts": [
+                "profissional",
+                "agua_quente"
+            ],
+            "penalty": -2.0,
+            "label": "Pressão baixa (<130 bar) para uso intenso",
+            "severity": "high"
+        },
+        {
+            "id": "washer_short_hose_residential",
+            "condition": "facts.hose_length_m < 5",
+            "target_contexts": [
+                "residencial"
+            ],
+            "penalty": -1.0,
+            "label": "Mangueira curta (<5m) - limitada",
+            "severity": "medium"
+        },
+        {
+            "id": "washer_no_hot_water_grease",
+            "condition": "facts.supports_hot_water === false",
+            "target_contexts": [
+                "agua_quente"
+            ],
+            "penalty": -2.5,
+            "label": "Só água fria - não remove graxa bem",
+            "severity": "critical"
+        },
+        {
+            "id": "washer_heavy_portable",
+            "condition": "facts.weight_kg > 20",
+            "target_contexts": [
+                "portatil"
+            ],
+            "penalty": -2.0,
+            "label": "Pesada (>20kg) - difícil mover",
+            "severity": "high"
+        },
+        {
+            "id": "washer_high_flow_economy",
+            "condition": "facts.flow_lpm > 8",
+            "target_contexts": [
+                "economia_agua"
+            ],
+            "penalty": -1.5,
+            "label": "Alto consumo de água (>8 L/min)",
+            "severity": "medium"
+        },
+        {
+            "id": "washer_high_pressure_bonus",
+            "condition": "facts.pressure_bar >= 160",
+            "target_contexts": [
+                "profissional"
+            ],
+            "bonus": 2.0,
+            "label": "Alta pressão (≥160 bar) - limpeza profunda",
+            "severity": "low"
+        },
+        {
+            "id": "washer_induction_motor_bonus",
+            "condition": "facts.motor_type === 'induction'",
+            "target_contexts": [
+                "profissional",
+                "residencial"
+            ],
+            "bonus": 1.5,
+            "label": "Motor indução - durável e silencioso",
+            "severity": "low"
+        },
+        {
+            "id": "washer_wheels_bonus",
+            "condition": "facts.has_wheels === true",
+            "target_contexts": [
+                "portatil",
+                "residencial"
+            ],
+            "bonus": 1.0,
+            "label": "Com rodas - fácil mover",
+            "severity": "low"
+        },
+        {
+            "id": "washer_low_flow_bonus",
+            "condition": "facts.flow_lpm <= 5",
+            "target_contexts": [
+                "economia_agua"
+            ],
+            "bonus": 2.0,
+            "label": "Baixo consumo (≤5 L/min) - economiza água",
+            "severity": "low"
+        }
+    ]
+}

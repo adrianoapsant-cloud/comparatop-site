@@ -1,0 +1,135 @@
+{
+    "category_id": "tablet",
+    "category_name": "Tablet",
+    "available_contexts": [
+        {
+            "id": "produtividade",
+            "name": "Produtividade / Trabalho",
+            "description": "Substituto de notebook.",
+            "icon": "💼",
+            "group": "Uso"
+        },
+        {
+            "id": "criacao",
+            "name": "Desenho / Criação",
+            "description": "Uso com caneta.",
+            "icon": "🎨",
+            "group": "Uso"
+        },
+        {
+            "id": "consumo",
+            "name": "Consumo de Mídia",
+            "description": "Streaming e leitura.",
+            "icon": "📺",
+            "group": "Uso"
+        },
+        {
+            "id": "criancas",
+            "name": "Para Crianças",
+            "description": "Resistência e controle parental.",
+            "icon": "👧",
+            "group": "Uso"
+        },
+        {
+            "id": "celular",
+            "name": "Uso Celular (4G/5G)",
+            "description": "Conectividade móvel.",
+            "icon": "📶",
+            "group": "Conectividade"
+        }
+    ],
+    "rules": [
+        {
+            "id": "tablet_no_keyboard_productivity",
+            "condition": "facts.keyboard_available === false",
+            "target_contexts": [
+                "produtividade"
+            ],
+            "penalty": -1.5,
+            "label": "Sem opção de teclado oficial",
+            "severity": "medium"
+        },
+        {
+            "id": "tablet_no_stylus_creation",
+            "condition": "facts.stylus_supported === false",
+            "target_contexts": [
+                "criacao"
+            ],
+            "penalty": -3.0,
+            "label": "Não suporta caneta - inviável para desenho",
+            "severity": "critical"
+        },
+        {
+            "id": "tablet_small_screen_media",
+            "condition": "facts.screen_inches < 10",
+            "target_contexts": [
+                "consumo",
+                "produtividade"
+            ],
+            "penalty": -1.0,
+            "label": "Tela pequena (<10\") para mídia/trabalho",
+            "severity": "medium"
+        },
+        {
+            "id": "tablet_no_kids_mode",
+            "condition": "facts.has_kids_mode === false",
+            "target_contexts": [
+                "criancas"
+            ],
+            "penalty": -1.5,
+            "label": "Sem modo infantil nativo",
+            "severity": "medium"
+        },
+        {
+            "id": "tablet_wifi_only_cellular",
+            "condition": "facts.has_cellular === false",
+            "target_contexts": [
+                "celular"
+            ],
+            "penalty": -3.0,
+            "label": "Apenas WiFi - não tem 4G/5G",
+            "severity": "critical"
+        },
+        {
+            "id": "tablet_dex_mode_bonus",
+            "condition": "facts.has_desktop_mode === true",
+            "target_contexts": [
+                "produtividade"
+            ],
+            "bonus": 2.0,
+            "label": "Modo desktop (DeX/Stage Manager)",
+            "severity": "low"
+        },
+        {
+            "id": "tablet_pencil_pro_bonus",
+            "condition": "facts.stylus_latency_ms <= 9",
+            "target_contexts": [
+                "criacao"
+            ],
+            "bonus": 2.0,
+            "label": "Caneta com latência mínima - desenho fluido",
+            "severity": "low"
+        },
+        {
+            "id": "tablet_oled_bonus",
+            "condition": "facts.display_type === 'OLED' || facts.display_type === 'AMOLED'",
+            "target_contexts": [
+                "consumo",
+                "criacao"
+            ],
+            "bonus": 1.5,
+            "label": "Tela OLED - cores vibrantes",
+            "severity": "low"
+        },
+        {
+            "id": "tablet_rugged_case_bonus",
+            "condition": "facts.has_rugged_case === true",
+            "target_contexts": [
+                "criancas"
+            ],
+            "bonus": 1.5,
+            "label": "Capa resistente inclusa",
+            "severity": "low"
+        }
+    ]
+}

@@ -1,0 +1,465 @@
+/* Google Fonts Import - MUST be at the very top */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+/* ============================================
+   TECH EDITORIAL PREMIUM - Design System
+   "Tropical Tech" Aesthetic
+   ============================================ */
+
+/* ============================================
+   CSS CUSTOM PROPERTIES (Design Tokens)
+   ============================================ */
+:root {
+  /* Background Colors */
+  --bg-ground: #FAF9F6;
+  /* Off-White Creme/Papel - NEVER pure white */
+  --bg-card: #FFFFFF;
+  /* Pure white ONLY inside cards */
+
+  /* Brand Colors */
+  --brand-core: #004E64;
+  /* Deep Teal - For brand text and footers */
+  --action-primary: #D95D39;
+  /* Terracotta Orange - CTAs and Offer Badges */
+  --action-primary-hover: #C24B28;
+
+  /* Score Colors */
+  --score-high: #EAB308;
+  /* Gold/Yellow - High scores */
+  --score-qs: #8B5CF6;
+  /* Purple - Quality Score */
+  --score-vs: #10B981;
+  /* Green - Value Score */
+
+  /* Text Colors */
+  --text-primary: #1A1D23;
+  /* Soft Black */
+  --text-secondary: #4B5563;
+  /* Medium Gray */
+  --text-muted: #9CA3AF;
+  /* Light Gray */
+
+  /* Shadows */
+  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.1);
+  --shadow-card-hover: 0 8px 30px -4px rgba(0, 0, 0, 0.15);
+  --shadow-button: 0 4px 14px -3px rgba(217, 93, 57, 0.4);
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+}
+
+/* ============================================
+   TAILWIND v4 THEME TOKENS
+   ============================================ */
+@theme inline {
+  /* Colors */
+  --color-bg-ground: var(--bg-ground);
+  --color-bg-card: var(--bg-card);
+  --color-brand-core: var(--brand-core);
+  --color-action-primary: var(--action-primary);
+  --color-action-primary-hover: var(--action-primary-hover);
+  --color-score-high: var(--score-high);
+  --color-score-qs: var(--score-qs);
+  --color-score-vs: var(--score-vs);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  /* Typography - Font Families */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Custom Shadows */
+  --shadow-card: var(--shadow-card);
+  --shadow-card-hover: var(--shadow-card-hover);
+  --shadow-button: var(--shadow-button);
+
+  /* Border Radius */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-ground);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ============================================
+   TYPOGRAPHY UTILITY CLASSES
+   ============================================ */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Heading Styles */
+h1,
+h2,
+.heading {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+/* Numbers/Specs/Prices - Technical Data Look */
+.text-data {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================
+   NOISE TEXTURE OVERLAY (Premium Feel)
+   ============================================ */
+.bg-noise {
+  position: relative;
+}
+
+.bg-noise::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* ============================================
+   CARD STYLES
+   ============================================ */
+.card-premium {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.card-premium:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   BUTTON STYLES
+   ============================================ */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--action-primary);
+  color: white;
+  font-family: var(--font-body);
+  font-weight: 600;
+  padding: 0.875rem 1.5rem;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+  box-shadow: var(--shadow-button);
+}
+
+.btn-primary:hover {
+  background: var(--action-primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* ============================================
+   BADGE STYLES
+   ============================================ */
+.badge-editor {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: var(--score-high);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================
+   PROGRESS BAR STYLES
+   ============================================ */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #E5E7EB;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width var(--transition-slow);
+}
+
+.progress-bar-fill.qs {
+  background: linear-gradient(90deg, var(--score-qs), #A78BFA);
+}
+
+.progress-bar-fill.vs {
+  background: linear-gradient(90deg, var(--score-vs), #34D399);
+}
+
+/* ============================================
+   STRIPED TABLE - High Density Data Display
+   ============================================ */
+.table-audit {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.table-audit th {
+  background: #1E293B;
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 2px solid #0F172A;
+}
+
+.table-audit td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #E2E8F0;
+  vertical-align: middle;
+}
+
+.table-audit tr:nth-child(even) {
+  background: #F8FAFC;
+}
+
+.table-audit tr:nth-child(odd) {
+  background: white;
+}
+
+.table-audit tr:hover {
+  background: #F1F5F9;
+}
+
+/* Data Chip - Inline Score Display */
+.data-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.data-chip.high {
+  background: #DCFCE7;
+  color: #166534;
+}
+
+.data-chip.medium {
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+.data-chip.low {
+  background: #FEE2E2;
+  color: #991B1B;
+}
+
+/* Technical Button - Sober Style */
+.btn-technical {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #0F766E;
+  color: white;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.btn-technical:hover {
+  background: #0D9488;
+  transform: translateY(-1px);
+}
+
+.btn-technical-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: white;
+  color: #0F766E;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 2px solid #0F766E;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.btn-technical-secondary:hover {
+  background: #0F766E;
+  color: white;
+}
+
+/* ============================================
+   SELECTION STYLES
+   ============================================ */
+::selection {
+  background: var(--action-primary);
+  color: white;
+}
+
+/* ============================================
+   FOCUS STYLES (Accessibility)
+   ============================================ */
+:focus-visible {
+  outline: 2px solid var(--action-primary);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-ground);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes slide-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-slide-in-up {
+  animation: slide-in-up 0.3s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.15s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out forwards;
+}
+
+/* Spring Animation for Smart Sticky Footer Toast */
+@keyframes spring-in {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  70% {
+    transform: translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-spring-in {
+  animation: spring-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}

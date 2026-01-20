@@ -1,0 +1,102 @@
+[
+    {
+        "id": "qualidade_som",
+        "label": "Qualidade de Som",
+        "icon": "🎵",
+        "tech_field": "scores.c1",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Clareza, graves e agudos balanceados"
+    },
+    {
+        "id": "anc",
+        "label": "Cancelamento de Ruído",
+        "icon": "🔇",
+        "tech_field": "scores.c2",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Eficiência do ANC"
+    },
+    {
+        "id": "bateria",
+        "label": "Duração da Bateria",
+        "icon": "🔋",
+        "tech_field": "scores.c3",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Autonomia com e sem case"
+    },
+    {
+        "id": "conforto",
+        "label": "Conforto e Encaixe",
+        "icon": "👂",
+        "tech_field": "scores.c4",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Ergonomia para uso prolongado"
+    },
+    {
+        "id": "microfone",
+        "label": "Qualidade do Microfone",
+        "icon": "🎙️",
+        "tech_field": "scores.c5",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Clareza em chamadas"
+    },
+    {
+        "id": "conectividade",
+        "label": "Conectividade",
+        "icon": "📶",
+        "tech_field": "scores.c6",
+        "target_value": 8,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Bluetooth e multipoint"
+    },
+    {
+        "id": "resistencia",
+        "label": "Resistência IP",
+        "icon": "💧",
+        "tech_field": "scores.c7",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Proteção contra água e suor"
+    },
+    {
+        "id": "app",
+        "label": "App e Customização",
+        "icon": "📱",
+        "tech_field": "scores.c8",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Qualidade do app companion"
+    },
+    {
+        "id": "latencia",
+        "label": "Latência",
+        "icon": "⚡",
+        "tech_field": "scores.c9",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Atraso para vídeos e jogos"
+    },
+    {
+        "id": "custo_beneficio",
+        "label": "Custo-Benefício",
+        "icon": "💰",
+        "tech_field": "scores.c10",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Valor pelo preço pago"
+    }
+]

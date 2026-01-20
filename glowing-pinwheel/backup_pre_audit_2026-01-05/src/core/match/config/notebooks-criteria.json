@@ -1,0 +1,102 @@
+[
+    {
+        "id": "qualidade_tela",
+        "label": "Qualidade da Tela",
+        "icon": "🖥️",
+        "tech_field": "scores.c1",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Tecnologia IPS/OLED, brilho e cobertura de cores"
+    },
+    {
+        "id": "gestao_termica",
+        "label": "Gestão Térmica",
+        "icon": "🌡️",
+        "tech_field": "scores.c2",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "TDP sustentado e temperaturas sob stress"
+    },
+    {
+        "id": "integridade_estrutural",
+        "label": "Construção Robusta",
+        "icon": "🛡️",
+        "tech_field": "scores.c3",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Dobradiça, chassi e materiais duráveis"
+    },
+    {
+        "id": "memoria",
+        "label": "Memória Expansível",
+        "icon": "💾",
+        "tech_field": "scores.c4",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "RAM não soldada e slots disponíveis"
+    },
+    {
+        "id": "custo_beneficio",
+        "label": "Custo-Benefício Real",
+        "icon": "💰",
+        "tech_field": "scores.c5",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Performance por real investido"
+    },
+    {
+        "id": "ergonomia",
+        "label": "Teclado/Touchpad",
+        "icon": "⌨️",
+        "tech_field": "scores.c6",
+        "target_value": 8,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Layout ABNT2, retroiluminação e touchpad"
+    },
+    {
+        "id": "armazenamento",
+        "label": "Armazenamento SSD",
+        "icon": "📀",
+        "tech_field": "scores.c7",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "SSD NVMe e possibilidade de expansão"
+    },
+    {
+        "id": "autonomia",
+        "label": "Autonomia/Bateria",
+        "icon": "🔋",
+        "tech_field": "scores.c8",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Duração da bateria e carregamento USB-C"
+    },
+    {
+        "id": "conectividade",
+        "label": "Portas e Conexões",
+        "icon": "🔌",
+        "tech_field": "scores.c9",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "USB-A, HDMI, Ethernet e Wi-Fi estável"
+    },
+    {
+        "id": "confiabilidade",
+        "label": "Confiabilidade Marca",
+        "icon": "⚠️",
+        "tech_field": "scores.c10",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Histórico de RMA e defeitos crônicos"
+    }
+]

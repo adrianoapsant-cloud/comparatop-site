@@ -1,0 +1,120 @@
+{
+    "category_id": "range-hood",
+    "category_name": "Coifa / Depurador",
+    "available_contexts": [
+        {
+            "id": "cozinha_aberta",
+            "name": "Cozinha Integrada / Gourmet",
+            "description": "Ambiente aberto para sala.",
+            "icon": "🏠",
+            "group": "Layout"
+        },
+        {
+            "id": "frituras",
+            "name": "Frituras Frequentes",
+            "description": "Alto uso com gordura e fumaça.",
+            "icon": "🍳",
+            "group": "Uso"
+        },
+        {
+            "id": "apartamento",
+            "name": "Apartamento (Sem Saída Externa)",
+            "description": "Necessidade de recirculação.",
+            "icon": "🏢",
+            "group": "Instalação"
+        },
+        {
+            "id": "silencio",
+            "name": "Ambiente Silencioso",
+            "description": "Valoriza baixo ruído.",
+            "icon": "🔇",
+            "group": "Conforto"
+        }
+    ],
+    "rules": [
+        {
+            "id": "hood_low_suction_open_kitchen",
+            "condition": "facts.suction_m3h < 600",
+            "target_contexts": [
+                "cozinha_aberta",
+                "frituras"
+            ],
+            "penalty": -2.0,
+            "label": "Sucção baixa (<600m³/h) - cheiro se espalha",
+            "severity": "high"
+        },
+        {
+            "id": "hood_no_charcoal_apartment",
+            "condition": "facts.has_charcoal_filter === false",
+            "target_contexts": [
+                "apartamento"
+            ],
+            "penalty": -2.5,
+            "label": "Sem filtro de carvão - essencial para recirculação",
+            "severity": "critical"
+        },
+        {
+            "id": "hood_loud_noise_silent",
+            "condition": "facts.noise_db_max > 65",
+            "target_contexts": [
+                "silencio",
+                "cozinha_aberta"
+            ],
+            "penalty": -1.5,
+            "label": "Ruído alto (>65dB) - incomoda conversas",
+            "severity": "medium"
+        },
+        {
+            "id": "hood_no_grease_filter_frying",
+            "condition": "facts.has_grease_filter === false",
+            "target_contexts": [
+                "frituras"
+            ],
+            "penalty": -1.5,
+            "label": "Sem filtro de gordura - suja rapidamente",
+            "severity": "medium"
+        },
+        {
+            "id": "hood_high_suction_bonus",
+            "condition": "facts.suction_m3h >= 1000",
+            "target_contexts": [
+                "cozinha_aberta",
+                "frituras"
+            ],
+            "bonus": 2.0,
+            "label": "Alta sucção (≥1000m³/h) - excelente exaustão",
+            "severity": "low"
+        },
+        {
+            "id": "hood_quiet_bonus",
+            "condition": "facts.noise_db_max <= 55",
+            "target_contexts": [
+                "silencio",
+                "cozinha_aberta"
+            ],
+            "bonus": 1.5,
+            "label": "Silenciosa (≤55dB)",
+            "severity": "low"
+        },
+        {
+            "id": "hood_washable_filter_bonus",
+            "condition": "facts.filter_washable === true",
+            "target_contexts": [
+                "frituras"
+            ],
+            "bonus": 1.0,
+            "label": "Filtro lavável - economia em manutenção",
+            "severity": "low"
+        },
+        {
+            "id": "hood_led_lighting_bonus",
+            "condition": "facts.has_led_lighting === true",
+            "target_contexts": [
+                "cozinha_aberta"
+            ],
+            "bonus": 0.5,
+            "label": "Iluminação LED - funcional e decorativa",
+            "severity": "low"
+        }
+    ]
+}

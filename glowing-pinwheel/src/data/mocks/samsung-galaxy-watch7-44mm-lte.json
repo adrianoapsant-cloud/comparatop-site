@@ -1,0 +1,158 @@
+{
+    "product": {
+        "id": "samsung-galaxy-watch7-44mm-lte",
+        "name": "Samsung Galaxy Watch7 44mm LTE com Galaxy AI",
+        "brand": "Samsung",
+        "categoryId": "smartwatch"
+    },
+    "header": {
+        "score": 8.73,
+        "scoreLabel": "ComparaTop Score",
+        "title": "O Smartwatch Android Mais Completo",
+        "badges": [
+            "premium-pick",
+            "editors-choice"
+        ]
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "Galaxy AI analisa sono e dá Pontuação de Energia - sabe quando você precisa descansar",
+                "Sensores de saúde mais completos: ECG, SpO2, composição corporal, temperatura de pele",
+                "GPS dupla frequência (L1+L5) com precisão de 1 metro para corredores",
+                "Samsung Pay + Google Wallet = deixe a carteira em casa"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "Bateria ~30h com LTE - precisa carregar todo dia",
+                "ECG e pressão arterial só funcionam pareado com Samsung Galaxy",
+                "Não compatível com iPhone (Wear OS)"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "O Galaxy Watch7 é a escolha óbvia para donos de Samsung Galaxy que querem monitoramento de saúde completo. O processador 3nm garante fluidez, os sensores são os mais avançados do mercado Android, e o Galaxy AI adiciona inteligência real. Se você tem iPhone, não compre - vai perder metade dos recursos. Para Android genérico, funciona bem mas perde ECG. Se tem um Galaxy, é imbatível por R$ 2.199."
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "Você usa iPhone (opte pelo Apple Watch)",
+                "Precisa de bateria de 1+ semana (opte por smartbands básicas)",
+                "Seu celular não é Samsung e quer ECG (funcionalidade limitada)",
+                "Orçamento abaixo de R$ 1.500 (existem opções boas mais baratas)"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões para Smartwatches",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Tela & Display",
+                "shortName": "Tela",
+                "score": 9.5,
+                "description": "Super AMOLED 1.5\" com cristal de safira. Brilho excelente ao sol. Always On Display eficiente."
+            },
+            {
+                "id": "c2",
+                "name": "Bateria",
+                "shortName": "Bateria",
+                "score": 7.0,
+                "description": "~30 horas com LTE. Carregamento rápido (30min para 45%). Precisa carregar diariamente."
+            },
+            {
+                "id": "c3",
+                "name": "Sensores de Saúde",
+                "shortName": "Saúde",
+                "score": 9.5,
+                "description": "HR, SpO2, ECG, BIA (composição corporal), temperatura de pele. Os mais completos do Android."
+            },
+            {
+                "id": "c4",
+                "name": "Fitness",
+                "shortName": "Fitness",
+                "score": 9.0,
+                "description": "GPS dupla frequência L1+L5, 100+ modos esporte, detecção automática de exercício."
+            },
+            {
+                "id": "c5",
+                "name": "Ecossistema",
+                "shortName": "Ecossist.",
+                "score": 8.5,
+                "description": "Wear OS 5 + One UI Watch 6. Funciona com Android, brilha com Samsung Galaxy."
+            },
+            {
+                "id": "c6",
+                "name": "Custo-Benefício",
+                "shortName": "Custo",
+                "score": 7.5,
+                "description": "R$ 2.199 é premium, mas entrega recursos que justificam vs. competição."
+            },
+            {
+                "id": "c7",
+                "name": "Design",
+                "shortName": "Design",
+                "score": 9.0,
+                "description": "Corpo em alumínio, cristal de safira, pulseiras intercambiáveis. Estilo premium."
+            },
+            {
+                "id": "c8",
+                "name": "Resistência",
+                "shortName": "Resist.",
+                "score": 9.0,
+                "description": "5ATM + IP68 + MIL-STD-810H. Natação e banho OK. Safira resiste riscos."
+            },
+            {
+                "id": "c9",
+                "name": "Notificações",
+                "shortName": "Notific.",
+                "score": 9.0,
+                "description": "Resposta inteligente com Galaxy AI. Sugestões contextuais de resposta."
+            },
+            {
+                "id": "c10",
+                "name": "Pagamentos",
+                "shortName": "NFC Pay",
+                "score": 9.5,
+                "description": "Samsung Pay + Google Wallet. NFC completo, todas as bandeiras."
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "status": "optimal",
+            "message": "Versão 44mm é ideal para pulsos médios/grandes. Para pulsos finos, considere 40mm.",
+            "idealRange": {
+                "min": 40,
+                "max": 44
+            }
+        },
+        "soundAlert": {
+            "status": "acceptable",
+            "message": "Bateria de ~30h requer carregamento diário. Carregamento rápido (30min para 45%) ajuda.",
+            "suggestions": [
+                {
+                    "condition": "Para semanas sem carregar",
+                    "product": "Smartband básica (Mi Band, Amazfit)",
+                    "reason": "Bateria 10-14 dias"
+                }
+            ]
+        },
+        "energyAlert": {
+            "rating": "A",
+            "message": "Consumo baixo graças ao processador 3nm. Carregamento wireless eficiente."
+        }
+    }
+}

@@ -1,0 +1,102 @@
+[
+    {
+        "id": "brilho",
+        "label": "Brilho (Lumens)",
+        "icon": "☀️",
+        "tech_field": "scores.c1",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Visibilidade em ambientes claros"
+    },
+    {
+        "id": "contraste",
+        "label": "Contraste Nativo",
+        "icon": "🌓",
+        "tech_field": "scores.c2",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Profundidade de pretos"
+    },
+    {
+        "id": "resolucao",
+        "label": "Resolução Real",
+        "icon": "📐",
+        "tech_field": "scores.c3",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "4K nativo vs pixel shifting"
+    },
+    {
+        "id": "ruido",
+        "label": "Silêncio em Operação",
+        "icon": "🔇",
+        "tech_field": "scores.c4",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Nível de ruído do cooler"
+    },
+    {
+        "id": "latencia",
+        "label": "Latência para Gaming",
+        "icon": "🎮",
+        "tech_field": "scores.c5",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Input lag em modo jogo"
+    },
+    {
+        "id": "lampada",
+        "label": "Vida Útil da Lâmpada",
+        "icon": "💡",
+        "tech_field": "scores.c6",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Horas de uso e custo de reposição"
+    },
+    {
+        "id": "instalacao",
+        "label": "Flexibilidade de Instalação",
+        "icon": "📐",
+        "tech_field": "scores.c7",
+        "target_value": 8,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Keystone, lens shift, throw ratio"
+    },
+    {
+        "id": "smart",
+        "label": "Recursos Smart",
+        "icon": "📱",
+        "tech_field": "scores.c8",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "SO integrado e streaming"
+    },
+    {
+        "id": "conectividade",
+        "label": "Conectividade",
+        "icon": "🔌",
+        "tech_field": "scores.c9",
+        "target_value": 8,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "HDMI 2.1, USB, áudio"
+    },
+    {
+        "id": "custo_beneficio",
+        "label": "Custo-Benefício",
+        "icon": "💰",
+        "tech_field": "scores.c10",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Valor pelo preço pago"
+    }
+]

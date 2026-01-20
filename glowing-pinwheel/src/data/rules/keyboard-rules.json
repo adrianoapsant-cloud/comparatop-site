@@ -1,0 +1,247 @@
+{
+    "category_id": "keyboard",
+    "category_name": "Teclados",
+    "available_contexts": [
+        {
+            "id": "gamer",
+            "name": "Gaming Competitivo",
+            "description": "Prioridade para resposta rápida e recursos gaming.",
+            "icon": "🎮",
+            "group": "Uso"
+        },
+        {
+            "id": "programador",
+            "name": "Programador / Escritor",
+            "description": "Foco em conforto para longas sessões de digitação.",
+            "icon": "⌨️",
+            "group": "Uso"
+        },
+        {
+            "id": "escritorio",
+            "name": "Escritório",
+            "description": "Silêncio e produtividade.",
+            "icon": "💼",
+            "group": "Uso"
+        },
+        {
+            "id": "wireless",
+            "name": "Sem Fio / Mobilidade",
+            "description": "Portabilidade e autonomia de bateria.",
+            "icon": "📶",
+            "group": "Conectividade"
+        }
+    ],
+    "rules": [
+        {
+            "id": "keyboard_membrane_gamer",
+            "condition": "facts.switch_type === 'membrane'",
+            "target_contexts": [
+                "gamer"
+            ],
+            "penalty": -2.0,
+            "label": "Teclado de membrana - resposta imprecisa para jogos",
+            "severity": "high"
+        },
+        {
+            "id": "keyboard_no_anti_ghost_gamer",
+            "condition": "facts.anti_ghosting === false",
+            "target_contexts": [
+                "gamer"
+            ],
+            "penalty": -2.5,
+            "label": "Sem anti-ghosting - teclas não registram em combos",
+            "severity": "critical"
+        },
+        {
+            "id": "keyboard_no_nkro_gamer",
+            "condition": "facts.nkro === false",
+            "target_contexts": [
+                "gamer"
+            ],
+            "penalty": -1.5,
+            "label": "Sem N-Key Rollover - limitação em pressionamentos simultâneos",
+            "severity": "medium"
+        },
+        {
+            "id": "keyboard_high_actuation_gamer",
+            "condition": "facts.actuation_force_g > 50",
+            "target_contexts": [
+                "gamer"
+            ],
+            "penalty": -1.0,
+            "label": "Força de atuação alta (>50g) - fadiga em sessões longas",
+            "severity": "medium"
+        },
+        {
+            "id": "keyboard_mechanical_gamer_bonus",
+            "condition": "facts.switch_type === 'mechanical'",
+            "target_contexts": [
+                "gamer"
+            ],
+            "bonus": 1.5,
+            "label": "Switches mecânicos - resposta precisa para gaming",
+            "severity": "low"
+        },
+        {
+            "id": "keyboard_optical_gamer_bonus",
+            "condition": "facts.switch_type === 'optical'",
+            "target_contexts": [
+                "gamer"
+            ],
+            "bonus": 2.0,
+            "label": "Switches ópticos - tempo de resposta mínimo",
+            "severity": "low"
+        },
+        {
+            "id": "keyboard_polling_1000_gamer_bonus",
+            "condition": "facts.polling_rate_hz >= 1000",
+            "target_contexts": [
+                "gamer"
+            ],
+            "bonus": 1.0,
+            "label": "Polling rate 1000Hz+ - resposta ultra rápida",
+            "severity": "low"
+        },
+        {
+            "id": "keyboard_no_wrist_rest_programmer",
+            "condition": "facts.has_wrist_rest === false",
+            "target_contexts": [
+                "programador"
+            ],
+            "penalty": -1.0,
+            "label": "Sem apoio de pulso - ergonomia limitada",
+            "severity": "medium"
+        },
+        {
+            "id": "keyboard_no_dedicated_keys_programmer",
+            "condition": "facts.layout === 'tkl' || facts.layout === '60%' || facts.layout === '65%'",
+            "target_contexts": [
+                "programador"
+            ],
+            "penalty": -1.5,
+            "label": "Sem teclado numérico - menos produtivo para código",
+            "severity": "medium"
+        },
+        {
+            "id": "keyboard_membrane_programmer",
+            "condition": "facts.switch_type === 'membrane'",
+            "target_contexts": [
+                "programador"
+            ],
+            "penalty": -1.5,
+            "label": "Membrana - feedback tátil impreciso para digitação longa",
+            "severity": "medium"
+        },
+        {
+            "id": "keyboard_tactile_programmer_bonus",
+            "condition": "facts.switch_profile === 'tactile'",
+            "target_contexts": [
+                "programador"
+            ],
+            "bonus": 2.0,
+            "label": "Switches táteis - feedback claro a cada toque",
+            "severity": "low"
+        },
+        {
+            "id": "keyboard_full_layout_programmer_bonus",
+            "condition": "facts.layout === 'full'",
+            "target_contexts": [
+                "programador"
+            ],
+            "bonus": 1.0,
+            "label": "Layout full-size - acesso a todas as teclas",
+            "severity": "low"
+        },
+        {
+            "id": "keyboard_blue_switches_office",
+            "condition": "facts.switch_profile === 'clicky'",
+            "target_contexts": [
+                "escritorio"
+            ],
+            "penalty": -2.0,
+            "label": "Switches clicky (azuis) - barulhentos demais para escritório",
+            "severity": "high"
+        },
+        {
+            "id": "keyboard_noisy_office",
+            "condition": "facts.noise_level_db > 55",
+            "target_contexts": [
+                "escritorio"
+            ],
+            "penalty": -1.5,
+            "label": "Ruído alto (>55dB) - incomoda colegas",
+            "severity": "medium"
+        },
+        {
+            "id": "keyboard_linear_office_bonus",
+            "condition": "facts.switch_profile === 'linear'",
+            "target_contexts": [
+                "escritorio"
+            ],
+            "bonus": 1.5,
+            "label": "Switches lineares - silenciosos para ambiente de trabalho",
+            "severity": "low"
+        },
+        {
+            "id": "keyboard_silent_office_bonus",
+            "condition": "facts.has_silent_switches === true",
+            "target_contexts": [
+                "escritorio"
+            ],
+            "bonus": 2.0,
+            "label": "Switches silenciosos - ideal para escritório compartilhado",
+            "severity": "low"
+        },
+        {
+            "id": "keyboard_wired_wireless",
+            "condition": "facts.connectivity === 'wired'",
+            "target_contexts": [
+                "wireless"
+            ],
+            "penalty": -3.0,
+            "label": "Apenas cabo - não é portátil",
+            "severity": "critical"
+        },
+        {
+            "id": "keyboard_short_battery_wireless",
+            "condition": "facts.battery_hours < 30",
+            "target_contexts": [
+                "wireless"
+            ],
+            "penalty": -1.5,
+            "label": "Bateria curta (<30h) - precisa carregar frequentemente",
+            "severity": "medium"
+        },
+        {
+            "id": "keyboard_bt_only_wireless",
+            "condition": "facts.has_2_4ghz_dongle === false && facts.connectivity === 'wireless'",
+            "target_contexts": [
+                "wireless",
+                "gamer"
+            ],
+            "penalty": -1.0,
+            "label": "Apenas Bluetooth - latência maior que 2.4GHz",
+            "severity": "medium"
+        },
+        {
+            "id": "keyboard_multidevice_wireless_bonus",
+            "condition": "facts.multi_device_pairing >= 3",
+            "target_contexts": [
+                "wireless"
+            ],
+            "bonus": 1.5,
+            "label": "Pareamento múltiplo (3+ devices) - versátil",
+            "severity": "low"
+        },
+        {
+            "id": "keyboard_long_battery_wireless_bonus",
+            "condition": "facts.battery_hours >= 100",
+            "target_contexts": [
+                "wireless"
+            ],
+            "bonus": 2.0,
+            "label": "Bateria longa (100h+) - recarga rara",
+            "severity": "low"
+        }
+    ]
+}

@@ -1,0 +1,158 @@
+openapi: 3.1.0
+info:
+  title: ComparaTop Advisor
+  description: |
+    API de Inteligência de Produtos do ComparaTop.
+    
+    Fornece dados técnicos, Nota de Auditoria e links de afiliado
+    para produtos de tecnologia e eletrodomésticos.
+    
+    **Aviso Legal**: Links de afiliado podem gerar comissão para o ComparaTop.
+  version: v1.0.0
+  contact:
+    name: ComparaTop
+    url: https://comparatop.com.br
+
+servers:
+  - url: https://kyra-inexpedient-nondialectically.ngrok-free.dev/api/ai/v1
+    description: "Servidor de desenvolvimento (ngrok)"
+  - url: https://comparatop.com.br/api/ai/v1
+    description: "Servidor de produção"
+
+paths:
+  /product-intelligence:
+    get:
+      operationId: getProductData
+      summary: Busca dados técnicos e scores de um produto
+      description: |
+        Retorna informações detalhadas sobre um produto incluindo:
+        - Especificações técnicas
+        - Nota de Auditoria (metodologia proprietária)
+        - Índice de durabilidade SIC
+        - Links de compra com afiliado
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: "Termo de busca (ex: 'samsung tv', 'lg geladeira', 'ar condicionado inverter')"
+          schema:
+            type: string
+            example: "samsung qn90c"
+      responses:
+        '200':
+          description: Produto encontrado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductResponse'
+              example:
+                product:
+                  name: "Samsung Smart TV 55\" Neo QLED 4K QN90C"
+                  brand: "Samsung"
+                  specs:
+                    screenSize: 55
+                    resolution: "4K"
+                    panelType: "Neo QLED"
+                  scores:
+                    nota_auditoria: 8.4
+                    sic_durability_index: 8.5
+                    verdict: "Excelente para cinema e gaming. Qualidade de imagem excepcional."
+                  purchase_options:
+                    - vendor: "Amazon"
+                      price: 4200
+                      affiliate_link: "https://amazon.com.br/dp/B0EXEMPLO?tag=comparatop-20"
+                      in_stock: true
+                metadata:
+                  source: "ComparaTop Intelligence Engine"
+                  disclosure: "Links podem gerar comissão. Dados são proprietários do ComparaTop."
+        '400':
+          description: Parâmetro de busca não fornecido
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  example:
+                    type: string
+
+components:
+  schemas:
+    ProductResponse:
+      type: object
+      required:
+        - product
+        - metadata
+      properties:
+        product:
+          type: object
+          nullable: true
+          description: "Dados do produto (null se não encontrado)"
+          properties:
+            name:
+              type: string
+              description: "Nome completo do produto"
+            brand:
+              type: string
+              description: "Marca do fabricante"
+            specs:
+              type: object
+              description: "Especificações técnicas (variam por categoria)"
+              additionalProperties: true
+            scores:
+              type: object
+              required:
+                - nota_auditoria
+                - verdict
+              properties:
+                nota_auditoria:
+                  type: number
+                  format: float
+                  minimum: 0
+                  maximum: 10
+                  description: "Nota de Auditoria - avaliação técnica proprietária do ComparaTop baseada em análise de specs, reviews e durabilidade"
+                sic_durability_index:
+                  type: number
+                  format: float
+                  minimum: 0
+                  maximum: 10
+                  description: "Índice de durabilidade SIC (Sistema de Inteligência de Componentes)"
+                verdict:
+                  type: string
+                  description: "Veredito editorial em português"
+            purchase_options:
+              type: array
+              description: "Opções de compra com links de afiliado"
+              items:
+                type: object
+                properties:
+                  vendor:
+                    type: string
+                    description: "Nome do marketplace"
+                  price:
+                    type: number
+                    nullable: true
+                    description: "Preço em BRL (pode ser null se indisponível)"
+                  affiliate_link:
+                    type: string
+                    format: uri
+                    description: "Link de afiliado para compra"
+                  in_stock:
+                    type: boolean
+                    description: "Se o produto está disponível"
+        metadata:
+          type: object
+          required:
+            - source
+            - disclosure
+          properties:
+            source:
+              type: string
+              description: "Fonte dos dados"
+            disclosure:
+              type: string
+              description: "Aviso legal sobre afiliação"
+            message:
+              type: string
+              description: "Mensagem adicional (usado quando produto não encontrado)"

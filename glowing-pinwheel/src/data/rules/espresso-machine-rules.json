@@ -1,0 +1,117 @@
+{
+    "category_id": "espresso-machine",
+    "category_name": "Máquina de Café Espresso",
+    "available_contexts": [
+        {
+            "id": "praticidade",
+            "name": "Prioridade Praticidade",
+            "description": "Café rápido sem complicação.",
+            "icon": "⚡",
+            "group": "Uso"
+        },
+        {
+            "id": "barista",
+            "name": "Barista / Entusiasta",
+            "description": "Controle total sobre o preparo.",
+            "icon": "☕",
+            "group": "Experiência"
+        },
+        {
+            "id": "alto_consumo",
+            "name": "Alto Consumo Diário",
+            "description": "Família ou escritório com muito café.",
+            "icon": "🏢",
+            "group": "Uso"
+        },
+        {
+            "id": "economia",
+            "name": "Economia no Custo por Café",
+            "description": "Foco no custo-benefício a longo prazo.",
+            "icon": "💰",
+            "group": "Economia"
+        }
+    ],
+    "rules": [
+        {
+            "id": "espresso_capsule_only_barista",
+            "condition": "facts.type === 'capsule_only'",
+            "target_contexts": [
+                "barista"
+            ],
+            "penalty": -2.5,
+            "label": "Apenas cápsulas - sem controle de moagem/extração",
+            "severity": "critical"
+        },
+        {
+            "id": "espresso_manual_complex_praticidade",
+            "condition": "facts.type === 'manual' && facts.has_auto_dose === false",
+            "target_contexts": [
+                "praticidade"
+            ],
+            "penalty": -2.0,
+            "label": "Requer ajuste manual - não é prático",
+            "severity": "high"
+        },
+        {
+            "id": "espresso_small_tank_high_consumption",
+            "condition": "facts.water_tank_ml < 1000",
+            "target_contexts": [
+                "alto_consumo"
+            ],
+            "penalty": -1.5,
+            "label": "Reservatório pequeno - precisa reabastecer frequentemente",
+            "severity": "medium"
+        },
+        {
+            "id": "espresso_expensive_capsule_economy",
+            "condition": "facts.capsule_cost_per_unit > 2.5",
+            "target_contexts": [
+                "economia"
+            ],
+            "penalty": -2.0,
+            "label": "Cápsula cara (>R$2,50) - alto custo operacional",
+            "severity": "high"
+        },
+        {
+            "id": "espresso_bean_to_cup_bonus",
+            "condition": "facts.type === 'bean_to_cup'",
+            "target_contexts": [
+                "praticidade",
+                "barista"
+            ],
+            "bonus": 2.0,
+            "label": "Automática grain-to-cup - café fresco com praticidade",
+            "severity": "low"
+        },
+        {
+            "id": "espresso_pressure_15bar_bonus",
+            "condition": "facts.pressure_bar >= 15",
+            "target_contexts": [
+                "barista"
+            ],
+            "bonus": 1.0,
+            "label": "Pressão profissional (≥15 bar)",
+            "severity": "low"
+        },
+        {
+            "id": "espresso_large_tank_bonus",
+            "condition": "facts.water_tank_ml >= 1800",
+            "target_contexts": [
+                "alto_consumo"
+            ],
+            "bonus": 1.5,
+            "label": "Grande reservatório (≥1.8L) - menos reabastecimento",
+            "severity": "low"
+        },
+        {
+            "id": "espresso_compatible_capsules_bonus",
+            "condition": "facts.accepts_compatible_capsules === true",
+            "target_contexts": [
+                "economia"
+            ],
+            "bonus": 1.5,
+            "label": "Aceita cápsulas compatíveis - mais opções econômicas",
+            "severity": "low"
+        }
+    ]
+}

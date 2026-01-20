@@ -1,0 +1,145 @@
+{
+    "category_id": "psu",
+    "category_name": "Fonte de Alimentação (PSU)",
+    "available_contexts": [
+        {
+            "id": "gaming_high",
+            "name": "PC Gamer High-End",
+            "description": "GPUs potentes.",
+            "icon": "🎮",
+            "group": "Uso"
+        },
+        {
+            "id": "silencioso",
+            "name": "PC Silencioso",
+            "description": "Baixo ruído.",
+            "icon": "🔇",
+            "group": "Conforto"
+        },
+        {
+            "id": "compacto",
+            "name": "Build Compacto / SFF",
+            "description": "Formato pequeno.",
+            "icon": "📦",
+            "group": "Formato"
+        },
+        {
+            "id": "confiabilidade",
+            "name": "Confiabilidade Máxima",
+            "description": "Proteção do hardware.",
+            "icon": "🛡️",
+            "group": "Segurança"
+        },
+        {
+            "id": "estetica",
+            "name": "Estética / Cable Management",
+            "description": "Visual limpo.",
+            "icon": "✨",
+            "group": "Visual"
+        }
+    ],
+    "rules": [
+        {
+            "id": "psu_low_wattage_gaming",
+            "condition": "facts.wattage < 750",
+            "target_contexts": [
+                "gaming_high"
+            ],
+            "penalty": -2.5,
+            "label": "Potência baixa (<750W) para GPU moderna",
+            "severity": "critical"
+        },
+        {
+            "id": "psu_no_80plus_reliability",
+            "condition": "facts.efficiency_rating === 'none'",
+            "target_contexts": [
+                "confiabilidade"
+            ],
+            "penalty": -3.0,
+            "label": "Sem certificação 80 Plus - qualidade duvidosa",
+            "severity": "critical"
+        },
+        {
+            "id": "psu_loud_fan_silent",
+            "condition": "facts.fan_mode !== 'semi_passive' && facts.fan_mode !== 'passive'",
+            "target_contexts": [
+                "silencioso"
+            ],
+            "penalty": -1.5,
+            "label": "Ventilador sempre ligado - ruído constante",
+            "severity": "medium"
+        },
+        {
+            "id": "psu_atx_compact",
+            "condition": "facts.form_factor === 'ATX'",
+            "target_contexts": [
+                "compacto"
+            ],
+            "penalty": -2.5,
+            "label": "ATX não cabe em gabinete SFF",
+            "severity": "critical"
+        },
+        {
+            "id": "psu_non_modular_aesthetic",
+            "condition": "facts.modular === 'no'",
+            "target_contexts": [
+                "estetica"
+            ],
+            "penalty": -1.5,
+            "label": "Não modular - cabos extras sobrando",
+            "severity": "medium"
+        },
+        {
+            "id": "psu_high_wattage_bonus",
+            "condition": "facts.wattage >= 1000",
+            "target_contexts": [
+                "gaming_high"
+            ],
+            "bonus": 1.5,
+            "label": "Alta potência (≥1000W) - headroom confortável",
+            "severity": "low"
+        },
+        {
+            "id": "psu_gold_plus_bonus",
+            "condition": "facts.efficiency_rating === 'gold' || facts.efficiency_rating === 'platinum' || facts.efficiency_rating === 'titanium'",
+            "target_contexts": [
+                "confiabilidade",
+                "silencioso"
+            ],
+            "bonus": 1.5,
+            "label": "80 Plus Gold ou superior - eficiente e confiável",
+            "severity": "low"
+        },
+        {
+            "id": "psu_passive_bonus",
+            "condition": "facts.fan_mode === 'passive' || facts.fan_mode === 'semi_passive'",
+            "target_contexts": [
+                "silencioso"
+            ],
+            "bonus": 2.0,
+            "label": "Modo passivo/semi-passivo - silêncio total em idle",
+            "severity": "low"
+        },
+        {
+            "id": "psu_fully_modular_bonus",
+            "condition": "facts.modular === 'full'",
+            "target_contexts": [
+                "estetica",
+                "compacto"
+            ],
+            "bonus": 1.5,
+            "label": "Totalmente modular - só cabos necessários",
+            "severity": "low"
+        },
+        {
+            "id": "psu_sfx_bonus",
+            "condition": "facts.form_factor === 'SFX' || facts.form_factor === 'SFX-L'",
+            "target_contexts": [
+                "compacto"
+            ],
+            "bonus": 2.0,
+            "label": "Formato SFX - ideal para ITX",
+            "severity": "low"
+        }
+    ]
+}

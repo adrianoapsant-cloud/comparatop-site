@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280" fill="none">
+  <rect width="400" height="280" fill="#f3f4f6"/>
+  <!-- Laptop base -->
+  <rect x="40" y="180" width="320" height="20" rx="4" fill="#6b7280"/>
+  <!-- Laptop screen -->
+  <rect x="60" y="40" width="280" height="140" rx="8" fill="#374151"/>
+  <rect x="70" y="50" width="260" height="120" fill="#111827"/>
+  <!-- Keyboard -->
+  <rect x="100" y="185" width="200" height="10" rx="2" fill="#4b5563"/>
+  <text x="200" y="110" text-anchor="middle" fill="#9ca3af" font-family="system-ui" font-size="14">Notebook</text>
+  <text x="200" y="130" text-anchor="middle" fill="#6b7280" font-family="system-ui" font-size="12">Placeholder</text>
+</svg>

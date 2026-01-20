@@ -1,0 +1,136 @@
+{
+    "category_id": "projector",
+    "category_name": "Projetor",
+    "available_contexts": [
+        {
+            "id": "home_cinema",
+            "name": "Home Cinema",
+            "description": "Experiência de cinema em casa.",
+            "icon": "🎬",
+            "group": "Uso"
+        },
+        {
+            "id": "gaming",
+            "name": "Gaming",
+            "description": "Jogos em tela grande.",
+            "icon": "🎮",
+            "group": "Uso"
+        },
+        {
+            "id": "sala_clara",
+            "name": "Sala com Luz Ambiente",
+            "description": "Uso diurno.",
+            "icon": "☀️",
+            "group": "Ambiente"
+        },
+        {
+            "id": "portatil",
+            "name": "Portátil / Camping",
+            "description": "Uso móvel.",
+            "icon": "🏕️",
+            "group": "Portabilidade"
+        },
+        {
+            "id": "apresentacoes",
+            "name": "Apresentações / Escritório",
+            "description": "Uso profissional.",
+            "icon": "💼",
+            "group": "Uso"
+        }
+    ],
+    "rules": [
+        {
+            "id": "projector_low_lumens_bright_room",
+            "condition": "facts.lumens < 2500",
+            "target_contexts": [
+                "sala_clara",
+                "apresentacoes"
+            ],
+            "penalty": -2.5,
+            "label": "Brilho baixo (<2500 lumens) - imagem apagada com luz",
+            "severity": "critical"
+        },
+        {
+            "id": "projector_high_latency_gaming",
+            "condition": "facts.input_lag_ms > 30",
+            "target_contexts": [
+                "gaming"
+            ],
+            "penalty": -2.0,
+            "label": "Alta latência (>30ms) - ruim para jogos",
+            "severity": "high"
+        },
+        {
+            "id": "projector_no_4k_cinema",
+            "condition": "facts.resolution !== '4K'",
+            "target_contexts": [
+                "home_cinema"
+            ],
+            "penalty": -1.5,
+            "label": "Sem 4K nativo - detalhes limitados",
+            "severity": "medium"
+        },
+        {
+            "id": "projector_heavy_portable",
+            "condition": "facts.weight_kg > 3",
+            "target_contexts": [
+                "portatil"
+            ],
+            "penalty": -2.0,
+            "label": "Pesado (>3kg) - difícil transportar",
+            "severity": "high"
+        },
+        {
+            "id": "projector_no_builtin_speaker",
+            "condition": "facts.has_speaker === false",
+            "target_contexts": [
+                "portatil",
+                "apresentacoes"
+            ],
+            "penalty": -1.0,
+            "label": "Sem alto-falante - precisa de som externo",
+            "severity": "medium"
+        },
+        {
+            "id": "projector_high_lumens_bonus",
+            "condition": "facts.lumens >= 3500",
+            "target_contexts": [
+                "sala_clara",
+                "apresentacoes"
+            ],
+            "bonus": 2.0,
+            "label": "Alto brilho (≥3500 lumens) - visível com luz",
+            "severity": "low"
+        },
+        {
+            "id": "projector_laser_bonus",
+            "condition": "facts.light_source === 'laser'",
+            "target_contexts": [
+                "home_cinema"
+            ],
+            "bonus": 2.0,
+            "label": "Fonte laser - 20.000h+ de vida útil",
+            "severity": "low"
+        },
+        {
+            "id": "projector_low_latency_bonus",
+            "condition": "facts.input_lag_ms <= 16",
+            "target_contexts": [
+                "gaming"
+            ],
+            "bonus": 2.0,
+            "label": "Baixa latência (≤16ms) - ótimo para games",
+            "severity": "low"
+        },
+        {
+            "id": "projector_battery_bonus",
+            "condition": "facts.has_battery === true",
+            "target_contexts": [
+                "portatil"
+            ],
+            "bonus": 2.0,
+            "label": "Bateria integrada - uso sem tomada",
+            "severity": "low"
+        }
+    ]
+}

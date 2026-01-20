@@ -1,0 +1,135 @@
+{
+    "category_id": "cpu",
+    "category_name": "Processador (CPU)",
+    "available_contexts": [
+        {
+            "id": "gaming",
+            "name": "Gaming",
+            "description": "Performance em jogos.",
+            "icon": "🎮",
+            "group": "Uso"
+        },
+        {
+            "id": "produtividade",
+            "name": "Produtividade / Multitarefa",
+            "description": "Muitos programas simultâneos.",
+            "icon": "💼",
+            "group": "Uso"
+        },
+        {
+            "id": "criacao",
+            "name": "Criação de Conteúdo",
+            "description": "Renderização e edição.",
+            "icon": "🎬",
+            "group": "Uso"
+        },
+        {
+            "id": "economia_energia",
+            "name": "Economia de Energia / Silêncio",
+            "description": "Baixo TDP e ruído.",
+            "icon": "💡",
+            "group": "Eficiência"
+        },
+        {
+            "id": "upgrade",
+            "name": "Upgrade de PC Existente",
+            "description": "Compatibilidade com placa-mãe atual.",
+            "icon": "🔧",
+            "group": "Compatibilidade"
+        }
+    ],
+    "rules": [
+        {
+            "id": "cpu_low_cores_productivity",
+            "condition": "facts.core_count < 6",
+            "target_contexts": [
+                "produtividade",
+                "criacao"
+            ],
+            "penalty": -2.0,
+            "label": "Poucos núcleos (<6) - limitado para multitarefa",
+            "severity": "high"
+        },
+        {
+            "id": "cpu_low_clock_gaming",
+            "condition": "facts.boost_clock_ghz < 4.5",
+            "target_contexts": [
+                "gaming"
+            ],
+            "penalty": -1.5,
+            "label": "Clock baixo (<4.5GHz) - limitado em jogos",
+            "severity": "medium"
+        },
+        {
+            "id": "cpu_high_tdp_efficiency",
+            "condition": "facts.tdp_watts > 105",
+            "target_contexts": [
+                "economia_energia"
+            ],
+            "penalty": -2.0,
+            "label": "Alto TDP (>105W) - consome muito",
+            "severity": "high"
+        },
+        {
+            "id": "cpu_no_igpu_no_gpu",
+            "condition": "facts.has_igpu === false",
+            "target_contexts": [
+                "produtividade"
+            ],
+            "penalty": -0.5,
+            "label": "Sem GPU integrada - requer placa de vídeo",
+            "severity": "low"
+        },
+        {
+            "id": "cpu_old_socket_upgrade",
+            "condition": "facts.socket_year < 2022",
+            "target_contexts": [
+                "upgrade"
+            ],
+            "penalty": -1.0,
+            "label": "Socket antigo - pode não ter upgrade futuro",
+            "severity": "medium"
+        },
+        {
+            "id": "cpu_high_cores_bonus",
+            "condition": "facts.core_count >= 12",
+            "target_contexts": [
+                "criacao",
+                "produtividade"
+            ],
+            "bonus": 2.0,
+            "label": "Muitos núcleos (≥12) - excelente multitarefa",
+            "severity": "low"
+        },
+        {
+            "id": "cpu_high_clock_bonus",
+            "condition": "facts.boost_clock_ghz >= 5.5",
+            "target_contexts": [
+                "gaming"
+            ],
+            "bonus": 1.5,
+            "label": "Alto clock (≥5.5GHz) - ótimo para games",
+            "severity": "low"
+        },
+        {
+            "id": "cpu_efficient_bonus",
+            "condition": "facts.tdp_watts <= 65",
+            "target_contexts": [
+                "economia_energia"
+            ],
+            "bonus": 2.0,
+            "label": "Baixo TDP (≤65W) - eficiente e silencioso",
+            "severity": "low"
+        },
+        {
+            "id": "cpu_3d_cache_bonus",
+            "condition": "facts.has_3d_vcache === true",
+            "target_contexts": [
+                "gaming"
+            ],
+            "bonus": 2.0,
+            "label": "3D V-Cache - performance excepcional em jogos",
+            "severity": "low"
+        }
+    ]
+}

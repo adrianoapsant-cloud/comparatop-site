@@ -1,0 +1,135 @@
+{
+    "category_id": "gamepad",
+    "category_name": "Controle / Gamepad",
+    "available_contexts": [
+        {
+            "id": "fps",
+            "name": "FPS / Precisão",
+            "description": "Jogos de tiro competitivo.",
+            "icon": "🎯",
+            "group": "Gênero"
+        },
+        {
+            "id": "longa_duracao",
+            "name": "Longas Sessões",
+            "description": "Conforto por horas.",
+            "icon": "⏰",
+            "group": "Conforto"
+        },
+        {
+            "id": "pc",
+            "name": "Uso em PC",
+            "description": "Compatibilidade com Windows.",
+            "icon": "💻",
+            "group": "Plataforma"
+        },
+        {
+            "id": "mobile",
+            "name": "Gaming Mobile",
+            "description": "Uso com smartphone.",
+            "icon": "📱",
+            "group": "Plataforma"
+        },
+        {
+            "id": "multiplos",
+            "name": "Multiplayer Local",
+            "description": "Vários controles.",
+            "icon": "👥",
+            "group": "Uso"
+        }
+    ],
+    "rules": [
+        {
+            "id": "gamepad_no_hall_effect_fps",
+            "condition": "facts.stick_type !== 'hall_effect'",
+            "target_contexts": [
+                "fps"
+            ],
+            "penalty": -1.0,
+            "label": "Sem Hall Effect - risco de drift",
+            "severity": "medium"
+        },
+        {
+            "id": "gamepad_short_battery_long",
+            "condition": "facts.battery_hours < 20",
+            "target_contexts": [
+                "longa_duracao"
+            ],
+            "penalty": -1.5,
+            "label": "Bateria curta (<20h)",
+            "severity": "medium"
+        },
+        {
+            "id": "gamepad_no_xinput_pc",
+            "condition": "facts.supports_xinput === false",
+            "target_contexts": [
+                "pc"
+            ],
+            "penalty": -2.0,
+            "label": "Sem XInput - compatibilidade limitada em PC",
+            "severity": "high"
+        },
+        {
+            "id": "gamepad_no_bluetooth_mobile",
+            "condition": "facts.has_bluetooth === false",
+            "target_contexts": [
+                "mobile"
+            ],
+            "penalty": -2.5,
+            "label": "Sem Bluetooth - não conecta no celular",
+            "severity": "critical"
+        },
+        {
+            "id": "gamepad_expensive_multiple",
+            "condition": "facts.price > 400",
+            "target_contexts": [
+                "multiplos"
+            ],
+            "penalty": -1.0,
+            "label": "Caro para comprar vários",
+            "severity": "medium"
+        },
+        {
+            "id": "gamepad_hall_effect_bonus",
+            "condition": "facts.stick_type === 'hall_effect'",
+            "target_contexts": [
+                "fps",
+                "longa_duracao"
+            ],
+            "bonus": 2.0,
+            "label": "Hall Effect - sem drift, durabilidade máxima",
+            "severity": "low"
+        },
+        {
+            "id": "gamepad_back_buttons_bonus",
+            "condition": "facts.has_back_paddles === true",
+            "target_contexts": [
+                "fps"
+            ],
+            "bonus": 1.5,
+            "label": "Botões traseiros - vantagem competitiva",
+            "severity": "low"
+        },
+        {
+            "id": "gamepad_long_battery_bonus",
+            "condition": "facts.battery_hours >= 40",
+            "target_contexts": [
+                "longa_duracao"
+            ],
+            "bonus": 2.0,
+            "label": "Excelente bateria (≥40h)",
+            "severity": "low"
+        },
+        {
+            "id": "gamepad_wired_option_bonus",
+            "condition": "facts.has_wired_mode === true",
+            "target_contexts": [
+                "fps",
+                "pc"
+            ],
+            "bonus": 1.0,
+            "label": "Opção com fio - zero latência",
+            "severity": "low"
+        }
+    ]
+}

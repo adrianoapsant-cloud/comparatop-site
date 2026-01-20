@@ -1,0 +1,102 @@
+[
+    {
+        "id": "custo_beneficio",
+        "label": "Custo-Benefício Real",
+        "icon": "💰",
+        "tech_field": "scores.c1",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Equilíbrio entre preço e qualidade entregue"
+    },
+    {
+        "id": "processamento",
+        "label": "Processamento de Imagem",
+        "icon": "🎨",
+        "tech_field": "scores.c2",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Qualidade do upscaling em canais abertos e streaming HD"
+    },
+    {
+        "id": "confiabilidade",
+        "label": "Confiabilidade/Hardware",
+        "icon": "🛡️",
+        "tech_field": "scores.c3",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Risco de defeitos crônicos pós-garantia"
+    },
+    {
+        "id": "fluidez_sistema",
+        "label": "Fluidez do Sistema",
+        "icon": "📱",
+        "tech_field": "scores.c4",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Velocidade e estabilidade do sistema operacional"
+    },
+    {
+        "id": "gaming",
+        "label": "Desempenho Gamer",
+        "icon": "🎮",
+        "tech_field": "scores.c5",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "120Hz nativos, VRR e Cloud Gaming"
+    },
+    {
+        "id": "brilho_reflexo",
+        "label": "Brilho e Anti-Reflexo",
+        "icon": "☀️",
+        "tech_field": "scores.c6",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Visibilidade em salas claras"
+    },
+    {
+        "id": "pos_venda",
+        "label": "Pós-Venda/Reputação",
+        "icon": "🏆",
+        "tech_field": "scores.c7",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Nota no Reclame Aqui e custo de reparo"
+    },
+    {
+        "id": "som",
+        "label": "Qualidade de Som",
+        "icon": "🔊",
+        "tech_field": "scores.c8",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Inteligibilidade de diálogos sem soundbar"
+    },
+    {
+        "id": "conectividade",
+        "label": "Conectividade",
+        "icon": "📶",
+        "tech_field": "scores.c9",
+        "target_value": 8,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Estabilidade Wi-Fi/Bluetooth e integração IoT"
+    },
+    {
+        "id": "design",
+        "label": "Design e Instalação",
+        "icon": "🖼️",
+        "tech_field": "scores.c10",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Gestão de cabos e estética na parede"
+    }
+]

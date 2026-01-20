@@ -1,0 +1,153 @@
+{
+    "category_id": "ssd",
+    "category_name": "SSD",
+    "available_contexts": [
+        {
+            "id": "gaming",
+            "name": "Gaming / Carregamento Rápido",
+            "description": "Velocidade para jogos modernos.",
+            "icon": "🎮",
+            "group": "Uso"
+        },
+        {
+            "id": "criacao",
+            "name": "Edição de Vídeo / Produção",
+            "description": "Leitura/escrita sustentada.",
+            "icon": "🎬",
+            "group": "Uso"
+        },
+        {
+            "id": "notebook",
+            "name": "Upgrade de Notebook",
+            "description": "Compatibilidade e consumo.",
+            "icon": "💻",
+            "group": "Uso"
+        },
+        {
+            "id": "nas",
+            "name": "NAS / Servidor",
+            "description": "Durabilidade e TBW.",
+            "icon": "🖥️",
+            "group": "Uso"
+        },
+        {
+            "id": "economico",
+            "name": "Custo-Benefício",
+            "description": "Melhor preço por GB.",
+            "icon": "💰",
+            "group": "Economia"
+        }
+    ],
+    "rules": [
+        {
+            "id": "ssd_sata_gaming",
+            "condition": "facts.interface === 'SATA'",
+            "target_contexts": [
+                "gaming",
+                "criacao"
+            ],
+            "penalty": -1.5,
+            "label": "Interface SATA - lento para jogos modernos",
+            "severity": "medium"
+        },
+        {
+            "id": "ssd_qlc_sustained_creation",
+            "condition": "facts.nand_type === 'QLC'",
+            "target_contexts": [
+                "criacao",
+                "nas"
+            ],
+            "penalty": -1.5,
+            "label": "NAND QLC - escrita sustentada lenta",
+            "severity": "medium"
+        },
+        {
+            "id": "ssd_no_dram_general",
+            "condition": "facts.has_dram === false",
+            "target_contexts": [
+                "gaming",
+                "criacao",
+                "nas"
+            ],
+            "penalty": -1.0,
+            "label": "Sem cache DRAM - performance inconsistente",
+            "severity": "medium"
+        },
+        {
+            "id": "ssd_low_tbw_nas",
+            "condition": "facts.tbw < 300",
+            "target_contexts": [
+                "nas"
+            ],
+            "penalty": -2.0,
+            "label": "TBW baixo (<300) - durabilidade limitada",
+            "severity": "high"
+        },
+        {
+            "id": "ssd_m2_2280_notebook",
+            "condition": "facts.form_factor !== 'M.2_2280'",
+            "target_contexts": [
+                "notebook"
+            ],
+            "penalty": -2.5,
+            "label": "Formato incompatível com a maioria dos notebooks",
+            "severity": "critical"
+        },
+        {
+            "id": "ssd_pcie4_bonus",
+            "condition": "facts.interface === 'PCIe4'",
+            "target_contexts": [
+                "gaming",
+                "criacao"
+            ],
+            "bonus": 1.5,
+            "label": "PCIe 4.0 - velocidade de próxima geração",
+            "severity": "low"
+        },
+        {
+            "id": "ssd_pcie5_bonus",
+            "condition": "facts.interface === 'PCIe5'",
+            "target_contexts": [
+                "gaming",
+                "criacao"
+            ],
+            "bonus": 2.0,
+            "label": "PCIe 5.0 - velocidade máxima disponível",
+            "severity": "low"
+        },
+        {
+            "id": "ssd_tlc_bonus",
+            "condition": "facts.nand_type === 'TLC'",
+            "target_contexts": [
+                "criacao",
+                "nas",
+                "economico"
+            ],
+            "bonus": 1.0,
+            "label": "NAND TLC - bom equilíbrio performance/preço",
+            "severity": "low"
+        },
+        {
+            "id": "ssd_high_tbw_bonus",
+            "condition": "facts.tbw >= 600",
+            "target_contexts": [
+                "nas",
+                "criacao"
+            ],
+            "bonus": 1.5,
+            "label": "Alto TBW (≥600) - excelente durabilidade",
+            "severity": "low"
+        },
+        {
+            "id": "ssd_heatsink_bonus",
+            "condition": "facts.has_heatsink === true",
+            "target_contexts": [
+                "gaming",
+                "criacao"
+            ],
+            "bonus": 1.0,
+            "label": "Dissipador incluso - evita throttling",
+            "severity": "low"
+        }
+    ]
+}

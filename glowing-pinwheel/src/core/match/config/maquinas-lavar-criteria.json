@@ -1,0 +1,102 @@
+[
+    {
+        "id": "lavagem",
+        "label": "Qualidade de Lavagem",
+        "icon": "🧼",
+        "tech_field": "scores.c1",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Limpeza eficiente das roupas"
+    },
+    {
+        "id": "capacidade",
+        "label": "Capacidade (kg)",
+        "icon": "📦",
+        "tech_field": "scores.c2",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Volume de roupas por ciclo"
+    },
+    {
+        "id": "centrifugacao",
+        "label": "Potência de Centrifugação",
+        "icon": "🌀",
+        "tech_field": "scores.c3",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "RPM e eficiência"
+    },
+    {
+        "id": "consumo",
+        "label": "Consumo de Água/Energia",
+        "icon": "💧",
+        "tech_field": "scores.c4",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Eficiência em recursos"
+    },
+    {
+        "id": "silencio",
+        "label": "Nível de Ruído",
+        "icon": "🔇",
+        "tech_field": "scores.c5",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "dB na centrifugação"
+    },
+    {
+        "id": "programas",
+        "label": "Variedade de Programas",
+        "icon": "⚙️",
+        "tech_field": "scores.c6",
+        "target_value": 8,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Ciclos para diferentes tecidos"
+    },
+    {
+        "id": "motor",
+        "label": "Tipo de Motor",
+        "icon": "⚡",
+        "tech_field": "scores.c7",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Inverter vs convencional"
+    },
+    {
+        "id": "durabilidade",
+        "label": "Durabilidade",
+        "icon": "🛡️",
+        "tech_field": "scores.c8",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Vida útil do motor e tambor"
+    },
+    {
+        "id": "abertura",
+        "label": "Tipo de Abertura",
+        "icon": "🚪",
+        "tech_field": "scores.c9",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Frontal vs superior"
+    },
+    {
+        "id": "custo_beneficio",
+        "label": "Custo-Benefício",
+        "icon": "💰",
+        "tech_field": "scores.c10",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Valor pelo preço pago"
+    }
+]

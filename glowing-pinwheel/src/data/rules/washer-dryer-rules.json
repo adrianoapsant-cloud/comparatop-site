@@ -1,0 +1,286 @@
+{
+    "category_id": "lava-e-seca",
+    "category_name": "Lava e Seca",
+    "available_contexts": [
+        {
+            "id": "espaco_pequeno",
+            "name": "Espaço Pequeno",
+            "description": "Apartamento ou lavanderia compacta.",
+            "icon": "📦",
+            "group": "Localização"
+        },
+        {
+            "id": "durabilidade",
+            "name": "Durabilidade / Longevidade",
+            "description": "Prioridade para peças resistentes e manutenção fácil.",
+            "icon": "🔧",
+            "group": "Uso"
+        },
+        {
+            "id": "dono_de_pet",
+            "name": "Dono de Pet",
+            "description": "Prioridade para remoção eficaz de pelos.",
+            "icon": "🐕",
+            "group": "Uso",
+            "has_pets": true
+        },
+        {
+            "id": "familia_grande",
+            "name": "Família Grande / Edredom",
+            "description": "Prioridade para capacidade de secagem real.",
+            "icon": "👨‍👩‍👧‍👦",
+            "group": "Uso"
+        },
+        {
+            "id": "apartamento_silencio",
+            "name": "Apartamento / Baixo Ruído",
+            "description": "Prioridade para silêncio e baixa vibração.",
+            "icon": "🤫",
+            "group": "Localização"
+        }
+    ],
+    "rules": [
+        {
+            "id": "wd_large_footprint_small",
+            "condition": "facts.width_cm > 65 || facts.depth_cm > 65",
+            "target_contexts": [
+                "espaco_pequeno"
+            ],
+            "penalty": -1.5,
+            "label": "Dimensões grandes demais (>65cm) para espaço compacto",
+            "severity": "medium"
+        },
+        {
+            "id": "wd_no_stackable_small",
+            "condition": "facts.is_stackable === false",
+            "target_contexts": [
+                "espaco_pequeno"
+            ],
+            "penalty": -1.0,
+            "label": "Não empilhável - ocupa mais área",
+            "severity": "medium"
+        },
+        {
+            "id": "wd_compact_small_bonus",
+            "condition": "facts.width_cm <= 60 && facts.depth_cm <= 55",
+            "target_contexts": [
+                "espaco_pequeno"
+            ],
+            "bonus": 2.0,
+            "label": "Ultra compacta - cabe em qualquer lavanderia",
+            "severity": "low"
+        },
+        {
+            "id": "wd_stackable_small_bonus",
+            "condition": "facts.is_stackable === true",
+            "target_contexts": [
+                "espaco_pequeno"
+            ],
+            "bonus": 1.0,
+            "label": "Design empilhável - libera espaço",
+            "severity": "low"
+        },
+        {
+            "id": "wd_aluminum_tripod_durability",
+            "condition": "facts.tripod_material === 'aluminum' || facts.tripod_material === 'zamac'",
+            "target_contexts": [
+                "durabilidade"
+            ],
+            "penalty": -3.0,
+            "label": "Eixo tripé de alumínio/zamac corrói em 3-5 anos (custo R$1500+)",
+            "severity": "critical"
+        },
+        {
+            "id": "wd_recall_history_durability",
+            "condition": "facts.has_active_recall === true",
+            "target_contexts": [
+                "durabilidade"
+            ],
+            "penalty": -3.0,
+            "label": "Modelo com recall ativo - EVITAR",
+            "severity": "critical"
+        },
+        {
+            "id": "wd_rare_parts_durability",
+            "condition": "facts.parts_availability === 'limited'",
+            "target_contexts": [
+                "durabilidade"
+            ],
+            "penalty": -2.0,
+            "label": "Peças de reposição raras/caras - reparo inviável",
+            "severity": "high"
+        },
+        {
+            "id": "wd_no_board_protection_durability",
+            "condition": "facts.board_resin_protected === false",
+            "target_contexts": [
+                "durabilidade"
+            ],
+            "penalty": -1.5,
+            "label": "Placa sem resina - vulnerável à umidade",
+            "severity": "medium"
+        },
+        {
+            "id": "wd_direct_drive_durability_bonus",
+            "condition": "facts.motor_type === 'direct_drive'",
+            "target_contexts": [
+                "durabilidade"
+            ],
+            "bonus": 2.5,
+            "label": "Motor Direct Drive (LG) - sem correia, 10 anos garantia",
+            "severity": "low"
+        },
+        {
+            "id": "wd_reinforced_tripod_durability_bonus",
+            "condition": "facts.tripod_material === 'reinforced' || facts.tripod_material === 'stainless'",
+            "target_contexts": [
+                "durabilidade"
+            ],
+            "bonus": 2.0,
+            "label": "Tripé reforçado/inox - durabilidade comprovada",
+            "severity": "low"
+        },
+        {
+            "id": "wd_common_parts_durability_bonus",
+            "condition": "facts.parts_availability === 'wide'",
+            "target_contexts": [
+                "durabilidade"
+            ],
+            "bonus": 1.5,
+            "label": "Peças disponíveis no Mercado Livre - reparo acessível",
+            "severity": "low"
+        },
+        {
+            "id": "wd_passive_filter_pet",
+            "condition": "facts.filter_type === 'passive'",
+            "target_contexts": [
+                "dono_de_pet"
+            ],
+            "penalty": -1.5,
+            "label": "Filtro passivo - não remove pelos eficazmente",
+            "severity": "medium"
+        },
+        {
+            "id": "wd_clogged_duct_pet",
+            "condition": "facts.duct_easy_clean === false",
+            "target_contexts": [
+                "dono_de_pet"
+            ],
+            "penalty": -1.0,
+            "label": "Dutos difíceis de limpar - entopem com pelos",
+            "severity": "medium"
+        },
+        {
+            "id": "wd_active_filter_pet_bonus",
+            "condition": "facts.filter_type === 'active_recirculation'",
+            "target_contexts": [
+                "dono_de_pet"
+            ],
+            "bonus": 2.0,
+            "label": "Filtro ativo - captura pelos durante lavagem",
+            "severity": "low"
+        },
+        {
+            "id": "wd_self_clean_duct_pet_bonus",
+            "condition": "facts.has_duct_self_clean === true",
+            "target_contexts": [
+                "dono_de_pet"
+            ],
+            "bonus": 1.5,
+            "label": "Autolimpeza de dutos - previne entupimento",
+            "severity": "low"
+        },
+        {
+            "id": "wd_low_dry_capacity_family",
+            "condition": "facts.dry_capacity_kg < 7",
+            "target_contexts": [
+                "familia_grande"
+            ],
+            "penalty": -2.5,
+            "label": "Capacidade de secagem <7kg - edredom não seca",
+            "severity": "critical"
+        },
+        {
+            "id": "wd_misleading_capacity_family",
+            "condition": "facts.wash_capacity_kg - facts.dry_capacity_kg > 5",
+            "target_contexts": [
+                "familia_grande"
+            ],
+            "penalty": -1.5,
+            "label": "Grande diferença lava/seca - expectativa frustrada",
+            "severity": "medium"
+        },
+        {
+            "id": "wd_high_dry_capacity_family_bonus",
+            "condition": "facts.dry_capacity_kg >= 9",
+            "target_contexts": [
+                "familia_grande"
+            ],
+            "bonus": 2.0,
+            "label": "Secagem ≥9kg - cabe edredom king",
+            "severity": "low"
+        },
+        {
+            "id": "wd_balanced_capacity_family_bonus",
+            "condition": "facts.wash_capacity_kg - facts.dry_capacity_kg <= 3",
+            "target_contexts": [
+                "familia_grande"
+            ],
+            "bonus": 1.0,
+            "label": "Capacidade equilibrada - menos ciclos divididos",
+            "severity": "low"
+        },
+        {
+            "id": "wd_walking_machine_apartment",
+            "condition": "facts.vibration_level === 'high'",
+            "target_contexts": [
+                "apartamento_silencio"
+            ],
+            "penalty": -2.5,
+            "label": "Máquina 'andante' - incomoda vizinhos",
+            "severity": "critical"
+        },
+        {
+            "id": "wd_belt_motor_apartment",
+            "condition": "facts.motor_type === 'belt'",
+            "target_contexts": [
+                "apartamento_silencio"
+            ],
+            "penalty": -1.5,
+            "label": "Motor com correia - mais barulhento",
+            "severity": "medium"
+        },
+        {
+            "id": "wd_direct_drive_apartment_bonus",
+            "condition": "facts.motor_type === 'direct_drive'",
+            "target_contexts": [
+                "apartamento_silencio"
+            ],
+            "bonus": 2.5,
+            "label": "Direct Drive - silêncio absoluto",
+            "severity": "low"
+        },
+        {
+            "id": "wd_auto_balance_apartment_bonus",
+            "condition": "facts.has_auto_balance === true",
+            "target_contexts": [
+                "apartamento_silencio"
+            ],
+            "bonus": 1.0,
+            "label": "Balanceamento automático - menos vibração",
+            "severity": "low"
+        },
+        {
+            "id": "wd_end_notification_bonus",
+            "condition": "facts.has_end_notification === true",
+            "target_contexts": [
+                "apartamento_silencio",
+                "familia_grande",
+                "durabilidade"
+            ],
+            "bonus": 0.5,
+            "label": "Notificação de fim de ciclo - roupa não fica esquecida",
+            "severity": "low"
+        }
+    ]
+}

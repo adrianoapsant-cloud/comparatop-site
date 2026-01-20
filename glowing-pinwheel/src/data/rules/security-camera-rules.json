@@ -1,0 +1,134 @@
+{
+    "category_id": "security-camera",
+    "category_name": "Câmera de Segurança",
+    "available_contexts": [
+        {
+            "id": "externo",
+            "name": "Uso Externo",
+            "description": "Resistência às intempéries.",
+            "icon": "🌧️",
+            "group": "Instalação"
+        },
+        {
+            "id": "noturno",
+            "name": "Monitoramento Noturno",
+            "description": "Visão noturna essencial.",
+            "icon": "🌙",
+            "group": "Uso"
+        },
+        {
+            "id": "privacidade",
+            "name": "Privacidade Prioritária",
+            "description": "Dados locais, sem nuvem.",
+            "icon": "🔒",
+            "group": "Segurança"
+        },
+        {
+            "id": "integracao",
+            "name": "Casa Inteligente",
+            "description": "Integração com ecossistemas.",
+            "icon": "🏠",
+            "group": "Compatibilidade"
+        },
+        {
+            "id": "sem_fio",
+            "name": "Instalação Sem Fio",
+            "description": "Sem passar cabos.",
+            "icon": "📶",
+            "group": "Instalação"
+        }
+    ],
+    "rules": [
+        {
+            "id": "camera_no_ip_rating_outdoor",
+            "condition": "facts.ip_rating === 'none' || facts.ip_rating === 'IP44'",
+            "target_contexts": [
+                "externo"
+            ],
+            "penalty": -2.5,
+            "label": "Sem proteção adequada para uso externo",
+            "severity": "critical"
+        },
+        {
+            "id": "camera_poor_night_vision",
+            "condition": "facts.night_vision_range_m < 10",
+            "target_contexts": [
+                "noturno"
+            ],
+            "penalty": -2.0,
+            "label": "Visão noturna limitada (<10m)",
+            "severity": "high"
+        },
+        {
+            "id": "camera_cloud_only_privacy",
+            "condition": "facts.local_storage === false",
+            "target_contexts": [
+                "privacidade"
+            ],
+            "penalty": -2.5,
+            "label": "Apenas nuvem - seus dados fora de casa",
+            "severity": "critical"
+        },
+        {
+            "id": "camera_no_homekit_integration",
+            "condition": "facts.homekit_compatible === false && facts.matter_compatible === false",
+            "target_contexts": [
+                "integracao"
+            ],
+            "penalty": -1.0,
+            "label": "Sem HomeKit/Matter - integração limitada",
+            "severity": "medium"
+        },
+        {
+            "id": "camera_wired_only_wireless",
+            "condition": "facts.is_battery_powered === false && facts.has_poe === true",
+            "target_contexts": [
+                "sem_fio"
+            ],
+            "penalty": -2.0,
+            "label": "Requer cabo - instalação complexa",
+            "severity": "high"
+        },
+        {
+            "id": "camera_ip66_bonus",
+            "condition": "facts.ip_rating === 'IP66' || facts.ip_rating === 'IP67'",
+            "target_contexts": [
+                "externo"
+            ],
+            "bonus": 2.0,
+            "label": "IP66/67 - resistente a chuva forte",
+            "severity": "low"
+        },
+        {
+            "id": "camera_color_night_bonus",
+            "condition": "facts.has_color_night_vision === true",
+            "target_contexts": [
+                "noturno"
+            ],
+            "bonus": 2.0,
+            "label": "Visão noturna colorida - detalhes claros",
+            "severity": "low"
+        },
+        {
+            "id": "camera_local_storage_bonus",
+            "condition": "facts.local_storage === true && facts.supports_nas === true",
+            "target_contexts": [
+                "privacidade"
+            ],
+            "bonus": 2.0,
+            "label": "Armazenamento local/NAS - seus dados em casa",
+            "severity": "low"
+        },
+        {
+            "id": "camera_solar_bonus",
+            "condition": "facts.has_solar_option === true",
+            "target_contexts": [
+                "sem_fio",
+                "externo"
+            ],
+            "bonus": 1.5,
+            "label": "Opção solar - nunca fica sem bateria",
+            "severity": "low"
+        }
+    ]
+}

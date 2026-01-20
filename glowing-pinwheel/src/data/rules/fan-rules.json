@@ -1,0 +1,134 @@
+{
+    "category_id": "fan",
+    "category_name": "Ventilador / Climatizador",
+    "available_contexts": [
+        {
+            "id": "quarto",
+            "name": "Quarto / Dormir",
+            "description": "Silêncio prioritário.",
+            "icon": "🛏️",
+            "group": "Uso"
+        },
+        {
+            "id": "sala_grande",
+            "name": "Sala Grande",
+            "description": "Alcance amplo.",
+            "icon": "🏠",
+            "group": "Tamanho"
+        },
+        {
+            "id": "umidificar",
+            "name": "Clima Seco",
+            "description": "Precisa umidificar.",
+            "icon": "💨",
+            "group": "Clima"
+        },
+        {
+            "id": "criancas",
+            "name": "Casa com Crianças",
+            "description": "Segurança prioritária.",
+            "icon": "👶",
+            "group": "Segurança"
+        },
+        {
+            "id": "economia",
+            "name": "Economia de Energia",
+            "description": "Baixo consumo.",
+            "icon": "💡",
+            "group": "Economia"
+        }
+    ],
+    "rules": [
+        {
+            "id": "fan_loud_bedroom",
+            "condition": "facts.noise_db_min > 40",
+            "target_contexts": [
+                "quarto"
+            ],
+            "penalty": -2.0,
+            "label": "Barulhento (>40dB mín) - atrapalha sono",
+            "severity": "high"
+        },
+        {
+            "id": "fan_low_airflow_big_room",
+            "condition": "facts.airflow_m3h < 150",
+            "target_contexts": [
+                "sala_grande"
+            ],
+            "penalty": -2.0,
+            "label": "Fluxo de ar baixo (<150m³/h)",
+            "severity": "high"
+        },
+        {
+            "id": "fan_no_humidifier_dry",
+            "condition": "facts.has_humidifier === false",
+            "target_contexts": [
+                "umidificar"
+            ],
+            "penalty": -2.5,
+            "label": "Sem umidificador - não alivia clima seco",
+            "severity": "critical"
+        },
+        {
+            "id": "fan_open_blades_kids",
+            "condition": "facts.blade_type === 'open'",
+            "target_contexts": [
+                "criancas"
+            ],
+            "penalty": -2.0,
+            "label": "Hélices expostas - risco para crianças",
+            "severity": "high"
+        },
+        {
+            "id": "fan_high_wattage_economy",
+            "condition": "facts.power_watts > 70",
+            "target_contexts": [
+                "economia"
+            ],
+            "penalty": -1.5,
+            "label": "Alto consumo (>70W)",
+            "severity": "medium"
+        },
+        {
+            "id": "fan_quiet_bonus",
+            "condition": "facts.noise_db_min <= 30",
+            "target_contexts": [
+                "quarto"
+            ],
+            "bonus": 2.0,
+            "label": "Ultra silencioso (≤30dB)",
+            "severity": "low"
+        },
+        {
+            "id": "fan_tower_oscillating_bonus",
+            "condition": "facts.type === 'tower' && facts.oscillates === true",
+            "target_contexts": [
+                "sala_grande"
+            ],
+            "bonus": 1.5,
+            "label": "Torre oscilante - distribui bem o ar",
+            "severity": "low"
+        },
+        {
+            "id": "fan_bladeless_bonus",
+            "condition": "facts.blade_type === 'bladeless'",
+            "target_contexts": [
+                "criancas",
+                "quarto"
+            ],
+            "bonus": 2.0,
+            "label": "Sem hélices - seguro e silencioso",
+            "severity": "low"
+        },
+        {
+            "id": "fan_low_power_bonus",
+            "condition": "facts.power_watts <= 40",
+            "target_contexts": [
+                "economia"
+            ],
+            "bonus": 1.5,
+            "label": "Baixo consumo (≤40W)",
+            "severity": "low"
+        }
+    ]
+}

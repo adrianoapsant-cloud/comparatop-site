@@ -1,0 +1,127 @@
+{
+    "category_id": "water-purifier",
+    "category_name": "Purificador de Água",
+    "available_contexts": [
+        {
+            "id": "agua_dura",
+            "name": "Água Dura / Alto Cloro",
+            "description": "Regiões com água de baixa qualidade.",
+            "icon": "💧",
+            "group": "Qualidade da Água"
+        },
+        {
+            "id": "familia_grande",
+            "name": "Família Grande",
+            "description": "Alto consumo diário de água.",
+            "icon": "👨‍👩‍👧‍👦",
+            "group": "Uso"
+        },
+        {
+            "id": "economia",
+            "name": "Economia no Custo de Manutenção",
+            "description": "Foco no custo dos refis.",
+            "icon": "💰",
+            "group": "Economia"
+        },
+        {
+            "id": "espaco_limitado",
+            "name": "Espaço Limitado",
+            "description": "Bancada ou área de instalação pequena.",
+            "icon": "🏠",
+            "group": "Espaço"
+        }
+    ],
+    "rules": [
+        {
+            "id": "purifier_no_activated_carbon_hard_water",
+            "condition": "facts.has_activated_carbon === false",
+            "target_contexts": [
+                "agua_dura"
+            ],
+            "penalty": -2.0,
+            "label": "Sem carvão ativado - não remove cloro e odores",
+            "severity": "high"
+        },
+        {
+            "id": "purifier_low_flow_large_family",
+            "condition": "facts.flow_rate_lph < 60",
+            "target_contexts": [
+                "familia_grande"
+            ],
+            "penalty": -1.5,
+            "label": "Vazão baixa (<60 L/h) - demora para encher recipientes",
+            "severity": "medium"
+        },
+        {
+            "id": "purifier_expensive_refill_economy",
+            "condition": "facts.refill_cost > 80",
+            "target_contexts": [
+                "economia"
+            ],
+            "penalty": -1.5,
+            "label": "Refil caro (>R$80) - alto custo de manutenção",
+            "severity": "medium"
+        },
+        {
+            "id": "purifier_short_refill_life_economy",
+            "condition": "facts.refill_lifespan_liters < 1500",
+            "target_contexts": [
+                "economia",
+                "familia_grande"
+            ],
+            "penalty": -1.0,
+            "label": "Vida útil do refil curta (<1500L)",
+            "severity": "medium"
+        },
+        {
+            "id": "purifier_large_footprint_small_space",
+            "condition": "facts.width_cm > 30",
+            "target_contexts": [
+                "espaco_limitado"
+            ],
+            "penalty": -1.0,
+            "label": "Ocupa muito espaço na bancada",
+            "severity": "medium"
+        },
+        {
+            "id": "purifier_uv_bonus",
+            "condition": "facts.has_uv_sterilization === true",
+            "target_contexts": [
+                "agua_dura"
+            ],
+            "bonus": 2.0,
+            "label": "Esterilização UV - elimina bactérias",
+            "severity": "low"
+        },
+        {
+            "id": "purifier_high_flow_bonus",
+            "condition": "facts.flow_rate_lph >= 120",
+            "target_contexts": [
+                "familia_grande"
+            ],
+            "bonus": 1.5,
+            "label": "Alta vazão (≥120 L/h) - rápido para toda família",
+            "severity": "low"
+        },
+        {
+            "id": "purifier_long_refill_bonus",
+            "condition": "facts.refill_lifespan_liters >= 3000",
+            "target_contexts": [
+                "economia"
+            ],
+            "bonus": 1.5,
+            "label": "Refil de longa duração (≥3000L)",
+            "severity": "low"
+        },
+        {
+            "id": "purifier_compact_bonus",
+            "condition": "facts.is_compact === true",
+            "target_contexts": [
+                "espaco_limitado"
+            ],
+            "bonus": 1.0,
+            "label": "Design compacto - ideal para espaços pequenos",
+            "severity": "low"
+        }
+    ]
+}

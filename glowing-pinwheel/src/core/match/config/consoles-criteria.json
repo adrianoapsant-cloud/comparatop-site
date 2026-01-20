@@ -1,0 +1,102 @@
+[
+    {
+        "id": "performance",
+        "label": "Desempenho/FPS",
+        "icon": "🎮",
+        "tech_field": "scores.c1",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Performance em jogos exigentes"
+    },
+    {
+        "id": "biblioteca",
+        "label": "Biblioteca de Jogos",
+        "icon": "📚",
+        "tech_field": "scores.c2",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Quantidade e qualidade de exclusivos"
+    },
+    {
+        "id": "retrocompat",
+        "label": "Retrocompatibilidade",
+        "icon": "🕹️",
+        "tech_field": "scores.c3",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Suporte a jogos de gerações anteriores"
+    },
+    {
+        "id": "armazenamento",
+        "label": "Armazenamento",
+        "icon": "💾",
+        "tech_field": "scores.c4",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Capacidade e velocidade SSD"
+    },
+    {
+        "id": "online",
+        "label": "Serviço Online",
+        "icon": "🌐",
+        "tech_field": "scores.c5",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Qualidade do multiplayer e benefícios"
+    },
+    {
+        "id": "gamepass",
+        "label": "Game Pass/Assinatura",
+        "icon": "🎁",
+        "tech_field": "scores.c6",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Valor do serviço de assinatura"
+    },
+    {
+        "id": "controle",
+        "label": "Qualidade do Controle",
+        "icon": "🕹️",
+        "tech_field": "scores.c7",
+        "target_value": 8,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Ergonomia e durabilidade"
+    },
+    {
+        "id": "ruido",
+        "label": "Silêncio em Operação",
+        "icon": "🔇",
+        "tech_field": "scores.c8",
+        "target_value": 8,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Nível de ruído durante uso"
+    },
+    {
+        "id": "multimedia",
+        "label": "Recursos Multimídia",
+        "icon": "📺",
+        "tech_field": "scores.c9",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Apps de streaming e Blu-ray"
+    },
+    {
+        "id": "custo_beneficio",
+        "label": "Custo-Benefício",
+        "icon": "💰",
+        "tech_field": "scores.c10",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Valor pelo preço pago"
+    }
+]

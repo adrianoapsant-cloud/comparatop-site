@@ -1,0 +1,102 @@
+[
+    {
+        "id": "succao",
+        "label": "Força de Sucção",
+        "icon": "💨",
+        "tech_field": "scores.c1",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Potência de aspiração em Pa"
+    },
+    {
+        "id": "bateria",
+        "label": "Autonomia da Bateria",
+        "icon": "🔋",
+        "tech_field": "scores.c2",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Minutos de limpeza por carga"
+    },
+    {
+        "id": "navegacao",
+        "label": "Sistema de Navegação",
+        "icon": "🗺️",
+        "tech_field": "scores.c3",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "LiDAR vs câmera vs giroscópio"
+    },
+    {
+        "id": "mop",
+        "label": "Função Mop/Limpeza Úmida",
+        "icon": "💧",
+        "tech_field": "scores.c4",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Qualidade da limpeza úmida"
+    },
+    {
+        "id": "autoesvaziamento",
+        "label": "Auto-Esvaziamento",
+        "icon": "🗑️",
+        "tech_field": "scores.c5",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Base com esvaziamento automático"
+    },
+    {
+        "id": "app",
+        "label": "App e Mapeamento",
+        "icon": "📱",
+        "tech_field": "scores.c6",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Qualidade do app e mapas"
+    },
+    {
+        "id": "silencio",
+        "label": "Nível de Ruído",
+        "icon": "🔇",
+        "tech_field": "scores.c7",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "dB em operação"
+    },
+    {
+        "id": "obstaculos",
+        "label": "Desvio de Obstáculos",
+        "icon": "🚧",
+        "tech_field": "scores.c8",
+        "target_value": 8,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Evita fios, móveis, pets"
+    },
+    {
+        "id": "manutencao",
+        "label": "Facilidade de Manutenção",
+        "icon": "🔧",
+        "tech_field": "scores.c9",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Troca de filtros e escovas"
+    },
+    {
+        "id": "custo_beneficio",
+        "label": "Custo-Benefício",
+        "icon": "💰",
+        "tech_field": "scores.c10",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Valor pelo preço pago"
+    }
+]

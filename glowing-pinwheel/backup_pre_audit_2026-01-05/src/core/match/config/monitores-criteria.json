@@ -1,0 +1,102 @@
+[
+    {
+        "id": "painel",
+        "label": "Qualidade do Painel",
+        "icon": "🖥️",
+        "tech_field": "scores.c1",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Cores, contraste e uniformidade"
+    },
+    {
+        "id": "resposta",
+        "label": "Tempo de Resposta",
+        "icon": "⚡",
+        "tech_field": "scores.c2",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Velocidade para gaming"
+    },
+    {
+        "id": "refresh",
+        "label": "Taxa de Atualização",
+        "icon": "🔄",
+        "tech_field": "scores.c3",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Hz e suporte a G-Sync/FreeSync"
+    },
+    {
+        "id": "ergonomia",
+        "label": "Ergonomia/Ajustes",
+        "icon": "🪑",
+        "tech_field": "scores.c4",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Altura, inclinação e rotação"
+    },
+    {
+        "id": "conectividade",
+        "label": "Conectividade",
+        "icon": "🔌",
+        "tech_field": "scores.c5",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "USB-C, HDMI e hub USB"
+    },
+    {
+        "id": "cores",
+        "label": "Precisão de Cores",
+        "icon": "🎨",
+        "tech_field": "scores.c6",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Cobertura sRGB/DCI-P3"
+    },
+    {
+        "id": "brilho",
+        "label": "Brilho/HDR",
+        "icon": "☀️",
+        "tech_field": "scores.c7",
+        "target_value": 8,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Nits e suporte HDR real"
+    },
+    {
+        "id": "construcao",
+        "label": "Qualidade de Construção",
+        "icon": "🛡️",
+        "tech_field": "scores.c8",
+        "target_value": 8,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Materiais e durabilidade"
+    },
+    {
+        "id": "alto_falantes",
+        "label": "Alto-falantes",
+        "icon": "🔊",
+        "tech_field": "scores.c9",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Qualidade do áudio integrado"
+    },
+    {
+        "id": "custo_beneficio",
+        "label": "Custo-Benefício",
+        "icon": "💰",
+        "tech_field": "scores.c10",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Valor pelo preço pago"
+    }
+]

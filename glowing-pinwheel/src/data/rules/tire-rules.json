@@ -1,0 +1,138 @@
+{
+    "category_id": "tire",
+    "category_name": "Pneu",
+    "available_contexts": [
+        {
+            "id": "cidade",
+            "name": "Uso Urbano",
+            "description": "Asfalto e trânsito.",
+            "icon": "🏙️",
+            "group": "Uso"
+        },
+        {
+            "id": "estrada",
+            "name": "Viagens Longas",
+            "description": "Rodovias e conforto.",
+            "icon": "🛣️",
+            "group": "Uso"
+        },
+        {
+            "id": "chuva",
+            "name": "Clima Chuvoso",
+            "description": "Aderência em piso molhado.",
+            "icon": "🌧️",
+            "group": "Clima"
+        },
+        {
+            "id": "economia",
+            "name": "Economia de Combustível",
+            "description": "Baixa resistência à rolagem.",
+            "icon": "⛽",
+            "group": "Economia"
+        },
+        {
+            "id": "offroad",
+            "name": "Off-Road / Terra",
+            "description": "Estradas de terra e lama.",
+            "icon": "🏔️",
+            "group": "Terreno"
+        }
+    ],
+    "rules": [
+        {
+            "id": "tire_hard_compound_rain",
+            "condition": "facts.compound === 'hard'",
+            "target_contexts": [
+                "chuva"
+            ],
+            "penalty": -2.0,
+            "label": "Composto duro - pouca aderência na chuva",
+            "severity": "high"
+        },
+        {
+            "id": "tire_high_noise_highway",
+            "condition": "facts.noise_db > 72",
+            "target_contexts": [
+                "estrada"
+            ],
+            "penalty": -1.5,
+            "label": "Alto ruído (>72dB) - desconforto em viagens",
+            "severity": "medium"
+        },
+        {
+            "id": "tire_low_treadwear_city",
+            "condition": "facts.treadwear < 400",
+            "target_contexts": [
+                "cidade",
+                "economia"
+            ],
+            "penalty": -1.5,
+            "label": "Baixa durabilidade (<400) - troca frequente",
+            "severity": "medium"
+        },
+        {
+            "id": "tire_street_offroad",
+            "condition": "facts.type === 'street'",
+            "target_contexts": [
+                "offroad"
+            ],
+            "penalty": -3.0,
+            "label": "Pneu de rua - inadequado para terra",
+            "severity": "critical"
+        },
+        {
+            "id": "tire_high_rolling_resistance",
+            "condition": "facts.rolling_resistance === 'high'",
+            "target_contexts": [
+                "economia"
+            ],
+            "penalty": -2.0,
+            "label": "Alta resistência - gasta mais combustível",
+            "severity": "high"
+        },
+        {
+            "id": "tire_silica_compound_bonus",
+            "condition": "facts.has_silica_compound === true",
+            "target_contexts": [
+                "chuva",
+                "cidade"
+            ],
+            "bonus": 2.0,
+            "label": "Composto com sílica - excelente em piso molhado",
+            "severity": "low"
+        },
+        {
+            "id": "tire_quiet_bonus",
+            "condition": "facts.noise_db <= 68",
+            "target_contexts": [
+                "estrada",
+                "cidade"
+            ],
+            "bonus": 1.5,
+            "label": "Silencioso (≤68dB) - conforto acústico",
+            "severity": "low"
+        },
+        {
+            "id": "tire_at_bonus",
+            "condition": "facts.type === 'all_terrain'",
+            "target_contexts": [
+                "offroad",
+                "estrada"
+            ],
+            "bonus": 2.0,
+            "label": "All-Terrain - versátil asfalto e terra",
+            "severity": "low"
+        },
+        {
+            "id": "tire_low_rr_bonus",
+            "condition": "facts.rolling_resistance === 'low'",
+            "target_contexts": [
+                "economia",
+                "estrada"
+            ],
+            "bonus": 2.0,
+            "label": "Baixa resistência à rolagem - economia",
+            "severity": "low"
+        }
+    ]
+}

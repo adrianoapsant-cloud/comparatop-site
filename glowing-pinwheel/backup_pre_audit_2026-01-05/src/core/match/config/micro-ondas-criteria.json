@@ -1,0 +1,102 @@
+[
+    {
+        "id": "potencia",
+        "label": "Potência e Velocidade",
+        "icon": "⚡",
+        "tech_field": "scores.c1",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Watts e tempo de aquecimento"
+    },
+    {
+        "id": "capacidade",
+        "label": "Capacidade (Litros)",
+        "icon": "📦",
+        "tech_field": "scores.c2",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Volume do interior"
+    },
+    {
+        "id": "uniformidade",
+        "label": "Aquecimento Uniforme",
+        "icon": "🌡️",
+        "tech_field": "scores.c3",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Distribuição de calor"
+    },
+    {
+        "id": "funcoes",
+        "label": "Funções e Programas",
+        "icon": "⚙️",
+        "tech_field": "scores.c4",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Descongelar, grill, etc."
+    },
+    {
+        "id": "painel",
+        "label": "Painel e Usabilidade",
+        "icon": "🎛️",
+        "tech_field": "scores.c5",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Facilidade de uso"
+    },
+    {
+        "id": "limpeza",
+        "label": "Facilidade de Limpeza",
+        "icon": "🧹",
+        "tech_field": "scores.c6",
+        "target_value": 8,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Interior anti-aderente"
+    },
+    {
+        "id": "silencio",
+        "label": "Nível de Ruído",
+        "icon": "🔇",
+        "tech_field": "scores.c7",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Ruído do ventilador"
+    },
+    {
+        "id": "durabilidade",
+        "label": "Durabilidade",
+        "icon": "🛡️",
+        "tech_field": "scores.c8",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Vida útil do magnetron"
+    },
+    {
+        "id": "design",
+        "label": "Design e Acabamento",
+        "icon": "✨",
+        "tech_field": "scores.c9",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Estética na cozinha"
+    },
+    {
+        "id": "custo_beneficio",
+        "label": "Custo-Benefício",
+        "icon": "💰",
+        "tech_field": "scores.c10",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Valor pelo preço pago"
+    }
+]

@@ -1,0 +1,139 @@
+{
+    "category_id": "ups",
+    "category_name": "Nobreak (UPS)",
+    "available_contexts": [
+        {
+            "id": "gaming_pc",
+            "name": "PC Gamer / Workstation",
+            "description": "Proteção para hardware de alto valor.",
+            "icon": "🎮",
+            "group": "Uso"
+        },
+        {
+            "id": "home_office",
+            "name": "Home Office",
+            "description": "Manter trabalho durante quedas.",
+            "icon": "💼",
+            "group": "Uso"
+        },
+        {
+            "id": "rede_instavel",
+            "name": "Rede Elétrica Instável",
+            "description": "Frequentes oscilações e quedas.",
+            "icon": "⚡",
+            "group": "Infraestrutura"
+        },
+        {
+            "id": "servidor",
+            "name": "Servidor / NAS",
+            "description": "Equipamento 24/7.",
+            "icon": "🖥️",
+            "group": "Uso"
+        },
+        {
+            "id": "silencioso",
+            "name": "Ambiente Silencioso",
+            "description": "Quarto ou escritório.",
+            "icon": "🔇",
+            "group": "Conforto"
+        }
+    ],
+    "rules": [
+        {
+            "id": "ups_low_va_gaming",
+            "condition": "facts.va_rating < 1200",
+            "target_contexts": [
+                "gaming_pc",
+                "servidor"
+            ],
+            "penalty": -2.0,
+            "label": "Potência baixa (<1200VA) - não aguenta PC gamer",
+            "severity": "high"
+        },
+        {
+            "id": "ups_short_runtime_office",
+            "condition": "facts.runtime_minutes < 10",
+            "target_contexts": [
+                "home_office",
+                "servidor"
+            ],
+            "penalty": -1.5,
+            "label": "Autonomia curta (<10min) - pouco tempo para salvar",
+            "severity": "medium"
+        },
+        {
+            "id": "ups_no_avr_unstable",
+            "condition": "facts.has_avr === false",
+            "target_contexts": [
+                "rede_instavel"
+            ],
+            "penalty": -2.5,
+            "label": "Sem estabilizador (AVR) - não corrige oscilações",
+            "severity": "critical"
+        },
+        {
+            "id": "ups_standby_type_unstable",
+            "condition": "facts.topology === 'standby'",
+            "target_contexts": [
+                "rede_instavel",
+                "servidor"
+            ],
+            "penalty": -1.5,
+            "label": "Topology Standby - delay na comutação",
+            "severity": "medium"
+        },
+        {
+            "id": "ups_noisy_fan_silent",
+            "condition": "facts.noise_db > 40",
+            "target_contexts": [
+                "silencioso"
+            ],
+            "penalty": -1.5,
+            "label": "Ventilador barulhento (>40dB)",
+            "severity": "medium"
+        },
+        {
+            "id": "ups_high_va_bonus",
+            "condition": "facts.va_rating >= 2200",
+            "target_contexts": [
+                "gaming_pc",
+                "servidor"
+            ],
+            "bonus": 2.0,
+            "label": "Alta potência (≥2200VA) - aguenta qualquer setup",
+            "severity": "low"
+        },
+        {
+            "id": "ups_line_interactive_bonus",
+            "condition": "facts.topology === 'line_interactive'",
+            "target_contexts": [
+                "rede_instavel",
+                "home_office"
+            ],
+            "bonus": 1.5,
+            "label": "Line Interactive - proteção superior",
+            "severity": "low"
+        },
+        {
+            "id": "ups_online_bonus",
+            "condition": "facts.topology === 'online'",
+            "target_contexts": [
+                "servidor"
+            ],
+            "bonus": 2.5,
+            "label": "Online/Double Conversion - proteção máxima 24/7",
+            "severity": "low"
+        },
+        {
+            "id": "ups_usb_monitoring_bonus",
+            "condition": "facts.has_usb_monitoring === true",
+            "target_contexts": [
+                "servidor",
+                "home_office"
+            ],
+            "bonus": 1.0,
+            "label": "Monitoramento USB - desligamento seguro automático",
+            "severity": "low"
+        }
+    ]
+}

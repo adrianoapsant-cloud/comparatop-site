@@ -1,0 +1,102 @@
+[
+    {
+        "id": "connection_stability",
+        "label": "Estabilidade de Conexão",
+        "icon": "📶",
+        "tech_field": "scores.c1",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Conexão HDMI/Bluetooth sem falhas"
+    },
+    {
+        "id": "voice_clarity",
+        "label": "Clareza de Voz",
+        "icon": "🎙️",
+        "tech_field": "scores.c2",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Diálogos nítidos em filmes e séries"
+    },
+    {
+        "id": "surround",
+        "label": "Som Surround",
+        "icon": "🔊",
+        "tech_field": "scores.c3",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Imersão espacial do áudio"
+    },
+    {
+        "id": "bass",
+        "label": "Qualidade do Grave",
+        "icon": "🎵",
+        "tech_field": "scores.c4",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Profundidade e potência dos graves"
+    },
+    {
+        "id": "gaming_latency",
+        "label": "Latência para Games",
+        "icon": "🎮",
+        "tech_field": "scores.c5",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Atraso de áudio em jogos"
+    },
+    {
+        "id": "design",
+        "label": "Design e Acabamento",
+        "icon": "🔊",
+        "tech_field": "scores.c6",
+        "target_value": 8,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Estética e qualidade dos materiais"
+    },
+    {
+        "id": "smart",
+        "label": "Recursos Smart",
+        "icon": "📱",
+        "tech_field": "scores.c7",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Streaming direto e assistentes de voz"
+    },
+    {
+        "id": "hdmi_ports",
+        "label": "Portas HDMI",
+        "icon": "🔌",
+        "tech_field": "scores.c8",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Quantidade e tipo de conexões"
+    },
+    {
+        "id": "software_stability",
+        "label": "Estabilidade de Software",
+        "icon": "🛡️",
+        "tech_field": "scores.c9",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Frequência de travamentos e bugs"
+    },
+    {
+        "id": "custo_beneficio",
+        "label": "Custo-Benefício",
+        "icon": "💰",
+        "tech_field": "scores.c10",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Valor pelo preço pago"
+    }
+]

@@ -1,0 +1,323 @@
+{
+    "category_id": "notebook",
+    "category_name": "Notebooks",
+    "available_contexts": [
+        {
+            "id": "mobilidade",
+            "name": "Alta Mobilidade",
+            "description": "Prioridade para peso, bateria e carregador compacto.",
+            "icon": "🎒",
+            "group": "Uso"
+        },
+        {
+            "id": "performance_render",
+            "name": "Performance / Render",
+            "description": "Prioridade para potência e refrigeração em trabalho pesado.",
+            "icon": "🖥️",
+            "group": "Uso"
+        },
+        {
+            "id": "estudante",
+            "name": "Estudante",
+            "description": "Prioridade para durabilidade, teclado e custo-benefício.",
+            "icon": "📚",
+            "group": "Uso"
+        },
+        {
+            "id": "gamer",
+            "name": "Gamer",
+            "description": "Prioridade para GPU, tela 144Hz e refrigeração.",
+            "icon": "🎮",
+            "group": "Uso"
+        },
+        {
+            "id": "corporativo",
+            "name": "Corporativo / Escritório",
+            "description": "Prioridade para portas, garantia e suporte.",
+            "icon": "💼",
+            "group": "Uso"
+        }
+    ],
+    "rules": [
+        {
+            "id": "notebook_heavy_mobile",
+            "condition": "facts.weight_kg > 2.0",
+            "target_contexts": [
+                "mobilidade"
+            ],
+            "penalty": -1.5,
+            "label": "Peso acima de 2kg - cansativo para transportar",
+            "severity": "medium"
+        },
+        {
+            "id": "notebook_brick_charger_mobile",
+            "condition": "facts.charger_weight_g > 400 || facts.charger_type === 'brick'",
+            "target_contexts": [
+                "mobilidade"
+            ],
+            "penalty": -1.0,
+            "label": "Carregador 'tijolo' pesado",
+            "severity": "medium"
+        },
+        {
+            "id": "notebook_low_battery_mobile",
+            "condition": "facts.battery_hours < 5",
+            "target_contexts": [
+                "mobilidade"
+            ],
+            "penalty": -2.0,
+            "label": "Bateria <5h - não dura uma aula/reunião",
+            "severity": "high"
+        },
+        {
+            "id": "notebook_ultralight_mobile_bonus",
+            "condition": "facts.weight_kg <= 1.5",
+            "target_contexts": [
+                "mobilidade"
+            ],
+            "bonus": 2.0,
+            "label": "Ultrabook leve (≤1.5kg) - máxima portabilidade",
+            "severity": "low"
+        },
+        {
+            "id": "notebook_usbpd_mobile_bonus",
+            "condition": "facts.supports_usb_pd === true",
+            "target_contexts": [
+                "mobilidade"
+            ],
+            "bonus": 1.5,
+            "label": "Carregamento USB-C PD - usa o mesmo do celular",
+            "severity": "low"
+        },
+        {
+            "id": "notebook_long_battery_mobile_bonus",
+            "condition": "facts.battery_hours >= 10",
+            "target_contexts": [
+                "mobilidade"
+            ],
+            "bonus": 1.5,
+            "label": "Bateria excelente (≥10h)",
+            "severity": "low"
+        },
+        {
+            "id": "notebook_thermal_throttling_performance",
+            "condition": "facts.thermal_throttling_percent > 25",
+            "target_contexts": [
+                "performance_render"
+            ],
+            "penalty": -2.5,
+            "label": "Throttling severo (>25%) - perde performance em renders",
+            "severity": "critical"
+        },
+        {
+            "id": "notebook_hot_keyboard_performance",
+            "condition": "facts.keyboard_temp_celsius > 45",
+            "target_contexts": [
+                "performance_render"
+            ],
+            "penalty": -1.5,
+            "label": "Teclado esquenta muito (>45°C) - desconfortável",
+            "severity": "medium"
+        },
+        {
+            "id": "notebook_thin_performance",
+            "condition": "facts.thickness_mm < 18 && facts.gpu_type === 'dedicated'",
+            "target_contexts": [
+                "performance_render"
+            ],
+            "penalty": -1.0,
+            "label": "Ultrabook fino demais para GPU dedicada - refrigeração limitada",
+            "severity": "medium"
+        },
+        {
+            "id": "notebook_robust_cooling_performance_bonus",
+            "condition": "facts.cooling_type === 'dual_fan' && facts.has_heatpipes === true",
+            "target_contexts": [
+                "performance_render"
+            ],
+            "bonus": 2.0,
+            "label": "Refrigeração robusta (dual-fan + heatpipes)",
+            "severity": "low"
+        },
+        {
+            "id": "notebook_vapor_chamber_performance_bonus",
+            "condition": "facts.cooling_type === 'vapor_chamber'",
+            "target_contexts": [
+                "performance_render"
+            ],
+            "bonus": 2.5,
+            "label": "Vapor chamber - refrigeração premium",
+            "severity": "low"
+        },
+        {
+            "id": "notebook_4gb_soldered_student",
+            "condition": "facts.ram_gb <= 4 && facts.ram_upgradeable === false",
+            "target_contexts": [
+                "estudante"
+            ],
+            "penalty": -3.0,
+            "label": "4GB soldado - obsolescência programada",
+            "severity": "critical"
+        },
+        {
+            "id": "notebook_tn_panel_student",
+            "condition": "facts.panel_type === 'TN'",
+            "target_contexts": [
+                "estudante"
+            ],
+            "penalty": -2.0,
+            "label": "Tela TN lavada - ruim para estudos/leitura",
+            "severity": "high"
+        },
+        {
+            "id": "notebook_us_keyboard_student",
+            "condition": "facts.keyboard_layout === 'US'",
+            "target_contexts": [
+                "estudante"
+            ],
+            "penalty": -1.5,
+            "label": "Teclado US sem Ç - ruim para digitação em português",
+            "severity": "medium"
+        },
+        {
+            "id": "notebook_hd_screen_student",
+            "condition": "facts.resolution === '1366x768' && facts.screen_size >= 15",
+            "target_contexts": [
+                "estudante"
+            ],
+            "penalty": -1.5,
+            "label": "Resolução HD em 15.6\" - texto pixelado",
+            "severity": "medium"
+        },
+        {
+            "id": "notebook_ips_student_bonus",
+            "condition": "facts.panel_type === 'IPS' || facts.panel_type === 'WVA'",
+            "target_contexts": [
+                "estudante"
+            ],
+            "bonus": 1.5,
+            "label": "Painel IPS - bom ângulo de visão para estudos",
+            "severity": "low"
+        },
+        {
+            "id": "notebook_abnt2_student_bonus",
+            "condition": "facts.keyboard_layout === 'ABNT2'",
+            "target_contexts": [
+                "estudante"
+            ],
+            "bonus": 1.0,
+            "label": "Teclado ABNT2 nativo brasileiro",
+            "severity": "low"
+        },
+        {
+            "id": "notebook_upgradeable_student_bonus",
+            "condition": "facts.ram_upgradeable === true && facts.ssd_upgradeable === true",
+            "target_contexts": [
+                "estudante"
+            ],
+            "bonus": 1.5,
+            "label": "RAM e SSD expansíveis - longevidade",
+            "severity": "low"
+        },
+        {
+            "id": "notebook_integrated_gpu_gamer",
+            "condition": "facts.gpu_type === 'integrated'",
+            "target_contexts": [
+                "gamer"
+            ],
+            "penalty": -3.0,
+            "label": "GPU integrada - inadequado para games",
+            "severity": "critical"
+        },
+        {
+            "id": "notebook_60hz_gamer",
+            "condition": "facts.refresh_rate < 120",
+            "target_contexts": [
+                "gamer"
+            ],
+            "penalty": -1.5,
+            "label": "Apenas 60Hz - fluidez limitada",
+            "severity": "medium"
+        },
+        {
+            "id": "notebook_old_gpu_gamer",
+            "condition": "facts.gpu_generation < 40",
+            "target_contexts": [
+                "gamer"
+            ],
+            "penalty": -2.0,
+            "label": "GPU antiga (série 30 ou anterior) - obsolescência rápida",
+            "severity": "high"
+        },
+        {
+            "id": "notebook_144hz_gamer_bonus",
+            "condition": "facts.refresh_rate >= 144",
+            "target_contexts": [
+                "gamer"
+            ],
+            "bonus": 1.5,
+            "label": "Tela 144Hz - jogos fluidos",
+            "severity": "low"
+        },
+        {
+            "id": "notebook_rtx40_gamer_bonus",
+            "condition": "facts.gpu_generation >= 40",
+            "target_contexts": [
+                "gamer"
+            ],
+            "bonus": 2.0,
+            "label": "GPU série 40 - performance atual",
+            "severity": "low"
+        },
+        {
+            "id": "notebook_dongle_life_corporate",
+            "condition": "facts.usb_a_ports === 0 || facts.hdmi_port === false",
+            "target_contexts": [
+                "corporativo"
+            ],
+            "penalty": -2.0,
+            "label": "Falta USB-A ou HDMI - vida de dongles",
+            "severity": "high"
+        },
+        {
+            "id": "notebook_mail_warranty_corporate",
+            "condition": "facts.warranty_type === 'mail_in'",
+            "target_contexts": [
+                "corporativo"
+            ],
+            "penalty": -1.0,
+            "label": "Garantia por correio - semanas sem notebook",
+            "severity": "medium"
+        },
+        {
+            "id": "notebook_onsite_warranty_corporate_bonus",
+            "condition": "facts.warranty_type === 'on_site'",
+            "target_contexts": [
+                "corporativo"
+            ],
+            "bonus": 2.0,
+            "label": "Garantia On-Site - técnico vai até você",
+            "severity": "low"
+        },
+        {
+            "id": "notebook_thunderbolt_corporate_bonus",
+            "condition": "facts.has_thunderbolt === true",
+            "target_contexts": [
+                "corporativo"
+            ],
+            "bonus": 1.5,
+            "label": "Thunderbolt 4 - dock único para tudo",
+            "severity": "low"
+        },
+        {
+            "id": "notebook_ethernet_corporate_bonus",
+            "condition": "facts.has_ethernet === true",
+            "target_contexts": [
+                "corporativo"
+            ],
+            "bonus": 1.0,
+            "label": "Porta RJ-45 - conexão estável em escritório",
+            "severity": "low"
+        }
+    ]
+}

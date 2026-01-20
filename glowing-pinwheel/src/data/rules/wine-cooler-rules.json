@@ -1,0 +1,128 @@
+{
+    "category_id": "wine-cooler",
+    "category_name": "Adega Climatizada",
+    "available_contexts": [
+        {
+            "id": "colecionador",
+            "name": "Colecionador / Guarda Longa",
+            "description": "Armazenamento de longo prazo para envelhecimento.",
+            "icon": "🍷",
+            "group": "Uso"
+        },
+        {
+            "id": "servico",
+            "name": "Serviço / Consumo Frequente",
+            "description": "Vinhos para consumo em curto prazo.",
+            "icon": "🥂",
+            "group": "Uso"
+        },
+        {
+            "id": "espaco_limitado",
+            "name": "Espaço Limitado",
+            "description": "Apartamento ou cozinha pequena.",
+            "icon": "🏠",
+            "group": "Espaço"
+        },
+        {
+            "id": "silencio",
+            "name": "Ambiente Silencioso",
+            "description": "Sala de estar ou quarto.",
+            "icon": "🔇",
+            "group": "Conforto"
+        }
+    ],
+    "rules": [
+        {
+            "id": "wine_no_humidity_control_collector",
+            "condition": "facts.has_humidity_control === false",
+            "target_contexts": [
+                "colecionador"
+            ],
+            "penalty": -2.0,
+            "label": "Sem controle de umidade - risco para rolhas",
+            "severity": "high"
+        },
+        {
+            "id": "wine_single_zone_collector",
+            "condition": "facts.zones === 1 && facts.capacity_bottles > 30",
+            "target_contexts": [
+                "colecionador"
+            ],
+            "penalty": -1.5,
+            "label": "Zona única - não separa tintos de brancos",
+            "severity": "medium"
+        },
+        {
+            "id": "wine_thermoelectric_vibration_collector",
+            "condition": "facts.compressor_type === 'thermoelectric'",
+            "target_contexts": [
+                "colecionador"
+            ],
+            "penalty": -1.0,
+            "label": "Termoelétrica - menos estável para longo prazo",
+            "severity": "medium"
+        },
+        {
+            "id": "wine_loud_noise_silent",
+            "condition": "facts.noise_db > 40",
+            "target_contexts": [
+                "silencio"
+            ],
+            "penalty": -2.0,
+            "label": "Ruído alto (>40dB) - inadequado para sala",
+            "severity": "high"
+        },
+        {
+            "id": "wine_large_footprint_small_space",
+            "condition": "facts.height_cm > 85",
+            "target_contexts": [
+                "espaco_limitado"
+            ],
+            "penalty": -1.0,
+            "label": "Grande demais para espaço limitado",
+            "severity": "medium"
+        },
+        {
+            "id": "wine_dual_zone_bonus",
+            "condition": "facts.zones >= 2",
+            "target_contexts": [
+                "colecionador",
+                "servico"
+            ],
+            "bonus": 1.5,
+            "label": "Dupla zona - separa tintos e brancos",
+            "severity": "low"
+        },
+        {
+            "id": "wine_uv_glass_bonus",
+            "condition": "facts.has_uv_protection === true",
+            "target_contexts": [
+                "colecionador"
+            ],
+            "bonus": 1.0,
+            "label": "Vidro anti-UV - protege os vinhos",
+            "severity": "low"
+        },
+        {
+            "id": "wine_quiet_bonus",
+            "condition": "facts.noise_db <= 35",
+            "target_contexts": [
+                "silencio"
+            ],
+            "bonus": 1.5,
+            "label": "Ultra silenciosa (≤35dB)",
+            "severity": "low"
+        },
+        {
+            "id": "wine_compact_bonus",
+            "condition": "facts.capacity_bottles <= 12",
+            "target_contexts": [
+                "espaco_limitado",
+                "servico"
+            ],
+            "bonus": 1.0,
+            "label": "Compacta - ideal para apartamento",
+            "severity": "low"
+        }
+    ]
+}

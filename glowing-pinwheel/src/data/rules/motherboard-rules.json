@@ -1,0 +1,135 @@
+{
+    "category_id": "motherboard",
+    "category_name": "Placa-Mãe",
+    "available_contexts": [
+        {
+            "id": "gaming",
+            "name": "Gaming",
+            "description": "Features para jogos.",
+            "icon": "🎮",
+            "group": "Uso"
+        },
+        {
+            "id": "workstation",
+            "name": "Workstation / Criação",
+            "description": "Conectividade e expansão.",
+            "icon": "💼",
+            "group": "Uso"
+        },
+        {
+            "id": "overclocking",
+            "name": "Overclocking",
+            "description": "VRMs robustas.",
+            "icon": "⚡",
+            "group": "Experiência"
+        },
+        {
+            "id": "compacto",
+            "name": "Build Compacto / ITX",
+            "description": "Formato pequeno.",
+            "icon": "📦",
+            "group": "Formato"
+        },
+        {
+            "id": "custo_beneficio",
+            "name": "Custo-Benefício",
+            "description": "Essencial sem luxo.",
+            "icon": "💰",
+            "group": "Economia"
+        }
+    ],
+    "rules": [
+        {
+            "id": "mobo_weak_vrm_oc",
+            "condition": "facts.vrm_phases < 10",
+            "target_contexts": [
+                "overclocking"
+            ],
+            "penalty": -2.0,
+            "label": "VRM fraca (<10 fases) - limita OC",
+            "severity": "high"
+        },
+        {
+            "id": "mobo_no_pcie5_workstation",
+            "condition": "facts.has_pcie5 === false",
+            "target_contexts": [
+                "workstation"
+            ],
+            "penalty": -1.0,
+            "label": "Sem PCIe 5.0 - sem futuro para GPUs novas",
+            "severity": "medium"
+        },
+        {
+            "id": "mobo_few_usb_workstation",
+            "condition": "facts.usb_ports < 8",
+            "target_contexts": [
+                "workstation"
+            ],
+            "penalty": -1.0,
+            "label": "Poucas portas USB (<8)",
+            "severity": "medium"
+        },
+        {
+            "id": "mobo_no_wifi_gaming",
+            "condition": "facts.has_wifi === false",
+            "target_contexts": [
+                "gaming",
+                "compacto"
+            ],
+            "penalty": -0.5,
+            "label": "Sem WiFi integrado",
+            "severity": "low"
+        },
+        {
+            "id": "mobo_atx_compact",
+            "condition": "facts.form_factor === 'ATX'",
+            "target_contexts": [
+                "compacto"
+            ],
+            "penalty": -3.0,
+            "label": "ATX não cabe em gabinete compacto",
+            "severity": "critical"
+        },
+        {
+            "id": "mobo_strong_vrm_bonus",
+            "condition": "facts.vrm_phases >= 14",
+            "target_contexts": [
+                "overclocking",
+                "workstation"
+            ],
+            "bonus": 2.0,
+            "label": "VRM robusta (≥14 fases) - OC estável",
+            "severity": "low"
+        },
+        {
+            "id": "mobo_thunderbolt_bonus",
+            "condition": "facts.has_thunderbolt === true",
+            "target_contexts": [
+                "workstation"
+            ],
+            "bonus": 1.5,
+            "label": "Thunderbolt - conectividade profissional",
+            "severity": "low"
+        },
+        {
+            "id": "mobo_debug_led_bonus",
+            "condition": "facts.has_debug_display === true",
+            "target_contexts": [
+                "overclocking"
+            ],
+            "bonus": 1.0,
+            "label": "Display de debug - facilita troubleshooting",
+            "severity": "low"
+        },
+        {
+            "id": "mobo_itx_bonus",
+            "condition": "facts.form_factor === 'ITX'",
+            "target_contexts": [
+                "compacto"
+            ],
+            "bonus": 2.0,
+            "label": "Formato ITX - máxima compacidade",
+            "severity": "low"
+        }
+    ]
+}

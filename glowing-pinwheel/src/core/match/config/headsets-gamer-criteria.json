@@ -1,0 +1,102 @@
+[
+    {
+        "id": "qualidade_som",
+        "label": "Qualidade de Som",
+        "icon": "🎵",
+        "tech_field": "scores.c1",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Clareza e imersão sonora"
+    },
+    {
+        "id": "microfone",
+        "label": "Qualidade do Microfone",
+        "icon": "🎙️",
+        "tech_field": "scores.c2",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Captação de voz clara"
+    },
+    {
+        "id": "conforto",
+        "label": "Conforto Prolongado",
+        "icon": "🎧",
+        "tech_field": "scores.c3",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Leveza e almofadas confortáveis"
+    },
+    {
+        "id": "construcao",
+        "label": "Durabilidade",
+        "icon": "🛡️",
+        "tech_field": "scores.c4",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Qualidade dos materiais"
+    },
+    {
+        "id": "surround",
+        "label": "Som Surround/7.1",
+        "icon": "🔊",
+        "tech_field": "scores.c5",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Posicionamento espacial em jogos"
+    },
+    {
+        "id": "latencia",
+        "label": "Baixa Latência",
+        "icon": "⚡",
+        "tech_field": "scores.c6",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Resposta imediata para gaming"
+    },
+    {
+        "id": "compatibilidade",
+        "label": "Compatibilidade",
+        "icon": "🎮",
+        "tech_field": "scores.c7",
+        "target_value": 8,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "PC, PS5, Xbox, Switch"
+    },
+    {
+        "id": "software",
+        "label": "Software/Customização",
+        "icon": "📱",
+        "tech_field": "scores.c8",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "EQ e configurações"
+    },
+    {
+        "id": "iluminacao",
+        "label": "RGB/Iluminação",
+        "icon": "✨",
+        "tech_field": "scores.c9",
+        "target_value": 6,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Efeitos de luz customizáveis"
+    },
+    {
+        "id": "custo_beneficio",
+        "label": "Custo-Benefício",
+        "icon": "💰",
+        "tech_field": "scores.c10",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Valor pelo preço pago"
+    }
+]

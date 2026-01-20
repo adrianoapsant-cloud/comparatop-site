@@ -1,0 +1,323 @@
+{
+    "category_id": "fogao-cooktop",
+    "category_name": "Fogões e Cooktops",
+    "available_contexts": [
+        {
+            "id": "seguranca_infantil",
+            "name": "Segurança Infantil",
+            "description": "Prioridade máxima para segurança com crianças em casa.",
+            "icon": "👶",
+            "group": "Segurança"
+        },
+        {
+            "id": "alta_gastronomia",
+            "name": "Alta Gastronomia",
+            "description": "Prioridade para potência, chama precisa e controle térmico.",
+            "icon": "👨‍🍳",
+            "group": "Uso"
+        },
+        {
+            "id": "litoral",
+            "name": "Casa de Praia / Litoral",
+            "description": "Prioridade para resistência à maresia.",
+            "icon": "🏖️",
+            "group": "Localização"
+        },
+        {
+            "id": "limpeza_facil",
+            "name": "Limpeza Fácil",
+            "description": "Prioridade para superfícies fáceis de limpar.",
+            "icon": "✨",
+            "group": "Uso"
+        },
+        {
+            "id": "economia_gas",
+            "name": "Economia de Gás",
+            "description": "Prioridade para eficiência térmica e consumo baixo.",
+            "icon": "💰",
+            "group": "Economia"
+        }
+    ],
+    "rules": [
+        {
+            "id": "stove_thin_glass_safety",
+            "condition": "facts.table_material === 'glass' && facts.glass_thickness_mm < 6",
+            "target_contexts": [
+                "seguranca_infantil"
+            ],
+            "penalty": -2.5,
+            "label": "Vidro fino (<6mm) - risco de estilhaço com choque térmico",
+            "severity": "critical"
+        },
+        {
+            "id": "stove_no_gas_cutoff_safety",
+            "condition": "facts.has_auto_gas_shutoff === false",
+            "target_contexts": [
+                "seguranca_infantil"
+            ],
+            "penalty": -2.0,
+            "label": "Sem válvula corta-gás automática - perigo de vazamento",
+            "severity": "high"
+        },
+        {
+            "id": "stove_hot_door_safety",
+            "condition": "facts.oven_door_type === 'single_glass'",
+            "target_contexts": [
+                "seguranca_infantil"
+            ],
+            "penalty": -1.5,
+            "label": "Porta do forno esquenta muito - risco de queimadura",
+            "severity": "medium"
+        },
+        {
+            "id": "stove_unstable_grates_safety",
+            "condition": "facts.grate_points < 6 || facts.grate_type === 'individual'",
+            "target_contexts": [
+                "seguranca_infantil"
+            ],
+            "penalty": -2.0,
+            "label": "Trempes instáveis - panelas tombam fácil",
+            "severity": "high"
+        },
+        {
+            "id": "stove_triple_glass_safety_bonus",
+            "condition": "facts.oven_door_type === 'triple_glass'",
+            "target_contexts": [
+                "seguranca_infantil"
+            ],
+            "bonus": 2.0,
+            "label": "Vidro triplo na porta - toque frio e seguro",
+            "severity": "low"
+        },
+        {
+            "id": "stove_gas_timer_cutoff_safety_bonus",
+            "condition": "facts.has_timer_gas_cutoff === true",
+            "target_contexts": [
+                "seguranca_infantil"
+            ],
+            "bonus": 2.5,
+            "label": "Timer corta-gás automático - máxima segurança",
+            "severity": "low"
+        },
+        {
+            "id": "stove_child_lock_safety_bonus",
+            "condition": "facts.has_child_lock === true",
+            "target_contexts": [
+                "seguranca_infantil"
+            ],
+            "bonus": 1.0,
+            "label": "Trava de segurança infantil nos botões",
+            "severity": "low"
+        },
+        {
+            "id": "stove_weak_burners_gastro",
+            "condition": "facts.max_burner_kw < 3.0",
+            "target_contexts": [
+                "alta_gastronomia"
+            ],
+            "penalty": -2.0,
+            "label": "Queimadores fracos (<3kW) - não sela carne",
+            "severity": "high"
+        },
+        {
+            "id": "stove_single_flame_gastro",
+            "condition": "facts.burner_type === 'single_ring'",
+            "target_contexts": [
+                "alta_gastronomia"
+            ],
+            "penalty": -1.5,
+            "label": "Chama anel único - aquecimento irregular",
+            "severity": "medium"
+        },
+        {
+            "id": "stove_no_simmer_gastro",
+            "condition": "facts.has_simmer_burner === false",
+            "target_contexts": [
+                "alta_gastronomia"
+            ],
+            "penalty": -1.0,
+            "label": "Sem queimador auxiliar (simmer) para molhos",
+            "severity": "medium"
+        },
+        {
+            "id": "stove_triple_flame_gastro_bonus",
+            "condition": "facts.burner_type === 'triple_flame' || facts.burner_type === 'quad_flame'",
+            "target_contexts": [
+                "alta_gastronomia"
+            ],
+            "bonus": 2.5,
+            "label": "Tripla/Quadri chama - calor uniforme profissional",
+            "severity": "low"
+        },
+        {
+            "id": "stove_sabaf_burners_gastro_bonus",
+            "condition": "facts.burner_brand === 'SABAF'",
+            "target_contexts": [
+                "alta_gastronomia"
+            ],
+            "bonus": 1.5,
+            "label": "Queimadores SABAF italianos - qualidade premium",
+            "severity": "low"
+        },
+        {
+            "id": "stove_convection_oven_gastro_bonus",
+            "condition": "facts.has_convection === true",
+            "target_contexts": [
+                "alta_gastronomia"
+            ],
+            "bonus": 1.5,
+            "label": "Forno com convecção - assados uniformes",
+            "severity": "low"
+        },
+        {
+            "id": "stove_inox_430_coastal",
+            "condition": "facts.body_material === 'inox_430'",
+            "target_contexts": [
+                "litoral"
+            ],
+            "penalty": -2.0,
+            "label": "Inox 430 oxida/mancha no litoral",
+            "severity": "high"
+        },
+        {
+            "id": "stove_painted_silkscreen_coastal",
+            "condition": "facts.markings_type === 'painted' || facts.markings_type === 'silkscreen'",
+            "target_contexts": [
+                "litoral"
+            ],
+            "penalty": -1.0,
+            "label": "Serigrafia pintada apaga com sal/umidade",
+            "severity": "medium"
+        },
+        {
+            "id": "stove_glass_top_coastal_bonus",
+            "condition": "facts.table_material === 'glass'",
+            "target_contexts": [
+                "litoral"
+            ],
+            "bonus": 2.0,
+            "label": "Mesa de vidro - não oxida jamais",
+            "severity": "low"
+        },
+        {
+            "id": "stove_inox_304_coastal_bonus",
+            "condition": "facts.body_material === 'inox_304'",
+            "target_contexts": [
+                "litoral"
+            ],
+            "bonus": 1.5,
+            "label": "Inox 304 - alta resistência à corrosão",
+            "severity": "low"
+        },
+        {
+            "id": "stove_laser_markings_coastal_bonus",
+            "condition": "facts.markings_type === 'laser' || facts.markings_type === 'underglass'",
+            "target_contexts": [
+                "litoral"
+            ],
+            "bonus": 1.0,
+            "label": "Marcações a laser/underglass - permanentes",
+            "severity": "low"
+        },
+        {
+            "id": "stove_porous_oven_cleaning",
+            "condition": "facts.oven_coating === 'porous_self_clean'",
+            "target_contexts": [
+                "limpeza_facil"
+            ],
+            "penalty": -1.5,
+            "label": "Autolimpante poroso acumula cheiro",
+            "severity": "medium"
+        },
+        {
+            "id": "stove_fixed_glass_cleaning",
+            "condition": "facts.oven_glass_removable === false",
+            "target_contexts": [
+                "limpeza_facil"
+            ],
+            "penalty": -1.5,
+            "label": "Vidro do forno fixo - sujeira entre vidros impossível limpar",
+            "severity": "medium"
+        },
+        {
+            "id": "stove_fixed_knobs_cleaning",
+            "condition": "facts.knobs_removable === false",
+            "target_contexts": [
+                "limpeza_facil"
+            ],
+            "penalty": -1.0,
+            "label": "Botões fixos acumulam gordura na base",
+            "severity": "medium"
+        },
+        {
+            "id": "stove_easy_clean_coating_cleaning_bonus",
+            "condition": "facts.oven_coating === 'easy_clean'",
+            "target_contexts": [
+                "limpeza_facil"
+            ],
+            "bonus": 2.0,
+            "label": "Forno Easy Clean (liso) - gordura sai fácil",
+            "severity": "low"
+        },
+        {
+            "id": "stove_removable_glass_cleaning_bonus",
+            "condition": "facts.oven_glass_removable === true",
+            "target_contexts": [
+                "limpeza_facil"
+            ],
+            "bonus": 1.5,
+            "label": "Vidro interno removível - limpeza completa",
+            "severity": "low"
+        },
+        {
+            "id": "stove_sealed_burners_cleaning_bonus",
+            "condition": "facts.has_sealed_burners === true",
+            "target_contexts": [
+                "limpeza_facil"
+            ],
+            "bonus": 1.0,
+            "label": "Queimadores selados - derramamentos não entram",
+            "severity": "low"
+        },
+        {
+            "id": "stove_low_efficiency_economy",
+            "condition": "facts.conpet_rating === 'C' || facts.conpet_rating === 'D'",
+            "target_contexts": [
+                "economia_gas"
+            ],
+            "penalty": -1.5,
+            "label": "Baixa eficiência (CONPET C/D) - gasta mais gás",
+            "severity": "medium"
+        },
+        {
+            "id": "stove_poor_insulation_economy",
+            "condition": "facts.oven_insulation === 'basic'",
+            "target_contexts": [
+                "economia_gas"
+            ],
+            "penalty": -1.0,
+            "label": "Isolamento básico - calor escapa, gasta mais",
+            "severity": "medium"
+        },
+        {
+            "id": "stove_conpet_a_economy_bonus",
+            "condition": "facts.conpet_rating === 'A'",
+            "target_contexts": [
+                "economia_gas"
+            ],
+            "bonus": 2.0,
+            "label": "Selo CONPET A - máxima eficiência de gás",
+            "severity": "low"
+        },
+        {
+            "id": "stove_basalt_insulation_economy_bonus",
+            "condition": "facts.oven_insulation === 'basalt'",
+            "target_contexts": [
+                "economia_gas"
+            ],
+            "bonus": 1.5,
+            "label": "Isolamento de lã de basalto - retém calor melhor",
+            "severity": "low"
+        }
+    ]
+}

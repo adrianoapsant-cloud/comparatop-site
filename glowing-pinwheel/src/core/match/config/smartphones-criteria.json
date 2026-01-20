@@ -1,0 +1,102 @@
+[
+    {
+        "id": "thermal",
+        "label": "Gestão Térmica",
+        "icon": "🌡️",
+        "tech_field": "scores.c1",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Dissipação de calor e throttling"
+    },
+    {
+        "id": "battery_health",
+        "label": "Saúde da Bateria",
+        "icon": "🔋",
+        "tech_field": "scores.c2",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Degradação da bateria ao longo do tempo"
+    },
+    {
+        "id": "display_durability",
+        "label": "Durabilidade da Tela",
+        "icon": "📱",
+        "tech_field": "scores.c3",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Resistência a riscos e proteção"
+    },
+    {
+        "id": "camera",
+        "label": "Qualidade da Câmera",
+        "icon": "📷",
+        "tech_field": "scores.c4",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Performance em diversas condições de luz"
+    },
+    {
+        "id": "biometric",
+        "label": "Biometria Rápida",
+        "icon": "👆",
+        "tech_field": "scores.c5",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Velocidade e precisão do desbloqueio"
+    },
+    {
+        "id": "software",
+        "label": "Atualizações de Software",
+        "icon": "📲",
+        "tech_field": "scores.c6",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Suporte a longo prazo e frequência de updates"
+    },
+    {
+        "id": "signal",
+        "label": "Qualidade de Sinal",
+        "icon": "📶",
+        "tech_field": "scores.c7",
+        "target_value": 8,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Recepção Wi-Fi e celular"
+    },
+    {
+        "id": "support",
+        "label": "Pós-Venda/Suporte",
+        "icon": "🛡️",
+        "tech_field": "scores.c8",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Garantia e disponibilidade de peças"
+    },
+    {
+        "id": "haptic",
+        "label": "Feedback Tátil",
+        "icon": "📳",
+        "tech_field": "scores.c9",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Qualidade da vibração e resposta"
+    },
+    {
+        "id": "custo_beneficio",
+        "label": "Custo-Benefício",
+        "icon": "💰",
+        "tech_field": "scores.c10",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Valor pelo preço pago"
+    }
+]

@@ -1,0 +1,117 @@
+{
+    "category_id": "air-fryer",
+    "category_name": "Air Fryer",
+    "available_contexts": [
+        {
+            "id": "familia_grande",
+            "name": "Família Grande",
+            "description": "Necessidade de maior capacidade.",
+            "icon": "👨‍👩‍👧‍👦",
+            "group": "Uso"
+        },
+        {
+            "id": "cozinha_pequena",
+            "name": "Cozinha Pequena / Apartamento",
+            "description": "Espaço limitado na bancada.",
+            "icon": "🏠",
+            "group": "Espaço"
+        },
+        {
+            "id": "iniciante",
+            "name": "Iniciante na Cozinha",
+            "description": "Prioridade para facilidade de uso.",
+            "icon": "👨‍🍳",
+            "group": "Experiência"
+        },
+        {
+            "id": "versatilidade",
+            "name": "Uso Versátil / Multiuso",
+            "description": "Preparo de diversos tipos de alimentos.",
+            "icon": "🍳",
+            "group": "Uso"
+        }
+    ],
+    "rules": [
+        {
+            "id": "airfryer_small_capacity_large_family",
+            "condition": "facts.capacity_liters < 4",
+            "target_contexts": [
+                "familia_grande"
+            ],
+            "penalty": -2.0,
+            "label": "Capacidade pequena (<4L) - insuficiente para família",
+            "severity": "high"
+        },
+        {
+            "id": "airfryer_large_footprint_small_kitchen",
+            "condition": "facts.width_cm > 35",
+            "target_contexts": [
+                "cozinha_pequena"
+            ],
+            "penalty": -1.5,
+            "label": "Ocupa muito espaço na bancada",
+            "severity": "medium"
+        },
+        {
+            "id": "airfryer_no_presets_beginner",
+            "condition": "facts.preset_count < 5",
+            "target_contexts": [
+                "iniciante"
+            ],
+            "penalty": -1.0,
+            "label": "Poucos programas pré-definidos",
+            "severity": "medium"
+        },
+        {
+            "id": "airfryer_no_rotation",
+            "condition": "facts.has_rotation === false",
+            "target_contexts": [
+                "versatilidade"
+            ],
+            "penalty": -0.5,
+            "label": "Sem rotação - precisa virar alimentos manualmente",
+            "severity": "low"
+        },
+        {
+            "id": "airfryer_large_capacity_bonus",
+            "condition": "facts.capacity_liters >= 6",
+            "target_contexts": [
+                "familia_grande"
+            ],
+            "bonus": 1.5,
+            "label": "Alta capacidade (≥6L) - ideal para família",
+            "severity": "low"
+        },
+        {
+            "id": "airfryer_compact_bonus",
+            "condition": "facts.width_cm <= 28",
+            "target_contexts": [
+                "cozinha_pequena"
+            ],
+            "bonus": 1.0,
+            "label": "Design compacto - ideal para espaços pequenos",
+            "severity": "low"
+        },
+        {
+            "id": "airfryer_many_presets_bonus",
+            "condition": "facts.preset_count >= 10",
+            "target_contexts": [
+                "iniciante"
+            ],
+            "bonus": 1.5,
+            "label": "Muitos programas automáticos - fácil de usar",
+            "severity": "low"
+        },
+        {
+            "id": "airfryer_dual_basket_bonus",
+            "condition": "facts.has_dual_basket === true",
+            "target_contexts": [
+                "familia_grande",
+                "versatilidade"
+            ],
+            "bonus": 2.0,
+            "label": "Cesto duplo - prepara dois alimentos simultaneamente",
+            "severity": "low"
+        }
+    ]
+}

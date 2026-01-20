@@ -1,0 +1,137 @@
+{
+    "category_id": "stick-vacuum",
+    "category_name": "Aspirador Vertical",
+    "available_contexts": [
+        {
+            "id": "pets",
+            "name": "Casa com Pets",
+            "description": "Pelos de animais.",
+            "icon": "🐕",
+            "group": "Ambiente"
+        },
+        {
+            "id": "casa_grande",
+            "name": "Casa Grande",
+            "description": "Área ampla para limpar.",
+            "icon": "🏠",
+            "group": "Tamanho"
+        },
+        {
+            "id": "apartamento",
+            "name": "Apartamento Pequeno",
+            "description": "Espaço de armazenamento limitado.",
+            "icon": "🏢",
+            "group": "Tamanho"
+        },
+        {
+            "id": "tapetes",
+            "name": "Muitos Tapetes",
+            "description": "Superfícies variadas.",
+            "icon": "🧶",
+            "group": "Superfície"
+        },
+        {
+            "id": "rapidez",
+            "name": "Limpeza Rápida Diária",
+            "description": "Uso frequente e prático.",
+            "icon": "⚡",
+            "group": "Uso"
+        }
+    ],
+    "rules": [
+        {
+            "id": "stick_no_motorized_brush_pets",
+            "condition": "facts.has_motorized_brush === false",
+            "target_contexts": [
+                "pets",
+                "tapetes"
+            ],
+            "penalty": -2.0,
+            "label": "Sem escova motorizada - não remove pelos",
+            "severity": "high"
+        },
+        {
+            "id": "stick_short_battery_big",
+            "condition": "facts.battery_minutes < 40",
+            "target_contexts": [
+                "casa_grande"
+            ],
+            "penalty": -2.0,
+            "label": "Bateria curta (<40min) - não cobre casa grande",
+            "severity": "high"
+        },
+        {
+            "id": "stick_low_suction_carpets",
+            "condition": "facts.suction_aw < 150",
+            "target_contexts": [
+                "tapetes",
+                "pets"
+            ],
+            "penalty": -1.5,
+            "label": "Sucção fraca (<150AW) - não limpa tapetes bem",
+            "severity": "medium"
+        },
+        {
+            "id": "stick_heavy_rapid",
+            "condition": "facts.weight_kg > 3.5",
+            "target_contexts": [
+                "rapidez",
+                "apartamento"
+            ],
+            "penalty": -1.5,
+            "label": "Pesado (>3.5kg) - cansa rápido",
+            "severity": "medium"
+        },
+        {
+            "id": "stick_large_storage_apartment",
+            "condition": "facts.needs_wall_mount === true && facts.has_floor_dock === false",
+            "target_contexts": [
+                "apartamento"
+            ],
+            "penalty": -1.0,
+            "label": "Só suporte de parede - precisa furar",
+            "severity": "medium"
+        },
+        {
+            "id": "stick_tangle_free_bonus",
+            "condition": "facts.has_tangle_free_brush === true",
+            "target_contexts": [
+                "pets"
+            ],
+            "bonus": 2.0,
+            "label": "Escova anti-emaranhamento - pelos não enrolam",
+            "severity": "low"
+        },
+        {
+            "id": "stick_long_battery_bonus",
+            "condition": "facts.battery_minutes >= 60",
+            "target_contexts": [
+                "casa_grande"
+            ],
+            "bonus": 2.0,
+            "label": "Longa bateria (≥60min)",
+            "severity": "low"
+        },
+        {
+            "id": "stick_light_bonus",
+            "condition": "facts.weight_kg <= 2.5",
+            "target_contexts": [
+                "rapidez",
+                "apartamento"
+            ],
+            "bonus": 1.5,
+            "label": "Leve (≤2.5kg) - fácil de manusear",
+            "severity": "low"
+        },
+        {
+            "id": "stick_hepa_bonus",
+            "condition": "facts.filter_type === 'HEPA'",
+            "target_contexts": [
+                "pets"
+            ],
+            "bonus": 1.0,
+            "label": "Filtro HEPA - retém alérgenos",
+            "severity": "low"
+        }
+    ]
+}

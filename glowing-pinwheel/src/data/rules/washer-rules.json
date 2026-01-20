@@ -1,0 +1,274 @@
+{
+    "category_id": "maquina-lavar",
+    "category_name": "Máquinas de Lavar",
+    "available_contexts": [
+        {
+            "id": "area_externa",
+            "name": "Área Externa / Úmida",
+            "description": "Lavanderia exposta a sol, chuva ou umidade alta.",
+            "icon": "🌧️",
+            "group": "Localização"
+        },
+        {
+            "id": "roupas_delicadas",
+            "name": "Roupas Delicadas",
+            "description": "Prioridade para lavagem suave e preservação de tecidos.",
+            "icon": "👗",
+            "group": "Uso"
+        },
+        {
+            "id": "pesada_edredom",
+            "name": "Lavagem Pesada / Edredom",
+            "description": "Prioridade para capacidade e força de lavagem.",
+            "icon": "🛏️",
+            "group": "Uso"
+        },
+        {
+            "id": "apartamento",
+            "name": "Apartamento",
+            "description": "Prioridade para baixo ruído e vibração.",
+            "icon": "🏢",
+            "group": "Localização"
+        },
+        {
+            "id": "dono_de_pet",
+            "name": "Dono de Pet",
+            "description": "Prioridade para remoção eficaz de pelos.",
+            "icon": "🐕",
+            "group": "Uso",
+            "has_pets": true
+        }
+    ],
+    "rules": [
+        {
+            "id": "washer_no_resin_external",
+            "condition": "facts.board_resin_protected === false",
+            "target_contexts": [
+                "area_externa"
+            ],
+            "penalty": -2.5,
+            "label": "Placa eletrônica sem resina - queima com umidade",
+            "severity": "critical"
+        },
+        {
+            "id": "washer_no_cover_external",
+            "condition": "facts.has_protective_cover === false",
+            "target_contexts": [
+                "area_externa"
+            ],
+            "penalty": -1.0,
+            "label": "Sem tampa protetora - vulnerável a sol/chuva",
+            "severity": "medium"
+        },
+        {
+            "id": "washer_touch_panel_external",
+            "condition": "facts.control_type === 'touch'",
+            "target_contexts": [
+                "area_externa"
+            ],
+            "penalty": -1.5,
+            "label": "Painel touch queima com umidade",
+            "severity": "high"
+        },
+        {
+            "id": "washer_resin_board_external_bonus",
+            "condition": "facts.board_resin_protected === true",
+            "target_contexts": [
+                "area_externa"
+            ],
+            "bonus": 2.0,
+            "label": "Placa resinada (tropicalizada) - resiste à umidade",
+            "severity": "low"
+        },
+        {
+            "id": "washer_mechanical_panel_external_bonus",
+            "condition": "facts.control_type === 'mechanical'",
+            "target_contexts": [
+                "area_externa"
+            ],
+            "bonus": 1.0,
+            "label": "Painel mecânico - robusto para área externa",
+            "severity": "low"
+        },
+        {
+            "id": "washer_aggressive_agitator_delicate",
+            "condition": "facts.wash_system === 'agitator'",
+            "target_contexts": [
+                "roupas_delicadas"
+            ],
+            "penalty": -2.0,
+            "label": "Agitador agressivo - rasga roupas e faz bolinhas",
+            "severity": "high"
+        },
+        {
+            "id": "washer_no_delicate_cycle_delicate",
+            "condition": "facts.has_delicate_cycle === false",
+            "target_contexts": [
+                "roupas_delicadas"
+            ],
+            "penalty": -1.5,
+            "label": "Sem ciclo delicado dedicado",
+            "severity": "medium"
+        },
+        {
+            "id": "washer_tumble_delicate_bonus",
+            "condition": "facts.wash_system === 'tumble'",
+            "target_contexts": [
+                "roupas_delicadas"
+            ],
+            "bonus": 2.0,
+            "label": "Lavagem por tombamento - suave para tecidos",
+            "severity": "low"
+        },
+        {
+            "id": "washer_cyclone_delicate_bonus",
+            "condition": "facts.wash_system === 'cyclone'",
+            "target_contexts": [
+                "roupas_delicadas"
+            ],
+            "bonus": 1.5,
+            "label": "Sistema Ciclone (sem agitador) - preserva roupas",
+            "severity": "low"
+        },
+        {
+            "id": "washer_cold_wash_delicate_bonus",
+            "condition": "facts.efficient_cold_wash === true",
+            "target_contexts": [
+                "roupas_delicadas"
+            ],
+            "bonus": 1.0,
+            "label": "Lavagem a frio eficiente - protege cores",
+            "severity": "low"
+        },
+        {
+            "id": "washer_small_capacity_heavy",
+            "condition": "facts.capacity_kg < 12",
+            "target_contexts": [
+                "pesada_edredom"
+            ],
+            "penalty": -2.0,
+            "label": "Capacidade <12kg - edredom não cabe bem",
+            "severity": "high"
+        },
+        {
+            "id": "washer_weak_motor_heavy",
+            "condition": "facts.motor_power_w < 500",
+            "target_contexts": [
+                "pesada_edredom"
+            ],
+            "penalty": -1.5,
+            "label": "Motor fraco - luta com cargas pesadas",
+            "severity": "medium"
+        },
+        {
+            "id": "washer_high_capacity_heavy_bonus",
+            "condition": "facts.capacity_kg >= 15",
+            "target_contexts": [
+                "pesada_edredom"
+            ],
+            "bonus": 2.0,
+            "label": "Capacidade ≥15kg - cabe edredom king",
+            "severity": "low"
+        },
+        {
+            "id": "washer_strong_spin_heavy_bonus",
+            "condition": "facts.spin_rpm >= 1200",
+            "target_contexts": [
+                "pesada_edredom"
+            ],
+            "bonus": 1.0,
+            "label": "Centrifugação potente (≥1200rpm) - seca mais rápido",
+            "severity": "low"
+        },
+        {
+            "id": "washer_walking_apartment",
+            "condition": "facts.vibration_level === 'high'",
+            "target_contexts": [
+                "apartamento"
+            ],
+            "penalty": -2.5,
+            "label": "Máquina 'andante' na centrifugação - incomoda vizinhos",
+            "severity": "critical"
+        },
+        {
+            "id": "washer_belt_motor_apartment",
+            "condition": "facts.motor_type === 'belt'",
+            "target_contexts": [
+                "apartamento"
+            ],
+            "penalty": -1.5,
+            "label": "Motor com correia - ruído mais alto",
+            "severity": "medium"
+        },
+        {
+            "id": "washer_direct_drive_apartment_bonus",
+            "condition": "facts.motor_type === 'direct_drive'",
+            "target_contexts": [
+                "apartamento"
+            ],
+            "bonus": 2.5,
+            "label": "Motor Direct Drive - silencioso e sem vibração",
+            "severity": "low"
+        },
+        {
+            "id": "washer_auto_balance_apartment_bonus",
+            "condition": "facts.has_auto_balance === true",
+            "target_contexts": [
+                "apartamento"
+            ],
+            "bonus": 1.0,
+            "label": "Balanceamento automático - menos vibração",
+            "severity": "low"
+        },
+        {
+            "id": "washer_passive_filter_pet",
+            "condition": "facts.filter_type === 'passive'",
+            "target_contexts": [
+                "dono_de_pet"
+            ],
+            "penalty": -1.5,
+            "label": "Filtro passivo - não remove pelos eficazmente",
+            "severity": "medium"
+        },
+        {
+            "id": "washer_no_pet_cycle_pet",
+            "condition": "facts.has_pet_cycle === false",
+            "target_contexts": [
+                "dono_de_pet"
+            ],
+            "penalty": -1.0,
+            "label": "Sem ciclo específico para pelos de pet",
+            "severity": "medium"
+        },
+        {
+            "id": "washer_active_filter_pet_bonus",
+            "condition": "facts.filter_type === 'active_recirculation'",
+            "target_contexts": [
+                "dono_de_pet"
+            ],
+            "bonus": 2.0,
+            "label": "Filtro ativo com recirculação - captura pelos",
+            "severity": "low"
+        },
+        {
+            "id": "washer_tumble_pet_bonus",
+            "condition": "facts.wash_system === 'tumble'",
+            "target_contexts": [
+                "dono_de_pet"
+            ],
+            "bonus": 1.0,
+            "label": "Tombamento front-load - melhor para pelos",
+            "severity": "low"
+        },
+        {
+            "id": "washer_pet_cycle_bonus",
+            "condition": "facts.has_pet_cycle === true",
+            "target_contexts": [
+                "dono_de_pet"
+            ],
+            "bonus": 1.5,
+            "label": "Ciclo Pet dedicado - enxágue extra",
+            "severity": "low"
+        }
+    ]
+}

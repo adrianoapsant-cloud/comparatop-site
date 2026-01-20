@@ -1,0 +1,363 @@
+{
+    "category_id": "ar-condicionado",
+    "category_name": "Ar-Condicionado",
+    "available_contexts": [
+        {
+            "id": "litoral",
+            "name": "Casa de Praia / Litoral",
+            "description": "Ambiente com alta exposição à maresia e umidade. Corrosão é crítica.",
+            "icon": "🏖️",
+            "group": "Localização"
+        },
+        {
+            "id": "quarto_silencio",
+            "name": "Quarto / Ambiente Silencioso",
+            "description": "Prioridade para baixo ruído noturno e display discreto.",
+            "icon": "🛏️",
+            "group": "Uso"
+        },
+        {
+            "id": "economico",
+            "name": "Prioridade Economia de Energia",
+            "description": "Foco em eficiência energética e baixo custo operacional.",
+            "icon": "💡",
+            "group": "Economia"
+        },
+        {
+            "id": "rede_instavel",
+            "name": "Rede Elétrica Instável",
+            "description": "Regiões com quedas de energia frequentes ou oscilações de voltagem.",
+            "icon": "⚡",
+            "group": "Infraestrutura",
+            "voltage_unstable": true
+        },
+        {
+            "id": "idoso_acessibilidade",
+            "name": "Idosos / Acessibilidade",
+            "description": "Prioridade para controles simples e interface legível.",
+            "icon": "👴",
+            "group": "Acessibilidade",
+            "accessibility_senior": true
+        },
+        {
+            "id": "saude_respiratoria",
+            "name": "Saúde Respiratória",
+            "description": "Foco em qualidade do ar, filtros e prevenção de mofo.",
+            "icon": "🫁",
+            "group": "Saúde"
+        }
+    ],
+    "rules": [
+        {
+            "id": "ac_aluminum_coil_coastal",
+            "condition": "facts.coil_material === 'aluminum'",
+            "target_contexts": [
+                "litoral"
+            ],
+            "penalty": -3.0,
+            "label": "Serpentina de alumínio oxida rapidamente no litoral - irreparável",
+            "severity": "critical"
+        },
+        {
+            "id": "ac_no_anticorrosive_coastal",
+            "condition": "facts.has_anticorrosive_protection === false",
+            "target_contexts": [
+                "litoral"
+            ],
+            "penalty": -2.0,
+            "label": "Sem proteção anticorrosiva (Gold Fin/Blue Fin)",
+            "severity": "high"
+        },
+        {
+            "id": "ac_copper_coil_coastal_bonus",
+            "condition": "facts.coil_material === 'copper'",
+            "target_contexts": [
+                "litoral"
+            ],
+            "bonus": 1.0,
+            "label": "Serpentina 100% cobre - durável e soldável no litoral",
+            "severity": "low"
+        },
+        {
+            "id": "ac_gold_fin_coastal_bonus",
+            "condition": "facts.has_anticorrosive_protection === true && facts.anticorrosive_type === 'gold_fin'",
+            "target_contexts": [
+                "litoral"
+            ],
+            "bonus": 1.5,
+            "label": "Proteção Gold Fin - excelente resistência à maresia",
+            "severity": "low"
+        },
+        {
+            "id": "ac_blue_fin_coastal_bonus",
+            "condition": "facts.has_anticorrosive_protection === true && facts.anticorrosive_type === 'blue_fin'",
+            "target_contexts": [
+                "litoral"
+            ],
+            "bonus": 1.0,
+            "label": "Proteção Blue Fin - boa resistência à corrosão",
+            "severity": "low"
+        },
+        {
+            "id": "ac_high_noise_bedroom",
+            "condition": "facts.noise_indoor_db > 25",
+            "target_contexts": [
+                "quarto_silencio"
+            ],
+            "penalty": -1.5,
+            "label": "Ruído interno acima de 25dB - inadequado para quarto",
+            "severity": "medium"
+        },
+        {
+            "id": "ac_ultra_quiet_bedroom_bonus",
+            "condition": "facts.noise_indoor_db <= 21",
+            "target_contexts": [
+                "quarto_silencio"
+            ],
+            "bonus": 1.5,
+            "label": "Ultra silencioso (≤21dB) - ideal para sono",
+            "severity": "low"
+        },
+        {
+            "id": "ac_display_always_on_bedroom",
+            "condition": "facts.display_can_turn_off === false",
+            "target_contexts": [
+                "quarto_silencio"
+            ],
+            "penalty": -1.0,
+            "label": "Display não pode ser desligado - ilumina o quarto à noite",
+            "severity": "medium"
+        },
+        {
+            "id": "ac_no_mute_option_bedroom",
+            "condition": "facts.has_mute_beep === false",
+            "target_contexts": [
+                "quarto_silencio"
+            ],
+            "penalty": -0.5,
+            "label": "Sem opção de silenciar beep - incomoda à noite",
+            "severity": "low"
+        },
+        {
+            "id": "ac_twin_rotary_bedroom_bonus",
+            "condition": "facts.compressor_type === 'twin_rotary'",
+            "target_contexts": [
+                "quarto_silencio"
+            ],
+            "bonus": 1.0,
+            "label": "Compressor Twin Rotary - baixa vibração",
+            "severity": "low"
+        },
+        {
+            "id": "ac_low_idrs_economic",
+            "condition": "facts.idrs < 5.5",
+            "target_contexts": [
+                "economico"
+            ],
+            "penalty": -2.0,
+            "label": "IDRS baixo (<5.5) - alto consumo de energia",
+            "severity": "high"
+        },
+        {
+            "id": "ac_on_off_compressor_economic",
+            "condition": "facts.compressor_type === 'on_off'",
+            "target_contexts": [
+                "economico"
+            ],
+            "penalty": -2.5,
+            "label": "Compressor On/Off - gasta 40% mais que Inverter",
+            "severity": "critical"
+        },
+        {
+            "id": "ac_r410a_gas_economic",
+            "condition": "facts.gas_type === 'R-410A'",
+            "target_contexts": [
+                "economico"
+            ],
+            "penalty": -0.5,
+            "label": "Gás R-410A está saindo de linha - recarga futura cara",
+            "severity": "low"
+        },
+        {
+            "id": "ac_high_idrs_economic_bonus",
+            "condition": "facts.idrs >= 7.0",
+            "target_contexts": [
+                "economico"
+            ],
+            "bonus": 2.0,
+            "label": "IDRS alto (≥7.0) - excelente eficiência energética",
+            "severity": "low"
+        },
+        {
+            "id": "ac_r32_gas_economic_bonus",
+            "condition": "facts.gas_type === 'R-32'",
+            "target_contexts": [
+                "economico"
+            ],
+            "bonus": 1.0,
+            "label": "Gás R-32 - eficiente e futuro padrão do mercado",
+            "severity": "low"
+        },
+        {
+            "id": "ac_dual_inverter_economic_bonus",
+            "condition": "facts.compressor_type === 'dual_inverter'",
+            "target_contexts": [
+                "economico"
+            ],
+            "bonus": 1.5,
+            "label": "Dual Inverter - máxima economia de energia",
+            "severity": "low"
+        },
+        {
+            "id": "ac_no_voltage_protection_unstable",
+            "condition": "facts.voltage_protection === false",
+            "target_contexts": [
+                "rede_instavel"
+            ],
+            "penalty": -2.5,
+            "label": "Sem proteção de voltagem - alto risco de queima de placa",
+            "severity": "critical"
+        },
+        {
+            "id": "ac_no_surge_protection_unstable",
+            "condition": "facts.surge_protection === false",
+            "target_contexts": [
+                "rede_instavel"
+            ],
+            "penalty": -1.5,
+            "label": "Sem proteção contra surto - vulnerável a picos de energia",
+            "severity": "high"
+        },
+        {
+            "id": "ac_auto_restart_unstable_bonus",
+            "condition": "facts.auto_restart === true",
+            "target_contexts": [
+                "rede_instavel"
+            ],
+            "bonus": 1.0,
+            "label": "Auto-restart após queda de energia",
+            "severity": "low"
+        },
+        {
+            "id": "ac_built_in_protection_unstable_bonus",
+            "condition": "facts.voltage_protection === true && facts.surge_protection === true",
+            "target_contexts": [
+                "rede_instavel"
+            ],
+            "bonus": 2.0,
+            "label": "Proteção completa de voltagem e surto integrada",
+            "severity": "low"
+        },
+        {
+            "id": "ac_membrane_interface_senior",
+            "condition": "facts.interface_type === 'membrane_dark'",
+            "target_contexts": [
+                "idoso_acessibilidade"
+            ],
+            "penalty": -1.5,
+            "label": "Painel de membrana escuro - difícil leitura para idosos",
+            "severity": "medium"
+        },
+        {
+            "id": "ac_complex_remote_senior",
+            "condition": "facts.remote_buttons > 20",
+            "target_contexts": [
+                "idoso_acessibilidade"
+            ],
+            "penalty": -1.0,
+            "label": "Controle remoto complexo demais - muitos botões",
+            "severity": "medium"
+        },
+        {
+            "id": "ac_no_backlight_remote_senior",
+            "condition": "facts.remote_backlight === false",
+            "target_contexts": [
+                "idoso_acessibilidade"
+            ],
+            "penalty": -0.5,
+            "label": "Controle sem luz - difícil uso no escuro",
+            "severity": "low"
+        },
+        {
+            "id": "ac_simple_remote_senior_bonus",
+            "condition": "facts.remote_buttons <= 10",
+            "target_contexts": [
+                "idoso_acessibilidade"
+            ],
+            "bonus": 1.0,
+            "label": "Controle simplificado - fácil para idosos",
+            "severity": "low"
+        },
+        {
+            "id": "ac_voice_control_senior_bonus",
+            "condition": "facts.voice_control === true",
+            "target_contexts": [
+                "idoso_acessibilidade"
+            ],
+            "bonus": 1.5,
+            "label": "Controle por voz - ideal para mobilidade reduzida",
+            "severity": "low"
+        },
+        {
+            "id": "ac_no_uv_filter_health",
+            "condition": "facts.has_uv_sterilization === false && facts.has_ion_generator === false",
+            "target_contexts": [
+                "saude_respiratoria"
+            ],
+            "penalty": -1.5,
+            "label": "Sem esterilização UV ou ionização - não purifica o ar",
+            "severity": "medium"
+        },
+        {
+            "id": "ac_basic_filter_health",
+            "condition": "facts.filter_type === 'basic_mesh'",
+            "target_contexts": [
+                "saude_respiratoria"
+            ],
+            "penalty": -1.0,
+            "label": "Filtro básico de tela - só retém poeira grossa",
+            "severity": "medium"
+        },
+        {
+            "id": "ac_uv_sterilization_health_bonus",
+            "condition": "facts.has_uv_sterilization === true",
+            "target_contexts": [
+                "saude_respiratoria"
+            ],
+            "bonus": 2.0,
+            "label": "Luz UV-C - elimina vírus e bactérias internamente",
+            "severity": "low"
+        },
+        {
+            "id": "ac_ion_generator_health_bonus",
+            "condition": "facts.has_ion_generator === true",
+            "target_contexts": [
+                "saude_respiratoria"
+            ],
+            "bonus": 1.5,
+            "label": "Gerador de íons (Vírus Doctor/Nanoe) - purifica o ar",
+            "severity": "low"
+        },
+        {
+            "id": "ac_easy_clean_filter_health_bonus",
+            "condition": "facts.filter_easy_access === true",
+            "target_contexts": [
+                "saude_respiratoria"
+            ],
+            "bonus": 0.5,
+            "label": "Filtro Easy Clean - fácil limpeza regular",
+            "severity": "low"
+        },
+        {
+            "id": "ac_windfree_health_bonus",
+            "condition": "facts.has_windfree === true",
+            "target_contexts": [
+                "saude_respiratoria",
+                "idoso_acessibilidade"
+            ],
+            "bonus": 1.0,
+            "label": "WindFree - sem vento direto, melhor para sensíveis",
+            "severity": "low"
+        }
+    ]
+}

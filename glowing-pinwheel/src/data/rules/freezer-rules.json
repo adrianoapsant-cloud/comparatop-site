@@ -1,0 +1,129 @@
+{
+    "category_id": "freezer",
+    "category_name": "Freezer",
+    "available_contexts": [
+        {
+            "id": "familia_grande",
+            "name": "Família Grande / Alto Consumo",
+            "description": "Necessidade de grande capacidade e organização.",
+            "icon": "👨‍👩‍👧‍👦",
+            "group": "Uso"
+        },
+        {
+            "id": "economico",
+            "name": "Prioridade Economia de Energia",
+            "description": "Foco em eficiência energética.",
+            "icon": "💡",
+            "group": "Economia"
+        },
+        {
+            "id": "comercial",
+            "name": "Uso Comercial / Semi-Profissional",
+            "description": "Alto volume de uso diário.",
+            "icon": "🏪",
+            "group": "Uso"
+        },
+        {
+            "id": "rede_instavel",
+            "name": "Rede Elétrica Instável",
+            "description": "Regiões com quedas de energia frequentes.",
+            "icon": "⚡",
+            "group": "Infraestrutura"
+        }
+    ],
+    "rules": [
+        {
+            "id": "freezer_low_capacity_large_family",
+            "condition": "facts.capacity_liters < 200",
+            "target_contexts": [
+                "familia_grande"
+            ],
+            "penalty": -2.0,
+            "label": "Capacidade insuficiente para família grande",
+            "severity": "high"
+        },
+        {
+            "id": "freezer_no_fast_freeze",
+            "condition": "facts.has_fast_freeze === false",
+            "target_contexts": [
+                "familia_grande",
+                "comercial"
+            ],
+            "penalty": -1.0,
+            "label": "Sem função congelamento rápido",
+            "severity": "medium"
+        },
+        {
+            "id": "freezer_high_consumption_economic",
+            "condition": "facts.energy_consumption_kwh > 40",
+            "target_contexts": [
+                "economico"
+            ],
+            "penalty": -2.0,
+            "label": "Consumo alto (>40 kWh/mês)",
+            "severity": "high"
+        },
+        {
+            "id": "freezer_no_defrost_indicator",
+            "condition": "facts.has_defrost_indicator === false",
+            "target_contexts": [
+                "comercial"
+            ],
+            "penalty": -1.0,
+            "label": "Sem indicador de necessidade de degelo",
+            "severity": "medium"
+        },
+        {
+            "id": "freezer_autonomy_low_unstable",
+            "condition": "facts.autonomy_hours < 24",
+            "target_contexts": [
+                "rede_instavel"
+            ],
+            "penalty": -2.5,
+            "label": "Autonomia térmica baixa (<24h) - risco de perda de alimentos",
+            "severity": "critical"
+        },
+        {
+            "id": "freezer_high_capacity_bonus",
+            "condition": "facts.capacity_liters >= 400",
+            "target_contexts": [
+                "familia_grande",
+                "comercial"
+            ],
+            "bonus": 1.5,
+            "label": "Alta capacidade (≥400L) - ideal para alto consumo",
+            "severity": "low"
+        },
+        {
+            "id": "freezer_frost_free_bonus",
+            "condition": "facts.defrost_type === 'frost_free'",
+            "target_contexts": [
+                "familia_grande",
+                "comercial"
+            ],
+            "bonus": 1.0,
+            "label": "Frost Free - sem necessidade de degelo manual",
+            "severity": "low"
+        },
+        {
+            "id": "freezer_high_autonomy_bonus",
+            "condition": "facts.autonomy_hours >= 72",
+            "target_contexts": [
+                "rede_instavel"
+            ],
+            "bonus": 2.0,
+            "label": "Excelente autonomia térmica (≥72h)",
+            "severity": "low"
+        },
+        {
+            "id": "freezer_procel_a_bonus",
+            "condition": "facts.energy_rating === 'A'",
+            "target_contexts": [
+                "economico"
+            ],
+            "bonus": 1.5,
+            "label": "Selo Procel A - máxima eficiência",
+            "severity": "low"
+        }
+    ]
+}

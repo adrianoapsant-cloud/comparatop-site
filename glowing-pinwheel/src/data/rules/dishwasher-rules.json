@@ -1,0 +1,323 @@
+{
+    "category_id": "lava-loucas",
+    "category_name": "Lava-Louças",
+    "available_contexts": [
+        {
+            "id": "panelas_pesadas",
+            "name": "Panelas Pesadas / Família Grande",
+            "description": "Prioridade para capacidade, força de jato e espaço interno.",
+            "icon": "🍳",
+            "group": "Uso"
+        },
+        {
+            "id": "cristais_delicado",
+            "name": "Cristais / Louça Delicada",
+            "description": "Prioridade para ciclos suaves e proteção de peças frágeis.",
+            "icon": "🍷",
+            "group": "Uso"
+        },
+        {
+            "id": "economia_agua",
+            "name": "Economia de Água",
+            "description": "Prioridade para baixo consumo hídrico.",
+            "icon": "💧",
+            "group": "Economia"
+        },
+        {
+            "id": "cozinha_integrada",
+            "name": "Cozinha Integrada / Silêncio",
+            "description": "Prioridade para baixo ruído em ambientes abertos.",
+            "icon": "🤫",
+            "group": "Localização"
+        },
+        {
+            "id": "praticidade",
+            "name": "Praticidade / Família Correria",
+            "description": "Prioridade para ciclos rápidos e facilidade de uso.",
+            "icon": "⏱️",
+            "group": "Uso"
+        }
+    ],
+    "rules": [
+        {
+            "id": "dw_small_capacity_heavy",
+            "condition": "facts.services < 10",
+            "target_contexts": [
+                "panelas_pesadas"
+            ],
+            "penalty": -2.0,
+            "label": "Capacidade <10 serviços - não cabe panela de pressão",
+            "severity": "high"
+        },
+        {
+            "id": "dw_weak_jets_heavy",
+            "condition": "facts.spray_arm_count < 3",
+            "target_contexts": [
+                "panelas_pesadas"
+            ],
+            "penalty": -1.5,
+            "label": "Poucos braços de jato - limpeza irregular em panelas",
+            "severity": "medium"
+        },
+        {
+            "id": "dw_no_heavy_cycle_heavy",
+            "condition": "facts.has_heavy_cycle === false",
+            "target_contexts": [
+                "panelas_pesadas"
+            ],
+            "penalty": -1.0,
+            "label": "Sem ciclo pesado - gordura gruda",
+            "severity": "medium"
+        },
+        {
+            "id": "dw_fixed_racks_heavy",
+            "condition": "facts.adjustable_racks === false",
+            "target_contexts": [
+                "panelas_pesadas"
+            ],
+            "penalty": -1.0,
+            "label": "Prateleiras fixas - não cabe panela alta",
+            "severity": "medium"
+        },
+        {
+            "id": "dw_large_capacity_heavy_bonus",
+            "condition": "facts.services >= 14",
+            "target_contexts": [
+                "panelas_pesadas"
+            ],
+            "bonus": 2.5,
+            "label": "Grande capacidade (≥14 serviços) - cabe tudo",
+            "severity": "low"
+        },
+        {
+            "id": "dw_third_rack_heavy_bonus",
+            "condition": "facts.has_third_rack === true",
+            "target_contexts": [
+                "panelas_pesadas"
+            ],
+            "bonus": 1.5,
+            "label": "Terceira prateleira - mais espaço para utensílios",
+            "severity": "low"
+        },
+        {
+            "id": "dw_adjustable_racks_heavy_bonus",
+            "condition": "facts.adjustable_racks === true",
+            "target_contexts": [
+                "panelas_pesadas"
+            ],
+            "bonus": 1.0,
+            "label": "Prateleiras ajustáveis - flexibilidade máxima",
+            "severity": "low"
+        },
+        {
+            "id": "dw_aggressive_jets_delicate",
+            "condition": "facts.max_pressure_bar > 2.0",
+            "target_contexts": [
+                "cristais_delicado"
+            ],
+            "penalty": -1.5,
+            "label": "Jatos muito fortes - risco para cristais",
+            "severity": "medium"
+        },
+        {
+            "id": "dw_no_delicate_cycle_delicate",
+            "condition": "facts.has_delicate_cycle === false",
+            "target_contexts": [
+                "cristais_delicado"
+            ],
+            "penalty": -2.0,
+            "label": "Sem ciclo delicado - cristais podem quebrar",
+            "severity": "high"
+        },
+        {
+            "id": "dw_no_glass_care_delicate",
+            "condition": "facts.has_glass_care === false",
+            "target_contexts": [
+                "cristais_delicado"
+            ],
+            "penalty": -1.0,
+            "label": "Sem proteção especial para vidro",
+            "severity": "medium"
+        },
+        {
+            "id": "dw_delicate_cycle_delicate_bonus",
+            "condition": "facts.has_delicate_cycle === true",
+            "target_contexts": [
+                "cristais_delicado"
+            ],
+            "bonus": 2.0,
+            "label": "Ciclo delicado - seguro para cristais",
+            "severity": "low"
+        },
+        {
+            "id": "dw_glass_care_delicate_bonus",
+            "condition": "facts.has_glass_care === true",
+            "target_contexts": [
+                "cristais_delicado"
+            ],
+            "bonus": 1.5,
+            "label": "Proteção Glass Care - previne opacidade",
+            "severity": "low"
+        },
+        {
+            "id": "dw_stemware_holders_delicate_bonus",
+            "condition": "facts.has_stemware_holders === true",
+            "target_contexts": [
+                "cristais_delicado"
+            ],
+            "bonus": 1.0,
+            "label": "Suportes para taças - fixação segura",
+            "severity": "low"
+        },
+        {
+            "id": "dw_high_water_consumption_economy",
+            "condition": "facts.water_liters_cycle > 15",
+            "target_contexts": [
+                "economia_agua"
+            ],
+            "penalty": -2.0,
+            "label": "Alto consumo de água (>15L/ciclo)",
+            "severity": "high"
+        },
+        {
+            "id": "dw_no_eco_cycle_economy",
+            "condition": "facts.has_eco_cycle === false",
+            "target_contexts": [
+                "economia_agua"
+            ],
+            "penalty": -1.0,
+            "label": "Sem ciclo eco - gasta mais água",
+            "severity": "medium"
+        },
+        {
+            "id": "dw_low_water_economy_bonus",
+            "condition": "facts.water_liters_cycle <= 10",
+            "target_contexts": [
+                "economia_agua"
+            ],
+            "bonus": 2.5,
+            "label": "Baixo consumo (≤10L/ciclo) - economia real",
+            "severity": "low"
+        },
+        {
+            "id": "dw_eco_cycle_economy_bonus",
+            "condition": "facts.has_eco_cycle === true",
+            "target_contexts": [
+                "economia_agua"
+            ],
+            "bonus": 1.5,
+            "label": "Ciclo eco dedicado - máxima economia",
+            "severity": "low"
+        },
+        {
+            "id": "dw_sensor_load_economy_bonus",
+            "condition": "facts.has_load_sensor === true",
+            "target_contexts": [
+                "economia_agua"
+            ],
+            "bonus": 1.0,
+            "label": "Sensor de carga - ajusta água automaticamente",
+            "severity": "low"
+        },
+        {
+            "id": "dw_loud_open_kitchen",
+            "condition": "facts.noise_db > 50",
+            "target_contexts": [
+                "cozinha_integrada"
+            ],
+            "penalty": -2.5,
+            "label": "Muito barulho (>50dB) - incomoda em cozinha aberta",
+            "severity": "critical"
+        },
+        {
+            "id": "dw_medium_noise_open_kitchen",
+            "condition": "facts.noise_db > 44 && facts.noise_db <= 50",
+            "target_contexts": [
+                "cozinha_integrada"
+            ],
+            "penalty": -1.0,
+            "label": "Ruído moderado - audível em ambiente aberto",
+            "severity": "medium"
+        },
+        {
+            "id": "dw_silent_open_kitchen_bonus",
+            "condition": "facts.noise_db <= 44",
+            "target_contexts": [
+                "cozinha_integrada"
+            ],
+            "bonus": 2.5,
+            "label": "Ultra silenciosa (≤44dB) - imperceptível",
+            "severity": "low"
+        },
+        {
+            "id": "dw_brushless_motor_open_kitchen_bonus",
+            "condition": "facts.motor_type === 'brushless'",
+            "target_contexts": [
+                "cozinha_integrada"
+            ],
+            "bonus": 1.0,
+            "label": "Motor brushless - operação silenciosa",
+            "severity": "low"
+        },
+        {
+            "id": "dw_long_cycles_practical",
+            "condition": "facts.shortest_cycle_minutes > 60",
+            "target_contexts": [
+                "praticidade"
+            ],
+            "penalty": -1.5,
+            "label": "Ciclo mais curto >60min - demora demais",
+            "severity": "medium"
+        },
+        {
+            "id": "dw_complex_interface_practical",
+            "condition": "facts.program_count > 12",
+            "target_contexts": [
+                "praticidade"
+            ],
+            "penalty": -1.0,
+            "label": "Interface complexa - muitos programas",
+            "severity": "medium"
+        },
+        {
+            "id": "dw_no_express_practical",
+            "condition": "facts.has_express_cycle === false",
+            "target_contexts": [
+                "praticidade"
+            ],
+            "penalty": -1.5,
+            "label": "Sem ciclo expresso - sempre demora",
+            "severity": "medium"
+        },
+        {
+            "id": "dw_express_cycle_practical_bonus",
+            "condition": "facts.has_express_cycle === true && facts.express_cycle_minutes <= 30",
+            "target_contexts": [
+                "praticidade"
+            ],
+            "bonus": 2.5,
+            "label": "Ciclo expresso ≤30min - louça limpa rápido",
+            "severity": "low"
+        },
+        {
+            "id": "dw_auto_open_dry_practical_bonus",
+            "condition": "facts.has_auto_open_dry === true",
+            "target_contexts": [
+                "praticidade"
+            ],
+            "bonus": 1.5,
+            "label": "Auto-abertura para secar - louça seca sozinha",
+            "severity": "low"
+        },
+        {
+            "id": "dw_delay_start_practical_bonus",
+            "condition": "facts.has_delay_start === true",
+            "target_contexts": [
+                "praticidade"
+            ],
+            "bonus": 1.0,
+            "label": "Início programado - opera de madrugada",
+            "severity": "low"
+        }
+    ]
+}

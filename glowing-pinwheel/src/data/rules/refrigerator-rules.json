@@ -1,0 +1,274 @@
+{
+    "category_id": "refrigerador",
+    "category_name": "Refrigeradores (Geladeiras)",
+    "available_contexts": [
+        {
+            "id": "litoral",
+            "name": "Casa de Praia / Litoral",
+            "description": "Ambiente com alta exposição à maresia. Ferrugem é crítica.",
+            "icon": "🏖️",
+            "group": "Localização"
+        },
+        {
+            "id": "economia_energia",
+            "name": "Economia de Energia",
+            "description": "Prioridade para consumo baixo e eficiência Procel A.",
+            "icon": "💡",
+            "group": "Economia"
+        },
+        {
+            "id": "familia_grande",
+            "name": "Família Grande",
+            "description": "Prioridade para capacidade, espaço e resistência.",
+            "icon": "👨‍👩‍👧‍👦",
+            "group": "Uso"
+        },
+        {
+            "id": "rede_instavel",
+            "name": "Rede Elétrica Instável",
+            "description": "Regiões com quedas de energia frequentes - risco de placa Inverter.",
+            "icon": "⚡",
+            "group": "Infraestrutura",
+            "voltage_unstable": true
+        },
+        {
+            "id": "interior_assistencia",
+            "name": "Interior / Cidade Pequena",
+            "description": "Prioridade para marcas com assistência técnica capilar.",
+            "icon": "🏘️",
+            "group": "Localização"
+        }
+    ],
+    "rules": [
+        {
+            "id": "fridge_evox_coastal",
+            "condition": "facts.finish_type === 'Evox' || facts.finish_type === 'Platinum'",
+            "target_contexts": [
+                "litoral"
+            ],
+            "penalty": -3.0,
+            "label": "Acabamento Evox/Platinum descasca em 2 anos no litoral",
+            "severity": "critical"
+        },
+        {
+            "id": "fridge_no_rust_protection_coastal",
+            "condition": "facts.has_rust_protection === false",
+            "target_contexts": [
+                "litoral"
+            ],
+            "penalty": -2.0,
+            "label": "Sem proteção anticorrosiva extra",
+            "severity": "high"
+        },
+        {
+            "id": "fridge_dispenser_rust_coastal",
+            "condition": "facts.has_water_dispenser === true && facts.dispenser_material === 'plastic_basic'",
+            "target_contexts": [
+                "litoral"
+            ],
+            "penalty": -1.0,
+            "label": "Porta do dispenser vulnerável à ferrugem",
+            "severity": "medium"
+        },
+        {
+            "id": "fridge_real_inox_coastal_bonus",
+            "condition": "facts.finish_type === 'Inox Real' || facts.finish_type === 'Inox 304'",
+            "target_contexts": [
+                "litoral"
+            ],
+            "bonus": 2.0,
+            "label": "Aço Inox Real (Austenítico) - resistente à maresia",
+            "severity": "low"
+        },
+        {
+            "id": "fridge_black_glass_coastal_bonus",
+            "condition": "facts.finish_type === 'Black Glass' || facts.finish_type === 'White Glass'",
+            "target_contexts": [
+                "litoral"
+            ],
+            "bonus": 2.5,
+            "label": "Vidro preto/branco - 100% imune a ferrugem",
+            "severity": "low"
+        },
+        {
+            "id": "fridge_high_consumption_economy",
+            "condition": "facts.monthly_kwh > 50",
+            "target_contexts": [
+                "economia_energia"
+            ],
+            "penalty": -2.0,
+            "label": "Consumo alto (>50kWh/mês) - conta de luz elevada",
+            "severity": "high"
+        },
+        {
+            "id": "fridge_no_inverter_economy",
+            "condition": "facts.compressor_type === 'conventional'",
+            "target_contexts": [
+                "economia_energia"
+            ],
+            "penalty": -1.5,
+            "label": "Compressor convencional - gasta mais energia",
+            "severity": "medium"
+        },
+        {
+            "id": "fridge_low_consumption_economy_bonus",
+            "condition": "facts.monthly_kwh <= 35",
+            "target_contexts": [
+                "economia_energia"
+            ],
+            "bonus": 2.0,
+            "label": "Consumo baixo (≤35kWh/mês) - excelente economia",
+            "severity": "low"
+        },
+        {
+            "id": "fridge_procel_a_economy_bonus",
+            "condition": "facts.procel_rating === 'A'",
+            "target_contexts": [
+                "economia_energia"
+            ],
+            "bonus": 1.0,
+            "label": "Selo Procel A - eficiência comprovada",
+            "severity": "low"
+        },
+        {
+            "id": "fridge_10y_warranty_economy_bonus",
+            "condition": "facts.compressor_warranty_years >= 10",
+            "target_contexts": [
+                "economia_energia"
+            ],
+            "bonus": 1.0,
+            "label": "Garantia de 10 anos no compressor",
+            "severity": "low"
+        },
+        {
+            "id": "fridge_acrylic_shelves_family",
+            "condition": "facts.shelf_material === 'acrylic'",
+            "target_contexts": [
+                "familia_grande"
+            ],
+            "penalty": -1.5,
+            "label": "Prateleiras de acrílico quebram fácil",
+            "severity": "medium"
+        },
+        {
+            "id": "fridge_tight_freezer_family",
+            "condition": "facts.freezer_easy_access === false",
+            "target_contexts": [
+                "familia_grande"
+            ],
+            "penalty": -1.0,
+            "label": "Gavetas do freezer apertadas - não cabe pizza",
+            "severity": "medium"
+        },
+        {
+            "id": "fridge_glass_shelves_family_bonus",
+            "condition": "facts.shelf_material === 'tempered_glass'",
+            "target_contexts": [
+                "familia_grande"
+            ],
+            "bonus": 1.5,
+            "label": "Prateleiras de vidro temperado - resistentes",
+            "severity": "low"
+        },
+        {
+            "id": "fridge_adjustable_shelves_family_bonus",
+            "condition": "facts.adjustable_shelves === true",
+            "target_contexts": [
+                "familia_grande"
+            ],
+            "bonus": 1.0,
+            "label": "Prateleiras ajustáveis/retráteis",
+            "severity": "low"
+        },
+        {
+            "id": "fridge_inverse_family_bonus",
+            "condition": "facts.layout === 'inverse'",
+            "target_contexts": [
+                "familia_grande"
+            ],
+            "bonus": 1.0,
+            "label": "Layout Inverse - frescos na altura ideal",
+            "severity": "low"
+        },
+        {
+            "id": "fridge_no_voltage_protection_unstable",
+            "condition": "facts.voltage_protection === false",
+            "target_contexts": [
+                "rede_instavel"
+            ],
+            "penalty": -3.0,
+            "label": "Sem proteção de voltagem - placa Inverter queima fácil (R$800+ reparo)",
+            "severity": "critical"
+        },
+        {
+            "id": "fridge_inverter_no_protection_unstable",
+            "condition": "facts.compressor_type === 'inverter' && facts.surge_protection === false",
+            "target_contexts": [
+                "rede_instavel"
+            ],
+            "penalty": -2.0,
+            "label": "Inverter sem proteção contra surto - alto risco",
+            "severity": "high"
+        },
+        {
+            "id": "fridge_conventional_unstable_bonus",
+            "condition": "facts.compressor_type === 'conventional'",
+            "target_contexts": [
+                "rede_instavel"
+            ],
+            "bonus": 1.0,
+            "label": "Compressor convencional - mais resistente a oscilações",
+            "severity": "low"
+        },
+        {
+            "id": "fridge_built_in_protection_unstable_bonus",
+            "condition": "facts.voltage_protection === true && facts.surge_protection === true",
+            "target_contexts": [
+                "rede_instavel"
+            ],
+            "bonus": 2.0,
+            "label": "Proteção completa integrada",
+            "severity": "low"
+        },
+        {
+            "id": "fridge_foreign_brand_interior",
+            "condition": "facts.brand === 'Panasonic' || facts.brand === 'LG' || facts.brand === 'Samsung'",
+            "target_contexts": [
+                "interior_assistencia"
+            ],
+            "penalty": -1.5,
+            "label": "Falta de técnicos para marcas asiáticas no interior",
+            "severity": "medium"
+        },
+        {
+            "id": "fridge_rare_parts_interior",
+            "condition": "facts.parts_availability === 'limited'",
+            "target_contexts": [
+                "interior_assistencia"
+            ],
+            "penalty": -2.0,
+            "label": "Peças de reposição importadas - demora 30+ dias",
+            "severity": "high"
+        },
+        {
+            "id": "fridge_national_brand_interior_bonus",
+            "condition": "facts.brand === 'Brastemp' || facts.brand === 'Consul' || facts.brand === 'Electrolux'",
+            "target_contexts": [
+                "interior_assistencia"
+            ],
+            "bonus": 2.0,
+            "label": "Marca nacional - rede de assistência capilar",
+            "severity": "low"
+        },
+        {
+            "id": "fridge_generic_parts_interior_bonus",
+            "condition": "facts.parts_availability === 'wide'",
+            "target_contexts": [
+                "interior_assistencia"
+            ],
+            "bonus": 1.0,
+            "label": "Peças genéricas disponíveis no mercado",
+            "severity": "low"
+        }
+    ]
+}

@@ -1,0 +1,102 @@
+[
+    {
+        "id": "thermal",
+        "label": "Gestão Térmica",
+        "icon": "🌡️",
+        "tech_field": "scores.c1",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Dissipação de calor e estabilidade"
+    },
+    {
+        "id": "wifi",
+        "label": "Qualidade Wi-Fi",
+        "icon": "📶",
+        "tech_field": "scores.c2",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Velocidade e estabilidade de conexão"
+    },
+    {
+        "id": "local_apps",
+        "label": "Apps Nacionais",
+        "icon": "📱",
+        "tech_field": "scores.c3",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Disponibilidade de apps brasileiros"
+    },
+    {
+        "id": "os_performance",
+        "label": "Performance do SO",
+        "icon": "⚡",
+        "tech_field": "scores.c4",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Fluidez e tempo de resposta"
+    },
+    {
+        "id": "remote_quality",
+        "label": "Qualidade do Controle",
+        "icon": "🎮",
+        "tech_field": "scores.c5",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Ergonomia e funcionalidades do controle"
+    },
+    {
+        "id": "update_support",
+        "label": "Suporte a Atualizações",
+        "icon": "🔄",
+        "tech_field": "scores.c6",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Frequência e duração do suporte"
+    },
+    {
+        "id": "av_quality",
+        "label": "Qualidade de Vídeo",
+        "icon": "🎬",
+        "tech_field": "scores.c7",
+        "target_value": 8,
+        "type": "sigmoid_penalty",
+        "lower_is_better": false,
+        "description": "Suporte a 4K, HDR e codecs"
+    },
+    {
+        "id": "storage",
+        "label": "Armazenamento",
+        "icon": "💾",
+        "tech_field": "scores.c8",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Espaço para apps e cache"
+    },
+    {
+        "id": "sideload",
+        "label": "Sideload/Flexibilidade",
+        "icon": "📲",
+        "tech_field": "scores.c9",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Instalação de apps externos"
+    },
+    {
+        "id": "smart_home",
+        "label": "Smart Home",
+        "icon": "🏠",
+        "tech_field": "scores.c10",
+        "target_value": 7,
+        "type": "linear_penalty",
+        "lower_is_better": false,
+        "description": "Integração com automação"
+    }
+]

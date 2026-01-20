@@ -1,0 +1,107 @@
+{
+    "category_id": "minibar",
+    "category_name": "Frigobar",
+    "available_contexts": [
+        {
+            "id": "quarto",
+            "name": "Quarto / Home Office",
+            "description": "Ambiente silencioso.",
+            "icon": "🛏️",
+            "group": "Localização"
+        },
+        {
+            "id": "bebidas",
+            "name": "Foco em Bebidas",
+            "description": "Principalmente latas e garrafas.",
+            "icon": "🍺",
+            "group": "Uso"
+        },
+        {
+            "id": "kitnet",
+            "name": "Kitnet / Espaço Mínimo",
+            "description": "Única geladeira do espaço.",
+            "icon": "🏠",
+            "group": "Espaço"
+        },
+        {
+            "id": "economia",
+            "name": "Economia de Energia",
+            "description": "Foco em baixo consumo.",
+            "icon": "💡",
+            "group": "Economia"
+        }
+    ],
+    "rules": [
+        {
+            "id": "minibar_loud_bedroom",
+            "condition": "facts.noise_db > 40",
+            "target_contexts": [
+                "quarto"
+            ],
+            "penalty": -2.0,
+            "label": "Ruído alto (>40dB) - atrapalha o sono",
+            "severity": "high"
+        },
+        {
+            "id": "minibar_no_door_shelves_drinks",
+            "condition": "facts.door_shelves < 2",
+            "target_contexts": [
+                "bebidas"
+            ],
+            "penalty": -1.0,
+            "label": "Poucas prateleiras na porta para latas",
+            "severity": "medium"
+        },
+        {
+            "id": "minibar_no_freezer_kitnet",
+            "condition": "facts.has_freezer_compartment === false",
+            "target_contexts": [
+                "kitnet"
+            ],
+            "penalty": -1.5,
+            "label": "Sem congelador - limitado para uso único",
+            "severity": "medium"
+        },
+        {
+            "id": "minibar_high_consumption_economy",
+            "condition": "facts.energy_consumption_kwh > 25",
+            "target_contexts": [
+                "economia"
+            ],
+            "penalty": -1.5,
+            "label": "Consumo alto (>25 kWh/mês)",
+            "severity": "medium"
+        },
+        {
+            "id": "minibar_quiet_bonus",
+            "condition": "facts.noise_db <= 35",
+            "target_contexts": [
+                "quarto"
+            ],
+            "bonus": 2.0,
+            "label": "Ultra silencioso (≤35dB) - ideal para quarto",
+            "severity": "low"
+        },
+        {
+            "id": "minibar_large_capacity_drinks_bonus",
+            "condition": "facts.capacity_liters >= 120",
+            "target_contexts": [
+                "bebidas",
+                "kitnet"
+            ],
+            "bonus": 1.5,
+            "label": "Boa capacidade (≥120L)",
+            "severity": "low"
+        },
+        {
+            "id": "minibar_procel_a_bonus",
+            "condition": "facts.energy_rating === 'A'",
+            "target_contexts": [
+                "economia"
+            ],
+            "bonus": 1.5,
+            "label": "Selo Procel A - máxima eficiência",
+            "severity": "low"
+        }
+    ]
+}

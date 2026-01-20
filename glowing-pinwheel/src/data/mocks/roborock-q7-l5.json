@@ -1,0 +1,236 @@
+{
+    "product": {
+        "id": "roborock-q7-l5",
+        "name": "Roborock Q7 L5 Robô Aspirador e Esfregão com LiDAR",
+        "brand": "Roborock",
+        "category": "robot-vacuum",
+        "releaseYear": 2024
+    },
+    "header": {
+        "overallScore": 8.36,
+        "scoreLabel": "Muito Bom",
+        "title": "Roborock Q7 L5",
+        "subtitle": "LiDAR preciso com 8000Pa de sucção e escovas anti-emaranhamento para pets",
+        "badges": [
+            {
+                "type": "feature",
+                "label": "LiDAR 3D",
+                "icon": "radar"
+            },
+            {
+                "type": "feature",
+                "label": "8000Pa Sucção",
+                "icon": "zap"
+            },
+            {
+                "type": "feature",
+                "label": "Anti-Emaranhamento",
+                "icon": "sparkles"
+            }
+        ]
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "Navegação LiDAR de alta precisão com mapeamento 3D em tempo real",
+                "8000Pa de sucção — potência máxima para carpetes e sujeira pesada",
+                "Escovas duplas anti-emaranhamento de borracha — ideal para pets",
+                "150min de autonomia + Recharge & Resume: limpa casas grandes sem supervisão",
+                "Zonas de restrição inteligentes via app — cria barreiras virtuais"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "Mop ESTÁTICO: apenas arrasta pano úmido, não vibra como S7/S8",
+                "Altura de 9.8cm: pode travar em móveis planejados com vão de 9cm",
+                "Peças de reposição: disponibilidade via importação (verificar marketplaces)",
+                "Base SIMPLES: sem autoesvaziamento. Para isso, considere Q7 Max+"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "O Q7 L5 entrega o que robôs básicos como WAP W400 não conseguem: navegação inteligente que não repete áreas e escovas que não enrolam pelos. Vale o investimento extra de R$ 1.100 se você tem pets, casa com múltiplos cômodos, ou simplesmente quer um robô que funciona sem supervisão. O mop estático é a única limitação real — não espere que ele esfregue manchas secas."
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "Seu orçamento é apertado (R$ 2.000+ é investimento significativo)",
+                "Espera que o mop tire manchas secas do piso (mop estático)",
+                "Seus móveis têm vão menor que 10cm (9.8cm de altura)",
+                "Quer autoesvaziamento (considere Q7 Max+ com dock)"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões PARR-BR para Robôs Aspiradores",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Navegação & Mapeamento",
+                "shortName": "Navegação",
+                "score": 9.5,
+                "weight": 0.25,
+                "icon": "radar",
+                "color": "cyan",
+                "description": "PREMIUM: LiDAR de alta precisão com mapeamento 3D. Zonas de restrição inteligentes."
+            },
+            {
+                "id": "c2",
+                "name": "Software & Conectividade",
+                "shortName": "App/Voz",
+                "score": 9.0,
+                "weight": 0.15,
+                "icon": "smartphone",
+                "color": "purple",
+                "description": "App Roborock é referência. Mapa interativo, agendamento, Alexa/Google."
+            },
+            {
+                "id": "c3",
+                "name": "Sistema de Mop",
+                "shortName": "Mop",
+                "score": 7.0,
+                "weight": 0.15,
+                "icon": "droplet",
+                "color": "blue",
+                "description": "LIMITAÇÃO: Mop estático arrasta pano. NÃO é vibratório como S7/S8."
+            },
+            {
+                "id": "c4",
+                "name": "Engenharia de Escovas",
+                "shortName": "Escovas",
+                "score": 9.0,
+                "weight": 0.10,
+                "icon": "sparkles",
+                "color": "emerald",
+                "description": "DESTAQUE PETS: Escovas duplas de borracha anti-emaranhamento!"
+            },
+            {
+                "id": "c5",
+                "name": "Altura e Acessibilidade",
+                "shortName": "Altura",
+                "score": 7.5,
+                "weight": 0.10,
+                "icon": "ruler",
+                "color": "orange",
+                "description": "9.8cm por causa da torre LiDAR. Pode travar em alguns móveis planejados."
+            },
+            {
+                "id": "c6",
+                "name": "Manutenibilidade",
+                "shortName": "Peças",
+                "score": 6.0,
+                "weight": 0.08,
+                "icon": "wrench",
+                "color": "slate",
+                "description": "Peças de reposição via importação. Disponibilidade pode variar."
+            },
+            {
+                "id": "c7",
+                "name": "Bateria e Autonomia",
+                "shortName": "Bateria",
+                "score": 9.0,
+                "weight": 0.05,
+                "icon": "battery",
+                "color": "green",
+                "description": "EXCELENTE: 150min + Recharge & Resume. Casas grandes sem problemas."
+            },
+            {
+                "id": "c8",
+                "name": "Acústica",
+                "shortName": "Ruído",
+                "score": 7.0,
+                "weight": 0.05,
+                "icon": "volume2",
+                "color": "amber",
+                "description": "Ruído médio (~65dB). Equiparável à concorrência."
+            },
+            {
+                "id": "c9",
+                "name": "Base de Carregamento",
+                "shortName": "Base",
+                "score": 5.0,
+                "weight": 0.05,
+                "icon": "home",
+                "color": "red",
+                "description": "BÁSICO: Base apenas carrega. Para autoesvaziamento, considere Q7 Max+."
+            },
+            {
+                "id": "c10",
+                "name": "Recursos de IA",
+                "shortName": "IA",
+                "score": 8.0,
+                "weight": 0.02,
+                "icon": "brain",
+                "color": "pink",
+                "description": "Sensores 3D detectam obstáculos. Boa IA, não câmera como S8 Pro Ultra."
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "status": "warning",
+            "message": "Com 9.8cm de altura (torre LiDAR), o Q7 L5 precisa de vãos de pelo menos 10cm para passar sob móveis. Meça seus sofás e camas antes de comprar.",
+            "idealRange": {
+                "min": 6,
+                "max": 9
+            }
+        },
+        "soundAlert": {
+            "status": "acceptable",
+            "message": "O mop do Q7 L5 é estático: apenas arrasta um pano úmido. Para manchas secas, você ainda precisará de mop manual. Ideal para manutenção diária após a aspiração.",
+            "suggestions": [
+                {
+                    "condition": "Para manchas pesadas",
+                    "product": "Roborock S7/S8 com Sonic Mop",
+                    "reason": "Vibração de 3000rpm remove sujeira incrustada"
+                },
+                {
+                    "condition": "Para pisos de madeira",
+                    "product": "Usar modo 'baixo fluxo' no app",
+                    "reason": "Evita excesso de água que danifica madeira"
+                }
+            ]
+        },
+        "energyAlert": {
+            "rating": "A",
+            "message": "Consumo de ~30W durante operação. Custo mensal estimado de R$ 2-3 na conta de luz com uso diário."
+        }
+    },
+    "decisionFAQ": [
+        {
+            "id": "comparison",
+            "icon": "Scale",
+            "question": "Q7 L5 vs Q7 Max vs S7: Qual eu devo escolher?",
+            "answer": "Resumo prático: O Q7 L5 é o 'custo-benefício de sucção'. Ele tem o mesmo poder de limpeza do Max, mas economiza na bateria (3200mAh vs 5200mAh) e no tanque de água. Se sua casa é pequena/média (<100m²), o L5 é a compra racional. Se você precisa que o robô levante o pano em tapetes, pule direto para o S7/S8. O L5 apenas arrasta o pano."
+        },
+        {
+            "id": "noise",
+            "icon": "Volume2",
+            "question": "O barulho atrapalha assistir TV ou trabalhar?",
+            "answer": "Sendo honesto: No modo 'Turbo' (que ativa sozinho em tapetes), ele compete com a TV. É um ruído de vento alto (~67dB). No modo 'Silencioso' ou 'Equilibrado', é tranquilo para home office. Nossa dica de ouro: configure a automação para ele limpar quando você sair de casa. Robô bom é robô que trabalha sozinho."
+        },
+        {
+            "id": "maintenance",
+            "icon": "Dog",
+            "question": "Tenho pets peludos. Vou ter que limpar a escova todo dia?",
+            "answer": "Não todo dia, mas toda semana. A escova de borracha ajuda muito a não travar, mas pelos longos migram para as pontas do eixo (nas laterais da escova). É uma manutenção de 2 minutos que você fará a cada 3 ou 4 ciclos completos. Se o robô parar e reclamar de 'escova travada' em tapetes grossos, desligue o modo 'Carpet Boost' no app."
+        },
+        {
+            "id": "repair",
+            "icon": "Wrench",
+            "question": "A nota de reparabilidade é 5.7. Isso é ruim?",
+            "answer": "É uma nota de 'Realidade'. Diferente de marcas descartáveis (nota 1) ou produtos nacionais com assistência em cada esquina (nota 9), o Q7 L5 fica no meio. Não há assistência técnica oficial no Brasil, mas o produto usa peças universais. Se a bateria precisar de troca após alguns anos, você pode encontrar peças em marketplaces (disponibilidade varia por região). É um produto reparável, mas exige proatividade. Índice editorial do ComparaTop; não é laudo oficial do fabricante."
+        }
+    ]
+}

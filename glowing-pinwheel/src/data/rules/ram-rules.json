@@ -1,0 +1,138 @@
+{
+    "category_id": "ram",
+    "category_name": "Memória RAM",
+    "available_contexts": [
+        {
+            "id": "gaming",
+            "name": "Gaming",
+            "description": "Performance em jogos.",
+            "icon": "🎮",
+            "group": "Uso"
+        },
+        {
+            "id": "produtividade",
+            "name": "Produtividade Pesada",
+            "description": "Multitarefa intensa.",
+            "icon": "💼",
+            "group": "Uso"
+        },
+        {
+            "id": "amd",
+            "name": "Plataforma AMD Ryzen",
+            "description": "Otimizado para Infinity Fabric.",
+            "icon": "🔴",
+            "group": "Plataforma"
+        },
+        {
+            "id": "overclocking",
+            "name": "Overclocking / Entusiasta",
+            "description": "Máxima performance.",
+            "icon": "⚡",
+            "group": "Experiência"
+        },
+        {
+            "id": "estetica",
+            "name": "Estética / RGB",
+            "description": "Visual do PC.",
+            "icon": "🌈",
+            "group": "Visual"
+        }
+    ],
+    "rules": [
+        {
+            "id": "ram_low_speed_gaming",
+            "condition": "facts.speed_mhz < 3200",
+            "target_contexts": [
+                "gaming",
+                "amd"
+            ],
+            "penalty": -1.5,
+            "label": "Velocidade baixa (<3200MHz)",
+            "severity": "medium"
+        },
+        {
+            "id": "ram_low_capacity_productivity",
+            "condition": "facts.capacity_gb < 32",
+            "target_contexts": [
+                "produtividade"
+            ],
+            "penalty": -1.5,
+            "label": "Capacidade baixa (<32GB) para trabalho pesado",
+            "severity": "medium"
+        },
+        {
+            "id": "ram_high_latency_gaming",
+            "condition": "facts.cas_latency > 18",
+            "target_contexts": [
+                "gaming",
+                "overclocking"
+            ],
+            "penalty": -1.0,
+            "label": "Latência alta (CL>18)",
+            "severity": "medium"
+        },
+        {
+            "id": "ram_no_xmp_oc",
+            "condition": "facts.has_xmp === false",
+            "target_contexts": [
+                "overclocking",
+                "gaming"
+            ],
+            "penalty": -1.5,
+            "label": "Sem perfil XMP/EXPO - configuração manual",
+            "severity": "medium"
+        },
+        {
+            "id": "ram_no_heatsink_oc",
+            "condition": "facts.has_heatsink === false",
+            "target_contexts": [
+                "overclocking"
+            ],
+            "penalty": -1.0,
+            "label": "Sem dissipador - limita OC",
+            "severity": "medium"
+        },
+        {
+            "id": "ram_high_speed_bonus",
+            "condition": "facts.speed_mhz >= 6000",
+            "target_contexts": [
+                "gaming",
+                "overclocking"
+            ],
+            "bonus": 2.0,
+            "label": "Alta velocidade (≥6000MHz) - DDR5 performance",
+            "severity": "low"
+        },
+        {
+            "id": "ram_low_latency_bonus",
+            "condition": "facts.cas_latency <= 14",
+            "target_contexts": [
+                "gaming",
+                "amd"
+            ],
+            "bonus": 1.5,
+            "label": "Baixa latência (CL≤14) - resposta rápida",
+            "severity": "low"
+        },
+        {
+            "id": "ram_rgb_bonus",
+            "condition": "facts.has_rgb === true",
+            "target_contexts": [
+                "estetica"
+            ],
+            "bonus": 1.0,
+            "label": "RGB sincronizável",
+            "severity": "low"
+        },
+        {
+            "id": "ram_samsung_bdie_bonus",
+            "condition": "facts.die_type === 'samsung_bdie'",
+            "target_contexts": [
+                "overclocking"
+            ],
+            "bonus": 2.0,
+            "label": "Samsung B-Die - melhor para OC",
+            "severity": "low"
+        }
+    ]
+}
