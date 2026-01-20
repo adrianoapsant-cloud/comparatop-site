@@ -18,6 +18,10 @@ import { categoryMetadata } from '@/lib/seo/metadata';
 import { categoryBreadcrumb, renderJsonLd } from '@/lib/seo/jsonld';
 import CategoryPageClient from './CategoryPageClient';
 
+// Force dynamic rendering (SSR) instead of static generation
+// Required because getScoredProductsByCategoryFromDB fetches from Supabase
+export const dynamic = 'force-dynamic';
+
 // ============================================
 // CATEGORY SLUGS MAPPING (Source of Truth)
 // ============================================
@@ -65,16 +69,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         categoryName: category.name,
         productCount: products.length,
     });
-}
-
-// ============================================
-// STATIC PARAMS (for build-time generation)
-// ============================================
-
-export async function generateStaticParams() {
-    return Object.keys(SLUG_TO_CATEGORY).map((slug) => ({
-        slug,
-    }));
 }
 
 // ============================================

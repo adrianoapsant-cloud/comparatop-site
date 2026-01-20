@@ -5444,3 +5444,4 @@
 {"ts":"2026-01-20T20:30:19.050Z","env":"development","app":"glowing-pinwheel","type":"admin_login","success":true,"rateLimited":false,"lockout":false,"ipHash":"bc6f8dd1450cdfb0","uaHash":"76d9a8888c0d"}
 {"ts":"2026-01-20T20:30:18.963Z","env":"development","app":"glowing-pinwheel","requestId":"nav-1768941020949-y8iezc","sessionId":"df04c4f9-0c0f-434d-9603-883715e232df","nav":{"type":"click","path":"/admin/login","target":"button"}}
 {"ts":"2026-01-20T20:30:20.000Z","env":"development","app":"glowing-pinwheel","requestId":"nav-1768941020949-t947yc","sessionId":"df04c4f9-0c0f-434d-9603-883715e232df","nav":{"type":"page_view","path":"/admin"}}
+{"ts":"2026-01-20T21:20:14.550Z","env":"development","app":"glowing-pinwheel","requestId":"nav-1768944016574-uz0guf","sessionId":"df04c4f9-0c0f-434d-9603-883715e232df","nav":{"type":"page_view","path":"/"}}
