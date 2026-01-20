@@ -264,7 +264,7 @@ export async function getGenerationStats(since?: Date) {
         totalTokens: stats._sum.totalTokens || 0,
         totalCostUsd: stats._sum.costUsd || 0,
         avgLatencyMs: Math.round(stats._avg.latencyMs || 0),
-        successRate: successRate.reduce((acc: Record<string, number>, s) => {
+        successRate: successRate.reduce((acc: Record<string, number>, s: { success: boolean; _count: { id: number } }) => {
             acc[s.success ? 'success' : 'failed'] = s._count.id;
             return acc;
         }, {} as Record<string, number>),
