@@ -2,6 +2,7 @@
 
 import { cn } from '@/lib/utils';
 import { ChevronDown } from 'lucide-react';
+import { InlineDataCorrectionCTA } from '@/components/feedback';
 
 // ============================================
 // TYPES
@@ -24,6 +25,7 @@ interface TechSpecsAccordionProps {
     productName: string;
     className?: string;
     defaultOpen?: boolean; // Open by default on desktop
+    productSlug?: string; // For data correction context
 }
 
 // ============================================
@@ -43,7 +45,8 @@ export function TechSpecsAccordion({
     categories,
     productName,
     className,
-    defaultOpen = false
+    defaultOpen = false,
+    productSlug
 }: TechSpecsAccordionProps) {
 
     if (categories.length === 0) return null;
@@ -131,6 +134,13 @@ export function TechSpecsAccordion({
                     </details>
                 ))}
             </div>
+
+            {/* Data Correction CTA */}
+            <InlineDataCorrectionCTA
+                elementId="pdp_specs"
+                sectionLabel="Ficha Técnica"
+                productSlug={productSlug}
+            />
 
             {/* Disclaimer - Data Governance (as per GSMArena best practice) */}
             <p className="mt-4 text-xs text-text-muted italic">

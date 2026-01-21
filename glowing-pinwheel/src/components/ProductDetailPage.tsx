@@ -47,6 +47,7 @@ import { ContextScoreSection } from '@/components/product/ContextScoreSection';
 import { MethodologyAccordion } from '@/components/MethodologyAccordion';
 import { CommunityConsensusCard } from '@/components/CommunityConsensusCard';
 import { SmartStickyFooter } from '@/components/SmartStickyFooter';
+import { InlineDataCorrectionCTA } from '@/components/feedback';
 
 // === OWNERSHIP INSIGHTS (TCO) ===
 import OwnershipInsights from '@/components/product/OwnershipInsights';
@@ -626,7 +627,7 @@ function FeatureBenefitsSection({ features }: { features: FeatureBenefit[] }) {
 // BENCHMARK CHARTS SECTION
 // ============================================
 
-function BenchmarksSection({ benchmarks }: { benchmarks: BenchmarkScore[] }) {
+function BenchmarksSection({ benchmarks, productSlug }: { benchmarks: BenchmarkScore[]; productSlug?: string }) {
     return (
         <section className="py-12">
             <h2 className="font-display text-xl font-semibold text-text-primary mb-6">
@@ -700,6 +701,13 @@ function BenchmarksSection({ benchmarks }: { benchmarks: BenchmarkScore[] }) {
                     );
                 })}
             </div>
+
+            {/* Data Correction CTA */}
+            <InlineDataCorrectionCTA
+                elementId="pdp_benchmarks"
+                sectionLabel="Comparativo com a Categoria"
+                productSlug={productSlug}
+            />
         </section>
     );
 }
@@ -1740,6 +1748,7 @@ export function ProductDetailPage({ product, layoutConfig, layoutMode, layoutRea
                                         smartPlatform: (product.specs as Record<string, unknown>)?.smartPlatform || 'Tizen',
                                     })}
                                     productName={product.name}
+                                    productSlug={product.id}
                                     defaultOpen={layoutMode === 'technical' || (typeof window !== 'undefined' && window.innerWidth >= 1024 && layoutMode !== 'visual')}
                                 />
                             </div>
