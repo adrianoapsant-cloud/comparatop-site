@@ -91,7 +91,7 @@ export const prismaAdapter = {
 // Using Gemini 1.5 Flash for 1M+ token context window
 // Perfect for processing full product manuals and review datasets
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY || '');
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI_API_KEY || '');
 
 export const geminiAdapter = {
     async generate(systemPrompt: string, userPrompt: string) {

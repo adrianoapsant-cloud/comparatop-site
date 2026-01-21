@@ -103,7 +103,7 @@ Cada categoria tem 10 critérios (c1-c10) avaliados por fontes específicas:
 ### Configuração
 ```env
 # .env.local
-GOOGLE_AI_API_KEY="AIzaSyClKTvtiz8HqBHzHT28U0ktF27fPWSmC0M"
+GOOGLE_GENERATIVE_AI_API_KEY="your-api-key-here"
 DATABASE_URL="file:./prisma/dev.db"
 ```
 

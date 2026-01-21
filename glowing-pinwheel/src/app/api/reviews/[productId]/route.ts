@@ -12,7 +12,7 @@ import { getCategoryById } from '@/config/categories';
 const reviewCache = new Map<string, { data: unknown; timestamp: number }>();
 
 // Initialize Gemini
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY || '');
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI_API_KEY || '');
 
 // ============================================
 // UNIFIED VOICE PROMPT - Base Template
