@@ -1,0 +1,79 @@
+{
+    "product": {
+        "name": "Smart TV 32 Philco PTV32K34RKGB Roku TV LED Dolby Audio",
+        "brand": "Philco",
+        "model": "PTV32K34RKGB",
+        "categoryId": "tv"
+    },
+    "price": {
+        "valueBRL": 821.75,
+        "observedAt": "2026-01-23",
+        "sourceUrl": "https://mercadolivre.com/sec/2of6hfR",
+        "currency": "BRL"
+    },
+    "sources": [
+        {
+            "url": "https://mercadolivre.com/sec/2of6hfR",
+            "accessedAt": "2026-01-23",
+            "type": "marketplace"
+        }
+    ],
+    "energy": {
+        "wattsTypical": 50,
+        "usageHoursPerDay": 5,
+        "sourceUrl": "https://www.mercadolivre.com.br/smart-tv-32-philco-ptv32k34rkgb-roku-tv-led-dolby-audio/p/MLB39456212"
+    },
+    "specs": {
+        "screenSize": 32,
+        "panelType": "LED",
+        "resolution": "HD",
+        "refreshRate": 60,
+        "hdmiPorts": 2,
+        "hdmi21Ports": 0,
+        "hasVRR": false,
+        "hasALLM": false,
+        "hasDolbyVision": false,
+        "hasHDR10Plus": false,
+        "smartPlatform": "Roku TV",
+        "brightness": 320
+    },
+    "evidence": {
+        "specs.screenSize": {
+            "sourceUrl": "https://www.mercadolivre.com.br/smart-tv-32-philco-ptv32k34rkgb-roku-tv-led-dolby-audio/p/MLB39456212",
+            "note": "32 polegadas (72 x 18 x 45.8 cm)"
+        },
+        "specs.panelType": {
+            "sourceUrl": "https://www.mercadolivre.com.br/smart-tv-32-philco-ptv32k34rkgb-roku-tv-led-dolby-audio/p/MLB39456212",
+            "note": "LED"
+        },
+        "specs.resolution": {
+            "sourceUrl": "https://www.mercadolivre.com.br/smart-tv-32-philco-ptv32k34rkgb-roku-tv-led-dolby-audio/p/MLB39456212",
+            "note": "HD (1366 x 768)"
+        },
+        "specs.refreshRate": {
+            "sourceUrl": "https://www.mercadolivre.com.br/smart-tv-32-philco-ptv32k34rkgb-roku-tv-led-dolby-audio/p/MLB39456212",
+            "note": "60 Hz"
+        },
+        "specs.hdmiPorts": {
+            "sourceUrl": "https://www.mercadolivre.com.br/smart-tv-32-philco-ptv32k34rkgb-roku-tv-led-dolby-audio/p/MLB39456212",
+            "note": "2 portas HDMI"
+        },
+        "specs.brightness": {
+            "sourceUrl": "https://www.mercadolivre.com.br/smart-tv-32-philco-ptv32k34rkgb-roku-tv-led-dolby-audio/p/MLB39456212",
+            "note": "320 cd/m²"
+        },
+        "specs.smartPlatform": {
+            "sourceUrl": "https://www.mercadolivre.com.br/smart-tv-32-philco-ptv32k34rkgb-roku-tv-led-dolby-audio/p/MLB39456212",
+            "note": "Roku TV com Alexa integrada"
+        },
+        "price.valueBRL": {
+            "sourceUrl": "https://www.mercadolivre.com.br/smart-tv-32-philco-ptv32k34rkgb-roku-tv-led-dolby-audio/p/MLB39456212",
+            "note": "R$ 821,75 (30% OFF no Pix)"
+        }
+    },
+    "meta": {
+        "cadastradoPor": "opus-ml-fetch",
+        "cadastradoEm": "2026-01-23T18:41:00Z",
+        "notas": "Dados extraídos via fetch com headers reais + capturas de tela do usuário. Link de afiliado configurado."
+    }
+}

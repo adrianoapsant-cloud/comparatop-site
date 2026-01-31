@@ -111,6 +111,7 @@ export function getProductsByCategory(categorySlug: string): ProductVM[] {
         'ar-condicionado': 'air_conditioner',
         'lavadoras': 'washer',
         'robo-aspirador': 'robot-vacuum',
+        'aspiradores': 'robot-vacuum',  // Alias para compatibilidade
         'smartphones': 'smartphone',
         'smartwatches': 'smartwatch',
     };

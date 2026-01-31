@@ -6,6 +6,17 @@
         "category": "robot-vacuum",
         "releaseYear": 2024
     },
+    "productDimensions": {
+        "diameter": 33,
+        "height": 7.5
+    },
+    "voc": {
+        "consensusScore": 89,
+        "totalReviews": "2.8k+",
+        "acceptableFlaw": "O mop estático não esfrega como modelos mais caros (S7/S8), apenas arrasta pano úmido — funciona bem para manutenção diária mas não remove manchas secas",
+        "realWorldScenario": "Donos de pets relatam redução de 80% no tempo de limpeza. Em apartamentos de até 100m², uma única carga resolve tudo sem supervisão",
+        "goldenTip": "Configure 2 passadas em áreas de alto tráfego no app. O robô aprende e otimiza a rota automaticamente após 3 limpezas"
+    },
     "header": {
         "overallScore": 8.36,
         "scoreLabel": "Muito Bom",
@@ -231,6 +242,131 @@
             "icon": "Wrench",
             "question": "A nota de reparabilidade é 5.7. Isso é ruim?",
             "answer": "É uma nota de 'Realidade'. Diferente de marcas descartáveis (nota 1) ou produtos nacionais com assistência em cada esquina (nota 9), o Q7 L5 fica no meio. Não há assistência técnica oficial no Brasil, mas o produto usa peças universais. Se a bateria precisar de troca após alguns anos, você pode encontrar peças em marketplaces (disponibilidade varia por região). É um produto reparável, mas exige proatividade. Índice editorial do ComparaTop; não é laudo oficial do fabricante."
+        }
+    ],
+    "tco": {
+        "purchasePrice": 2106,
+        "energyCost5y": 414,
+        "maintenanceCost5y": 2021,
+        "totalCost5y": 3607,
+        "monthlyReserve": 41,
+        "lifespan": {
+            "years": 3,
+            "categoryAverage": 7,
+            "limitingComponent": "Bateria Li-ion Premium (5200mAh)",
+            "limitingComponentLife": 3.4,
+            "weibullExplanation": "Baseado em uso médio de 4h/dia (1.460h/ano), a bateria Li-ion de 5200mAh tem vida útil estimada de 3.4 anos segundo a distribuição Weibull (η=3.4, 90% dos aparelhos chegam a essa marca). O componente limitante define a vida útil total do produto."
+        },
+        "repairability": {
+            "score": 5.7,
+            "level": "moderate",
+            "categoryAverage": 6.5,
+            "components": [
+                {
+                    "name": "Placa Principal Smart (com LiDAR)",
+                    "score": 2,
+                    "price": 800,
+                    "availability": "scarce",
+                    "failureSymptoms": [
+                        "Falha não especificada"
+                    ],
+                    "repairAdvice": "Se esse componente falhar, o custo do reparo pode ser alto — depende da região e assistência"
+                },
+                {
+                    "name": "Sensor LiDAR (Torre LDS)",
+                    "score": 4,
+                    "price": 750,
+                    "availability": "limited",
+                    "failureSymptoms": [
+                        "Anda em círculos",
+                        "Mapa não fecha / erro de mapa",
+                        "Erro LDS / torre não gira",
+                        "Perde localização constantemente"
+                    ],
+                    "repairAdvice": "Reparo possível, avaliar custo-benefício"
+                },
+                {
+                    "name": "Motor de Sucção Brushless Premium (Nidec)",
+                    "score": 5,
+                    "price": 650,
+                    "availability": "limited",
+                    "failureSymptoms": [
+                        "Robô não aspira",
+                        "Ruído muito alto",
+                        "Perda de potência"
+                    ],
+                    "repairAdvice": "Reparo possível, avaliar custo-benefício"
+                },
+                {
+                    "name": "Bateria Li-ion Premium (5200mAh)",
+                    "score": 7,
+                    "price": 499,
+                    "availability": "available",
+                    "failureSymptoms": [
+                        "Autonomia reduzida",
+                        "Não carrega",
+                        "Desliga durante limpeza"
+                    ],
+                    "repairAdvice": "Peça disponível em marketplaces, troca relativamente simples"
+                },
+                {
+                    "name": "Rodas e Sistema de Tração",
+                    "score": 8,
+                    "price": 180,
+                    "availability": "available",
+                    "failureSymptoms": [
+                        "Robô não anda",
+                        "Anda em círculos",
+                        "Roda travada"
+                    ],
+                    "repairAdvice": "Peças disponíveis, reparo DIY possível"
+                },
+                {
+                    "name": "Escovas Duplas Anti-Emaranhamento",
+                    "score": 9,
+                    "price": 89,
+                    "availability": "available",
+                    "failureSymptoms": [
+                        "Escova travada",
+                        "Ruído na escova",
+                        "Perda de sucção em carpetes"
+                    ],
+                    "repairAdvice": "Peça de reposição comum, troca fácil"
+                },
+                {
+                    "name": "Filtro HEPA Lavável",
+                    "score": 10,
+                    "price": 45,
+                    "availability": "available",
+                    "failureSymptoms": [
+                        "Perda de sucção",
+                        "Poeira escapando"
+                    ],
+                    "repairAdvice": "Consumível, recomendado trocar a cada 6 meses"
+                }
+            ]
+        }
+    },
+    "interactiveTools": [
+        {
+            "id": "dimension-check",
+            "icon": "ruler",
+            "title": "Será que cabe?",
+            "badge": "Teste Rápido",
+            "badgeColor": "orange",
+            "description": "Verifique se o robô passa debaixo dos seus móveis",
+            "toolType": "geometry",
+            "configRef": "robo-passa-movel"
+        },
+        {
+            "id": "cleaning-area-calc",
+            "icon": "maximize",
+            "title": "Cobertura de Limpeza",
+            "badge": "Simulador",
+            "badgeColor": "blue",
+            "description": "Calcule quantos cômodos o robô consegue limpar por carga",
+            "toolType": "calculator",
+            "configRef": "robo-cobertura-limpeza"
         }
     ]
 }

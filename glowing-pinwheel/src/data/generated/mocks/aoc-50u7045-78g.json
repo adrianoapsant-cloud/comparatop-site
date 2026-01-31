@@ -1,0 +1,225 @@
+{
+    "product": {
+        "id": "aoc-50u7045-78g",
+        "name": "Smart TV 50 AOC 4K DLED 50U7045/78G Roku TV Quad",
+        "brand": "AOC",
+        "category": "tv",
+        "releaseYear": 2026
+    },
+    "header": {
+        "overallScore": 7.3,
+        "scoreLabel": "Bom",
+        "title": "Smart TV 50 AOC 4K DLED 50U7045/78G Roku TV Quad",
+        "subtitle": "2º mais vendido no Brasil - Melhor custo-benefício em 4K 50 polegadas",
+        "badges": [
+            "most-popular",
+            "best-value"
+        ]
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "Resolução 4K real (3840x2160) com HDR para imagens vibrantes",
+                "Roku TV completo: Netflix, Disney+, GloboPlay, Apple TV nativos",
+                "58% de desconto - R$1.592 no Pix (era R$3.799)",
+                "3 portas HDMI para conectar todos os seus dispositivos"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "Alto-falantes de 12W podem ser fracos para ambiente maior",
+                "Sem Bluetooth integrado - precisa de adaptador para fones",
+                "Painel DLED não tem qualidade de preto de VA ou OLED"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "A AOC 50U7045/78G é a escolha ideal para quem busca uma TV 4K de 50 polegadas com excelente custo-benefício. Com sistema Roku TV completo, você tem acesso a todos os streamings sem precisar de dispositivo externo. O preço de R$1.592 com 58% OFF é imbatível para essa configuração."
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "Você é gamer competitivo (60Hz, sem VRR/ALLM)",
+                "Precisa de qualidade de preto premium (prefira VA ou OLED)",
+                "Ambiente com muita luz solar direta (brilho de 300 nits)"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões Avaliadas",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Custo-Benefício",
+                "shortName": "Custo",
+                "score": 8.5,
+                "weight": 0.15,
+                "icon": "dollarSign",
+                "color": "emerald",
+                "description": "Melhor preço/OLED do mercado BR atualmente"
+            },
+            {
+                "id": "c2",
+                "name": "Design & Acabamento",
+                "shortName": "Design",
+                "score": 9,
+                "weight": 0.08,
+                "icon": "palette",
+                "color": "purple",
+                "description": "Bordas mínimas, perfil 4cm, base giratória"
+            },
+            {
+                "id": "c3",
+                "name": "Processamento",
+                "shortName": "Processamento",
+                "score": 8.5,
+                "weight": 0.12,
+                "icon": "cpu",
+                "color": "blue",
+                "description": "α9 Gen6 eficiente, mas não é o topo α11"
+            },
+            {
+                "id": "c4",
+                "name": "Qualidade de Imagem",
+                "shortName": "Imagem",
+                "score": 9.3,
+                "weight": 0.18,
+                "icon": "monitor",
+                "color": "cyan",
+                "description": "Referência em preto, cores e ângulo de visão"
+            },
+            {
+                "id": "c5",
+                "name": "Qualidade de Áudio",
+                "shortName": "Áudio",
+                "score": 6.2,
+                "weight": 0.08,
+                "icon": "volume2",
+                "color": "orange",
+                "description": "40W insuficientes, graves fracos, precisa de soundbar"
+            },
+            {
+                "id": "c6",
+                "name": "Gaming",
+                "shortName": "Gaming",
+                "score": 9.1,
+                "weight": 0.1,
+                "icon": "gamepad",
+                "color": "green",
+                "description": "VRR, ALLM, 4 HDMI 2.1, input lag 9ms — excelente"
+            },
+            {
+                "id": "c7",
+                "name": "Smart TV & Apps",
+                "shortName": "Smart",
+                "score": 8.4,
+                "weight": 0.08,
+                "icon": "smartphone",
+                "color": "pink",
+                "description": "WebOS 23 fluido, todos os apps BR, Magic Remote"
+            },
+            {
+                "id": "c8",
+                "name": "Conectividade",
+                "shortName": "Conectividade",
+                "score": 9,
+                "weight": 0.07,
+                "icon": "wifi",
+                "color": "indigo",
+                "description": "4 HDMI 2.1, 3 USB, eARC, Wi-Fi 6, Bluetooth 5.0"
+            },
+            {
+                "id": "c9",
+                "name": "Durabilidade",
+                "shortName": "Durabilidade",
+                "score": 7,
+                "weight": 0.07,
+                "icon": "shield",
+                "color": "slate",
+                "description": "Burn-in é risco real após 5+ anos de uso intensivo"
+            },
+            {
+                "id": "c10",
+                "name": "Suporte & Pós-Venda",
+                "shortName": "Suporte",
+                "score": 7.8,
+                "weight": 0.07,
+                "icon": "headphones",
+                "color": "teal",
+                "description": "LG RA1000, mas assistência de telas OLED é cara"
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "type": "warning",
+            "icon": "ruler",
+            "title": "Alerta de Tamanho",
+            "status": "optimal",
+            "message": "Para distância média de 2.5m, a tela de 50\" está adequada (ideal: 48-55\").",
+            "idealRange": {
+                "min": 48,
+                "max": 55
+            }
+        },
+        "soundAlert": {
+            "type": "info",
+            "icon": "volume2",
+            "title": "Alerta de Áudio",
+            "status": "warning",
+            "message": "O áudio de 12W é básico. Soundbar recomendada para filmes.",
+            "suggestions": [
+                {
+                    "condition": "Para custo-benefício",
+                    "product": "Soundbar JBL Bar 2.0",
+                    "reason": "~R$ 500, melhora significativa"
+                },
+                {
+                    "condition": "Para home theater",
+                    "product": "LG S65Q 3.1ch",
+                    "reason": "R$ 1.500 com subwoofer"
+                }
+            ]
+        },
+        "energyAlert": {
+            "type": "info",
+            "icon": "zap",
+            "title": "Consumo Energético",
+            "rating": "A",
+            "message": "Eficiência A. Consumo de ~80W típico. Conta ~R$ 18/mês com 5h/dia de uso."
+        }
+    },
+    "decisionFAQ": [
+        {
+            "id": "placeholder",
+            "icon": "HelpCircle",
+            "question": "TODO: Preencher FAQ 1",
+            "answer": "TODO: Preencher resposta"
+        }
+    ],
+    "meta": {
+        "scaffold": {
+            "generatedAt": "2026-01-23T20:55:00.011Z",
+            "rawInputHash": "c67a1385",
+            "categoryId": "tv",
+            "derivedEnergy": {
+                "source": "wattsUsage",
+                "kwhMonth": 12,
+                "calculation": "80W × 5h/dia × 30 dias ÷ 1000 = 12.00 kWh/mês"
+            },
+            "firedRulesCount": 0,
+            "status": "draft"
+        }
+    }
+}

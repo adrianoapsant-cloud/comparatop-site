@@ -1,0 +1,220 @@
+{
+    "product": {
+        "id": "mondial-afn-80-bi",
+        "name": "MONDIAL Fritadeira Sem Óleo Air Fryer 8L AFN-80-BI",
+        "brand": "Mondial",
+        "category": "air_fryer",
+        "releaseYear": 2024
+    },
+    "header": {
+        "overallScore": 7.05,
+        "scoreLabel": "Bom",
+        "title": "Mondial AFN-80-BI",
+        "subtitle": "Alta capacidade de 8L com 1900W de potência para famílias grandes",
+        "badges": [
+            {
+                "type": "feature",
+                "label": "8 Litros",
+                "icon": "scale"
+            },
+            {
+                "type": "feature",
+                "label": "1900W",
+                "icon": "zap"
+            },
+            {
+                "type": "feature",
+                "label": "Marca Nacional",
+                "icon": "shield"
+            }
+        ]
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "Capacidade de 8 litros — ideal para famílias de 4-6 pessoas",
+                "1900W de potência — aquecimento rápido e crocância uniforme",
+                "Marca nacional Mondial — assistência técnica em todo Brasil",
+                "Excelente custo-benefício para quem busca alta capacidade",
+                "Timer e controle de temperatura para preparo personalizado"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "Modelo ANALÓGICO: sem display digital ou receitas pré-programadas",
+                "Sem conectividade WiFi/App — controle 100% manual",
+                "Verificar integridade do antiaderente na entrega",
+                "Ocupa espaço considerável na bancada (dimensões grandes)"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "A Mondial AFN-80-BI é uma air fryer de entrada com foco em capacidade. Com 8 litros e 1900W, atende bem famílias que preparam refeições completas. A falta de recursos digitais é compensada pelo preço acessível e pela rede de assistência técnica nacional da Mondial. Ideal para quem prioriza volume sobre tecnologia."
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "Você quer air fryer com app/receitas automáticas (veja Philips ou Xiaomi)",
+                "Precisa de modelo compacto para cozinha pequena",
+                "Espera recursos premium como grill ou desidratador",
+                "Prefere display digital e timer preciso"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões PARR-BR para Air Fryers",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Integridade do Antiaderente",
+                "shortName": "Antiaderente",
+                "score": 7.0,
+                "weight": 0.19,
+                "icon": "shield",
+                "color": "slate",
+                "description": "Revestimento antiaderente padrão Mondial. Verificar integridade na entrega."
+            },
+            {
+                "id": "c2",
+                "name": "Segurança de Materiais",
+                "shortName": "Segurança",
+                "score": 7.0,
+                "weight": 0.15,
+                "icon": "heart",
+                "color": "emerald",
+                "description": "Marca consolidada no mercado brasileiro. Materiais de qualidade padrão."
+            },
+            {
+                "id": "c3",
+                "name": "Performance (Crocância)",
+                "shortName": "Crocância",
+                "score": 7.5,
+                "weight": 0.15,
+                "icon": "flame",
+                "color": "orange",
+                "description": "1900W de potência para crocância consistente em diversos alimentos."
+            },
+            {
+                "id": "c4",
+                "name": "Higienização",
+                "shortName": "Limpeza",
+                "score": 7.0,
+                "weight": 0.10,
+                "icon": "droplet",
+                "color": "blue",
+                "description": "Design padrão. Cesto removível facilita limpeza básica."
+            },
+            {
+                "id": "c5",
+                "name": "Robustez Eletrônica",
+                "shortName": "Durabilidade",
+                "score": 7.0,
+                "weight": 0.10,
+                "icon": "cpu",
+                "color": "purple",
+                "description": "Controles analógicos simples. Menos pontos de falha que modelos digitais."
+            },
+            {
+                "id": "c6",
+                "name": "Acústica (Ruído)",
+                "shortName": "Ruído",
+                "score": 6.5,
+                "weight": 0.08,
+                "icon": "volume2",
+                "color": "amber",
+                "description": "Ruído típico de air fryers de alta potência. Dados específicos insuficientes."
+            },
+            {
+                "id": "c7",
+                "name": "Eficiência Volumétrica",
+                "shortName": "Capacidade",
+                "score": 8.5,
+                "weight": 0.08,
+                "icon": "maximize",
+                "color": "cyan",
+                "description": "DESTAQUE: 8 litros é capacidade premium para refeições de família inteira."
+            },
+            {
+                "id": "c8",
+                "name": "Usabilidade & IoT",
+                "shortName": "Tecnologia",
+                "score": 5.0,
+                "weight": 0.07,
+                "icon": "smartphone",
+                "color": "red",
+                "description": "LIMITAÇÃO: Sem app, sem WiFi, sem receitas automáticas. 100% manual."
+            },
+            {
+                "id": "c9",
+                "name": "Custo & Segurança Elétrica",
+                "shortName": "Custo",
+                "score": 8.0,
+                "weight": 0.05,
+                "icon": "piggyBank",
+                "color": "green",
+                "description": "Excelente custo-benefício. Preço competitivo para a capacidade oferecida."
+            },
+            {
+                "id": "c10",
+                "name": "Pós-Venda & Peças",
+                "shortName": "Suporte",
+                "score": 8.0,
+                "weight": 0.03,
+                "icon": "headphones",
+                "color": "pink",
+                "description": "Mondial tem rede de assistência técnica nacional. Peças disponíveis no Brasil."
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "status": "info",
+            "message": "Com 8 litros de capacidade, esta air fryer ocupa espaço considerável na bancada. Verifique as dimensões antes de comprar (aproximadamente 35x35x40cm)."
+        },
+        "soundAlert": {
+            "status": "acceptable",
+            "message": "Ruído típico de air fryers de alta potência (1900W). Recomendamos uso em cozinha separada ou quando não houver necessidade de silêncio absoluto."
+        },
+        "energyAlert": {
+            "rating": "B",
+            "message": "Consumo de ~1900W durante operação. Custo estimado de R$ 0.50-1.00 por uso de 30 minutos, dependendo da tarifa local."
+        }
+    },
+    "decisionFAQ": [
+        {
+            "id": "capacity",
+            "icon": "Scale",
+            "question": "8 litros é suficiente para minha família?",
+            "answer": "Sim, 8 litros é uma das maiores capacidades do mercado. Permite preparar frango inteiro, batatas para 6 pessoas, ou múltiplas porções de uma vez. É ideal para famílias de 4-6 pessoas ou quem gosta de fazer meal prep."
+        },
+        {
+            "id": "digital",
+            "icon": "Smartphone",
+            "question": "Por que não tem display digital?",
+            "answer": "A Mondial AFN-80-BI é um modelo analógico focado em custo-benefício. Modelos digitais custam R$ 150-300 a mais. Os controles analógicos são simples mas funcionais: timer mecânico e ajuste de temperatura por botão giratório."
+        },
+        {
+            "id": "brand",
+            "icon": "Shield",
+            "question": "Mondial é uma boa marca para air fryer?",
+            "answer": "Mondial é uma marca brasileira consolidada com mais de 30 anos no mercado. Principal vantagem: rede de assistência técnica em todo Brasil e peças de reposição facilmente disponíveis. Para quem valoriza suporte local, é uma escolha segura."
+        },
+        {
+            "id": "durability",
+            "icon": "Wrench",
+            "question": "Quanto tempo dura o antiaderente?",
+            "answer": "Com uso adequado (sem utensílios metálicos, limpeza suave), o antiaderente dura em média 2-3 anos. Verificar integridade na entrega é importante - qualquer arranhão pré-existente é motivo para troca. A garantia Mondial cobre defeitos de fábrica."
+        }
+    ]
+}

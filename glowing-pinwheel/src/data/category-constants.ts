@@ -272,6 +272,19 @@ export const CATEGORY_CONSTANTS: Record<string, CategoryConstants> = {
         icon: '🤖',
     },
 
+    // Alias for robot_vacuum (products use hyphen)
+    'robot-vacuum': {
+        displayName: 'Robô Aspirador',
+        avgAnnualUsageHours: 500,
+        avgSparePartBasketPriceBRL: 200,
+        avgLaborCostBRL: 100,
+        depreciationRate: 0.18,
+        avgLifespanYears: 5,
+        avgMonthlyEnergyKwh: 3,
+        avgAnnualFailureRate: 0.08,
+        icon: '🤖',
+    },
+
     'vacuum_cleaner': {
         displayName: 'Aspirador de Pó',
         avgAnnualUsageHours: 200,

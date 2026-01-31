@@ -184,6 +184,29 @@ export interface Product {
 
     /** Category slug for contextual scoring rules lookup */
     scoring_category?: string;
+
+    // ================================
+    // CONFIDENCE/UNCERTAINTY FIELDS (Optional)
+    // ================================
+
+    /** Contextual Score range (min, max) */
+    contextualScoreRange?: [number, number];
+    /** Contextual Score confidence level */
+    contextualScoreConfidence?: 'high' | 'medium' | 'low';
+    /** Contextual Score confidence note */
+    contextualScoreConfidenceNote?: string;
+
+    /** TCO total range (min, max) */
+    tcoTotalRange?: [number, number];
+    /** TCO confidence level */
+    tcoConfidence?: 'high' | 'medium' | 'low';
+    /** TCO confidence note */
+    tcoConfidenceNote?: string;
+
+    /** Evidence level for trust display (product-level) */
+    evidenceLevel?: 'high' | 'medium' | 'low';
+    /** Last data update timestamp */
+    updatedAt?: string;
 }
 
 // ============================================

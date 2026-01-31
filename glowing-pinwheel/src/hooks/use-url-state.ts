@@ -325,7 +325,7 @@ export function useTcoState(): UseTcoStateReturn {
 export type DisplayViewMode = 'grid' | 'table';
 
 const PARAM_DISPLAY = 'display';
-const DEFAULT_DISPLAY: DisplayViewMode = 'grid';
+const DEFAULT_DISPLAY: DisplayViewMode = 'table';
 const VALID_DISPLAYS: DisplayViewMode[] = ['grid', 'table'];
 
 function isValidDisplay(value: string | null): value is DisplayViewMode {

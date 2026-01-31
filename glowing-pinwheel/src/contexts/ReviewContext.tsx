@@ -96,51 +96,12 @@ export function ReviewProvider({ children }: { children: ReactNode }) {
             return cached;
         }
 
-        // Already loading
-        if (loading.has(productId) && !force) {
-            return null;
-        }
+        // API GEMINI DESCONECTADA - Dados devem vir via setStaticReview
+        // Os dados agora vêm do arquivo .ts do produto, não da API
+        console.warn(`[ReviewContext] API Gemini desconectada. Use setStaticReview para ${productId}`);
 
-        // Start loading
-        setLoading(prev => new Set(prev).add(productId));
-
-        try {
-            const response = await fetch(`/api/reviews/${productId}`);
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch review');
-            }
-
-            const data = await response.json();
-
-            if (data.review) {
-                const review: CachedReview = {
-                    data: data.review,
-                    timestamp: Date.now(),
-                    source: 'ai',
-                };
-
-                setCache(prev => {
-                    const next = new Map(prev);
-                    next.set(productId, review);
-                    return next;
-                });
-
-                return review;
-            }
-
-            return null;
-        } catch (error) {
-            console.error(`[ReviewContext] Failed to fetch review for ${productId}:`, error);
-            return null;
-        } finally {
-            setLoading(prev => {
-                const next = new Set(prev);
-                next.delete(productId);
-                return next;
-            });
-        }
-    }, [getReview, loading]);
+        return cached || null;
+    }, [getReview]);
 
     const setStaticReview = useCallback((productId: string, data: Partial<ReviewData>) => {
         // Only set if no AI review exists

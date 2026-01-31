@@ -543,6 +543,66 @@ export const ROBO_PASSA_MOVEL: GeometryEngineConfig = {
     },
 };
 
+export const ROBO_COBERTURA_LIMPEZA: RateEngineConfig = {
+    id: 'robo-cobertura-limpeza',
+    engine: 'RateEngine',
+    title: 'Calculadora de Cobertura de Limpeza',
+    description: 'Calcule quantos cômodos o robô consegue limpar por carga',
+    category: 'robot-vacuum',
+    inputs: [
+        {
+            id: 'autonomia',
+            label: 'Autonomia do robô (minutos)',
+            type: 'slider',
+            defaultValue: 180,
+            min: 60,
+            max: 300,
+            step: 10,
+            unit: 'min',
+        },
+        {
+            id: 'areaPorComodo',
+            label: 'Área média por cômodo',
+            type: 'slider',
+            defaultValue: 15,
+            min: 8,
+            max: 30,
+            step: 1,
+            unit: 'm²',
+        },
+        {
+            id: 'modoPotente',
+            label: 'Modo potência máxima?',
+            type: 'boolean',
+            defaultValue: false,
+            bonus: -0.5,
+        },
+        {
+            id: 'obstaculo',
+            label: 'Nível de obstáculos',
+            type: 'select',
+            defaultValue: 1,
+            options: [
+                { value: 1.2, label: 'Poucos (minimalista)' },
+                { value: 1, label: 'Normal' },
+                { value: 0.8, label: 'Muitos (casa cheia de móveis)' },
+            ],
+        },
+    ],
+    formula: 'Math.floor((autonomia * (modoPotente ? 0.5 : 1) * obstaculo) / areaPorComodo)',
+    resultLabel: 'Cômodos por Carga',
+    resultUnit: 'cômodos',
+    recommendations: [
+        { threshold: 3, operator: 'lte', text: 'O robô limpa poucos cômodos por carga. Considere recarregar entre usos.' },
+        { threshold: 6, operator: 'lte', text: 'Cobertura moderada. Ideal para apartamentos médios.' },
+        { threshold: 10, operator: 'lte', text: 'Boa cobertura! Limpa uma casa inteira em uma carga.' },
+        { threshold: 11, operator: 'gte', text: 'Excelente autonomia! Limpa casas grandes sem recarregar.' },
+    ],
+    relatedProducts: {
+        categoryId: 'robot-vacuum',
+    },
+};
+
 // ============================================
 // ADDITIONAL RATE ENGINE TOOLS
 // ============================================

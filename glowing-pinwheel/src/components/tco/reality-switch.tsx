@@ -345,7 +345,7 @@ export function RealityStatusBadge({ className }: { className?: string }) {
                     : 'bg-gray-100 text-gray-600'
             )}>
                 {isTcoView ? <TrendingUp className="w-3 h-3" /> : <Tag className="w-3 h-3" />}
-                {isTcoView ? 'TCO Ativo' : 'Preço'}
+                {isTcoView ? 'Custo Real' : 'Preço'}
             </span>
 
             {/* Quality Badge */}

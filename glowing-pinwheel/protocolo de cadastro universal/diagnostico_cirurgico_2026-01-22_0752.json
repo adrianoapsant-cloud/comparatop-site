@@ -1,0 +1,388 @@
+{
+    "timestamp": "2026-01-22T07:52:00-03:00",
+    "executed_by": "Opus (Claude)",
+    "coordinated_by": "ChatGPT",
+    "intermediary": "Adriano",
+    "repo_facts": {
+        "products_file": "src/data/products.ts",
+        "products_export": "ALL_PRODUCTS (Product[])",
+        "product_arrays": [
+            "SAMPLE_TVS",
+            "SAMPLE_FRIDGES",
+            "SAMPLE_AIR_CONDITIONERS",
+            "SAMPLE_ROBOT_VACUUMS",
+            "SAMPLE_SMARTWATCHES",
+            "SAMPLE_SMARTPHONES"
+        ],
+        "product_registry_flow": [
+            "ALL_PRODUCTS exportado de src/data/products.ts",
+            "integrity-products.ts importa ALL_PRODUCTS e valida contra ProductSchema",
+            "getProductsByCategory(categoryId) filtra por categoria",
+            "getProductById(productId) busca produto individual"
+        ],
+        "mocks_flow": [
+            "src/lib/product-loader.ts define getProductExtendedData(productId)",
+            "Carrega JSONs de src/data/mocks/${productId}.json",
+            "Tipo ProductData definido em src/config/product-json-schema.ts",
+            "AVAILABLE_EXTENDED_DATA lista produtos com mock JSON: lg-oled-c3-55, lg-c3-65, wap-robot-w400, roborock-q7-l5, xiaomi-robot-x10, samsung-galaxy-watch7-44mm-lte, samsung-galaxy-a56-5g"
+        ],
+        "category_ids": [
+            "tv",
+            "fridge",
+            "laptop",
+            "smartphone",
+            "air_conditioner",
+            "washer",
+            "monitor",
+            "tablet",
+            "soundbar",
+            "tws",
+            "headset_gamer",
+            "bluetooth_speaker",
+            "console",
+            "gamepad",
+            "chair",
+            "keyboard",
+            "cpu",
+            "gpu",
+            "ram",
+            "motherboard",
+            "ssd",
+            "psu",
+            "case",
+            "projector",
+            "tvbox",
+            "smartwatch",
+            "robot-vacuum",
+            "stick_vacuum",
+            "fan",
+            "security_camera",
+            "smart_lock",
+            "router",
+            "freezer",
+            "minibar",
+            "wine_cooler",
+            "ups",
+            "power_strip",
+            "washer_dryer",
+            "dishwasher",
+            "microwave",
+            "stove",
+            "air_fryer",
+            "espresso",
+            "mixer",
+            "water_purifier",
+            "range_hood",
+            "builtin_oven",
+            "printer",
+            "camera",
+            "tire",
+            "car_battery",
+            "pressure_washer",
+            "drill"
+        ],
+        "total_categories": 52,
+        "integrity_scripts": [
+            {
+                "name": "integrity:products",
+                "command": "npx tsx scripts/integrity-products.ts",
+                "does": "Valida ALL_PRODUCTS contra ProductSchema (Zod), verifica slugs únicos, categorias válidas, transforma em ViewModel e checa ProductHealth. Produtos 'draft' geram WARNING, 'published' geram FAIL.",
+                "entrypoint": "scripts/integrity-products.ts"
+            },
+            {
+                "name": "integrity:sitemap",
+                "command": "npx tsx scripts/integrity-sitemap.ts",
+                "does": "Valida sitemap.xml",
+                "entrypoint": "scripts/integrity-sitemap.ts"
+            },
+            {
+                "name": "integrity:routes",
+                "command": "npx tsx scripts/integrity-routes.ts",
+                "does": "Valida rotas da aplicação",
+                "entrypoint": "scripts/integrity-routes.ts"
+            },
+            {
+                "name": "integrity:links",
+                "command": "npx tsx scripts/integrity-links.ts",
+                "does": "Valida links internos",
+                "entrypoint": "scripts/integrity-links.ts"
+            },
+            {
+                "name": "integrity:ui-contracts",
+                "command": "npx tsx scripts/integrity-ui-contracts.ts",
+                "does": "Valida contratos de UI",
+                "entrypoint": "scripts/integrity-ui-contracts.ts"
+            },
+            {
+                "name": "integrity",
+                "command": "npm run integrity:products && npm run integrity:sitemap && npm run integrity:routes && npm run integrity:links && npm run integrity:ui-contracts",
+                "does": "Roda todos os scripts de integridade em sequência",
+                "entrypoint": "meta-script (package.json)"
+            }
+        ]
+    },
+    "contracts": {
+        "ProductSchema": {
+            "path": "src/lib/schemas/product.ts",
+            "required_fields": [
+                "id (string, min 1)",
+                "categoryId (string, min 1)",
+                "name (string, min 1)",
+                "brand (string, min 1)",
+                "price (number, positive)",
+                "scores (object com c1-c10, cada um number 0-10)"
+            ],
+            "optional_fields": [
+                "shortName",
+                "model",
+                "imageUrl",
+                "asin",
+                "specs",
+                "technicalSpecs",
+                "attributes",
+                "scoreReasons",
+                "painPointsSolved",
+                "badges",
+                "lastUpdated",
+                "voc",
+                "offers",
+                "lifestyleImage",
+                "featureBenefits",
+                "benchmarks",
+                "priceHistory",
+                "gallery",
+                "benefitSubtitle",
+                "mainCompetitor",
+                "scoring_facts",
+                "scoring_category",
+                "status (enum: draft|published, default: draft)"
+            ],
+            "validation_function": "validateProduct(data: unknown): ProductValidationResult",
+            "notes": "Schema Zod canônico. attributes é Record<string, string|number|boolean|string[]> OPCIONAL."
+        },
+        "ProductIntakeSchema": {
+            "path": "src/lib/schemas/product-intake.ts",
+            "required_fields": [
+                "id",
+                "categoryId",
+                "name",
+                "brand",
+                "price",
+                "scores (c1-c10)"
+            ],
+            "category_extensions": {
+                "tv": {
+                    "technicalSpecs": {
+                        "screenSize": "number (polegadas)",
+                        "panelType": "enum: LED|QLED|OLED|Mini-LED",
+                        "resolution": "enum: HD|FHD|4K|8K",
+                        "refreshRate": "number (Hz)",
+                        "hdmiPorts": "number",
+                        "hasHDMI21": "boolean",
+                        "hasVRR": "boolean",
+                        "hasFreesync": "boolean (optional)",
+                        "hasGSync": "boolean (optional)"
+                    }
+                },
+                "fridge": {
+                    "technicalSpecs": {
+                        "capacityLiters": "number",
+                        "doorType": "enum: single|double|french|sidebyside",
+                        "hasFrostFree": "boolean",
+                        "hasInverter": "boolean",
+                        "energyClass": "string",
+                        "dimensions": "object {width, height, depth}"
+                    }
+                },
+                "air_conditioner": {
+                    "technicalSpecs": {
+                        "btus": "number",
+                        "type": "enum: split|inverter|portatil|janela",
+                        "hasInverter": "boolean",
+                        "noiseDb": "number (optional)",
+                        "energyClass": "string",
+                        "voltage": "enum: 110|220|bivolt"
+                    }
+                }
+            },
+            "notes": "Usa discriminated union por categoryId. GenericExtensionSchema cobre categorias sem extensão específica."
+        },
+        "ProductData": {
+            "path": "src/config/product-json-schema.ts",
+            "purpose": "Schema TypeScript para JSONs de mocks em src/data/mocks/",
+            "required_fields": [
+                "product (id, name, brand, category, releaseYear)",
+                "header (overallScore, scoreLabel, title, subtitle, badges)",
+                "auditVerdict (solution, attentionPoint, technicalConclusion, dontBuyIf)",
+                "productDna (title, subtitle, dimensions[])",
+                "simulators (sizeAlert, soundAlert, energyAlert)"
+            ],
+            "optional_fields": [
+                "decisionFAQ[]"
+            ],
+            "dimensions_config": "c1-c10 com labels fixos (Custo-Benefício, Design, Processamento, Imagem, Áudio, Gaming, Smart, Conectividade, Durabilidade, Suporte)",
+            "notes": "Este schema é para mocks JSON estendidos, não para o produto base. Labels c1-c10 são GENÉRICOS (TV-centric), NÃO por categoria."
+        },
+        "UnifiedVoice": {
+            "hook_path": "src/hooks/useUnifiedVoice.ts",
+            "api_route": "src/app/api/reviews/[productId]/route.ts",
+            "fields_used_by_pdp": [
+                "unified_score (number 0-10)",
+                "verdict_card (headline, target_audience, dealbreaker)",
+                "curiosity_sandwich (icon, text)",
+                "pros_cons (pros[], cons[])",
+                "radar_tooltips (Record<string, string>)",
+                "dimension_scores (Record<string, number>)",
+                "community_consensus (approval_percentage, total_reviews, star_rating, sources)"
+            ],
+            "category_field_maps": {
+                "tv": "custo_beneficio, processamento, confiabilidade, sistema, gaming, brilho, pos_venda, som, conectividade, design",
+                "fridge": "custo_beneficio, eficiencia_energetica, capacidade, refrigeracao, confiabilidade, ruido, pos_venda, recursos_smart, design, funcionalidades",
+                "air_conditioner": "custo_beneficio, eficiencia, capacidade_btu, durabilidade, silencio, inverter, pos_venda, filtros, conectividade, design",
+                "robot-vacuum": "navegacao, app_voz, mop, escovas, altura, pecas, bateria, ruido, base, ia"
+            },
+            "notes": "Hook busca de /api/reviews/{productId}. API usa Gemini para gerar dados. CATEGORY_FIELD_MAPS mapeia c1-c10 para labels específicos por categoria."
+        }
+    },
+    "attributes_usage": [
+        {
+            "file": "src/lib/comparison.ts",
+            "line": 101,
+            "code": "return product.attributes?.[key];",
+            "used_for": "getAttr() helper para comparação de atributos entre produtos",
+            "called_by_lines": [
+                189,
+                190,
+                278,
+                279
+            ],
+            "attribute_keys_used": [
+                "hdmi21"
+            ],
+            "required": "WARN",
+            "why": "Usado em lógica de badge 'future-proof'. Se ausente, badge não é atribuído mas página não quebra."
+        },
+        {
+            "file": "src/lib/comparison.ts",
+            "context": "getAttributeDifferences()",
+            "how": "Compara atributos entre dois produtos usando lista de attributeKeys passada como parâmetro",
+            "required": "WARN",
+            "why": "Se atributo ausente em ambos, é ignorado. Se ausente em um, diferença é calculada."
+        }
+    ],
+    "category_criteria_labels": {
+        "source": "src/data/categories.ts",
+        "note": "Cada categoria define seu próprio array 'criteria' com labels c1-c10 ESPECÍFICOS",
+        "examples": {
+            "tv": {
+                "c1": "Qualidade de Imagem",
+                "c2": "Sistema e Apps",
+                "c3": "Confiabilidade e Durabilidade",
+                "c4": "Processamento",
+                "c5": "Gaming",
+                "c6": "Brilho e Reflexo",
+                "c7": "Custo-Benefício",
+                "c8": "Pós-Venda Brasil",
+                "c9": "Áudio Integrado",
+                "c10": "Design e Conectividade"
+            },
+            "robot-vacuum": {
+                "c1": "Navegação & Mapeamento",
+                "c2": "Software & Conectividade",
+                "c3": "Eficiência de Mop",
+                "c4": "Engenharia de Escovas (Pets)",
+                "c5": "Restrições Físicas (Altura)",
+                "c6": "Manutenibilidade (Peças)",
+                "c7": "Autonomia (Bateria)",
+                "c8": "Acústica (Ruído)",
+                "c9": "Automação (Docks)",
+                "c10": "Recursos vs. Gimmicks"
+            }
+        }
+    },
+    "hard_dependencies_not_found": [
+        {
+            "search": "product.attributes. (regex) em src/components",
+            "result": "0 matches - componentes NÃO acessam attributes diretamente",
+            "implication": "PDP não quebra se attributes estiver ausente"
+        }
+    ],
+    "p0_plan": {
+        "what_to_implement_first": [
+            {
+                "item": "CategoryAttributesSchema tv",
+                "priority": 1,
+                "reason": "TV tem produtos publicados, precisa de schema para validar campos como hdmi21, brightness, panelType",
+                "proposed_location": "src/lib/schemas/categories/tv-attributes.ts"
+            },
+            {
+                "item": "CategoryAttributesSchema robot-vacuum",
+                "priority": 2,
+                "reason": "Robot-vacuum é categoria com produtos publicados, precisa de navegationType, suctionPa, mopType etc",
+                "proposed_location": "src/lib/schemas/categories/robot-vacuum-attributes.ts"
+            },
+            {
+                "item": "validate:product script",
+                "priority": 3,
+                "reason": "Script CLI que valida um produto individual com output amigável, usando CategoryAttributesSchema apropriado",
+                "proposed_command": "npm run validate:product -- --id=samsung-qn90c-65"
+            },
+            {
+                "item": "criteria-labels single source",
+                "priority": 4,
+                "reason": "Atualmente labels c1-c10 estão em: (1) categories.ts, (2) product-json-schema.ts, (3) useUnifiedVoice.ts, (4) API route. Centralizar em único arquivo.",
+                "proposed_location": "src/config/criteria-labels.ts"
+            }
+        ],
+        "tv_attributes_proposal": {
+            "ERROR_fields_mandatory": [
+                "panelType (LED|QLED|OLED|Mini-LED)",
+                "screenSize (number)",
+                "resolution (4K|8K|FHD|HD)"
+            ],
+            "WARN_fields_recommended": [
+                "hdmi21 (boolean)",
+                "hdmi21Ports (number)",
+                "brightness (number)",
+                "refreshRate (number)",
+                "vrr (boolean)",
+                "allm (boolean)",
+                "dolbyVision (boolean)",
+                "contrastRatio (string)",
+                "responseTime (number)"
+            ],
+            "c1_to_c10_label_source": "src/data/categories.ts → TV_CATEGORY.criteria"
+        },
+        "robot_vacuum_attributes_proposal": {
+            "ERROR_fields_mandatory": [
+                "navigationType (LiDAR|VSLAM|random|gyroscope)",
+                "suctionPa (number)"
+            ],
+            "WARN_fields_recommended": [
+                "mopType (vibrating|rotating|static|none)",
+                "hasSelfEmpty (boolean)",
+                "hasSelfWash (boolean)",
+                "batteryMah (number)",
+                "heightCm (number)",
+                "noiseLevelDb (number)",
+                "brushType (rubber|bristle|hybrid)"
+            ],
+            "c1_to_c10_label_source": "src/data/categories.ts → ROBOT_VACUUM_CATEGORY.criteria"
+        },
+        "open_questions_for_intermediary": []
+    },
+    "summary": {
+        "repo_health": "BOM - schemas existem e integrity:products funciona",
+        "main_gap": "Não existe validação de attributes por categoria (são opcionais no ProductSchema)",
+        "anti_forgetting_ready": "Sim - basta criar CategoryAttributesSchema e integrar no integrity:products",
+        "categories_with_products": [
+            "tv",
+            "fridge",
+            "air_conditioner",
+            "robot-vacuum",
+            "smartwatch",
+            "smartphone"
+        ],
+        "categories_empty": "46 categorias definidas sem produtos cadastrados ainda"
+    }
+}

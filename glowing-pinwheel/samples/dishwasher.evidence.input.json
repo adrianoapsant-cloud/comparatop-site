@@ -1,0 +1,52 @@
+{
+    "product": {
+        "name": "Sample Dishwasher Product",
+        "brand": "SampleBrand",
+        "model": "Model-001",
+        "categoryId": "dishwasher",
+        "asin": "B0SAMPLE01"
+    },
+    "price": {
+        "valueBRL": 999,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://amazon.com.br/dp/B0SAMPLE01"
+    },
+    "sources": [
+        {
+            "url": "https://amazon.com.br/dp/B0SAMPLE01",
+            "type": "amazon"
+        },
+        {
+            "url": "https://manufacturer.com/sample",
+            "type": "manufacturer"
+        }
+    ],
+    "specs": {
+        "places": "standard",
+        "inmetroKwhYear": "standard",
+        "noiseDb": true,
+        "hasInverterMotor": true,
+        "hasAutoOpen": true
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22"
+    },
+    "energy": {
+        "inmetroKwhYear": 300
+    },
+    "evidence": {
+        "specs.places": {
+            "sourceUrl": "https://manufacturer.com/sample",
+            "note": "Especificação oficial"
+        },
+        "specs.inmetroKwhYear": {
+            "sourceUrl": "https://manufacturer.com/sample",
+            "note": "Especificação oficial"
+        },
+        "specs.noiseDb": {
+            "sourceUrl": "https://manufacturer.com/sample",
+            "note": "Especificação oficial"
+        }
+    }
+}

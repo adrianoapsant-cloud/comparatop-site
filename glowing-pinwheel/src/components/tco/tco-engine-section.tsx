@@ -20,6 +20,10 @@ import type { TcoCategory } from '@/lib/tco/mock-data';
 import { RealitySwitch, PersonaSelector, IcebergChart, DataTable } from '@/components/tco';
 import { FeedbackWidget } from './feedback-widget';
 import { useTcoState, useScoreView } from '@/hooks/use-url-state';
+import { ModuleFallback } from '@/components/pdp/ModuleFallback';
+
+// Robot vacuum scoring module (SSOT for tags/scores)
+import { getRobotVacuumDerived, type RobotVacuumDerived } from '@/categories/robot-vacuums';
 
 // ============================================
 // TYPES
@@ -57,6 +61,21 @@ const SLUG_TO_TCO_CATEGORY: Record<string, TcoCategory> = {
 };
 
 // ============================================
+// DETERMINISTIC SEED FUNCTION
+// ============================================
+// Generates a stable 0-1 value from a string (product ID)
+// Ensures TCO values don't change on re-render
+function deterministicSeed(str: string, salt: number = 0): number {
+    let hash = salt;
+    for (let i = 0; i < str.length; i++) {
+        hash = ((hash << 5) - hash) + str.charCodeAt(i);
+        hash = hash & hash; // Convert to 32-bit integer
+    }
+    // Normalize to 0-1 range
+    return Math.abs(hash % 1000) / 1000;
+}
+
+// ============================================
 // PRODUCT CONVERSION
 // ============================================
 
@@ -70,21 +89,53 @@ function convertToTcoProduct(
 ): ProductTcoData {
     const config = CATEGORY_CONFIGS[tcoCategory];
 
-    // Generate energy profile based on category consumption model
-    const baseMultiplier = 1 + (Math.random() - 0.5) * 0.3; // ±15% variance
-    const energyKwh: EnergyProfile = {
-        eco: Math.round(config.baseMonthlyKwh.eco * baseMultiplier * 10) / 10,
-        family: Math.round(config.baseMonthlyKwh.family * baseMultiplier * 10) / 10,
-        gamer: Math.round(config.baseMonthlyKwh.gamer * baseMultiplier * 10) / 10,
-    };
+    // ============================================================
+    // PRIORITY: Use REAL tcoData when available (from engineering analysis)
+    // ============================================================
+    const tcoData = (product as any).tcoData;
+    const hasRealTcoData = tcoData && tcoData.energyCost5y !== undefined;
 
-    // Energy cost (R$ 0.85/kWh average)
-    const energyRate = 0.85;
-    const energyCost: EnergyProfile = {
-        eco: Math.round(energyKwh.eco * energyRate * 100) / 100,
-        family: Math.round(energyKwh.family * energyRate * 100) / 100,
-        gamer: Math.round(energyKwh.gamer * energyRate * 100) / 100,
-    };
+    // Robot vacuum: derive specs, tags, and scores from SSOT module
+    const robotVacuumDerived: RobotVacuumDerived | null =
+        tcoCategory === 'robo-aspiradores' ? getRobotVacuumDerived(product) : null;
+
+    // Energy profile: use real data or fallback to category model
+    let energyKwh: EnergyProfile;
+    let energyCost: EnergyProfile;
+
+    if (hasRealTcoData) {
+        // Real data: convert 5-year cost to monthly
+        const annualEnergyCost = tcoData.energyCost5y / 5;
+        const monthlyEnergyCost = annualEnergyCost / 12;
+        energyCost = {
+            eco: Math.round(monthlyEnergyCost * 0.6 * 100) / 100,  // 60% of average
+            family: Math.round(monthlyEnergyCost * 100) / 100,     // 100% (base case)
+            gamer: Math.round(monthlyEnergyCost * 1.5 * 100) / 100, // 150% intensive
+        };
+        // Estimate kWh from cost (R$ 0.85/kWh)
+        const energyRate = 0.85;
+        energyKwh = {
+            eco: Math.round(energyCost.eco / energyRate * 10) / 10,
+            family: Math.round(energyCost.family / energyRate * 10) / 10,
+            gamer: Math.round(energyCost.gamer / energyRate * 10) / 10,
+        };
+    } else {
+        // Fallback: Generate energy profile based on category consumption model
+        // Use deterministic seed based on product ID for stable values
+        const baseMultiplier = 1 + (deterministicSeed(product.id) - 0.5) * 0.3; // ±15% variance
+        energyKwh = {
+            eco: Math.round(config.baseMonthlyKwh.eco * baseMultiplier * 10) / 10,
+            family: Math.round(config.baseMonthlyKwh.family * baseMultiplier * 10) / 10,
+            gamer: Math.round(config.baseMonthlyKwh.gamer * baseMultiplier * 10) / 10,
+        };
+        // Energy cost (R$ 0.85/kWh average)
+        const energyRate = 0.85;
+        energyCost = {
+            eco: Math.round(energyKwh.eco * energyRate * 100) / 100,
+            family: Math.round(energyKwh.family * energyRate * 100) / 100,
+            gamer: Math.round(energyKwh.gamer * energyRate * 100) / 100,
+        };
+    }
 
     // SCRS based on brand tier (more realistic than productScore × multiplier)
     // Premium brands: 7.5-8.5, Mainstream: 5.5-7.0, Budget: 3.5-5.0
@@ -110,20 +161,33 @@ function convertToTcoProduct(
     };
 
     const brandTier = BRAND_SCRS_TIERS[product.brand] || { base: 5.0, max: 6.0 };
-    const scrsVariance = (Math.random() * (brandTier.max - brandTier.base));
+    // Use deterministic seed with different salt for SCRS to get different but stable variance
+    const scrsVariance = deterministicSeed(product.id, 42) * (brandTier.max - brandTier.base);
     const scrsScore = Math.round((brandTier.base + scrsVariance) * 10) / 10;
 
-    // Maintenance cost (2-8% of price based on SCRS)
-    const riskFactor = 10 - scrsScore;
-    const annualMaintenance = product.price * (0.02 + riskFactor * 0.006);
+    // Maintenance cost: use real data or fallback to formula
+    let annualMaintenance: number;
+    if (hasRealTcoData && tcoData.maintenanceCost5y !== undefined) {
+        // Real data: convert 5-year cost to annual
+        annualMaintenance = tcoData.maintenanceCost5y / 5;
+    } else {
+        // Fallback: 2-8% of price based on SCRS
+        const riskFactor = 10 - scrsScore;
+        annualMaintenance = product.price * (0.02 + riskFactor * 0.006);
+    }
 
     // Resale value (30-50% of price based on brand tier)
-    const PREMIUM_BRANDS = ['Samsung', 'LG', 'Sony', 'Apple', 'Brastemp', 'Daikin', 'Roborock', 'iRobot', 'Dreame'];
+    const PREMIUM_BRANDS = ['Samsung', 'LG', 'Sony', 'Apple', 'Brastemp', 'Daikin', 'Roborock', 'iRobot', 'Dreame', 'XIAOMI', 'Xiaomi', 'eufy'];
     const isPremiumBrand = PREMIUM_BRANDS.includes(product.brand);
     const resalePercentage = isPremiumBrand ? 40 : 25;
 
-    // Lifespan from category config
-    const lifespanYears = Math.round((config.lifespanRange.min + config.lifespanRange.max) / 2);
+    // Lifespan: use real data or fallback to category config
+    let lifespanYears: number;
+    if (hasRealTcoData && tcoData.lifespanYears !== undefined) {
+        lifespanYears = tcoData.lifespanYears;
+    } else {
+        lifespanYears = Math.round((config.lifespanRange.min + config.lifespanRange.max) / 2);
+    }
 
     // Technical score (different from SCRS - this is overall editorial)
     const productScore = product.computed?.overall ?? 7;
@@ -146,12 +210,26 @@ function convertToTcoProduct(
     technicalScore = Math.round((productScore * 10)) / 10;
 
     // Check if product has VoC (Voice of Customer) data
-    const hasVocData = product.voc && product.voc.averageRating && product.voc.totalReviews;
+    // Support both formats: consensusScore (0-100%) or averageRating (0-5)
+    const vocData = product.voc as any;
+    const hasVocData = vocData && (vocData.averageRating !== undefined || vocData.consensusScore !== undefined);
 
     if (hasVocData) {
         // ✅ USE REAL DATA from VoC
-        communityRating = product.voc!.averageRating;
-        communityReviews = product.voc!.totalReviews;
+        if (vocData.consensusScore !== undefined) {
+            // Convert percentage to 5-star scale: 82% → 4.1 stars
+            communityRating = vocData.consensusScore / 20;
+        } else {
+            communityRating = vocData.averageRating;
+        }
+
+        // Parse totalReviews (may be string like "50+" or number)
+        const rawReviews = vocData.totalReviews;
+        if (typeof rawReviews === 'string') {
+            communityReviews = parseInt(rawReviews.replace(/[^0-9]/g, ''), 10) || 0;
+        } else {
+            communityReviews = rawReviews || 0;
+        }
     } else {
         // ⚠️ FALLBACK: Use DETERMINISTIC formula (same as PDP)
         // This ensures consistency between PDP CommunityConsensusCard and MutantTable
@@ -182,25 +260,53 @@ function convertToTcoProduct(
         resalePercentage,
         scrsScore,
         scrsBreakdown: {
-            partsAvailability: Math.min(10, scrsScore + (Math.random() - 0.5)),
-            serviceNetwork: Math.min(10, scrsScore * 0.9 + (Math.random() - 0.5)),
-            repairability: Math.min(10, scrsScore * 0.85 + (Math.random() - 0.5)),
-            brandReliability: Math.min(10, scrsScore * 1.05 + (Math.random() - 0.5)),
+            partsAvailability: Math.min(10, scrsScore + (deterministicSeed(product.id, 1) - 0.5)),
+            serviceNetwork: Math.min(10, scrsScore * 0.9 + (deterministicSeed(product.id, 2) - 0.5)),
+            repairability: Math.min(10, scrsScore * 0.85 + (deterministicSeed(product.id, 3) - 0.5)),
+            brandReliability: Math.min(10, scrsScore * 1.05 + (deterministicSeed(product.id, 4) - 0.5)),
         },
         lifespanYears,
         features: {
-            gaming: false,
-            energyEfficient: productScore > 8,
-            familyFriendly: true,
-            premiumBrand: isPremiumBrand,
+            gaming: ((product as any).scores?.c1 ?? 0) > 7,
+            energyEfficient: ((product as any).scores?.c2 ?? 0) > 7,
+            familyFriendly: ((product as any).scores?.c3 ?? 0) > 7,
+            premiumBrand: ((product as any).scores?.c4 ?? 0) > 7,
             smart: true,
             extendedWarranty: isPremiumBrand,
         },
+        // 10 PARR-BR criteria badges - use derived scores for robot vacuums, raw scores for others
+        profileBadges: robotVacuumDerived
+            ? {
+                c1: robotVacuumDerived.scores.c1 > 7,   // 🏠 Casa Grande (Navegação)
+                c2: robotVacuumDerived.scores.c2 > 7,   // 📱 Smart (App/Conectividade)
+                c3: robotVacuumDerived.scores.c3 > 7,   // 💧 Mop (Eficiência de Mop)
+                c4: robotVacuumDerived.scores.c4 > 7,   // 🐕 Pets (Escovas)
+                c5: robotVacuumDerived.scores.c5 > 7,   // 📐 Compacto (Altura)
+                c6: robotVacuumDerived.scores.c6 > 7,   // 🔧 Fácil Manut (Peças)
+                c7: robotVacuumDerived.scores.c7 > 7,   // 🔋 Bateria+ (Autonomia)
+                c8: robotVacuumDerived.scores.c8 > 7,   // 🔇 Silencioso (Ruído)
+                c9: robotVacuumDerived.scores.c9 > 7,   // 🏠 Auto-Dock (Base)
+                c10: robotVacuumDerived.scores.c10 > 7, // 🤖 IA (Detecção)
+            }
+            : {
+                c1: ((product as any).scores?.c1 ?? 0) > 7,
+                c2: ((product as any).scores?.c2 ?? 0) > 7,
+                c3: ((product as any).scores?.c3 ?? 0) > 7,
+                c4: ((product as any).scores?.c4 ?? 0) > 7,
+                c5: ((product as any).scores?.c5 ?? 0) > 7,
+                c6: ((product as any).scores?.c6 ?? 0) > 7,
+                c7: ((product as any).scores?.c7 ?? 0) > 7,
+                c8: ((product as any).scores?.c8 ?? 0) > 7,
+                c9: ((product as any).scores?.c9 ?? 0) > 7,
+                c10: ((product as any).scores?.c10 ?? 0) > 7,
+            },
         specs: {},
+        imageUrl: (product as any).imageUrl || undefined,
         editorialScore: productScore,
         communityRating,
         communityReviews,
         technicalScore,
+        matchScore: (product as any).matchScore,
     };
 }
 
@@ -237,10 +343,10 @@ export function TcoEngineSection({
     // Check if TCO is supported for this category
     const isTcoSupported = tcoCategory in CATEGORY_CONFIGS;
 
-    // Convert products to TCO format
+    // Convert products to TCO format (limit to 100 for page size options)
     const tcoProducts = useMemo(() => {
         if (!isTcoSupported) return [];
-        return products.slice(0, 8).map(p => convertToTcoProduct(p, tcoCategory));
+        return products.slice(0, 100).map(p => convertToTcoProduct(p, tcoCategory));
     }, [products, tcoCategory, isTcoSupported]);
 
     // Calculate winners
@@ -256,9 +362,19 @@ export function TcoEngineSection({
         };
     }, [tcoProducts, persona, years]);
 
-    // Don't render if no TCO support
+    // Don't render if no TCO support - show explicit fallback
     if (!isTcoSupported || tcoProducts.length < 2) {
-        return null;
+        return (
+            <ModuleFallback
+                sectionId="tco_engine"
+                sectionName="Engenharia de Valor (TCO)"
+                status="unavailable"
+                reason={!isTcoSupported
+                    ? `Análise TCO não disponível para categoria ${categorySlug}`
+                    : 'Necessário mínimo de 2 produtos para comparação TCO'
+                }
+            />
+        );
     }
 
     return (
@@ -312,10 +428,16 @@ export function TcoEngineSection({
                         <div className="flex-shrink-0">
                             <RealitySwitch years={years} compact />
                         </div>
-                        <div className="hidden lg:block w-px h-8 bg-gray-200" />
-                        <div className="flex-1">
-                            <PersonaSelector variant="auto" />
-                        </div>
+                        {/* Only show PersonaSelector for categories where energy consumption varies by usage pattern (e.g., TVs)
+                            Robot vacuums have minimal, consistent energy consumption - the persona doesn't affect TCO significantly */}
+                        {tcoCategory === 'smart-tvs' && (
+                            <>
+                                <div className="hidden lg:block w-px h-8 bg-gray-200" />
+                                <div className="flex-1">
+                                    <PersonaSelector variant="auto" />
+                                </div>
+                            </>
+                        )}
                     </div>
 
                     {/* Consumption Model Info */}

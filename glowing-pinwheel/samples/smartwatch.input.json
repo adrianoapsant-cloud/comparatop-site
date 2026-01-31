@@ -1,0 +1,48 @@
+{
+    "product": {
+        "name": "Apple Watch Series 9 45mm GPS+Cellular",
+        "brand": "Apple",
+        "model": "Watch Series 9 45mm",
+        "categoryId": "smartwatch",
+        "asin": "B0CWATCHEXAMPLE"
+    },
+    "price": {
+        "valueBRL": 4999.00,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://www.amazon.com.br/dp/B0CWATCHEXAMPLE"
+    },
+    "sources": [
+        {
+            "url": "https://www.amazon.com.br/dp/B0CWATCHEXAMPLE",
+            "accessedAt": "2026-01-22",
+            "type": "amazon"
+        },
+        {
+            "url": "https://www.apple.com/br/shop/buy-watch/apple-watch",
+            "accessedAt": "2026-01-22",
+            "type": "manufacturer"
+        }
+    ],
+    "specs": {
+        "displaySize": 1.7,
+        "displayType": "OLED LTPO",
+        "batteryDays": 1.5,
+        "batteryMah": 308,
+        "hasGps": true,
+        "hasNfc": true,
+        "hasLte": true,
+        "hasEcg": true,
+        "hasSpO2": true,
+        "hasHeartRate": true,
+        "waterResistance": "50m WR",
+        "os": "watchOS 10",
+        "compatibility": "ios",
+        "caseMaterial": "aluminum",
+        "weight": 38.7
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22T08:47:00-03:00",
+        "notas": "Exemplo de input para scaffold-product CLI - Smartwatch"
+    }
+}

@@ -35,7 +35,7 @@ const SLUG_TO_CATEGORY: Record<string, string> = {
     'fones-bluetooth': 'headphones',
     'smartwatches': 'smartwatch',
     'cafeteiras': 'coffee_maker',
-    'aspiradores': 'vacuum',
+    'aspiradores': 'robot-vacuum',
     'lavadoras': 'washer',
     'monitores': 'monitor',
     'soundbars': 'soundbar',

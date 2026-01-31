@@ -1,0 +1,65 @@
+{
+    "product": {
+        "name": "Dreame L20 Ultra Complete",
+        "brand": "Dreame",
+        "model": "L20 Ultra Complete",
+        "categoryId": "robot-vacuum",
+        "asin": "B0CXDEMO01"
+    },
+    "price": {
+        "valueBRL": 5799.00,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://amazon.com.br/dp/B0CXDEMO01"
+    },
+    "sources": [
+        {
+            "url": "https://amazon.com.br/dp/B0CXDEMO01",
+            "type": "amazon"
+        },
+        {
+            "url": "https://dreame.com.br/l20-ultra",
+            "type": "manufacturer"
+        }
+    ],
+    "specs": {
+        "navigationType": "LiDAR",
+        "suctionPa": 7000,
+        "hasSelfEmpty": true,
+        "hasSelfWash": true,
+        "hasMop": true,
+        "mopType": "rotative",
+        "heightCm": 10.4,
+        "batteryMah": 5200,
+        "runtimeMinutes": 180
+    },
+    "evidence": {
+        "product.brand": {
+            "sourceUrl": "https://dreame.com.br/l20-ultra",
+            "note": "Marca oficial Dreame"
+        },
+        "product.model": {
+            "sourceUrl": "https://dreame.com.br/l20-ultra",
+            "note": "Código oficial do produto"
+        },
+        "price.valueBRL": {
+            "sourceUrl": "https://amazon.com.br/dp/B0CXDEMO01",
+            "note": "Preço Amazon BR"
+        },
+        "specs.suctionPa": {
+            "sourceUrl": "https://dreame.com.br/l20-ultra",
+            "note": "Especificação oficial"
+        },
+        "specs.navigationType": {
+            "sourceUrl": "https://dreame.com.br/l20-ultra",
+            "note": "Navegação LiDAR 3D"
+        },
+        "specs.hasSelfEmpty": {
+            "sourceUrl": "https://amazon.com.br/dp/B0CXDEMO01",
+            "note": "Auto-esvaziamento confirmado"
+        }
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22"
+    }
+}

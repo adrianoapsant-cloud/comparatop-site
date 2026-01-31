@@ -1,0 +1,27 @@
+/**
+ * @file keyboard.ts
+ * @description Playbook de critérios para Teclados
+ * Pesos: 20+15+15+12+10+8+7+5+5+3 = 100% ✓
+ * 
+ * NOTA: Este playbook foi criado com base em conhecimento técnico
+ * pois não existia no arquivo "10 dores.txt" original.
+ */
+import type { CategoryPlaybook } from './tv';
+
+export const KEYBOARD_PLAYBOOK: CategoryPlaybook = {
+    categoryId: 'keyboard',
+    displayName: 'Teclados',
+    market: 'Mercado Brasileiro',
+    criteria: [
+        { scoreKey: 'c1', label: 'Tecnologia de Switch (Membrana/Mecânico/Óptico)', weight: 0.20, painTriggers: ['Membrana "semi-mecânica" (Marketing enganoso)', 'Switches genéricos que quebram em meses', 'Clones de baixa qualidade sem especificação', 'Switches soldados sem opção de troca'], pleasureTriggers: ['Switches mecânicos de marca (Cherry MX, Gateron, Kailh)', 'Hot-swap para troca de switches sem solda', 'Durabilidade comprovada (50M+ toques)', 'Ópticos para latência mínima'], implementationNotes: 'Se Switch = "Semi-mecânico" → ALERTA: Termo de marketing sem significado técnico.' },
+        { scoreKey: 'c2', label: 'Layout Físico (ABNT2/ANSI/ISO)', weight: 0.15, painTriggers: ['Layout ANSI importado sem tecla "Ç"', 'Enter horizontal pequeno (Layout US)', 'Impossibilidade de remapear por hardware', 'Keycaps de reposição inexistentes em ABNT2'], pleasureTriggers: ['Layout ABNT2 nativo (Fabricação nacional ou importado correto)', 'Configuração de layout via firmware (QMK/VIA)', 'Enter em "L" (ISO/ABNT)', 'Keycaps de reposição disponíveis'], implementationNotes: 'Se Origem = "Importado" E Layout = "ANSI" → Alerta: Sem tecla Ç física.' },
+        { scoreKey: 'c3', label: 'Keycaps e Legendas', weight: 0.15, painTriggers: ['ABS fino que amarela e brilha', 'Pad printing que apaga em semanas', 'Legendas em inglês apenas', 'Perfil inconsistente entre teclas'], pleasureTriggers: ['PBT Double-shot (Legendas eternas)', 'Dye-sublimation de qualidade', 'Legendas em português', 'Perfil consistente (Cherry, OEM, SA)'], implementationNotes: 'PBT Double-shot é o padrão ouro. ABS Pad-printed é descartável.' },
+        { scoreKey: 'c4', label: 'Anti-Ghosting e Polling Rate', weight: 0.12, painTriggers: ['Ghosting em combos de teclas (Gaming)', '6KRO limitado em USB', 'Polling rate de 125Hz (Lag perceptível)', 'N-Key Rollover falso por software'], pleasureTriggers: ['NKRO real via hardware', 'Polling rate 1000Hz ou superior', 'Anti-ghosting em toda a matriz', 'Zero conflitos em qualquer combo'], implementationNotes: 'Para FPS competitivo, 1000Hz é obrigatório. 125Hz é inaceitável.' },
+        { scoreKey: 'c5', label: 'Ergonomia e Formato', weight: 0.10, painTriggers: ['Altura excessiva sem apoio de pulso', 'Inclinação positiva forçada (Pernas altas)', 'Full-size pesado e grande demais', 'Força de atuação muito pesada (>60g)'], pleasureTriggers: ['Inclinação neutra ou negativa', 'Formato TKL/75%/65% compacto', 'Força de atuação leve (35-45g para digitação)', 'Apoio de pulso incluso ou compatível'], implementationNotes: 'Inclinação positiva contribui para LER/DORT. Negativa é melhor.' },
+        { scoreKey: 'c6', label: 'Conectividade (Fio/Wireless)', weight: 0.08, painTriggers: ['Bluetooth com lag notável em jogos', 'Receptor USB proprietário (Perder = Lixo)', 'Bateria integrada não substituível', 'Sem modo com fio de backup'], pleasureTriggers: ['Tri-mode (USB + 2.4GHz + Bluetooth)', 'Bateria de 4000mAh+ ou pilhas AA', 'Receptor USB armazenável no teclado', 'Latência <1ms em 2.4GHz'], implementationNotes: 'Para gaming wireless, 2.4GHz é obrigatório. Bluetooth tem lag.' },
+        { scoreKey: 'c7', label: 'Software e Firmware', weight: 0.07, painTriggers: ['Software obrigatório na nuvem (Razer Synapse)', 'Macros que não salvam on-board', 'Bloatware pesado em segundo plano', 'Firmware não atualizável'], pleasureTriggers: ['QMK/VIA compatível (Open-source)', 'Configuração salva on-board', 'Software opcional (Funciona plug-and-play)', 'Perfis salvos no teclado'], implementationNotes: 'QMK/VIA é o padrão de liberdade. Software proprietário é risco de obsolescência.' },
+        { scoreKey: 'c8', label: 'Estabilizadores e Ruído', weight: 0.05, painTriggers: ['Stabs de clipe que chacoalham (Rattle)', 'Barulho metálico nas teclas grandes', 'Sem lubrificação de fábrica', 'Impossível de modificar'], pleasureTriggers: ['Stabs parafusados pre-lubrificados', 'Absorção de som (Espuma/Silicone)', 'Plate de qualidade (Aço/Alumínio/FR4)', 'Mod-friendly para tuning'], implementationNotes: 'Stabs ruins arruínam a experiência. Verificar reviews de som.' },
+        { scoreKey: 'c9', label: 'Build Quality e Materiais', weight: 0.05, painTriggers: ['Chassi de plástico flexível ("Flex negativo")', 'Parafusos que espanam', 'Peso leve demais (Move ao digitar)', 'Acabamento que descasca'], pleasureTriggers: ['Case de alumínio CNC ou plástico premium', 'Peso adequado (>1kg)', 'Construção gasket ou sandwich mount', 'Pés de borracha anti-derrapantes'], implementationNotes: 'Peso e solidez impactam a experiência de digitação.' },
+        { scoreKey: 'c10', label: 'Garantia e Pós-Venda (Brasil)', weight: 0.03, painTriggers: ['Importado sem garantia local', 'Switches de reposição indisponíveis', 'Keycaps ABNT2 impossíveis de encontrar', 'RMA internacional inviável'], pleasureTriggers: ['Garantia nacional de 1-2 anos', 'Peças de reposição no Mercado Livre', 'Assistência técnica local', 'Marca com representação no Brasil'], implementationNotes: 'Teclado mecânico é investimento. Garantia local é diferencial.' },
+    ],
+};

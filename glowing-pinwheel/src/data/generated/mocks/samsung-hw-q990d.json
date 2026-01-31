@@ -1,0 +1,166 @@
+{
+    "product": {
+        "id": "samsung-hw-q990d",
+        "name": "Samsung HW-Q990D 11.1.4 Dolby Atmos",
+        "brand": "Samsung",
+        "category": "soundbar",
+        "releaseYear": 2026
+    },
+    "header": {
+        "overallScore": 7,
+        "scoreLabel": "Bom",
+        "title": "Samsung HW-Q990D 11.1.4 Dolby Atmos",
+        "subtitle": "TODO: Preencher subtitle editorial para Samsung",
+        "badges": []
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "TODO: Preencher pontos positivos"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "TODO: Preencher pontos de atenção"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "TODO: Preencher conclusão técnica editorial"
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "TODO: Preencher contra-indicações"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões Avaliadas",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Qualidade de Som",
+                "shortName": "Som",
+                "score": 7,
+                "description": "TODO",
+                "weight": 0.1
+            },
+            {
+                "id": "c2",
+                "name": "Graves",
+                "shortName": "Gra",
+                "score": 7,
+                "description": "TODO",
+                "weight": 0.1
+            },
+            {
+                "id": "c3",
+                "name": "Diálogos",
+                "shortName": "Dia",
+                "score": 7,
+                "description": "TODO",
+                "weight": 0.1
+            },
+            {
+                "id": "c4",
+                "name": "Surround",
+                "shortName": "Sur",
+                "score": 7,
+                "description": "TODO",
+                "weight": 0.1
+            },
+            {
+                "id": "c5",
+                "name": "Conectividade",
+                "shortName": "Cnx",
+                "score": 7,
+                "description": "TODO",
+                "weight": 0.1
+            },
+            {
+                "id": "c6",
+                "name": "Facilidade de Uso",
+                "shortName": "Uso",
+                "score": 7,
+                "description": "TODO",
+                "weight": 0.1
+            },
+            {
+                "id": "c7",
+                "name": "Custo-Benefício",
+                "shortName": "C/B",
+                "score": 7,
+                "description": "TODO",
+                "weight": 0.1
+            },
+            {
+                "id": "c8",
+                "name": "Design",
+                "shortName": "Des",
+                "score": 7,
+                "description": "TODO",
+                "weight": 0.1
+            },
+            {
+                "id": "c9",
+                "name": "Potência",
+                "shortName": "Pot",
+                "score": 7,
+                "description": "TODO",
+                "weight": 0.1
+            },
+            {
+                "id": "c10",
+                "name": "Ecossistema",
+                "shortName": "Eco",
+                "score": 7,
+                "description": "TODO",
+                "weight": 0.1
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "status": "optimal",
+            "message": "TODO"
+        },
+        "energyAlert": {
+            "rating": "B",
+            "message": "TODO"
+        }
+    },
+    "decisionFAQ": [
+        {
+            "id": "placeholder",
+            "icon": "HelpCircle",
+            "question": "TODO: Preencher FAQ 1",
+            "answer": "TODO: Preencher resposta"
+        }
+    ],
+    "meta": {
+        "scaffold": {
+            "generatedAt": "2026-01-22T13:01:08.563Z",
+            "rawInputHash": "a0295ba6",
+            "categoryId": "soundbar",
+            "derivedEnergy": {
+                "source": "baseline",
+                "kwhMonth": 3,
+                "calculation": "Baseline da categoria: 3 kWh/mês"
+            },
+            "firedRulesCount": 3,
+            "status": "draft"
+        }
+    }
+}

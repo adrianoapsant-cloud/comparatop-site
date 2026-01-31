@@ -1,0 +1,339 @@
+{
+    "product": {
+        "id": "electrolux-erb20-home-control-experience",
+        "name": "Robô Aspirador de Pó Electrolux Home e Control Experience ERB20",
+        "brand": "Electrolux",
+        "category": "robot-vacuum",
+        "releaseYear": 2024
+    },
+    "productDimensions": {
+        "diameter": 29,
+        "height": 7
+    },
+    "voc": {
+        "consensusScore": 75,
+        "totalReviews": "500+",
+        "acceptableFlaw": "Navegação aleatória sem mapeamento — funciona bem para ambientes pequenos até 50m², mas repete áreas e perde eficiência em plantas complexas",
+        "realWorldScenario": "Usuários em apartamentos de 1-2 quartos relatam economia de tempo significativa. Limpeza diária programada via controle remoto mantém o piso limpo com mínima intervenção",
+        "goldenTip": "Posicione a base em local central e livre de obstáculos. Com 7cm de altura, o ERB20 passa sob a maioria dos sofás e camas brasileiras"
+    },
+    "header": {
+        "overallScore": 5.2,
+        "scoreLabel": "Básico",
+        "title": "Electrolux ERB20",
+        "subtitle": "Entrada de marca premium: 3 em 1 com controle remoto por menos de R$ 600",
+        "badges": [
+            {
+                "type": "feature",
+                "label": "Ultra Slim 7cm",
+                "icon": "ruler"
+            },
+            {
+                "type": "feature",
+                "label": "3 em 1 (Aspira, Varre, Mop)",
+                "icon": "droplet"
+            },
+            {
+                "type": "certification",
+                "label": "Electrolux Brasil",
+                "icon": "shield"
+            }
+        ]
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "Menor preço de entrada em marca premium (Electrolux) — confiança e assistência",
+                "Altura de 7cm (ultra-slim) passa facilmente sob sofás e camas baixas",
+                "3 em 1: varre, aspira e passa pano em uma passada",
+                "Sensor antiqueda para escadas e desníveis",
+                "Controle remoto com modos pré-programados"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "SEM Wi-Fi ou App — operação 100% via controle remoto físico",
+                "Navegação aleatória (bate-volta) — ineficiente para casas grandes",
+                "Mop passivo apenas arrasta pano, não esfrega manchas",
+                "Sem base auto-esvaziante — esvaziar manualmente após cada uso"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "O Electrolux ERB20 é a porta de entrada mais acessível para quem quer um robô aspirador de marca confiável. Ideal para apartamentos pequenos (até 50m²) onde a navegação aleatória não é problema. A ausência de Wi-Fi é a maior limitação — se você quer automação inteligente e agendamento via app, considere o WAP W400 (similar preço, com Alexa). Se prioriza marca e assistência técnica fácil, o ERB20 é escolha segura."
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "Sua casa tem mais de 50m² ou planta com muitos cômodos",
+                "Você quer controlar o robô por app ou voz (Alexa/Google)",
+                "Você precisa que o mop remova manchas pesadas do piso",
+                "Você tem pets com pelo longo — escova enrola cabelo"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões PARR-BR para Robôs Aspiradores",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Navegação & Mapeamento",
+                "shortName": "Navegação",
+                "score": 4,
+                "weight": 0.25,
+                "icon": "radar",
+                "color": "red",
+                "description": "Navegação ALEATÓRIA com sensor antiqueda. Sem giroscópio, sem mapeamento."
+            },
+            {
+                "id": "c2",
+                "name": "Software & Conectividade",
+                "shortName": "App/Voz",
+                "score": 1,
+                "weight": 0.15,
+                "icon": "smartphone",
+                "color": "red",
+                "description": "SEM Wi-Fi, SEM App, SEM Alexa/Google — controle 100% via remoto físico."
+            },
+            {
+                "id": "c3",
+                "name": "Sistema de Mop",
+                "shortName": "Mop",
+                "score": 5,
+                "weight": 0.15,
+                "icon": "droplet",
+                "color": "amber",
+                "description": "Mop passivo por pano. Remove poeira fina, não esfrega manchas."
+            },
+            {
+                "id": "c4",
+                "name": "Engenharia de Escovas",
+                "shortName": "Escovas",
+                "score": 6,
+                "weight": 0.10,
+                "icon": "sparkles",
+                "color": "amber",
+                "description": "Escovas laterais para cantos. Escova central de cerdas enrola cabelo."
+            },
+            {
+                "id": "c5",
+                "name": "Altura e Acessibilidade",
+                "shortName": "Altura",
+                "score": 9,
+                "weight": 0.10,
+                "icon": "ruler",
+                "color": "emerald",
+                "description": "7cm Ultra-slim! Melhor da categoria — passa sob quase todos os móveis BR."
+            },
+            {
+                "id": "c6",
+                "name": "Manutenibilidade",
+                "shortName": "Peças",
+                "score": 8,
+                "weight": 0.08,
+                "icon": "wrench",
+                "color": "emerald",
+                "description": "Electrolux é marca forte no Brasil com rede de assistência."
+            },
+            {
+                "id": "c7",
+                "name": "Bateria e Autonomia",
+                "shortName": "Bateria",
+                "score": 6,
+                "weight": 0.05,
+                "icon": "battery",
+                "color": "amber",
+                "description": "2,2h de autonomia (132min) — bom para a faixa. SEM Recharge & Resume."
+            },
+            {
+                "id": "c8",
+                "name": "Acústica",
+                "shortName": "Ruído",
+                "score": 6,
+                "weight": 0.05,
+                "icon": "volume2",
+                "color": "amber",
+                "description": "~70dB — ruído médio, motor convencional."
+            },
+            {
+                "id": "c9",
+                "name": "Base de Carregamento",
+                "shortName": "Base",
+                "score": 4,
+                "weight": 0.05,
+                "icon": "home",
+                "color": "amber",
+                "description": "Base de carregamento simples — sem autoesvaziamento."
+            },
+            {
+                "id": "c10",
+                "name": "Recursos de IA",
+                "shortName": "IA",
+                "score": 1,
+                "weight": 0.02,
+                "icon": "brain",
+                "color": "red",
+                "description": "SEM detecção de objetos, SEM câmera — apenas sensores básicos antiqueda."
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "status": "optimal",
+            "message": "Com apenas 7cm de altura (o mais baixo da categoria), passa facilmente sob sofás, camas e móveis planejados. A maioria dos móveis padrão brasileiros tem 10-12cm de vão.",
+            "idealRange": {
+                "min": 6,
+                "max": 9
+            }
+        },
+        "soundAlert": {
+            "status": "acceptable",
+            "message": "Mop por pano (função MOP) para manutenção leve. Remove poeira fina do piso, mas NÃO esfrega manchas pesadas. Ideal para uso diário em pisos lisos.",
+            "suggestions": [
+                {
+                    "condition": "Para manchas pesadas",
+                    "product": "Mop vibratório (Dreame, Roborock S7+)",
+                    "reason": "Vibração de 3000rpm remove sujeira incrustada"
+                },
+                {
+                    "condition": "Para pisos de madeira",
+                    "product": "Usar pano bem torcido",
+                    "reason": "Evita excesso de água que danifica madeira"
+                }
+            ]
+        },
+        "energyAlert": {
+            "rating": "A",
+            "message": "Consumo de 25W é muito baixo. Impacto na conta de luz é mínimo (~R$ 2-3/mês com uso diário)."
+        }
+    },
+    "decisionFAQ": [
+        {
+            "id": "vs-wap-w400",
+            "icon": "Scale",
+            "question": "ERB20 vs WAP W400: Qual comprar?",
+            "answer": "Resumo prático: O WAP W400 vence se você quer controle por voz (Alexa/Google). O ERB20 vence se você prioriza marca premium e rede de assistência técnica da Electrolux. Ambos têm navegação aleatória e mop passivo. Se preço for equivalente, o W400 é mais versátil pela conectividade."
+        },
+        {
+            "id": "sem-wifi",
+            "icon": "Wifi",
+            "question": "É problema não ter Wi-Fi?",
+            "answer": "Depende do seu perfil. Se você quer ligar o robô manualmente quando sair de casa, o controle remoto é suficiente. Se você quer automatizar (ligar via rotina Alexa às 9h, ou verificar status pelo celular), então precisa de um modelo com Wi-Fi como o WAP W400 ou superior."
+        },
+        {
+            "id": "pets",
+            "icon": "Dog",
+            "question": "Funciona bem com pets?",
+            "answer": "Para pets de pelo curto, sim. Para pets de pelo longo (Golden, Husky), a escova de cerdas enrola cabelo e exige limpeza frequente. Considere modelos com escova anti-emaranhamento de borracha (Roborock Q7, Dreame) se tem pets peludos."
+        },
+        {
+            "id": "durabilidade",
+            "icon": "Wrench",
+            "question": "Electrolux vs marcas genéricas: vale a diferença?",
+            "answer": "Sim para manutenção. A Electrolux tem rede de assistência técnica no Brasil, facilitando reparos e garantia. Marcas importadas sem representação local podem ser mais baratas mas exigem importar peças. Para quem quer 'comprar e esquecer' por 2-3 anos, a Electrolux é mais segura."
+        }
+    ],
+    "tco": {
+        "purchasePrice": 511,
+        "energyCost5y": 150,
+        "maintenanceCost5y": 400,
+        "totalCost5y": 1061,
+        "monthlyReserve": 18,
+        "lifespan": {
+            "years": 2.5,
+            "categoryAverage": 4,
+            "limitingComponent": "Bateria Li-ion Standard (2600mAh)",
+            "limitingComponentLife": 2.5,
+            "weibullExplanation": "Baseado em uso médio de 1h/dia, a bateria Li-ion de 2600mAh tem vida útil estimada de 2.5 anos segundo a distribuição Weibull. Componente limitante conforme definido em robot-vacuum-components.ts."
+        },
+        "repairability": {
+            "score": 7.0,
+            "level": "good",
+            "categoryAverage": 6.5,
+            "components": [
+                {
+                    "name": "Bateria Li-ion Standard (2600mAh)",
+                    "score": 8,
+                    "price": 280,
+                    "availability": "available",
+                    "failureSymptoms": [
+                        "Autonomia reduzida",
+                        "Não carrega",
+                        "Desliga durante limpeza"
+                    ],
+                    "repairAdvice": "Peça disponível em marketplaces, troca DIY possível"
+                },
+                {
+                    "name": "Motor de Sucção Brushless Standard",
+                    "score": 5,
+                    "price": 150,
+                    "availability": "available",
+                    "failureSymptoms": [
+                        "Perda de sucção",
+                        "Ruído anormal",
+                        "Superaquece"
+                    ],
+                    "repairAdvice": "Reparo em assistência técnica Electrolux"
+                },
+                {
+                    "name": "Placa Principal Básica",
+                    "score": 4,
+                    "price": 350,
+                    "availability": "limited",
+                    "failureSymptoms": [
+                        "Robô não liga",
+                        "Reinicia sozinho",
+                        "Não carrega"
+                    ],
+                    "repairAdvice": "Reparo em assistência técnica, avaliar custo-benefício"
+                },
+                {
+                    "name": "Kit Escovas (Laterais + Central + Filtro)",
+                    "score": 10,
+                    "price": 80,
+                    "availability": "available",
+                    "failureSymptoms": [
+                        "Perda de desempenho",
+                        "Cabelo enrolado"
+                    ],
+                    "repairAdvice": "Consumível, trocar a cada 3-6 meses"
+                },
+                {
+                    "name": "Rodas e Sistema de Tração",
+                    "score": 7,
+                    "price": 120,
+                    "availability": "available",
+                    "failureSymptoms": [
+                        "Anda torto",
+                        "Patina",
+                        "Erro de roda"
+                    ],
+                    "repairAdvice": "Peças disponíveis, reparo em assistência"
+                }
+            ]
+        }
+    },
+    "interactiveTools": [
+        {
+            "id": "dimension-check",
+            "icon": "ruler",
+            "title": "Será que cabe?",
+            "badge": "Teste Rápido",
+            "badgeColor": "orange",
+            "description": "Verifique se o robô passa debaixo dos seus móveis (altura: 7cm)",
+            "toolType": "geometry",
+            "configRef": "robo-passa-movel"
+        }
+    ]
+}

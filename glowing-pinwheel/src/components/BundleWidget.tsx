@@ -1,9 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { ShoppingCart, Plus, ExternalLink, Sparkles, Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { formatPrice } from '@/lib/l10n';
 import { getAmazonCartUrl } from '@/lib/amazon';
 import { useHaptic } from '@/hooks/useHaptic';
 
@@ -13,7 +11,7 @@ interface BundleItem {
     asin: string;
     price: number;
     imageUrl?: string;
-    slug?: string;
+    affiliateUrl: string; // REQUIRED: Link de afiliado (Amazon, ML, etc)
 }
 
 interface BundleWidgetProps {
@@ -22,8 +20,28 @@ interface BundleWidgetProps {
     associateTag?: string;
     title?: string;
     subtitle?: string;
+    persuasiveText?: string;
+    categoryId?: string;
     savings?: number;
     className?: string;
+}
+
+// Category-based persuasive text mapping
+const CATEGORY_PERSUASIVE_TEXT: Record<string, string> = {
+    'robot-vacuum': 'Mantenha seu robô sempre com sucção máxima',
+    'tv': 'Complete sua experiência de cinema perfeita',
+    'smart_tv': 'Complete sua experiência de cinema perfeita',
+    'fridge': 'Mantenha sua geladeira funcionando perfeitamente',
+    'air_conditioner': 'Garanta o máximo desempenho do ar',
+    'washer': 'Mantenha sua lavadora em perfeitas condições',
+};
+
+function getPersuasiveText(categoryId?: string, explicit?: string): string {
+    if (explicit) return explicit;
+    if (categoryId && CATEGORY_PERSUASIVE_TEXT[categoryId]) {
+        return CATEGORY_PERSUASIVE_TEXT[categoryId];
+    }
+    return 'Complete sua experiência com o pacote perfeito';
 }
 
 /**
@@ -33,7 +51,7 @@ interface BundleWidgetProps {
  * - Main product shows "Checar Preço" instead of price
  * - Only accessory price is shown (as delta: "+ R$ X")
  * - No total calculation displayed
- * - CTA: "Simular Carrinho Completo na Amazon"
+ * - CTA: "Montar Kit na Amazon" - adds BOTH products to cart
  */
 export function BundleWidget({
     mainProduct,
@@ -41,13 +59,17 @@ export function BundleWidget({
     associateTag = 'comparatop-20',
     title = '🔊 Complete sua Experiência',
     subtitle,
+    persuasiveText,
+    categoryId,
     className,
 }: BundleWidgetProps) {
     const haptic = useHaptic();
+    const finalPersuasiveText = getPersuasiveText(categoryId, persuasiveText);
 
     // Monthly price for accessory only (the upgrade)
     const monthlyPrice = Math.round((accessory.price / 12));
 
+    // Build Amazon cart URL that adds BOTH products to cart with affiliate tag
     const cartUrl = getAmazonCartUrl(
         [
             { asin: mainProduct.asin, quantity: 1 },
@@ -61,106 +83,69 @@ export function BundleWidget({
         window.open(cartUrl, '_blank', 'noopener,noreferrer');
     };
 
-    // Main Product Card (No price - just CTA)
-    const MainProductCard = () => {
-        const content = (
+    // Main Product Card
+    const MainProductCard = () => (
+        <a
+            href={mainProduct.affiliateUrl}
+            target="_blank"
+            rel="noopener noreferrer sponsored"
+            className="flex-1 max-w-[140px]"
+        >
             <div className={cn(
                 'relative flex flex-col items-center p-3 rounded-xl transition-all',
                 'bg-white border-2 border-brand-core/30',
-                mainProduct.slug && 'hover:border-brand-core hover:shadow-md cursor-pointer'
+                'hover:border-brand-core hover:shadow-md cursor-pointer'
             )}>
-                {/* Badge */}
                 <span className="absolute -top-2 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-brand-core text-white text-[9px] font-bold rounded-full whitespace-nowrap">
                     PRINCIPAL
                 </span>
-
-                {/* Image */}
                 <div className="w-20 h-20 md:w-24 md:h-24 mb-2 flex items-center justify-center">
                     {mainProduct.imageUrl ? (
-                        <img
-                            src={mainProduct.imageUrl}
-                            alt={mainProduct.name}
-                            className="w-full h-full object-contain"
-                        />
+                        <img src={mainProduct.imageUrl} alt={mainProduct.name} className="w-full h-full object-contain" />
                     ) : (
-                        <div className="w-full h-full bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-2xl">
-                            📺
-                        </div>
+                        <div className="w-full h-full bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-2xl">📺</div>
                     )}
                 </div>
-
-                {/* Name */}
                 <p className="text-xs font-medium text-text-primary text-center line-clamp-2 h-8">
                     {mainProduct.shortName || mainProduct.name}
                 </p>
-
-                {/* Amazon Compliance: No fixed price - just link to check */}
                 <span className="mt-1 text-xs font-medium text-amber-600 flex items-center gap-1">
-                    <Search size={12} />
-                    Verificar Preço
+                    <Search size={12} /> Verificar Preço
                 </span>
             </div>
-        );
+        </a>
+    );
 
-        if (mainProduct.slug) {
-            return (
-                <Link href={`/produto/${mainProduct.slug}`} data-integrity="ignore" className="flex-1 max-w-[140px]">
-                    {content}
-                </Link>
-            );
-        }
-        return <div className="flex-1 max-w-[140px]">{content}</div>;
-    };
-
-    // Accessory Card (Shows price as delta)
-    const AccessoryCard = () => {
-        const content = (
+    // Accessory Card
+    const AccessoryCard = () => (
+        <a
+            href={accessory.affiliateUrl}
+            target="_blank"
+            rel="noopener noreferrer sponsored"
+            className="flex-1 max-w-[140px]"
+        >
             <div className={cn(
                 'relative flex flex-col items-center p-3 rounded-xl transition-all',
                 'bg-white border-2 border-emerald-300',
-                accessory.slug && 'hover:border-emerald-500 hover:shadow-md cursor-pointer'
+                'hover:border-emerald-500 hover:shadow-md cursor-pointer'
             )}>
-                {/* Delta Badge */}
                 <span className="absolute -top-2 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-emerald-500 text-white text-[9px] font-bold rounded-full whitespace-nowrap">
                     UPGRADE
                 </span>
-
-                {/* Image */}
                 <div className="w-20 h-20 md:w-24 md:h-24 mb-2 flex items-center justify-center">
                     {accessory.imageUrl ? (
-                        <img
-                            src={accessory.imageUrl}
-                            alt={accessory.name}
-                            className="w-full h-full object-contain"
-                        />
+                        <img src={accessory.imageUrl} alt={accessory.name} className="w-full h-full object-contain" />
                     ) : (
-                        <div className="w-full h-full bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-2xl">
-                            🔊
-                        </div>
+                        <div className="w-full h-full bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-2xl">🔊</div>
                     )}
                 </div>
-
-                {/* Name */}
                 <p className="text-xs font-medium text-text-primary text-center line-clamp-2 h-8">
                     {accessory.shortName || accessory.name}
                 </p>
-
-                {/* Amazon Compliance: No fixed price - will be visible in cart */}
-                <span className="mt-1 text-xs font-medium text-emerald-600">
-                    Adicional
-                </span>
+                <span className="mt-1 text-xs font-medium text-emerald-600">Adicional</span>
             </div>
-        );
-
-        if (accessory.slug) {
-            return (
-                <Link href={`/produto/${accessory.slug}`} data-integrity="ignore" className="flex-1 max-w-[140px]">
-                    {content}
-                </Link>
-            );
-        }
-        return <div className="flex-1 max-w-[140px]">{content}</div>;
-    };
+        </a>
+    );
 
     return (
         <section className={cn('py-8', className)}>
@@ -209,14 +194,18 @@ export function BundleWidget({
                         {/* Amazon Compliance: No fixed prices or monthly calculations */}
                         <p className="text-center text-sm text-text-secondary mb-4">
                             <span className="font-semibold text-text-primary">
-                                Complete sua experiência de cinema{' '}
-                                <span className="text-emerald-600 font-bold">
-                                    com o pacote perfeito
-                                </span>
+                                {finalPersuasiveText.includes(' ') ? (
+                                    <>
+                                        {finalPersuasiveText.split(' ').slice(0, -2).join(' ')}{' '}
+                                        <span className="text-emerald-600 font-bold">
+                                            {finalPersuasiveText.split(' ').slice(-2).join(' ')}
+                                        </span>
+                                    </>
+                                ) : finalPersuasiveText}
                             </span>
                         </p>
 
-                        {/* Single Large CTA */}
+                        {/* Single Large CTA - Uses affiliate URL directly */}
                         <button
                             type="button"
                             onClick={handleBuyClick}

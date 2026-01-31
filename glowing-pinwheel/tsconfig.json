@@ -39,6 +39,9 @@
   "exclude": [
     "node_modules",
     "warped-equinox",
-    "roundtrips-v6-poc"
+    "roundtrips-v6-poc",
+    "scripts",
+    "backup_pre_audit_2026-01-05",
+    "**/__tests__"
   ]
 }

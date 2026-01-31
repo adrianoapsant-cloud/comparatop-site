@@ -1,0 +1,50 @@
+{
+    "product": {
+        "name": "WAP Robô Aspirador de Pó ROBOT W1000 Mapeamento GYRO",
+        "brand": "WAP",
+        "model": "ROBOT W1000",
+        "categoryId": "robot-vacuum",
+        "asin": "B0DCW2976L"
+    },
+    "price": {
+        "valueBRL": 338.21,
+        "observedAt": "2026-01-28",
+        "sourceUrl": "https://www.amazon.com.br/dp/B0DCW2976L"
+    },
+    "sources": [
+        {
+            "url": "https://www.amazon.com.br/dp/B0DCW2976L",
+            "accessedAt": "2026-01-28",
+            "type": "amazon"
+        }
+    ],
+    "energy": {
+        "wattsTypical": 32,
+        "usageHoursPerDay": 1.5
+    },
+    "specs": {
+        "navigationType": "gyroscope",
+        "suctionPa": 2340,
+        "hasSelfEmpty": false,
+        "hasMop": true,
+        "mopType": "passivo",
+        "heightCm": 8,
+        "batteryMah": 2600,
+        "runtimeMinutes": 160,
+        "noiseDb": 75,
+        "dustBinMl": 600,
+        "waterTankMl": 350,
+        "filterType": "HEPA",
+        "hasAppControl": true,
+        "voiceAssistants": [
+            "Alexa",
+            "Google Assistant"
+        ],
+        "chargingTimeHours": 5
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-28T08:31:00-03:00",
+        "notas": "Produto para testar SimplifiedPDP refactor"
+    }
+}

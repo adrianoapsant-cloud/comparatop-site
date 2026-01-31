@@ -1,0 +1,309 @@
+{
+    "product": {
+        "id": "liectroux-l200-robo-aspirador-3em1-app-alexa-google",
+        "name": "Robô Aspirador Liectroux L200 3 em 1 com App Alexa Google",
+        "brand": "Liectroux",
+        "category": "robot-vacuum",
+        "releaseYear": 2024
+    },
+    "productDimensions": {
+        "diameter": 30,
+        "height": 7.5
+    },
+    "voc": {
+        "consensusScore": 86,
+        "totalReviews": "481",
+        "acceptableFlaw": "Navegação aleatória sem mapeamento persistente — não salva mapa e não retoma do ponto de interrupção. Funciona bem para áreas até 80m², mas perde eficiência em plantas complexas",
+        "realWorldScenario": "Usuários destacam a integração com Alexa/Google e o agendamento via app. O kit extra na caixa (filtros, escovas) é um diferencial. Ideal para quem quer automação sem gastar R$ 2.000+",
+        "goldenTip": "Use o agendamento para limpar quando você não está em casa. O retorno automático à base garante que ele esteja carregado para a próxima limpeza"
+    },
+    "header": {
+        "overallScore": 5.2,
+        "scoreLabel": "Básico+",
+        "title": "Liectroux L200",
+        "subtitle": "App + Alexa/Google + HEPA: automação completa por menos de R$ 1.200",
+        "badges": [
+            {
+                "type": "feature",
+                "label": "App + Voz",
+                "icon": "smartphone"
+            },
+            {
+                "type": "feature",
+                "label": "Filtro HEPA",
+                "icon": "sparkles"
+            },
+            {
+                "type": "certification",
+                "label": "Alexa/Google",
+                "icon": "mic"
+            }
+        ]
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "Controle via App + Alexa + Google Assistant — automação completa",
+                "Agendamento de limpeza pelo smartphone",
+                "Filtro HEPA para alérgenos e partículas finas",
+                "Kit extra incluso: filtros, escovas e panos MOP",
+                "Retorno automático à base após limpeza"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "NÃO salva mapa — recomeça mapeamento a cada limpeza",
+                "NÃO retoma do ponto de interrupção — se bateria acabar, reinicia",
+                "Navegação aleatória (bate-volta) — ineficiente para casas grandes",
+                "Mop passivo apenas arrasta pano, não esfrega manchas",
+                "Marca chinesa com suporte BR limitado"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "O Liectroux L200 entrega automação premium (app + voz) a preço de entrada. É ideal para quem quer controlar o robô pelo celular ou voz sem pagar R$ 2.000+. A navegação aleatória limita a eficiência em casas grandes, mas para apartamentos até 80m² funciona bem. O filtro HEPA e o kit extra na caixa são diferenciais versus concorrentes de mesma faixa."
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "Sua casa tem mais de 80m² ou planta complexa",
+                "Você precisa que o robô lembre o mapa entre limpezas",
+                "Você prioriza suporte técnico local (WAP é melhor opção)",
+                "Você precisa que o mop remova manchas pesadas"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões PARR-BR para Robôs Aspiradores",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Navegação & Mapeamento",
+                "shortName": "Navegação",
+                "score": 3,
+                "weight": 0.25,
+                "icon": "radar",
+                "color": "red",
+                "description": "Navegação ALEATÓRIA. NÃO salva mapa. NÃO retoma do ponto de interrupção."
+            },
+            {
+                "id": "c2",
+                "name": "Software & Conectividade",
+                "shortName": "App/Voz",
+                "score": 7,
+                "weight": 0.15,
+                "icon": "smartphone",
+                "color": "emerald",
+                "description": "App completo + Alexa + Google Assistant. Agendamento por smartphone."
+            },
+            {
+                "id": "c3",
+                "name": "Sistema de Mop",
+                "shortName": "Mop",
+                "score": 5,
+                "weight": 0.15,
+                "icon": "droplet",
+                "color": "amber",
+                "description": "Mop passivo por pano. Remove poeira fina, não esfrega manchas."
+            },
+            {
+                "id": "c4",
+                "name": "Engenharia de Escovas",
+                "shortName": "Escovas",
+                "score": 6,
+                "weight": 0.10,
+                "icon": "sparkles",
+                "color": "amber",
+                "description": "Escovas laterais + central. Kit extra incluso na caixa."
+            },
+            {
+                "id": "c5",
+                "name": "Altura e Acessibilidade",
+                "shortName": "Altura",
+                "score": 9,
+                "weight": 0.10,
+                "icon": "ruler",
+                "color": "emerald",
+                "description": "7.5cm Slim! Passa sob móveis planejados brasileiros."
+            },
+            {
+                "id": "c6",
+                "name": "Manutenibilidade",
+                "shortName": "Peças",
+                "score": 5,
+                "weight": 0.08,
+                "icon": "wrench",
+                "color": "amber",
+                "description": "Marca Liectroux (chinesa). Tem representante BR, mas suporte limitado."
+            },
+            {
+                "id": "c7",
+                "name": "Bateria e Autonomia",
+                "shortName": "Bateria",
+                "score": 5,
+                "weight": 0.05,
+                "icon": "battery",
+                "color": "amber",
+                "description": "120min autonomia. SEM Recharge & Resume — se parar, recomeça."
+            },
+            {
+                "id": "c8",
+                "name": "Acústica",
+                "shortName": "Ruído",
+                "score": 6,
+                "weight": 0.05,
+                "icon": "volume2",
+                "color": "amber",
+                "description": "~65dB — ruído médio, motor convencional."
+            },
+            {
+                "id": "c9",
+                "name": "Base de Carregamento",
+                "shortName": "Base",
+                "score": 5,
+                "weight": 0.05,
+                "icon": "home",
+                "color": "amber",
+                "description": "Retorno automático à base. Sem auto-esvaziamento."
+            },
+            {
+                "id": "c10",
+                "name": "Recursos de IA",
+                "shortName": "IA",
+                "score": 1,
+                "weight": 0.02,
+                "icon": "brain",
+                "color": "red",
+                "description": "SEM detecção de objetos, SEM câmera — apenas sensores básicos."
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "status": "optimal",
+            "message": "Com 7.5cm de altura, passa facilmente sob sofás, camas e móveis planejados. A maioria dos móveis padrão brasileiros tem 10-12cm de vão.",
+            "idealRange": {
+                "min": 6,
+                "max": 9
+            }
+        },
+        "soundAlert": {
+            "status": "acceptable",
+            "message": "Mop por pano para manutenção leve. Remove poeira fina do piso, mas NÃO esfrega manchas pesadas. Ideal para uso diário em pisos lisos.",
+            "suggestions": [
+                {
+                    "condition": "Para manchas pesadas",
+                    "product": "Mop vibratório (Dreame, Roborock S7+)",
+                    "reason": "Vibração de 3000rpm remove sujeira incrustada"
+                }
+            ]
+        },
+        "energyAlert": {
+            "rating": "A",
+            "message": "Consumo de 25W é muito baixo. Impacto na conta de luz é mínimo (~R$ 2-3/mês com uso diário)."
+        }
+    },
+    "decisionFAQ": [
+        {
+            "id": "vs-wap-w400",
+            "icon": "Scale",
+            "question": "L200 vs WAP W400: Qual comprar?",
+            "answer": "Ambos têm app + voz e preço similar (~R$ 1.200). O L200 vence no filtro HEPA e kit extra incluso. O W400 vence no suporte técnico (marca nacional WAP). Se você prioriza assistência técnica local, vá de WAP. Se prioriza filtragem HEPA para alergias, vá de Liectroux."
+        },
+        {
+            "id": "nao-salva-mapa",
+            "icon": "Map",
+            "question": "O que significa 'não salva mapa'?",
+            "answer": "Cada vez que o robô limpa, ele mapeia a área do zero. Isso é menos eficiente que robôs com mapa persistente (LiDAR), mas funciona bem para apartamentos de até 80m². Para casas maiores ou plantas complexas, considere modelos com LiDAR como Roborock Q7."
+        },
+        {
+            "id": "kit-extra",
+            "icon": "Gift",
+            "question": "Vale a pena o kit extra incluso?",
+            "answer": "Sim! O Liectroux L200 inclui 2 filtros HEPA (1 extra), 2 pares de escovas laterais (1 extra) e 2 panos mop (1 extra). Isso representa economia de ~R$ 80-100 nos primeiros 6 meses de uso, quando você normalmente precisaria comprar reposição."
+        },
+        {
+            "id": "pets",
+            "icon": "Dog",
+            "question": "Funciona bem com pets?",
+            "answer": "Sim, o filtro HEPA retém 99.97% de partículas finas incluindo pelos e alérgenos. As escovas de cerdas enrolam cabelo/pelo longo, então limpe-as regularmente. O kit extra incluso ajuda a manter performance."
+        }
+    ],
+    "tco": {
+        "purchasePrice": 1189,
+        "energyCost5y": 180,
+        "maintenanceCost5y": 450,
+        "totalCost5y": 1819,
+        "monthlyReserve": 30,
+        "lifespan": {
+            "years": 3,
+            "categoryAverage": 4,
+            "limitingComponent": "Bateria Li-ion Standard (2600mAh)",
+            "limitingComponentLife": 2.5,
+            "weibullExplanation": "Baseado em uso médio de 1h/dia. O kit extra incluso reduz custos de manutenção no primeiro ano."
+        },
+        "repairability": {
+            "score": 5.0,
+            "level": "moderate",
+            "categoryAverage": 6.5,
+            "components": [
+                {
+                    "name": "Bateria Li-ion Standard (2600mAh)",
+                    "score": 6,
+                    "price": 250,
+                    "availability": "limited",
+                    "failureSymptoms": [
+                        "Autonomia reduzida",
+                        "Não carrega"
+                    ],
+                    "repairAdvice": "Peça disponível via importação. Representante BR pode ajudar."
+                },
+                {
+                    "name": "Kit Consumíveis (Filtros HEPA + Escovas + Panos)",
+                    "score": 10,
+                    "price": 90,
+                    "availability": "available",
+                    "failureSymptoms": [
+                        "Perda de sucção",
+                        "Cabelo enrolado"
+                    ],
+                    "repairAdvice": "Disponível na Amazon. Kit extra incluso na compra."
+                },
+                {
+                    "name": "Placa Principal",
+                    "score": 3,
+                    "price": 400,
+                    "availability": "limited",
+                    "failureSymptoms": [
+                        "Robô não liga",
+                        "Erro de conexão Wi-Fi"
+                    ],
+                    "repairAdvice": "Disponibilidade limitada. Avaliar custo-benefício vs novo robô."
+                }
+            ]
+        }
+    },
+    "interactiveTools": [
+        {
+            "id": "dimension-check",
+            "icon": "ruler",
+            "title": "Será que cabe?",
+            "badge": "Teste Rápido",
+            "badgeColor": "orange",
+            "description": "Verifique se o robô passa debaixo dos seus móveis (altura: 7.5cm)",
+            "toolType": "geometry",
+            "configRef": "robo-passa-movel"
+        }
+    ]
+}

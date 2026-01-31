@@ -1,0 +1,75 @@
+{
+    "product": {
+        "name": "Smart TV 50 AOC 4K DLED 50U7045/78G Roku TV Quad",
+        "brand": "AOC",
+        "model": "50U7045/78G",
+        "categoryId": "tv"
+    },
+    "price": {
+        "valueBRL": 1592.10,
+        "observedAt": "2026-01-23",
+        "sourceUrl": "https://mercadolivre.com/sec/1nTuA8m",
+        "currency": "BRL"
+    },
+    "sources": [
+        {
+            "url": "https://mercadolivre.com/sec/1nTuA8m",
+            "accessedAt": "2026-01-23",
+            "type": "marketplace"
+        }
+    ],
+    "energy": {
+        "wattsTypical": 80,
+        "usageHoursPerDay": 5,
+        "sourceUrl": "https://www.mercadolivre.com.br/smart-tv-50-aoc-4k-dled-50u704578g-roku-tv-quad/p/MLB39456212"
+    },
+    "specs": {
+        "screenSize": 50,
+        "panelType": "DLED",
+        "resolution": "4K",
+        "refreshRate": 60,
+        "hdmiPorts": 3,
+        "hdmi21Ports": 0,
+        "hasVRR": false,
+        "hasALLM": false,
+        "hasDolbyVision": false,
+        "hasHDR10Plus": true,
+        "smartPlatform": "Roku TV",
+        "brightness": 300
+    },
+    "evidence": {
+        "specs.screenSize": {
+            "sourceUrl": "https://www.mercadolivre.com.br/smart-tv-50-aoc-4k-dled-50u704578g-roku-tv-quad/p/MLB",
+            "note": "50 polegadas (1.11m x 8.9cm x 65cm)"
+        },
+        "specs.panelType": {
+            "sourceUrl": "https://www.mercadolivre.com.br/smart-tv-50-aoc-4k-dled-50u704578g-roku-tv-quad/p/MLB",
+            "note": "DLED"
+        },
+        "specs.resolution": {
+            "sourceUrl": "https://www.mercadolivre.com.br/smart-tv-50-aoc-4k-dled-50u704578g-roku-tv-quad/p/MLB",
+            "note": "4K (3840 x 2160 pixels)"
+        },
+        "specs.refreshRate": {
+            "sourceUrl": "https://www.mercadolivre.com.br/smart-tv-50-aoc-4k-dled-50u704578g-roku-tv-quad/p/MLB",
+            "note": "60 Hz"
+        },
+        "specs.hdmiPorts": {
+            "sourceUrl": "https://www.mercadolivre.com.br/smart-tv-50-aoc-4k-dled-50u704578g-roku-tv-quad/p/MLB",
+            "note": "3 portas HDMI"
+        },
+        "specs.smartPlatform": {
+            "sourceUrl": "https://www.mercadolivre.com.br/smart-tv-50-aoc-4k-dled-50u704578g-roku-tv-quad/p/MLB",
+            "note": "Roku TV com assistente Roku"
+        },
+        "price.valueBRL": {
+            "sourceUrl": "https://www.mercadolivre.com.br/smart-tv-50-aoc-4k-dled-50u704578g-roku-tv-quad/p/MLB",
+            "note": "R$ 1.592,10 (58% OFF no Pix)"
+        }
+    },
+    "meta": {
+        "cadastradoPor": "opus-protocolo",
+        "cadastradoEm": "2026-01-23T20:53:00Z",
+        "notas": "2º mais vendido em Televisores, avaliação 4.9/5 com 2139 reviews. Dados da ficha técnica oficial ML."
+    }
+}

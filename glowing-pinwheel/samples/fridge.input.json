@@ -1,0 +1,49 @@
+{
+    "product": {
+        "name": "Brastemp BRM56 Frost Free Inverse 462L",
+        "brand": "Brastemp",
+        "model": "BRM56",
+        "categoryId": "fridge",
+        "asin": "B0CFRIDGEEXAMPLE"
+    },
+    "price": {
+        "valueBRL": 3899.00,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://www.amazon.com.br/dp/B0CFRIDGEEXAMPLE"
+    },
+    "sources": [
+        {
+            "url": "https://www.amazon.com.br/dp/B0CFRIDGEEXAMPLE",
+            "accessedAt": "2026-01-22",
+            "type": "amazon"
+        },
+        {
+            "url": "https://www.brastemp.com.br/geladeira-brm56",
+            "accessedAt": "2026-01-22",
+            "type": "manufacturer"
+        }
+    ],
+    "energy": {
+        "inmetroKwhYear": 360
+    },
+    "specs": {
+        "capacityLiters": 462,
+        "freezerCapacityLiters": 110,
+        "doorType": "bottom-freezer",
+        "hasFrostFree": true,
+        "hasInverter": true,
+        "voltage": "220v",
+        "energyClass": "A",
+        "hasIceMaker": false,
+        "hasWaterDispenser": false,
+        "noiseLevel": 39,
+        "width": 70,
+        "height": 185,
+        "depth": 72
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22T08:47:00-03:00",
+        "notas": "Exemplo de input para scaffold-product CLI - Geladeira"
+    }
+}

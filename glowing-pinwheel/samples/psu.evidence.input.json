@@ -1,0 +1,44 @@
+{
+    "product": {
+        "name": "Sample Psu Product",
+        "brand": "SampleBrand",
+        "model": "Model-001",
+        "categoryId": "psu",
+        "asin": "B0SAMPLE01"
+    },
+    "price": {
+        "valueBRL": 999,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://amazon.com.br/dp/B0SAMPLE01"
+    },
+    "sources": [
+        {
+            "url": "https://amazon.com.br/dp/B0SAMPLE01",
+            "type": "amazon"
+        },
+        {
+            "url": "https://manufacturer.com/sample",
+            "type": "manufacturer"
+        }
+    ],
+    "specs": {
+        "watts": "standard",
+        "efficiencyRating": "standard",
+        "isModular": true,
+        "hasAtx30": true
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22"
+    },
+    "evidence": {
+        "specs.watts": {
+            "sourceUrl": "https://manufacturer.com/sample",
+            "note": "Especificação oficial"
+        },
+        "specs.efficiencyRating": {
+            "sourceUrl": "https://manufacturer.com/sample",
+            "note": "Especificação oficial"
+        }
+    }
+}

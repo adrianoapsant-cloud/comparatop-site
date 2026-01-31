@@ -1,0 +1,45 @@
+{
+    "product": {
+        "name": "Fritadeira Air Fryer Mondial AFN-90",
+        "brand": "Mondial",
+        "model": "AFN-90",
+        "categoryId": "air-fryer",
+        "asin": "B09SAMPLE01"
+    },
+    "price": {
+        "valueBRL": 349.90,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://amazon.com.br/dp/B09SAMPLE01"
+    },
+    "sources": [
+        {
+            "url": "https://amazon.com.br/dp/B09SAMPLE01",
+            "type": "amazon"
+        },
+        {
+            "url": "https://mondial.com.br/afn-90",
+            "type": "manufacturer"
+        }
+    ],
+    "specs": {
+        "capacityLiters": 5.5,
+        "powerWatts": 1500,
+        "hasDigital": true,
+        "hasDualBasket": false,
+        "hasWindow": false
+    },
+    "evidence": {
+        "specs.capacityLiters": {
+            "sourceUrl": "https://mondial.com.br/afn-90",
+            "note": "Ficha técnica"
+        },
+        "specs.powerWatts": {
+            "sourceUrl": "https://mondial.com.br/afn-90",
+            "note": "Ficha técnica"
+        }
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22"
+    }
+}

@@ -144,6 +144,9 @@ export interface CategoryDefinition {
     /** Exactly 10 rating criteria for this category */
     criteria: RatingCriteria[];
 
+    /** Maturity level: 'production' (default) or 'stub' (P8 placeholder) */
+    maturity?: 'production' | 'stub';
+
     /** User profiles available for this category */
     profiles?: UserProfile[];
 }
@@ -197,6 +200,8 @@ export interface ProductOffer {
 export interface VoC {
     totalReviews: number;
     averageRating: number;
+    /** Approval percentage from community consensus (0-100). Stars = consensusScore / 20 */
+    consensusScore?: number;
     oneLiner: string;
     summary: string;
     pros: string[];
@@ -279,6 +284,16 @@ export interface Product {
     painPointsSolved?: string[];
 
     /**
+     * Context-specific score modifiers for contextual scoring.
+     * Keys correspond to context profile IDs (e.g., 'large_home', 'pet_owners').
+     * Values are score adjustments (-2.0 to +2.0).
+     * When present, these override global category modifiers.
+     * 
+     * @example Robot vacuum for small homes: { daily_maintenance: +0.5, large_home: -1.0, pet_owners: -0.3 }
+     */
+    contextModifiers?: Record<string, number>;
+
+    /**
      * Enhanced attributes for comparison engine.
      * Used by verdict engine for feature comparisons.
      * Boolean/numeric values for direct A vs B comparisons.
@@ -299,6 +314,12 @@ export interface Product {
      */
     specs?: Record<string, string | number | boolean>;
 
+    /**
+     * Category-specific structured specs (Zod-validated)
+     * Used by category modules for type-safe scoring and tag derivation
+     */
+    structuredSpecs?: unknown;
+
     /** Voice of Customer data */
     voc?: VoC;
 
@@ -310,6 +331,16 @@ export interface Product {
 
     /** Last editorial update */
     lastUpdated?: string; // ISO date
+
+    /** Real TCO (Total Cost of Ownership) data from engineering analysis */
+    tcoData?: {
+        purchasePrice: number;
+        energyCost5y: number;
+        maintenanceCost5y: number;
+        totalCost5y: number;
+        monthlyReserve: number;
+        lifespanYears: number;
+    };
 
     // ============================================
     // PDP (Product Detail Page) Fields
@@ -336,6 +367,12 @@ export interface Product {
     /** Direct rival for on-page comparison */
     mainCompetitor?: MainCompetitor;
 
+    /** When true, this product uses SimplifiedPDP as default (links include ?simplified=true) */
+    useSimplifiedPDP?: boolean;
+
+    /** Direct PDF manual URL (e.g., from Samsung Download Center) */
+    manualUrl?: string;
+
     // ============================================
     // CONTEXTUAL SCORING FIELDS
     // ============================================
@@ -345,6 +382,168 @@ export interface Product {
 
     /** Category slug for contextual scoring rules lookup */
     scoring_category?: string;
+
+    // ============================================
+    // RECOMMENDED ACCESSORY (Auto-found during scaffolding)
+    // ============================================
+
+    /** Recommended accessory product found during scaffolding */
+    recommendedAccessory?: {
+        /** Amazon ASIN of the accessory */
+        asin: string;
+        /** Full product name */
+        name: string;
+        /** Short display name */
+        shortName: string;
+        /** Current price */
+        price: number;
+        /** Product image URL */
+        imageUrl: string;
+        /** Reason for recommendation */
+        reason: string;
+        /** Persuasive bundle message for this product category */
+        bundleMessage?: string;
+        /** Affiliate URL for purchase */
+        affiliateUrl?: string;
+    };
+
+    // ============================================
+    // CONFIDENCE BAND / UNCERTAINTY FIELDS
+    // ============================================
+
+    /** Evidence level for trust display (product-level) */
+    evidenceLevel?: 'high' | 'medium' | 'low';
+
+    /** Last data update timestamp */
+    updatedAt?: string;
+
+    /** Contextual Score range (min, max) */
+    contextualScoreRange?: [number, number];
+
+    /** Contextual Score confidence level */
+    contextualScoreConfidence?: 'high' | 'medium' | 'low';
+
+    /** Contextual Score confidence note */
+    contextualScoreConfidenceNote?: string;
+
+    /** TCO total range (min, max) */
+    tcoTotalRange?: [number, number];
+
+    /** TCO confidence level */
+    tcoConfidence?: 'high' | 'medium' | 'low';
+
+    /** TCO confidence note */
+    tcoConfidenceNote?: string;
+
+    // ============================================
+    // EXTENDED PDP DATA (consolidated from mock JSON)
+    // ============================================
+
+    /** Product physical dimensions */
+    productDimensions?: {
+        diameter?: number;
+        height?: number;
+        width?: number;
+        depth?: number;
+    };
+
+    /** Header display data */
+    header?: {
+        overallScore: number;
+        scoreLabel: string;
+        title: string;
+        subtitle: string;
+        badges: Array<{ type: string; label: string; icon: string }>;
+    };
+
+    /** Extended Voice of Customer data */
+    extendedVoc?: {
+        consensusScore: number;
+        totalReviews: string;
+        acceptableFlaw: string;
+        realWorldScenario: string;
+        goldenTip: string;
+    };
+
+    /** Audit verdict sections */
+    auditVerdict?: {
+        solution: { title: string; icon: string; color: string; items: string[] };
+        attentionPoint: { title: string; icon: string; color: string; items: string[] };
+        technicalConclusion: { title: string; icon: string; color: string; text: string };
+        dontBuyIf: { title: string; icon: string; color: string; items: string[] };
+    };
+
+    /** Product DNA radar chart data */
+    productDna?: {
+        title: string;
+        subtitle: string;
+        dimensions: Array<{
+            id: string;
+            name: string;
+            shortName: string;
+            score: number;
+            weight: number;
+            icon: string;
+            color: string;
+            description: string;
+        }>;
+    };
+
+    /** Simulator alerts */
+    simulators?: {
+        sizeAlert?: { status: string; message: string; idealRange: { min: number; max: number } };
+        soundAlert?: { status: string; message: string; suggestions?: Array<{ condition: string; product: string; reason: string }> };
+        energyAlert?: { rating: string; message: string };
+    };
+
+    /** Extended TCO data with repairability */
+    extendedTco?: {
+        purchasePrice: number;
+        energyCost5y: number;
+        maintenanceCost5y: number;
+        totalCost5y: number;
+        monthlyReserve: number;
+        lifespan: {
+            years: number;
+            categoryAverage?: number;  // Optional - auto-fetched from category-constants.ts
+            limitingComponent: string;
+            limitingComponentLife: number;
+            weibullExplanation: string;
+        };
+        repairability: {
+            score: number;
+            level: string;
+            categoryAverage?: number;  // Optional - auto-fetched from category-constants.ts
+            components: Array<{
+                name: string;
+                score: number;
+                price: number;
+                availability: string;
+                failureSymptoms: string[];
+                repairAdvice: string;
+            }>;
+        };
+    };
+
+    /** Decision FAQ items */
+    decisionFAQ?: Array<{
+        id: string;
+        icon: string;
+        question: string;
+        answer: string;
+    }>;
+
+    /** Interactive tools configuration */
+    interactiveTools?: Array<{
+        id: string;
+        icon: string;
+        title: string;
+        badge: string;
+        badgeColor: string;
+        description: string;
+        toolType: string;
+        configRef: string;
+    }>;
 }
 
 /**
@@ -428,8 +627,8 @@ export interface MainCompetitor {
     price: number;
     /** Rival product score (0-10) */
     score?: number;
-    /** Top 3 key differences for mobile Battle Card */
-    keyDifferences: [KeyDifference, KeyDifference, KeyDifference];
+    /** Top 2-3 key differences for mobile Battle Card */
+    keyDifferences: KeyDifference[];
 }
 
 // ============================================

@@ -1,0 +1,342 @@
+{
+    "product": {
+        "id": "wap-robot-w1000",
+        "name": "WAP Robô Aspirador de Pó ROBOT W1000 Mapeamento GYRO",
+        "brand": "WAP",
+        "category": "robot-vacuum",
+        "releaseYear": 2026
+    },
+    "productDimensions": {
+        "diameter": 33,
+        "height": 7.5
+    },
+    "voc": {
+        "consensusScore": 89,
+        "totalReviews": "2.8k+",
+        "acceptableFlaw": "O mop estático não esfrega como modelos mais caros (S7/S8), apenas arrasta pano úmido — funciona bem para manutenção diária mas não remove manchas secas",
+        "realWorldScenario": "Donos de pets relatam redução de 80% no tempo de limpeza. Em apartamentos de até 100m², uma única carga resolve tudo sem supervisão",
+        "goldenTip": "Configure 2 passadas em áreas de alto tráfego no app. O robô aprende e otimiza a rota automaticamente após 3 limpezas"
+    },
+    "header": {
+        "overallScore": 7,
+        "scoreLabel": "Bom",
+        "title": "WAP Robô Aspirador de Pó ROBOT W1000 Mapeamento GYRO",
+        "subtitle": "TODO: Preencher subtitle editorial para WAP",
+        "badges": []
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "TODO: Preencher pontos positivos"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "TODO: Preencher pontos de atenção"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "TODO: Preencher conclusão técnica editorial"
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "TODO: Preencher contra-indicações"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões PARR-BR para Robôs Aspiradores",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Navegação & Mapeamento",
+                "shortName": "Navegação",
+                "score": 9.5,
+                "weight": 0.25,
+                "icon": "radar",
+                "color": "cyan",
+                "description": "PREMIUM: LiDAR de alta precisão com mapeamento 3D. Zonas de restrição inteligentes."
+            },
+            {
+                "id": "c2",
+                "name": "Software & Conectividade",
+                "shortName": "App/Voz",
+                "score": 9,
+                "weight": 0.15,
+                "icon": "smartphone",
+                "color": "purple",
+                "description": "App Roborock é referência. Mapa interativo, agendamento, Alexa/Google."
+            },
+            {
+                "id": "c3",
+                "name": "Sistema de Mop",
+                "shortName": "Mop",
+                "score": 7,
+                "weight": 0.15,
+                "icon": "droplet",
+                "color": "blue",
+                "description": "LIMITAÇÃO: Mop estático arrasta pano. NÃO é vibratório como S7/S8."
+            },
+            {
+                "id": "c4",
+                "name": "Engenharia de Escovas",
+                "shortName": "Escovas",
+                "score": 9,
+                "weight": 0.1,
+                "icon": "sparkles",
+                "color": "emerald",
+                "description": "DESTAQUE PETS: Escovas duplas de borracha anti-emaranhamento!"
+            },
+            {
+                "id": "c5",
+                "name": "Altura e Acessibilidade",
+                "shortName": "Altura",
+                "score": 7.5,
+                "weight": 0.1,
+                "icon": "ruler",
+                "color": "orange",
+                "description": "9.8cm por causa da torre LiDAR. Pode travar em alguns móveis planejados."
+            },
+            {
+                "id": "c6",
+                "name": "Manutenibilidade",
+                "shortName": "Peças",
+                "score": 6,
+                "weight": 0.08,
+                "icon": "wrench",
+                "color": "slate",
+                "description": "Peças de reposição via importação. Disponibilidade pode variar."
+            },
+            {
+                "id": "c7",
+                "name": "Bateria e Autonomia",
+                "shortName": "Bateria",
+                "score": 9,
+                "weight": 0.05,
+                "icon": "battery",
+                "color": "green",
+                "description": "EXCELENTE: 150min + Recharge & Resume. Casas grandes sem problemas."
+            },
+            {
+                "id": "c8",
+                "name": "Acústica",
+                "shortName": "Ruído",
+                "score": 7,
+                "weight": 0.05,
+                "icon": "volume2",
+                "color": "amber",
+                "description": "Ruído médio (~65dB). Equiparável à concorrência."
+            },
+            {
+                "id": "c9",
+                "name": "Base de Carregamento",
+                "shortName": "Base",
+                "score": 5,
+                "weight": 0.05,
+                "icon": "home",
+                "color": "red",
+                "description": "BÁSICO: Base apenas carrega. Para autoesvaziamento, considere Q7 Max+."
+            },
+            {
+                "id": "c10",
+                "name": "Recursos de IA",
+                "shortName": "IA",
+                "score": 8,
+                "weight": 0.02,
+                "icon": "brain",
+                "color": "pink",
+                "description": "Sensores 3D detectam obstáculos. Boa IA, não câmera como S8 Pro Ultra."
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "status": "warning",
+            "message": "Com 9.8cm de altura (torre LiDAR), o Q7 L5 precisa de vãos de pelo menos 10cm para passar sob móveis. Meça seus sofás e camas antes de comprar.",
+            "idealRange": {
+                "min": 6,
+                "max": 9
+            }
+        },
+        "soundAlert": {
+            "status": "acceptable",
+            "message": "O mop do Q7 L5 é estático: apenas arrasta um pano úmido. Para manchas secas, você ainda precisará de mop manual. Ideal para manutenção diária após a aspiração.",
+            "suggestions": [
+                {
+                    "condition": "Para manchas pesadas",
+                    "product": "Roborock S7/S8 com Sonic Mop",
+                    "reason": "Vibração de 3000rpm remove sujeira incrustada"
+                },
+                {
+                    "condition": "Para pisos de madeira",
+                    "product": "Usar modo 'baixo fluxo' no app",
+                    "reason": "Evita excesso de água que danifica madeira"
+                }
+            ]
+        },
+        "energyAlert": {
+            "rating": "A",
+            "message": "Consumo de ~30W durante operação. Custo mensal estimado de R$ 2-3 na conta de luz com uso diário."
+        }
+    },
+    "decisionFAQ": [
+        {
+            "id": "placeholder",
+            "icon": "HelpCircle",
+            "question": "TODO: Preencher FAQ 1",
+            "answer": "TODO: Preencher resposta"
+        }
+    ],
+    "tco": {
+        "purchasePrice": 2106,
+        "energyCost5y": 414,
+        "maintenanceCost5y": 2021,
+        "totalCost5y": 3607,
+        "monthlyReserve": 41,
+        "lifespan": {
+            "years": 3,
+            "categoryAverage": 7,
+            "limitingComponent": "Bateria Li-ion Premium (5200mAh)",
+            "limitingComponentLife": 3.4,
+            "weibullExplanation": "Baseado em uso médio de 4h/dia (1.460h/ano), a bateria Li-ion de 5200mAh tem vida útil estimada de 3.4 anos segundo a distribuição Weibull (η=3.4, 90% dos aparelhos chegam a essa marca). O componente limitante define a vida útil total do produto."
+        },
+        "repairability": {
+            "score": 5.7,
+            "level": "moderate",
+            "categoryAverage": 6.5,
+            "components": [
+                {
+                    "name": "Placa Principal Smart (com LiDAR)",
+                    "score": 2,
+                    "price": 800,
+                    "availability": "scarce",
+                    "failureSymptoms": [
+                        "Falha não especificada"
+                    ],
+                    "repairAdvice": "Se esse componente falhar, o custo do reparo pode ser alto — depende da região e assistência"
+                },
+                {
+                    "name": "Sensor LiDAR (Torre LDS)",
+                    "score": 4,
+                    "price": 750,
+                    "availability": "limited",
+                    "failureSymptoms": [
+                        "Anda em círculos",
+                        "Mapa não fecha / erro de mapa",
+                        "Erro LDS / torre não gira",
+                        "Perde localização constantemente"
+                    ],
+                    "repairAdvice": "Reparo possível, avaliar custo-benefício"
+                },
+                {
+                    "name": "Motor de Sucção Brushless Premium (Nidec)",
+                    "score": 5,
+                    "price": 650,
+                    "availability": "limited",
+                    "failureSymptoms": [
+                        "Robô não aspira",
+                        "Ruído muito alto",
+                        "Perda de potência"
+                    ],
+                    "repairAdvice": "Reparo possível, avaliar custo-benefício"
+                },
+                {
+                    "name": "Bateria Li-ion Premium (5200mAh)",
+                    "score": 7,
+                    "price": 499,
+                    "availability": "available",
+                    "failureSymptoms": [
+                        "Autonomia reduzida",
+                        "Não carrega",
+                        "Desliga durante limpeza"
+                    ],
+                    "repairAdvice": "Peça disponível em marketplaces, troca relativamente simples"
+                },
+                {
+                    "name": "Rodas e Sistema de Tração",
+                    "score": 8,
+                    "price": 180,
+                    "availability": "available",
+                    "failureSymptoms": [
+                        "Robô não anda",
+                        "Anda em círculos",
+                        "Roda travada"
+                    ],
+                    "repairAdvice": "Peças disponíveis, reparo DIY possível"
+                },
+                {
+                    "name": "Escovas Duplas Anti-Emaranhamento",
+                    "score": 9,
+                    "price": 89,
+                    "availability": "available",
+                    "failureSymptoms": [
+                        "Escova travada",
+                        "Ruído na escova",
+                        "Perda de sucção em carpetes"
+                    ],
+                    "repairAdvice": "Peça de reposição comum, troca fácil"
+                },
+                {
+                    "name": "Filtro HEPA Lavável",
+                    "score": 10,
+                    "price": 45,
+                    "availability": "available",
+                    "failureSymptoms": [
+                        "Perda de sucção",
+                        "Poeira escapando"
+                    ],
+                    "repairAdvice": "Consumível, recomendado trocar a cada 6 meses"
+                }
+            ]
+        }
+    },
+    "interactiveTools": [
+        {
+            "id": "dimension-check",
+            "icon": "ruler",
+            "title": "Será que cabe?",
+            "badge": "Teste Rápido",
+            "badgeColor": "orange",
+            "description": "Verifique se o robô passa debaixo dos seus móveis",
+            "toolType": "geometry",
+            "configRef": "robo-passa-movel"
+        },
+        {
+            "id": "cleaning-area-calc",
+            "icon": "maximize",
+            "title": "Cobertura de Limpeza",
+            "badge": "Simulador",
+            "badgeColor": "blue",
+            "description": "Calcule quantos cômodos o robô consegue limpar por carga",
+            "toolType": "calculator",
+            "configRef": "robo-cobertura-limpeza"
+        }
+    ],
+    "meta": {
+        "scaffold": {
+            "generatedAt": "2026-01-28T11:34:43.216Z",
+            "rawInputHash": "e72781c1",
+            "categoryId": "robot-vacuum",
+            "derivedEnergy": {
+                "source": "wattsUsage",
+                "kwhMonth": 1.44,
+                "calculation": "32W × 1.5h/dia × 30 dias ÷ 1000 = 1.44 kWh/mês"
+            },
+            "firedRulesCount": 1,
+            "status": "draft"
+        }
+    }
+}

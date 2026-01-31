@@ -1,3 +1,4 @@
 export { AuditVerdictSection } from './AuditVerdictSection';
 export { ProductDnaSection } from './ProductDnaSection';
-export { SimulatorsSection } from './SimulatorsSection';
+export { SmartAlertsSection, SmartAlertsSection as SimulatorsSection } from './SmartAlertsSection';
+export { SimplifiedPDP } from './SimplifiedPDP';

@@ -8,6 +8,7 @@
  */
 
 import type { CategoryDefinition } from '@/types/category';
+import { applyPlaybooksToCategories } from '@/lib/playbook-integration';
 
 // ============================================
 // SMART TVs
@@ -2374,9 +2375,9 @@ export const DRILL_CATEGORY: CategoryDefinition = {
 // ============================================
 
 /**
- * All available categories indexed by ID
+ * All available categories indexed by ID (raw, without playbooks)
  */
-export const CATEGORIES: Record<string, CategoryDefinition> = {
+const RAW_CATEGORIES: Record<string, CategoryDefinition> = {
     tv: TV_CATEGORY,
     fridge: FRIDGE_CATEGORY,
     laptop: LAPTOP_CATEGORY,
@@ -2431,6 +2432,14 @@ export const CATEGORIES: Record<string, CategoryDefinition> = {
     pressure_washer: PRESSURE_WASHER_CATEGORY,
     drill: DRILL_CATEGORY,
 };
+
+/**
+ * P15.1: CATEGORIES with playbooks applied (labels/weights from "10 dores.txt")
+ * 
+ * For categories with playbooks (tv, smartphone, fridge), labels and weights
+ * are overridden from the playbook. Other categories keep original values.
+ */
+export const CATEGORIES: Record<string, CategoryDefinition> = applyPlaybooksToCategories(RAW_CATEGORIES);
 
 /**
  * Get a category by ID

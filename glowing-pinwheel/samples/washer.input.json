@@ -1,0 +1,43 @@
+{
+    "product": {
+        "name": "Electrolux Premium Care 13kg Front Load LFE13",
+        "brand": "Electrolux",
+        "model": "LFE13",
+        "categoryId": "washer",
+        "asin": "B0DEMO00002"
+    },
+    "price": {
+        "valueBRL": 3899.00,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://amazon.com.br/dp/B0DEMO00002"
+    },
+    "sources": [
+        {
+            "url": "https://amazon.com.br/dp/B0DEMO00002",
+            "type": "amazon"
+        },
+        {
+            "url": "https://electrolux.com.br/lfe13",
+            "type": "manufacturer"
+        }
+    ],
+    "energy": {
+        "inmetroKwhYear": 156
+    },
+    "specs": {
+        "capacityKg": 13,
+        "hasInverter": true,
+        "voltage": "220V",
+        "spinRpm": 1400,
+        "washPrograms": 14,
+        "hasDryer": false,
+        "hasWifi": true,
+        "noiseDb": 52,
+        "energyClass": "A",
+        "waterConsumptionL": 52
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22"
+    }
+}

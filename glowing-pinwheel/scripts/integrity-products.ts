@@ -20,6 +20,7 @@ async function main() {
         const { CATEGORIES } = await import('../src/data/categories');
         const { validateProduct } = await import('../src/lib/schemas/product');
         const { toProductVM } = await import('../src/lib/viewmodels/productVM');
+        const { validateCategoryAttributes } = await import('../src/lib/schemas/categories');
 
         const validCategoryIds = new Set(Object.keys(CATEGORIES));
         const slugsSeen = new Set<string>();
@@ -129,6 +130,58 @@ async function main() {
                         status: productStatus,
                     });
                 }
+            }
+
+            // 6. Verificar atributos específicos da categoria
+            const categoryAttrsResult = validateCategoryAttributes(
+                categoryId || '',
+                (product as { attributes?: unknown }).attributes,
+                (product as { specs?: unknown }).specs
+            );
+
+            let hasAttrError = false;
+            let hasAttrWarn = false;
+
+            // Processar ERRORS de atributos
+            for (const err of categoryAttrsResult.errors) {
+                // Se published: ERROR. Se draft: WARNING
+                if (productStatus === 'published') {
+                    issues.push({
+                        id: productId,
+                        type: 'error',
+                        code: 'CATEGORY_ATTR_MISSING',
+                        message: `${err.path}: ${err.msg}`,
+                        status: productStatus,
+                    });
+                    hasAttrError = true;
+                } else {
+                    issues.push({
+                        id: productId,
+                        type: 'warning',
+                        code: 'CATEGORY_ATTR_MISSING',
+                        message: `${err.path}: ${err.msg}`,
+                        status: productStatus,
+                    });
+                    hasAttrWarn = true;
+                }
+            }
+
+            // Processar WARNINGS de atributos
+            for (const warn of categoryAttrsResult.warnings) {
+                issues.push({
+                    id: productId,
+                    type: 'warning',
+                    code: 'CATEGORY_ATTR_RECOMMENDED',
+                    message: `${warn.path}: ${warn.msg}`,
+                    status: productStatus,
+                });
+                hasAttrWarn = true;
+            }
+
+            // Atualizar contadores
+            if (hasAttrError && productStatus === 'published') {
+                publishedFailCount++;
+            } else if (vm.health === 'WARN' || hasAttrWarn) {
                 if (productStatus === 'published') {
                     publishedWarnCount++;
                 } else {

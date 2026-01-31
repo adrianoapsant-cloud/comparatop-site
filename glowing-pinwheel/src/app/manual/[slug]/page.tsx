@@ -58,22 +58,63 @@ export default async function ManualPage({ params }: { params: Promise<{ slug: s
     const manualInfo = getManualData(slug, product.brand);
     const hasPdf = hasDirectPdfDownload(slug);
 
+    // Category-specific manual topics
+    const getManualTopics = (categoryId: string) => {
+        switch (categoryId) {
+            case 'robot-vacuum':
+                return [
+                    'Instalação e Configuração Inicial',
+                    'Conexão com Wi-Fi e Aplicativo',
+                    'Mapeamento e Zonas de Limpeza',
+                    'Manutenção e Limpeza de Escovas',
+                    'Solução de Problemas',
+                    'Especificações Técnicas',
+                    'Informações de Garantia',
+                ];
+            case 'tv':
+                return [
+                    'Instalação e Configuração Inicial',
+                    'Conectividade (HDMI, USB, Wi-Fi)',
+                    'Ajustes de Imagem e Som',
+                    'Aplicativos e Smart Features',
+                    'Solução de Problemas',
+                    'Especificações Técnicas',
+                    'Informações de Garantia',
+                ];
+            case 'smartwatch':
+                return [
+                    'Instalação e Pareamento',
+                    'Configuração do Aplicativo',
+                    'Monitoramento de Saúde',
+                    'Personalização de Mostradores',
+                    'Solução de Problemas',
+                    'Especificações Técnicas',
+                    'Informações de Garantia',
+                ];
+            default:
+                return [
+                    'Instalação e Configuração Inicial',
+                    'Guia de Uso',
+                    'Funcionalidades Principais',
+                    'Manutenção e Cuidados',
+                    'Solução de Problemas',
+                    'Especificações Técnicas',
+                    'Informações de Garantia',
+                ];
+        }
+    };
+
+    // SIMPLIFIED: Use product.manualUrl directly if available, else fallback to MANUAL_DATA
+    const pdfUrl = product.manualUrl || manualInfo.pdfUrl;
+
     const manualData = {
-        pdfUrl: manualInfo.pdfUrl,
-        supportUrl: manualInfo.supportUrl,
+        pdfUrl,
+        supportUrl: pdfUrl || manualInfo.supportUrl, // If we have PDF, use it as the "support" link too
         language: manualInfo.language || 'Português (Brasil)',
         pages: manualInfo.pages,
         fileSize: manualInfo.fileSize,
         lastUpdated: manualInfo.lastUpdated || '2024',
-        topics: [
-            'Instalação e Configuração Inicial',
-            'Conectividade (HDMI, USB, Wi-Fi)',
-            'Ajustes de Imagem e Som',
-            'Aplicativos e Smart Features',
-            'Solução de Problemas',
-            'Especificações Técnicas',
-            'Informações de Garantia',
-        ],
+        topics: getManualTopics(product.categoryId),
     };
 
     return (
@@ -183,25 +224,8 @@ export default async function ManualPage({ params }: { params: Promise<{ slug: s
                                 </a>
                             )}
 
-                            {/* Official Support Page */}
-                            <a
-                                href={manualData.supportUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={cn(
-                                    'w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg',
-                                    manualData.pdfUrl
-                                        ? 'border border-gray-300 text-text-secondary hover:bg-gray-50'
-                                        : 'bg-brand-core hover:bg-brand-core/90 text-white',
-                                    'font-semibold transition-colors'
-                                )}
-                            >
-                                <ExternalLink size={18} />
-                                {manualData.pdfUrl ? 'Abrir Suporte Oficial' : 'Ver no Site do Fabricante'}
-                            </a>
-
                             <p className="text-xs text-text-muted text-center">
-                                🔒 Links seguros para o site oficial do fabricante
+                                🔒 Link seguro para o manual oficial do fabricante
                             </p>
                         </div>
 
@@ -249,7 +273,17 @@ export default async function ManualPage({ params }: { params: Promise<{ slug: s
                                     Ver Análise Completa
                                 </Link>
                                 <a
-                                    href={`https://amazon.com.br/s?k=${encodeURIComponent(product.name)}&tag=comparatop-20`}
+                                    href={(() => {
+                                        // Use affiliate URL from Amazon offer if available, else fallback to first offer
+                                        const amazonOffer = product.offers?.find(o =>
+                                            o.storeSlug === 'amazon' || o.store?.toLowerCase() === 'amazon'
+                                        );
+                                        return amazonOffer?.affiliateUrl ||
+                                            amazonOffer?.url ||
+                                            product.offers?.[0]?.affiliateUrl ||
+                                            product.offers?.[0]?.url ||
+                                            `https://amazon.com.br/s?k=${encodeURIComponent(product.name)}&tag=comparatop-20`;
+                                    })()}
                                     target="_blank"
                                     rel="nofollow sponsored noopener noreferrer"
                                     className={cn(
@@ -284,9 +318,12 @@ export default async function ManualPage({ params }: { params: Promise<{ slug: s
                                 Controle remoto, cabos ou acessórios compatíveis.
                             </p>
                             <a
-                                href={`https://amazon.com.br/s?k=${encodeURIComponent(`${product.brand} acessorios`)}`}
+                                href={
+                                    product.recommendedAccessory?.affiliateUrl ||
+                                    `https://amazon.com.br/s?k=${encodeURIComponent(`${product.brand} acessorios`)}&tag=comparatop-20`
+                                }
                                 target="_blank"
-                                rel="noopener noreferrer"
+                                rel="nofollow sponsored noopener noreferrer"
                                 className={cn(
                                     'w-full flex items-center justify-center gap-2 py-2 rounded-lg',
                                     'border border-amber-400 bg-white hover:bg-amber-100',
@@ -307,7 +344,7 @@ export default async function ManualPage({ params }: { params: Promise<{ slug: s
                                 Conheça modelos mais recentes com tecnologias aprimoradas.
                             </p>
                             <Link
-                                href={`/categoria/${product.categoryId}`}
+                                href={`/categorias/${product.categoryId === 'robot-vacuum' ? 'aspiradores' : product.categoryId}`}
                                 className={cn(
                                     'w-full flex items-center justify-center gap-2 py-2 rounded-lg',
                                     'border border-blue-400 bg-white hover:bg-blue-100',

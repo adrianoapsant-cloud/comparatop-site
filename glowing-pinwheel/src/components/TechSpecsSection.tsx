@@ -1,6 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
+import { ModuleFallback } from '@/components/pdp/ModuleFallback';
 import type { BenchmarkScore } from '@/types/category';
 
 // ============================================
@@ -103,7 +104,16 @@ interface TechSpecsSectionProps {
 }
 
 export function TechSpecsSection({ benchmarks, className }: TechSpecsSectionProps) {
-    if (!benchmarks || benchmarks.length === 0) return null;
+    if (!benchmarks || benchmarks.length === 0) {
+        return (
+            <ModuleFallback
+                sectionId="tech_specs"
+                sectionName="Especificações Técnicas"
+                status="unavailable"
+                reason="Dados de benchmark não disponíveis para este produto"
+            />
+        );
+    }
 
     // Icon mapping for common specs
     const specIcons: Record<string, string> = {

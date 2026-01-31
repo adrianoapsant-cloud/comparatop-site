@@ -14,34 +14,26 @@ const iconMap = {
     xCircle: XCircle,
 };
 
-// Light theme color map (matching AuditVerdict.tsx style)
-const colorMap = {
+// CT Semantic class map - Audit Style (border-left + subtle tint)
+const ctClassMap = {
     emerald: {
-        bg: 'bg-emerald-50',
-        border: 'border-emerald-500',
-        textTitle: 'text-emerald-800',
-        textBody: 'text-emerald-700',
+        callout: 'ct-callout ct-callout--success',
+        badge: 'ct-badge ct-badge--success',
         icon: 'text-emerald-600',
     },
     amber: {
-        bg: 'bg-amber-50',
-        border: 'border-amber-500',
-        textTitle: 'text-amber-800',
-        textBody: 'text-amber-700',
+        callout: 'ct-callout ct-callout--warning',
+        badge: 'ct-badge ct-badge--warning',
         icon: 'text-amber-600',
     },
     blue: {
-        bg: 'bg-slate-100',
-        border: 'border-slate-400',
-        textTitle: 'text-slate-700',
-        textBody: 'text-slate-600',
+        callout: 'ct-callout ct-callout--info',
+        badge: 'ct-badge ct-badge--info',
         icon: 'text-slate-600',
     },
     red: {
-        bg: 'bg-red-50',
-        border: 'border-red-400',
-        textTitle: 'text-red-800',
-        textBody: 'text-red-700',
+        callout: 'ct-callout ct-callout--danger',
+        badge: 'ct-badge ct-badge--danger',
         icon: 'text-red-600',
     },
 };
@@ -58,24 +50,29 @@ function VerdictCard({
 }: {
     title: string;
     icon: string;
-    color: keyof typeof colorMap;
+    color: keyof typeof ctClassMap;
     items: string[];
 }) {
     const IconComponent = iconMap[icon as keyof typeof iconMap] || CheckCircle;
-    const colors = colorMap[color];
+    const ctClasses = ctClassMap[color] || ctClassMap.blue;
 
     return (
-        <div className={`${colors.bg} border-l-4 ${colors.border} rounded-r-lg p-4 h-full`}>
+        <div className={`${ctClasses.callout} h-full`}>
             <div className="flex items-start gap-3">
-                <IconComponent size={20} className={`${colors.icon} flex-shrink-0 mt-0.5`} />
+                <IconComponent size={20} className={`${ctClasses.icon} flex-shrink-0 mt-0.5`} />
                 <div>
-                    <h3 className={`font-semibold ${colors.textTitle} text-sm mb-2`}>
-                        {icon === 'checkCircle' && '✓ '}{title}
+                    <h3 className="font-semibold text-ct-text text-sm mb-2">
+                        <span className={`${ctClasses.badge} mr-2`}>
+                            {icon === 'checkCircle' && '✓ '}
+                            {icon === 'alertTriangle' && '⚠ '}
+                            {icon === 'xCircle' && '✕ '}
+                            {title.toUpperCase()}
+                        </span>
                     </h3>
                     <ul className="space-y-1">
                         {items.map((item, idx) => (
-                            <li key={idx} className={`text-sm ${colors.textBody} flex items-start gap-2`}>
-                                <span className={`mt-1.5 w-1.5 h-1.5 rounded-full ${colors.icon} flex-shrink-0`} style={{ backgroundColor: 'currentColor' }} />
+                            <li key={idx} className="text-sm text-ct-text flex items-start gap-2">
+                                <span className={`mt-1.5 w-1.5 h-1.5 rounded-full ${ctClasses.icon} flex-shrink-0`} style={{ backgroundColor: 'currentColor' }} />
                                 {item}
                             </li>
                         ))}
@@ -93,19 +90,19 @@ function TechnicalConclusionCard({
 }: {
     title: string;
     text: string;
-    color: keyof typeof colorMap;
+    color: keyof typeof ctClassMap;
 }) {
-    const colors = colorMap[color];
+    const ctClasses = ctClassMap[color] || ctClassMap.blue;
 
     return (
-        <div className={`${colors.bg} border-l-4 ${colors.border} rounded-r-lg p-4 h-full`}>
+        <div className={`${ctClasses.callout} h-full`}>
             <div className="flex items-start gap-3">
-                <Clipboard size={20} className={`${colors.icon} flex-shrink-0 mt-0.5`} />
+                <Clipboard size={20} className={`${ctClasses.icon} flex-shrink-0 mt-0.5`} />
                 <div>
-                    <h3 className={`font-semibold ${colors.textTitle} text-sm mb-1`}>
-                        {title}
+                    <h3 className="font-semibold text-ct-text text-sm mb-1">
+                        <span className={`${ctClasses.badge}`}>{title.toUpperCase()}</span>
                     </h3>
-                    <p className={`text-sm ${colors.textBody} leading-relaxed`}>{text}</p>
+                    <p className="text-sm text-ct-text leading-relaxed mt-2">{text}</p>
                 </div>
             </div>
         </div>
@@ -147,7 +144,7 @@ export function AuditVerdictSection({ data }: AuditVerdictSectionProps) {
                 <TechnicalConclusionCard
                     title={data.technicalConclusion.title}
                     text={data.technicalConclusion.text}
-                    color={data.technicalConclusion.color as keyof typeof colorMap}
+                    color={data.technicalConclusion.color as keyof typeof ctClassMap}
                 />
 
                 {/* Não Compre Se */}
@@ -186,7 +183,7 @@ export function AuditVerdictSection({ data }: AuditVerdictSectionProps) {
                         <TechnicalConclusionCard
                             title={data.technicalConclusion.title}
                             text={data.technicalConclusion.text}
-                            color={data.technicalConclusion.color as keyof typeof colorMap}
+                            color={data.technicalConclusion.color as keyof typeof ctClassMap}
                         />
                         <VerdictCard
                             title={data.dontBuyIf.title}

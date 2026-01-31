@@ -17,6 +17,7 @@ import { calculateTotalTco, formatBRL } from '@/lib/tco';
 import { RiskShield } from '../risk-shield';
 import { Tooltip } from '@/components/ui/Tooltip';
 import { SmartAlertButton } from '../smart-alert-button';
+import { useComparison } from '@/contexts/ComparisonContext';
 
 // ============================================
 // TYPES
@@ -64,48 +65,91 @@ function FeatureBadge({
 function ProductCell({ product }: { product: ProductTcoData }) {
     // Use product.id as slug for the product page
     const productSlug = product.id;
+    const { addProduct, removeProduct, isSelected } = useComparison();
+    const selected = isSelected(product.id);
+
+    const handleCompareToggle = () => {
+        if (selected) {
+            removeProduct(product.id);
+        } else {
+            addProduct({
+                id: product.id,
+                name: product.name,
+                shortName: product.name,
+                imageUrl: product.imageUrl,
+                price: product.price,
+                categoryId: '',
+            });
+        }
+    };
 
     return (
-        <div className="flex flex-col gap-1 py-1">
-            {/* Brand */}
-            <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">
-                {product.brand}
-            </span>
+        <div className="flex items-center gap-3 py-1">
+            {/* Product Image + Compare Button */}
+            <div className="flex flex-col items-center gap-1">
+                <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-gray-100">
+                    {product.imageUrl ? (
+                        <img
+                            src={product.imageUrl}
+                            alt={product.name}
+                            className="w-full h-full object-contain"
+                        />
+                    ) : (
+                        <div className="w-full h-full flex items-center justify-center text-gray-400">
+                            <Award className="w-6 h-6" />
+                        </div>
+                    )}
+                </div>
+                {/* Compare Button */}
+                <button
+                    onClick={handleCompareToggle}
+                    className={cn(
+                        'w-12 py-0.5 rounded text-xs font-semibold transition-colors',
+                        selected
+                            ? 'bg-emerald-100 text-emerald-700 border border-emerald-300'
+                            : 'bg-gray-100 text-gray-600 hover:bg-blue-100 hover:text-blue-700'
+                    )}
+                    title={selected ? 'Remover da comparação' : 'Adicionar à comparação'}
+                >
+                    {selected ? '✓' : '+'}
+                </button>
+            </div>
 
-            {/* Name - Clickable Link */}
-            <Link
-                href={`/produto/${productSlug}`}
-                className="font-medium text-gray-900 hover:text-blue-600 hover:underline transition-colors"
-            >
-                {product.name}
-            </Link>
+            {/* Product Info */}
+            <div className="flex flex-col gap-0.5 min-w-0">
+                {/* Brand */}
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {product.brand}
+                </span>
 
-            {/* Feature badges */}
-            <div className="flex gap-1 mt-0.5">
-                <FeatureBadge
-                    show={product.features.gaming}
-                    icon={<Zap className="w-3 h-3" />}
-                    label="Gaming"
-                    color="bg-violet-100 text-violet-700"
-                />
-                <FeatureBadge
-                    show={product.features.energyEfficient}
-                    icon={<Leaf className="w-3 h-3" />}
-                    label="Eco"
-                    color="bg-emerald-100 text-emerald-700"
-                />
-                <FeatureBadge
-                    show={product.features.familyFriendly}
-                    icon={<Users className="w-3 h-3" />}
-                    label="Família"
-                    color="bg-blue-100 text-blue-700"
-                />
-                <FeatureBadge
-                    show={product.features.premiumBrand}
-                    icon={<Award className="w-3 h-3" />}
-                    label="Premium"
-                    color="bg-amber-100 text-amber-700"
-                />
+                {/* Name - Clickable Link (truncated) */}
+                <Link
+                    href={`/produto/${productSlug}`}
+                    className="font-medium text-gray-900 hover:text-blue-600 hover:underline transition-colors line-clamp-2"
+                    title={product.name}
+                >
+                    {product.name}
+                </Link>
+
+                {/* Feature badges - 10 PARR-BR criteria as user profiles (2 rows of 5) */}
+                <div className="flex flex-col gap-0.5 mt-0.5">
+                    {/* Row 1: c1-c5 (Quality & Structure) */}
+                    <div className="flex gap-1 flex-wrap">
+                        <FeatureBadge show={(product as any).profileBadges?.c1} icon={<span className="text-[10px]">🏠</span>} label="Casa Grande" color="bg-violet-100 text-violet-700" />
+                        <FeatureBadge show={(product as any).profileBadges?.c2} icon={<span className="text-[10px]">📱</span>} label="Smart" color="bg-emerald-100 text-emerald-700" />
+                        <FeatureBadge show={(product as any).profileBadges?.c3} icon={<span className="text-[10px]">💧</span>} label="Mop" color="bg-blue-100 text-blue-700" />
+                        <FeatureBadge show={(product as any).profileBadges?.c4} icon={<span className="text-[10px]">🐕</span>} label="Pets" color="bg-amber-100 text-amber-700" />
+                        <FeatureBadge show={(product as any).profileBadges?.c5} icon={<span className="text-[10px]">📐</span>} label="Compacto" color="bg-pink-100 text-pink-700" />
+                    </div>
+                    {/* Row 2: c6-c10 (Maintenance & Extras) */}
+                    <div className="flex gap-1 flex-wrap">
+                        <FeatureBadge show={(product as any).profileBadges?.c6} icon={<span className="text-[10px]">🔧</span>} label="Fácil Manut" color="bg-gray-100 text-gray-700" />
+                        <FeatureBadge show={(product as any).profileBadges?.c7} icon={<span className="text-[10px]">🔋</span>} label="Bateria+" color="bg-green-100 text-green-700" />
+                        <FeatureBadge show={(product as any).profileBadges?.c8} icon={<span className="text-[10px]">🔇</span>} label="Silencioso" color="bg-indigo-100 text-indigo-700" />
+                        <FeatureBadge show={(product as any).profileBadges?.c9} icon={<span className="text-[10px]">🏠</span>} label="Auto-Dock" color="bg-cyan-100 text-cyan-700" />
+                        <FeatureBadge show={(product as any).profileBadges?.c10} icon={<span className="text-[10px]">🤖</span>} label="IA" color="bg-rose-100 text-rose-700" />
+                    </div>
+                </div>
             </div>
         </div>
     );
@@ -293,6 +337,30 @@ export function createColumns(config: ColumnConfig): ColumnDef<ProductTcoData>[]
             enableGlobalFilter: true,
         },
 
+        // Column: Nota ComparaTop (editorial score - first evaluation criterion)
+        {
+            id: 'notaComparatop',
+            accessorFn: (row) => row.technicalScore ?? row.editorialScore ?? 7.0,
+            header: ({ column }) => (
+                <button
+                    className="flex items-center gap-1 font-semibold text-emerald-700 hover:text-emerald-900"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+                >
+                    Nota
+                    <ArrowUpDown className="w-4 h-4 text-emerald-400" />
+                </button>
+            ),
+            cell: ({ row }) => {
+                const score = row.original.technicalScore ?? row.original.editorialScore ?? 7.0;
+                return (
+                    <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-sm font-bold">
+                        {score.toFixed(1)}
+                    </span>
+                );
+            },
+            enableSorting: true,
+        },
+
         // Column: Score (Community Stars or Technical Badge)
         {
             id: 'score',
@@ -324,6 +392,29 @@ export function createColumns(config: ColumnConfig): ColumnDef<ProductTcoData>[]
                     scoreView={scoreView}
                 />
             ),
+            enableSorting: true,
+        },
+
+        // Column: Match (only shows value when filter is active)
+        {
+            id: 'match',
+            accessorFn: (row) => row.matchScore ?? 0,
+            header: () => <span className="font-semibold text-amber-700">Match</span>,
+            cell: ({ row }) => {
+                const score = row.original.matchScore;
+                if (!score) return <span className="text-gray-300">—</span>;
+
+                return (
+                    <span className={cn(
+                        'px-2 py-0.5 rounded text-xs font-bold',
+                        score >= 70 ? 'bg-emerald-100 text-emerald-700' :
+                            score >= 50 ? 'bg-amber-100 text-amber-700' :
+                                'bg-gray-100 text-gray-600'
+                    )}>
+                        {Math.round(score)}%
+                    </span>
+                );
+            },
             enableSorting: true,
         },
 
@@ -431,7 +522,7 @@ export function createColumns(config: ColumnConfig): ColumnDef<ProductTcoData>[]
                 );
             },
             enableSorting: false,
-        },
+        }
     ];
 }
 

@@ -1,0 +1,48 @@
+{
+    "product": {
+        "name": "Motorola Edge 50 Pro 256GB",
+        "brand": "Motorola",
+        "model": "Edge 50 Pro",
+        "categoryId": "smartphone",
+        "asin": "B0CSMARTEXAMPLE"
+    },
+    "price": {
+        "valueBRL": 2799.00,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://www.amazon.com.br/dp/B0CSMARTEXAMPLE"
+    },
+    "sources": [
+        {
+            "url": "https://www.amazon.com.br/dp/B0CSMARTEXAMPLE",
+            "accessedAt": "2026-01-22",
+            "type": "amazon"
+        },
+        {
+            "url": "https://www.motorola.com.br/edge-50-pro",
+            "accessedAt": "2026-01-22",
+            "type": "manufacturer"
+        }
+    ],
+    "specs": {
+        "storage": 256,
+        "ram": 12,
+        "displaySize": 6.7,
+        "displayType": "pOLED",
+        "refreshRate": 144,
+        "processor": "Snapdragon 7 Gen 3",
+        "battery": 4500,
+        "chargingSpeed": 125,
+        "mainCamera": 50,
+        "certification": "IP68",
+        "os": "Android 14",
+        "nfc": true,
+        "esim": true,
+        "fiveG": true,
+        "wirelessCharging": true
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22T09:25:00-03:00",
+        "notas": "Exemplo de input para scaffold-product CLI - Smartphone"
+    }
+}

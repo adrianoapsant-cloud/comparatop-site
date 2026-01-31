@@ -1,0 +1,37 @@
+# Repair Prompt - Corrija os Erros no Input
+
+O JSON fornecido falhou na validação. Corrija APENAS os campos abaixo:
+
+## Categoria
+`tv`
+
+## Erros Encontrados
+- sources: Invalid input: expected array, received undefined
+
+## Instruções
+1. Revise o JSON original
+2. Corrija apenas os campos listados acima
+3. Reenvie o JSON corrigido para o scaffolder
+
+## Formato Esperado (tv)
+```json
+{
+  "product": {
+    "name": "Nome completo do produto",
+    "brand": "Marca",
+    "model": "Modelo",
+    "categoryId": "tv"
+  },
+  "price": {
+    "valueBRL": 1999.00,
+    "observedAt": "2026-01-22",
+    "sourceUrl": "https://..."
+  },
+  "sources": [
+    { "url": "https://...", "type": "amazon" }
+  ],
+  "specs": {
+    // Specs específicos da categoria tv
+  }
+}
+```

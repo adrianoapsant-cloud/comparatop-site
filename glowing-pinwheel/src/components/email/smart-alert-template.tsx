@@ -261,7 +261,7 @@ export function SmartAlertEmail({
                         {/* Header */}
                         <Section style={header}>
                             <Text style={badge}>
-                                {isTcoAlert ? '💡 Oportunidade TCO' : '💰 Alerta de Preço'}
+                                {isTcoAlert ? '💡 Oportunidade de Custo' : '💰 Alerta de Preço'}
                             </Text>
                             <Heading style={title}>
                                 {isTcoAlert
@@ -287,7 +287,7 @@ export function SmartAlertEmail({
                             <Row>
                                 <Column style={{ width: '50%', paddingRight: '12px' }}>
                                     <Text style={tableHeader}>
-                                        {isTcoAlert ? 'TCO Anterior' : 'Preço Anterior'}
+                                        {isTcoAlert ? 'Custo Total Anterior' : 'Preço Anterior'}
                                     </Text>
                                     <Text style={priceOld}>
                                         {formatBRL(isTcoAlert ? (previousTco || 0) : previousPrice)}
@@ -295,7 +295,7 @@ export function SmartAlertEmail({
                                 </Column>
                                 <Column style={{ width: '50%', paddingLeft: '12px' }}>
                                     <Text style={tableHeader}>
-                                        {isTcoAlert ? 'TCO Atual' : 'Preço Atual'}
+                                        {isTcoAlert ? 'Custo Total Atual' : 'Preço Atual'}
                                     </Text>
                                     <Text style={priceNew}>
                                         {formatBRL(isTcoAlert ? (currentTco || 0) : currentPrice)}

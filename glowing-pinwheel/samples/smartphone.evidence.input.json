@@ -1,0 +1,58 @@
+{
+    "product": {
+        "name": "Motorola Edge 50 Pro 256GB",
+        "brand": "Motorola",
+        "model": "Edge 50 Pro",
+        "categoryId": "smartphone",
+        "asin": "B0DEMO0005"
+    },
+    "price": {
+        "valueBRL": 3499.00,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://amazon.com.br/dp/B0DEMO0005"
+    },
+    "sources": [
+        {
+            "url": "https://amazon.com.br/dp/B0DEMO0005",
+            "type": "amazon"
+        },
+        {
+            "url": "https://motorola.com.br/edge-50-pro",
+            "type": "manufacturer"
+        }
+    ],
+    "specs": {
+        "storage": 256,
+        "ram": 12,
+        "displaySize": 6.7,
+        "displayType": "pOLED",
+        "refreshRate": 144,
+        "processor": "Snapdragon 7 Gen 3",
+        "battery": 4500,
+        "certification": "IP68",
+        "fiveG": true,
+        "nfc": true
+    },
+    "evidence": {
+        "specs.storage": {
+            "sourceUrl": "https://motorola.com.br/edge-50-pro",
+            "note": "256GB interno"
+        },
+        "specs.ram": {
+            "sourceUrl": "https://motorola.com.br/edge-50-pro",
+            "note": "12GB RAM"
+        },
+        "specs.certification": {
+            "sourceUrl": "https://motorola.com.br/edge-50-pro",
+            "note": "IP68 certificado"
+        },
+        "specs.fiveG": {
+            "sourceUrl": "https://motorola.com.br/edge-50-pro",
+            "note": "5G confirmado"
+        }
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22"
+    }
+}

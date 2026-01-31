@@ -1,0 +1,161 @@
+{
+    "product": {
+        "id": "TODO_PRODUCT_ID",
+        "name": "TODO: Nome do Produto",
+        "brand": "TODO: Marca",
+        "category": "air_conditioner",
+        "releaseYear": 2025
+    },
+    "header": {
+        "overallScore": 7.0,
+        "scoreLabel": "Bom",
+        "title": "TODO: Nome do Produto",
+        "subtitle": "TODO: Subtitle editorial - máx 120 caracteres",
+        "badges": []
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "TODO: Ponto positivo 1",
+                "TODO: Ponto positivo 2",
+                "TODO: Ponto positivo 3"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "TODO: Ponto de atenção 1",
+                "TODO: Ponto de atenção 2"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "TODO: Conclusão técnica editorial - 2-3 frases descrevendo o produto de forma objetiva"
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "TODO: Contra-indicação 1",
+                "TODO: Contra-indicação 2"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões Avaliadas",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Eficiência Energética",
+                "shortName": "Eff",
+                "score": 7.0,
+                "description": "TODO: Descrição c1"
+            },
+            {
+                "id": "c2",
+                "name": "Potência de Refrigeração",
+                "shortName": "Pot",
+                "score": 7.0,
+                "description": "TODO: Descrição c2"
+            },
+            {
+                "id": "c3",
+                "name": "Ruído",
+                "shortName": "Rui",
+                "score": 7.0,
+                "description": "TODO: Descrição c3"
+            },
+            {
+                "id": "c4",
+                "name": "Qualidade do Ar",
+                "shortName": "Qua",
+                "score": 6.0,
+                "description": "TODO: Descrição c4"
+            },
+            {
+                "id": "c5",
+                "name": "Manutenibilidade",
+                "shortName": "Man",
+                "score": 7.0,
+                "description": "TODO: Descrição c5"
+            },
+            {
+                "id": "c6",
+                "name": "Custo-Benefício",
+                "shortName": "C/B",
+                "score": 7.0,
+                "description": "TODO: Descrição c6"
+            },
+            {
+                "id": "c7",
+                "name": "Conectividade",
+                "shortName": "Con",
+                "score": 5.0,
+                "description": "TODO: Descrição c7"
+            },
+            {
+                "id": "c8",
+                "name": "Instalação",
+                "shortName": "Ins",
+                "score": 7.0,
+                "description": "TODO: Descrição c8"
+            },
+            {
+                "id": "c9",
+                "name": "Garantia",
+                "shortName": "Gar",
+                "score": 7.0,
+                "description": "TODO: Descrição c9"
+            },
+            {
+                "id": "c10",
+                "name": "Durabilidade",
+                "shortName": "Dur",
+                "score": 7.0,
+                "description": "TODO: Descrição c10"
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "status": "optimal",
+            "message": "TODO: Recomendado para ambientes até X m²"
+        },
+        "energyAlert": {
+            "rating": "A",
+            "message": "TODO: Consumo mensal estimado com uso de 8h/dia"
+        }
+    },
+    "decisionFAQ": [
+        {
+            "id": "faq1",
+            "icon": "HelpCircle",
+            "question": "TODO: Pergunta frequente 1?",
+            "answer": "TODO: Resposta 1"
+        },
+        {
+            "id": "faq2",
+            "icon": "HelpCircle",
+            "question": "TODO: Pergunta frequente 2?",
+            "answer": "TODO: Resposta 2"
+        }
+    ],
+    "meta": {
+        "scaffold": {
+            "generatedAt": "TODO_GENERATED_AT",
+            "rawInputHash": "TODO_HASH",
+            "specId": "air_conditioner",
+            "warningsCount": 0,
+            "status": "draft"
+        }
+    }
+}

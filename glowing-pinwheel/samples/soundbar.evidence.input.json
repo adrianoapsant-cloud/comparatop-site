@@ -1,0 +1,44 @@
+{
+    "product": {
+        "name": "Samsung HW-Q990D 11.1.4 Dolby Atmos",
+        "brand": "Samsung",
+        "model": "HW-Q990D",
+        "categoryId": "soundbar",
+        "asin": "B0DEMO0010"
+    },
+    "price": {
+        "valueBRL": 4999.00,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://amazon.com.br/dp/B0DEMO0010"
+    },
+    "sources": [
+        {
+            "url": "https://amazon.com.br/dp/B0DEMO0010",
+            "type": "amazon"
+        },
+        {
+            "url": "https://samsung.com.br/hw-q990d",
+            "type": "manufacturer"
+        }
+    ],
+    "specs": {
+        "watts": 656,
+        "channels": "11.1.4",
+        "hasDolbyAtmos": true,
+        "hasSubwoofer": true
+    },
+    "evidence": {
+        "specs.watts": {
+            "sourceUrl": "https://samsung.com.br/hw-q990d",
+            "note": "656W total"
+        },
+        "specs.hasDolbyAtmos": {
+            "sourceUrl": "https://samsung.com.br/hw-q990d",
+            "note": "Dolby Atmos certificado"
+        }
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22"
+    }
+}

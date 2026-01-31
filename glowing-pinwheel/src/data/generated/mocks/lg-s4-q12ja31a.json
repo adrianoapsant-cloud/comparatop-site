@@ -1,0 +1,166 @@
+{
+    "product": {
+        "id": "lg-s4-q12ja31a",
+        "name": "LG Dual Inverter Voice S4-Q12JA31A 12000 BTUs",
+        "brand": "LG",
+        "category": "air_conditioner",
+        "releaseYear": 2026
+    },
+    "header": {
+        "overallScore": 7,
+        "scoreLabel": "Bom",
+        "title": "LG Dual Inverter Voice S4-Q12JA31A 12000 BTUs",
+        "subtitle": "TODO: Preencher subtitle editorial para LG",
+        "badges": []
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "TODO: Preencher pontos positivos"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "TODO: Preencher pontos de atenção"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "TODO: Preencher conclusão técnica editorial"
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "TODO: Preencher contra-indicações"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões Avaliadas",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Dimensão 1",
+                "shortName": "D1",
+                "score": 7,
+                "description": "TODO: Preencher descrição da dimensão",
+                "weight": 0.1
+            },
+            {
+                "id": "c2",
+                "name": "Dimensão 2",
+                "shortName": "D2",
+                "score": 7,
+                "description": "TODO: Preencher descrição da dimensão",
+                "weight": 0.1
+            },
+            {
+                "id": "c3",
+                "name": "Dimensão 3",
+                "shortName": "D3",
+                "score": 7,
+                "description": "TODO: Preencher descrição da dimensão",
+                "weight": 0.1
+            },
+            {
+                "id": "c4",
+                "name": "Dimensão 4",
+                "shortName": "D4",
+                "score": 7,
+                "description": "TODO: Preencher descrição da dimensão",
+                "weight": 0.1
+            },
+            {
+                "id": "c5",
+                "name": "Dimensão 5",
+                "shortName": "D5",
+                "score": 7,
+                "description": "TODO: Preencher descrição da dimensão",
+                "weight": 0.1
+            },
+            {
+                "id": "c6",
+                "name": "Dimensão 6",
+                "shortName": "D6",
+                "score": 7,
+                "description": "TODO: Preencher descrição da dimensão",
+                "weight": 0.1
+            },
+            {
+                "id": "c7",
+                "name": "Dimensão 7",
+                "shortName": "D7",
+                "score": 7,
+                "description": "TODO: Preencher descrição da dimensão",
+                "weight": 0.1
+            },
+            {
+                "id": "c8",
+                "name": "Dimensão 8",
+                "shortName": "D8",
+                "score": 7,
+                "description": "TODO: Preencher descrição da dimensão",
+                "weight": 0.1
+            },
+            {
+                "id": "c9",
+                "name": "Dimensão 9",
+                "shortName": "D9",
+                "score": 7,
+                "description": "TODO: Preencher descrição da dimensão",
+                "weight": 0.1
+            },
+            {
+                "id": "c10",
+                "name": "Dimensão 10",
+                "shortName": "D10",
+                "score": 7,
+                "description": "TODO: Preencher descrição da dimensão",
+                "weight": 0.1
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "status": "optimal",
+            "message": "TODO: Configurar alerta de tamanho"
+        },
+        "energyAlert": {
+            "rating": "B",
+            "message": "TODO: Configurar alerta de energia"
+        }
+    },
+    "decisionFAQ": [
+        {
+            "id": "placeholder",
+            "icon": "HelpCircle",
+            "question": "TODO: Preencher FAQ 1",
+            "answer": "TODO: Preencher resposta"
+        }
+    ],
+    "meta": {
+        "scaffold": {
+            "generatedAt": "2026-01-22T11:56:57.044Z",
+            "rawInputHash": "ee2bf6ae",
+            "categoryId": "air_conditioner",
+            "derivedEnergy": {
+                "source": "label",
+                "kwhMonth": 45.5,
+                "calculation": "Etiqueta: 45.5 kWh/mês"
+            },
+            "firedRulesCount": 4,
+            "status": "draft"
+        }
+    }
+}

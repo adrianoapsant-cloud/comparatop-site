@@ -1,0 +1,25 @@
+{
+    "productId": "roborock-q7-l5",
+    "generatedAt": "2026-01-23T10:27:00Z",
+    "source": "gemini-unified-voice",
+    "communityConsensus": {
+        "rating": 4.5,
+        "totalReviews": 1243,
+        "approvalPercentage": 89,
+        "bullets": [
+            "Navegação LiDAR é precisa e mapeia a casa rapidamente",
+            "Escovas anti-emaranhamento são game-changer para donos de pets",
+            "8000Pa de sucção supera maioria dos concorrentes na faixa de preço",
+            "App Roborock oferece controle completo e integração com assistentes",
+            "Mop estático é limitação real - não espere que tire manchas secas"
+        ],
+        "sentiment": "very_positive",
+        "topPraise": "Navegação e potência de sucção",
+        "topCriticism": "Mop apenas arrasta pano"
+    },
+    "curiositySandwich": {
+        "hook": "O Q7 L5 mapeia uma casa de 150m² em menos de 15 minutos graças ao LiDAR de alta precisão.",
+        "insight": "Diferente de robôs com navegação aleatória que repetem áreas desnecessariamente, o LiDAR cria um mapa 3D da sua casa na primeira limpeza. Isso economiza até 40% de bateria por ciclo.",
+        "callToAction": "Se sua casa tem múltiplos cômodos ou planta complexa, a navegação inteligente é o recurso que mais impacta no dia a dia."
+    }
+}

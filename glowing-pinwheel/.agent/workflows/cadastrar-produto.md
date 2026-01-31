@@ -4,6 +4,20 @@ description: Como cadastrar um novo produto no ComparaTop
 
 # Cadastro de Novo Produto
 
+## 🛑 STEP 0: VALIDAÇÃO OBRIGATÓRIA (ANTES DE TUDO)
+
+> [!CAUTION]
+> **EXECUTE ESTE SCRIPT ANTES DE INICIAR QUALQUER CADASTRO:**
+> ```bash
+> node scripts/validate-pdp-data-sources.js
+> ```
+> Se o script retornar ❌ ERROS, **NÃO PROSSIGA** até corrigir.
+
+Este script valida que todas as 16 seções do PDP têm fonte de dados configurada.
+Se houver nova seção ou nova categoria sem cobertura, adicione primeiro.
+
+---
+
 ## 🚨 REGRA #1: NUNCA COPIE DE OUTRA CATEGORIA
 
 > [!CAUTION]
@@ -299,3 +313,22 @@ Se o produto é de categoria **não configurada**, use:
 > `/cadastrar-categoria` - Workflow para nova categoria
 
 **NÃO cadastre produtos sem antes configurar a categoria.**
+
+---
+
+## 🛑 STEP 8: VALIDAÇÃO PÓS-CADASTRO (OBRIGATÓRIO)
+
+> [!CAUTION]
+> **EXECUTE ESTE SCRIPT APÓS FINALIZAR O CADASTRO:**
+> ```bash
+> node scripts/validate-product-pdp.js [product-id]
+> ```
+> Exemplo: `node scripts/validate-product-pdp.js samsung-galaxy-a54`
+>
+> Se retornar ❌ ERROS, corrija antes de considerar o cadastro completo.
+
+Este script valida que o produto tem todos os dados necessários para o SimplifiedPDP:
+- ✅ Campos obrigatórios (id, name, categoryId, price, scores, specs)
+- ✅ Campos recomendados (benchmarks, featureBenefits, voc, offers)
+- ✅ Mock data ou auto-geradores disponíveis
+- ✅ Configurações da categoria (context profiles, unknown unknowns)

@@ -1,0 +1,49 @@
+{
+    "product": {
+        "name": "Sample Mixer Product",
+        "brand": "SampleBrand",
+        "model": "Model-001",
+        "categoryId": "mixer",
+        "asin": "B0SAMPLE01"
+    },
+    "price": {
+        "valueBRL": 999,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://amazon.com.br/dp/B0SAMPLE01"
+    },
+    "sources": [
+        {
+            "url": "https://amazon.com.br/dp/B0SAMPLE01",
+            "type": "amazon"
+        },
+        {
+            "url": "https://manufacturer.com/sample",
+            "type": "manufacturer"
+        }
+    ],
+    "specs": {
+        "powerWatts": 100,
+        "speeds": "standard",
+        "hasPlanetaryAction": true,
+        "bowlLiters": 100,
+        "hasPulse": true
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22"
+    },
+    "evidence": {
+        "specs.powerWatts": {
+            "sourceUrl": "https://manufacturer.com/sample",
+            "note": "Especificação oficial"
+        },
+        "specs.speeds": {
+            "sourceUrl": "https://manufacturer.com/sample",
+            "note": "Especificação oficial"
+        },
+        "specs.hasPlanetaryAction": {
+            "sourceUrl": "https://manufacturer.com/sample",
+            "note": "Especificação oficial"
+        }
+    }
+}

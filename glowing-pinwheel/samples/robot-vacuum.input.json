@@ -1,0 +1,45 @@
+{
+    "product": {
+        "name": "Dreame L20 Ultra Robô Aspirador e Mop com Auto-Limpeza",
+        "brand": "Dreame",
+        "model": "L20 Ultra",
+        "categoryId": "robot-vacuum",
+        "asin": "B0CQXYZ123"
+    },
+    "price": {
+        "valueBRL": 4899.00,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://www.amazon.com.br/dp/B0CQXYZ123"
+    },
+    "sources": [
+        {
+            "url": "https://www.amazon.com.br/dp/B0CQXYZ123",
+            "accessedAt": "2026-01-22",
+            "type": "amazon"
+        },
+        {
+            "url": "https://www.dreame.com.br/products/l20-ultra",
+            "accessedAt": "2026-01-22",
+            "type": "manufacturer"
+        }
+    ],
+    "energy": {
+        "wattsTypical": 65,
+        "usageHoursPerDay": 1.5
+    },
+    "specs": {
+        "navigationType": "LiDAR",
+        "suctionPa": 7000,
+        "hasSelfEmpty": true,
+        "hasMop": true,
+        "mopType": "rotativo",
+        "heightCm": 10.4,
+        "batteryMah": 5200,
+        "runtimeMinutes": 180
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22T08:35:00-03:00",
+        "notas": "Exemplo de input para scaffold-product CLI"
+    }
+}

@@ -130,7 +130,8 @@ function ManualCard({
     productId: string;
     productName: string;
 }) {
-    const wrapperUrl = manual.wrapperUrl || `/manual/${productId}`;
+    // Prioritize: 1) direct PDF URL, 2) wrapper URL, 3) internal wrapper page
+    const targetUrl = manual.pdfUrl || manual.wrapperUrl || `/manual/${productId}`;
     const typeIcon = getTypeIcon(manual.type);
     const typeLabel = getTypeLabel(manual.type);
 
@@ -172,7 +173,7 @@ function ManualCard({
 
             {/* Actions - Ghost Button (Secondary CTA) */}
             <Link
-                href={wrapperUrl}
+                href={targetUrl}
                 className={cn(
                     'flex items-center gap-1.5 px-3 py-2 rounded-lg',
                     'border border-brand-core text-brand-core',

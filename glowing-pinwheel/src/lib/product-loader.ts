@@ -78,7 +78,20 @@ export const AVAILABLE_EXTENDED_DATA = [
     'xiaomi-robot-x10',
     'samsung-galaxy-watch7-44mm-lte',
     'samsung-galaxy-a56-5g',
+    'dreame-l20-ultra',  // Gerado via scaffold-product
+    'samsung-qn85c-55',  // Gerado via scaffold-product
+    'brastemp-brm56',  // Gerado via scaffold-product
+    'lg-s4-q12ja31a',  // Gerado via scaffold-product
+    'apple-watch-series-9-45mm',  // Gerado via scaffold-product
+    'motorola-edge-50-pro',  // Gerado via scaffold-product
+    'dell-inspiron-15-3520',  // Gerado via scaffold-product
+    'samsung-hw-q990d',  // Gerado via scaffold-product
+    'philco-ptv32k34rkgb',  // Gerado via scaffold-product
+    'aoc-50u7045-78g',  // Gerado via scaffold-product
+    'aoc-40s5045-78g',  // Gerado via scaffold-product
+    'wap-robot-w1000',  // Gerado via scaffold-product
     // Add more product IDs as JSONs are created
+    'mondial-afn-80-bi',  // Primeiro air_fryer - P19 fix
 ] as const;
 
 export type AvailableExtendedProduct = typeof AVAILABLE_EXTENDED_DATA[number];

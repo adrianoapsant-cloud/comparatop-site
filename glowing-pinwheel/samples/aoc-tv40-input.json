@@ -1,0 +1,48 @@
+{
+    "product": {
+        "name": "Smart TV AOC 40\" 40S5045/78G Roku TV DLED Full HD",
+        "brand": "AOC",
+        "model": "40S5045/78G",
+        "categoryId": "tv"
+    },
+    "price": {
+        "valueBRL": 1099.90,
+        "observedAt": "2026-01-23",
+        "sourceUrl": "https://www.mercadolivre.com.br/smart-tv-aoc-40-40s504578g-roku-tv-dled-full-hd/p/MLB43554996"
+    },
+    "specs": {
+        "screenSize": 40,
+        "resolution": "Full HD",
+        "resolutionPixels": "1920 x 1080",
+        "panelType": "LED",
+        "smartPlatform": "Roku TV",
+        "refreshRate": 60,
+        "hdmiPorts": 3,
+        "usbPorts": 1,
+        "brightness": 250,
+        "hdrFormats": "HDR10"
+    },
+    "sources": [
+        {
+            "name": "Mercado Livre",
+            "url": "https://www.mercadolivre.com.br/smart-tv-aoc-40-40s504578g-roku-tv-dled-full-hd/p/MLB43554996",
+            "type": "marketplace"
+        }
+    ],
+    "images": [
+        "https://http2.mlstatic.com/D_NQ_NP_2X_828643-MLA99975300399_112025-F.webp"
+    ],
+    "evidence": {
+        "price": {
+            "sourceUrl": "https://www.mercadolivre.com.br/smart-tv-aoc-40-40s504578g-roku-tv-dled-full-hd/p/MLB43554996"
+        },
+        "specs": {
+            "sourceUrl": "https://www.mercadolivre.com.br/smart-tv-aoc-40-40s504578g-roku-tv-dled-full-hd/p/MLB43554996"
+        }
+    },
+    "meta": {
+        "scrapedAt": "2026-01-23T18:20:00.000Z",
+        "scrapedFrom": "https://www.mercadolivre.com.br/smart-tv-aoc-40-40s504578g-roku-tv-dled-full-hd/p/MLB43554996",
+        "cadastradoEm": "2026-01-23T18:20:00.000Z"
+    }
+}

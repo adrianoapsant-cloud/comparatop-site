@@ -1,0 +1,49 @@
+{
+    "product": {
+        "name": "Sample Chair Product",
+        "brand": "SampleBrand",
+        "model": "Model-001",
+        "categoryId": "chair",
+        "asin": "B0SAMPLE01"
+    },
+    "price": {
+        "valueBRL": 999,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://amazon.com.br/dp/B0SAMPLE01"
+    },
+    "sources": [
+        {
+            "url": "https://amazon.com.br/dp/B0SAMPLE01",
+            "type": "amazon"
+        },
+        {
+            "url": "https://manufacturer.com/sample",
+            "type": "manufacturer"
+        }
+    ],
+    "specs": {
+        "maxWeightKg": "standard",
+        "hasLumbarSupport": true,
+        "material": "standard",
+        "hasAdjustableArmrests": true,
+        "seatWidthCm": "standard"
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22"
+    },
+    "evidence": {
+        "specs.maxWeightKg": {
+            "sourceUrl": "https://manufacturer.com/sample",
+            "note": "Especificação oficial"
+        },
+        "specs.hasLumbarSupport": {
+            "sourceUrl": "https://manufacturer.com/sample",
+            "note": "Especificação oficial"
+        },
+        "specs.material": {
+            "sourceUrl": "https://manufacturer.com/sample",
+            "note": "Especificação oficial"
+        }
+    }
+}

@@ -23,14 +23,14 @@ import { getHMUMScore, hasHMUMSupport } from './getHMUMBreakdown';
 /**
  * Extended product type with header containing Gemini-calculated score
  */
-interface ProductWithHeader extends Product {
+type ProductWithHeader = Product & {
     header?: {
         overallScore?: number;
         scoreLabel?: string;
         title?: string;
         subtitle?: string;
     };
-}
+};
 
 /**
  * Get the base score for a product.
@@ -47,26 +47,48 @@ interface ProductWithHeader extends Product {
  * @param product - The product to get the score for
  * @returns The base score (0-10), typically with 1 decimal place
  */
+/**
+ * Normalize a score to 0-10 scale.
+ * Scores > 10 are assumed to be on 0-100 scale and are divided by 10.
+ * Scores <= 10 are assumed to be already on 0-10 scale.
+ * 
+ * NOTE: "Consenso da Comunidade" scores should NOT use this function
+ * as they are intentionally on 0-100% scale.
+ * 
+ * @param score - Raw score value
+ * @returns Normalized score on 0-10 scale
+ */
+export function normalizeScore(score: number): number {
+    if (typeof score !== 'number' || isNaN(score)) return 7.5;
+
+    // If score is > 10, assume it's on 0-100 scale and convert
+    if (score > 10) {
+        return Math.round((score / 10) * 100) / 100; // e.g., 62 -> 6.2
+    }
+
+    return score;
+}
+
 export function getBaseScore(product: Product | ScoredProduct): number {
     // 0. NEW: Try HMUM calculation (Cobb-Douglas multiplicative model)
     // This is the preferred method for categories with HMUM config
     if (hasHMUMSupport(product)) {
         const hmumScore = getHMUMScore(product);
         if (hmumScore !== null) {
-            return hmumScore;
+            return normalizeScore(hmumScore);
         }
     }
 
     // 1. Try header.overallScore (preferred - saved by Gemini)
     const productWithHeader = product as ProductWithHeader;
     if (productWithHeader.header?.overallScore !== undefined) {
-        return productWithHeader.header.overallScore;
+        return normalizeScore(productWithHeader.header.overallScore);
     }
 
     // 2. Fallback: computed.overall (for legacy scored products)
     const scoredProduct = product as ScoredProduct;
     if (scoredProduct.computed?.overall !== undefined) {
-        return scoredProduct.computed.overall;
+        return normalizeScore(scoredProduct.computed.overall);
     }
 
     // 3. Calculate from product.scores if available
@@ -126,14 +148,17 @@ export function getBaseScore(product: Product | ScoredProduct): number {
             // Only process c1-c10 criteria
             if (criterionId.match(/^c\d+$/) && typeof score === 'number') {
                 const weight = weights[criterionId] ?? 0.1;
-                weightedSum += score * weight;
+                // Normalize individual scores that may come as 0-100
+                const normalizedCriterionScore = normalizeScore(score);
+                weightedSum += normalizedCriterionScore * weight;
                 totalWeight += weight;
             }
         }
 
         if (totalWeight > 0) {
-            // Round to 2 decimal places
-            return Math.round((weightedSum / totalWeight) * 100) / 100;
+            // Round to 2 decimal places and normalize result
+            const result = Math.round((weightedSum / totalWeight) * 100) / 100;
+            return normalizeScore(result);
         }
     }
 

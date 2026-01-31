@@ -1,0 +1,761 @@
+{
+    "_agent": {
+        "schemaVersion": "universal.v3",
+        "zeroInvention": true,
+        "deepSearchRequired": true,
+        "forbidNewCategoryCreation": true,
+        "generatorHasProjectAccess": false,
+        "resolverHasProjectAccess": true,
+        "absoluteCertaintyNotice": "Dados por categoria existem no projeto (certeza absoluta). Se não achou de primeira, procure mais profundamente. Proibido inventar.",
+        "sourcePrecedence": [
+            "category_profile_registry",
+            "category_internal_libraries",
+            "source_images",
+            "internal_baseline_product"
+        ],
+        "handoffProtocol": {
+            "chain": [
+                "chatgpt_file_generator",
+                "opus_data_entry"
+            ],
+            "instruction": "Repasse este bloco _agent integralmente ao próximo agente."
+        }
+    },
+    "product": {
+        "id": "haylou-rt3-ls16-tactical",
+        "slug": "haylou-rt3-ls16-tactical",
+        "categoryId": "smartwatch",
+        "categoryProfileId": "smartwatch",
+        "name": "Relógio Smartwatch Haylou LS16 (RT3) Tactical Bluetooth 5.2 Tela AMOLED 1,43\"",
+        "shortName": "Haylou RT3 (LS16) Tactical",
+        "brand": "Haylou",
+        "model": "LS16 (RT3)",
+        "identifiers": {
+            "asin": null,
+            "ean": null,
+            "upc": null,
+            "sku": null,
+            "gtin": null
+        },
+        "media": [
+            {
+                "kind": "image",
+                "url": "/images/products/haylou-rt3-ls16-tactical.svg",
+                "alt": "Smartwatch Haylou RT3 (LS16) Tactical",
+                "provenance": {
+                    "kind": "source_images",
+                    "ref": "user_provided_text:haylou_ls16_rt3_media",
+                    "confidence": "medium",
+                    "isEstimate": false
+                }
+            }
+        ]
+    },
+    "technicalSpecs": {
+        "expectedSpecSectionsRef": "smartwatch_specs",
+        "sections": [
+            {
+                "id": "caracteristicas-gerais",
+                "title": "Características gerais",
+                "order": 10,
+                "items": [
+                    {
+                        "key": "fabricante",
+                        "label": "Fabricante",
+                        "value": "Haylou",
+                        "order": 10,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "marca",
+                        "label": "Marca",
+                        "value": "Haylou",
+                        "order": 20,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "modelo",
+                        "label": "Modelo",
+                        "value": "LS16",
+                        "order": 30,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "modelo_alfanumerico",
+                        "label": "Modelo alfanumérico",
+                        "value": "RT3",
+                        "order": 40,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "versao_smartwatch",
+                        "label": "Versão do smartwatch",
+                        "value": "Tactical",
+                        "order": 50,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "conectividade",
+                "title": "Conectividade",
+                "order": 20,
+                "items": [
+                    {
+                        "key": "rede_movel",
+                        "label": "Com rede móvel",
+                        "value": "Não",
+                        "order": 10,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "wifi",
+                        "label": "Com Wi-Fi",
+                        "value": "Não",
+                        "order": 20,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "gps",
+                        "label": "Com GPS",
+                        "value": "Não",
+                        "order": 30,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "bluetooth",
+                        "label": "Com Bluetooth",
+                        "value": "Sim",
+                        "order": 40,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "nfc",
+                        "label": "Com NFC",
+                        "value": "Não",
+                        "order": 50,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "bluetooth_version",
+                        "label": "Versão do Bluetooth",
+                        "value": "5.2",
+                        "order": 60,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_listing_title",
+                            "confidence": "medium",
+                            "isEstimate": false
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "outros",
+                "title": "Outros",
+                "order": 30,
+                "items": [
+                    {
+                        "key": "idiomas",
+                        "label": "Idiomas",
+                        "value": "Inglês",
+                        "order": 10,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "acessorios-incluidos",
+                "title": "Acessórios incluídos",
+                "order": 40,
+                "items": [
+                    {
+                        "key": "acessorio_1",
+                        "label": "Acessórios",
+                        "value": "Fio USB",
+                        "order": 10,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "resistencia-a-agua",
+                "title": "Resistência à água",
+                "order": 50,
+                "items": [
+                    {
+                        "key": "resistente_agua",
+                        "label": "É resistente à água",
+                        "value": "Sim",
+                        "order": 10,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "profundidade_max",
+                        "label": "Profundidade máxima de resistência à água",
+                        "value": "1,5 m",
+                        "order": 20,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "memoria",
+                "title": "Memória",
+                "order": 60,
+                "items": [
+                    {
+                        "key": "memoria_interna",
+                        "label": "Memória interna",
+                        "value": "128 MB",
+                        "order": 10,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "ram_total",
+                        "label": "Capacidade total do módulo de memória RAM",
+                        "value": "128 MB",
+                        "order": 20,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "resistencia",
+                "title": "Resistência",
+                "order": 70,
+                "items": [
+                    {
+                        "key": "ip_rating",
+                        "label": "Classificação de resistência à água e ao pó",
+                        "value": "IP68",
+                        "order": 10,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "tela",
+                "title": "Tela",
+                "order": 80,
+                "items": [
+                    {
+                        "key": "tamanho_tela",
+                        "label": "Tamanho da tela",
+                        "value": "1,43 \"",
+                        "order": 10,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "tipo_tela",
+                        "label": "Tipo de tela",
+                        "value": "AMOLED",
+                        "order": 20,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "caixa-do-relogio",
+                "title": "Caixa do relógio",
+                "order": 90,
+                "items": [
+                    {
+                        "key": "tamanho_caixa",
+                        "label": "Tamanho da caixa",
+                        "value": "45 mm",
+                        "order": 10,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "material_caixa",
+                        "label": "Material da caixa do smartwatch",
+                        "value": "Titânio",
+                        "order": 20,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "cor_caixa",
+                        "label": "Cor da caixa",
+                        "value": "Prata",
+                        "order": 30,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "pulseira-do-relogio",
+                "title": "Pulseira do relógio",
+                "order": 100,
+                "items": [
+                    {
+                        "key": "material_pulseira",
+                        "label": "Material da pulseira",
+                        "value": "Silicone",
+                        "order": 10,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "cor_pulseira",
+                        "label": "Cor da pulseira",
+                        "value": "Cinza",
+                        "order": 20,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "tipo_pulseira",
+                        "label": "Tipo de pulseira",
+                        "value": "Esportiva",
+                        "order": 30,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "arco-do-relogio",
+                "title": "Arco do relógio",
+                "order": 110,
+                "items": [
+                    {
+                        "key": "material_bisel",
+                        "label": "Material do bisel",
+                        "value": "Metal",
+                        "order": 10,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "cor_bisel",
+                        "label": "Cor do bisel",
+                        "value": "Prateado",
+                        "order": 20,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "especificacoes",
+                "title": "Especificações",
+                "order": 120,
+                "items": [
+                    {
+                        "key": "compatibilidade_so",
+                        "label": "Sistemas operativos compatíveis do smartwatch",
+                        "value": "Android 6.0, iOS 11.0",
+                        "order": 10,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "infantil",
+                        "label": "É infantil",
+                        "value": "Não",
+                        "order": 20,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "smartband",
+                        "label": "É smartband",
+                        "value": "Não",
+                        "order": 30,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "funcoes-e-sensores",
+                "title": "Funções e sensores",
+                "order": 130,
+                "items": [
+                    {
+                        "key": "funcoes",
+                        "label": "Funções do smartwatch",
+                        "value": "Gerenciamento de chamadas",
+                        "order": 10,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "notificacoes_tempo_real",
+                        "label": "Notificações",
+                        "value": "Notificações em tempo real para chamadas e aplicativos",
+                        "order": 20,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_listing_bullets",
+                            "confidence": "medium",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "freq_cardiaca",
+                        "label": "Monitoramento de frequência cardíaca",
+                        "value": "Monitoramento da frequência cardíaca preciso e contínuo",
+                        "order": 30,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_listing_bullets",
+                            "confidence": "medium",
+                            "isEstimate": false
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "bateria",
+                "title": "Bateria",
+                "order": 140,
+                "items": [
+                    {
+                        "key": "capacidade_bateria",
+                        "label": "Capacidade da bateria",
+                        "value": "220 mAh",
+                        "order": 10,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    },
+                    {
+                        "key": "duracao_bateria",
+                        "label": "Duração da bateria",
+                        "value": "15 dias",
+                        "order": 20,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "peso",
+                "title": "Peso",
+                "order": 150,
+                "items": [
+                    {
+                        "key": "peso",
+                        "label": "Peso",
+                        "value": "54 g",
+                        "order": 10,
+                        "provenance": {
+                            "kind": "source_images",
+                            "ref": "user_provided_text:haylou_ls16_rt3_specs",
+                            "confidence": "high",
+                            "isEstimate": false
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "repairability": {
+        "enabled": true,
+        "profileRef": "smartwatch_repair",
+        "score": 6.0,
+        "label": "Reparabilidade",
+        "categoryAvg": 5.5,
+        "summary": "Smartwatches com corpo selado IP68 geralmente são difíceis de abrir. Pulseiras trocáveis são ponto positivo.",
+        "stats": {
+            "repairableCount": 1,
+            "criticalCount": 0,
+            "avgCostBRL": 50
+        },
+        "components": []
+    },
+    "engineeringOculta": {
+        "enabled": true,
+        "profileRef": "smartwatch_engineering",
+        "hideWhenEmpty": true,
+        "emptyStateMessage": "Sem alertas relevantes para este modelo.",
+        "items": []
+    },
+    "accessoryKit": {
+        "enabled": true,
+        "profileRef": "smartwatch_accessories",
+        "title": "Acessório recomendado",
+        "subtitle": "Proteção para a tela AMOLED",
+        "primary": {
+            "label": "PRINCIPAL",
+            "productId": "pelicula-haylou-ls16",
+            "title": "Película de Proteção 3D para Haylou RT3",
+            "brand": "Genérica",
+            "asin": "B0BX9Z1234"
+        },
+        "addons": [
+            {
+                "label": "UPGRADE",
+                "productId": "pulseira-magnetica-22mm",
+                "title": "Pulseira Magnética Milanese 22mm",
+                "brand": "Genérica",
+                "asin": "B0BY8W5678"
+            }
+        ],
+        "cta": {
+            "label": "Ver Ofertas",
+            "url": "https://www.amazon.com.br/s?k=acessorios+haylou+rt3"
+        }
+    },
+    "ui": {
+        "highlights": [
+            "Tela AMOLED 1,43\"",
+            "Bateria de até 15 dias (220 mAh)",
+            "Resistência IP68",
+            "Caixa em titânio (45 mm)",
+            "Bluetooth 5.2 e gerenciamento de chamadas"
+        ],
+        "cards": [
+            {
+                "id": "value",
+                "title": "Valor",
+                "severity": "neutral",
+                "rating": "ok",
+                "summary": "Conjunto focado em tela AMOLED, autonomia longa e resistência para uso diário.",
+                "bullets": [
+                    "Tela AMOLED 1,43\"",
+                    "Bateria de até 15 dias",
+                    "IP68 para rotina e treinos"
+                ],
+                "badges": [
+                    "AMOLED",
+                    "15 dias",
+                    "IP68"
+                ],
+                "ctas": [
+                    {
+                        "label": "Ver ficha técnica",
+                        "href": "#ficha-tecnica"
+                    }
+                ]
+            },
+            {
+                "id": "durability",
+                "title": "Durabilidade & Risco",
+                "severity": "neutral",
+                "rating": "ok",
+                "summary": "Proteção IP68 e caixa em titânio; conectividade sem Wi-Fi/GPS/NFC conforme especificação.",
+                "bullets": [
+                    "IP68 (água e pó)",
+                    "Caixa: titânio",
+                    "Sem GPS / Wi-Fi / NFC"
+                ],
+                "badges": [
+                    "IP68",
+                    "Titânio"
+                ],
+                "ctas": []
+            },
+            {
+                "id": "tco",
+                "title": "Custo Total (TCO)",
+                "severity": "neutral",
+                "rating": "pending",
+                "summary": "O detalhamento de TCO é calculado pelo perfil da categoria.",
+                "bullets": [
+                    "Ciclos de bateria e acessórios variam por uso",
+                    "Regras internas completam o modelo de TCO"
+                ],
+                "badges": [
+                    "TCO via perfil"
+                ],
+                "ctas": []
+            }
+        ],
+        "verdict": {
+            "pros": [
+                "Tela AMOLED 1,43\"",
+                "Bateria de até 15 dias",
+                "IP68",
+                "Caixa em titânio",
+                "Bluetooth 5.2"
+            ],
+            "cons": [
+                "Sem GPS",
+                "Sem Wi-Fi",
+                "Sem NFC"
+            ],
+            "bestFor": [
+                "Uso diário com boa autonomia",
+                "Quem quer tela AMOLED",
+                "Rotina com resistência IP68"
+            ]
+        }
+    },
+    "_internal": {
+        "schemaVersion": "universal.v3",
+        "categoryResolution": {
+            "resolvedFromRegistry": true,
+            "mustBeTrueAfterOpus": true,
+            "registryRef": "smartwatch"
+        },
+        "orderingRules": {
+            "repairabilitySort": "impactScore_desc_then_order_asc",
+            "engineeringSort": "impactScore_desc_then_order_asc",
+            "specSort": "section.order_asc_then_item.order_asc"
+        },
+        "uiSafety": {
+            "disallowDebugLeak": true,
+            "bannedSubstringsInPublicText": [
+                "debug",
+                "length ===",
+                "stacktrace"
+            ]
+        }
+    }
+}

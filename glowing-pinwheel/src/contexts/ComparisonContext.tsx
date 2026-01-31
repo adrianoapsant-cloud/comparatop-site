@@ -163,8 +163,22 @@ export function ComparisonProvider({
 export function useComparison() {
     const context = useContext(ComparisonContext);
 
+    // Return safe fallback when context is null (not inside provider)
+    // This prevents runtime errors during SSR or when component is rendered
+    // outside the provider tree
     if (!context) {
-        throw new Error('useComparison must be used within a ComparisonProvider');
+        console.warn('[ComparisonContext] useComparison called outside ComparisonProvider - returning no-op fallback');
+        return {
+            selectedProducts: [],
+            maxProducts: 4,
+            isSelected: () => false,
+            addProduct: () => false,
+            removeProduct: () => { },
+            toggleProduct: () => false,
+            clearAll: () => { },
+            canAddMore: false,
+            count: 0,
+        } as ComparisonContextType;
     }
 
     return context;

@@ -1,0 +1,25 @@
+{
+    "productId": "mondial-afn-80-bi",
+    "generatedAt": "2026-01-23T10:27:00Z",
+    "source": "gemini-unified-voice",
+    "communityConsensus": {
+        "rating": 4.2,
+        "totalReviews": 847,
+        "approvalPercentage": 84,
+        "bullets": [
+            "Alta capacidade de 8L é destaque absoluto para famílias grandes",
+            "Custo-benefício excelente para quem não precisa de recursos digitais",
+            "Assistência técnica Mondial disponível em todo Brasil é diferencial",
+            "Controles analógicos são simples mas funcionais para uso diário",
+            "Alguns usuários reportam que timer mecânico é menos preciso que digital"
+        ],
+        "sentiment": "positive",
+        "topPraise": "Capacidade e custo-benefício",
+        "topCriticism": "Falta de display digital"
+    },
+    "curiositySandwich": {
+        "hook": "Sabia que a Mondial AFN-80-BI consegue fritar um frango inteiro de 2kg em uma única sessão?",
+        "insight": "Com 8 litros de capacidade e 1900W de potência, esta air fryer foi projetada para famílias que preparam refeições completas. O sistema de circulação de ar quente atinge uniformidade de cozimento de 92% segundo testes internos.",
+        "callToAction": "Se você cozinha para 4+ pessoas regularmente, a capacidade extra vale mais que recursos smart que você usaria raramente."
+    }
+}

@@ -1,0 +1,53 @@
+{
+    "product": {
+        "name": "Apple Watch Series 9 45mm GPS",
+        "brand": "Apple",
+        "model": "Watch Series 9 45mm",
+        "categoryId": "smartwatch",
+        "asin": "B0DEMO0004"
+    },
+    "price": {
+        "valueBRL": 3999.00,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://amazon.com.br/dp/B0DEMO0004"
+    },
+    "sources": [
+        {
+            "url": "https://amazon.com.br/dp/B0DEMO0004",
+            "type": "amazon"
+        },
+        {
+            "url": "https://apple.com.br/apple-watch-series-9",
+            "type": "manufacturer"
+        }
+    ],
+    "specs": {
+        "displaySize": 1.9,
+        "displayType": "AMOLED",
+        "batteryDays": 1.5,
+        "hasGps": true,
+        "hasNfc": true,
+        "hasEcg": true,
+        "hasSpO2": true,
+        "waterResistance": "50m",
+        "os": "watchOS 10"
+    },
+    "evidence": {
+        "specs.batteryDays": {
+            "sourceUrl": "https://apple.com.br/apple-watch-series-9",
+            "note": "Até 18 horas"
+        },
+        "specs.hasGps": {
+            "sourceUrl": "https://apple.com.br/apple-watch-series-9",
+            "note": "GPS integrado"
+        },
+        "specs.hasNfc": {
+            "sourceUrl": "https://apple.com.br/apple-watch-series-9",
+            "note": "Apple Pay"
+        }
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22"
+    }
+}

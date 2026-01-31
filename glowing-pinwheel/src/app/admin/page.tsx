@@ -85,6 +85,7 @@ const chatFunctions: ChatFunction[] = [
 ];
 
 const quickLinks = [
+    { label: 'Feedbacks de Correção', href: '/admin/feedbacks', icon: <MessageSquare className="w-5 h-5" /> },
     { label: 'Abrir Chat (TVs)', href: '/categorias/smart-tvs', icon: <MessageSquare className="w-5 h-5" /> },
     { label: 'Ver Insights', href: '/dev/immunity-insights', icon: <Activity className="w-5 h-5" /> },
     { label: 'Home do Site', href: '/', icon: <ExternalLink className="w-5 h-5" /> },
@@ -92,6 +93,7 @@ const quickLinks = [
     { label: 'API Recent (JSON)', href: '/api/immunity/recent?limit=50', icon: <Settings className="w-5 h-5" /> },
     { label: 'API Insights (JSON)', href: '/api/immunity/insights', icon: <TrendingUp className="w-5 h-5" /> },
 ];
+
 
 // ============================================
 // LOGOUT BUTTON

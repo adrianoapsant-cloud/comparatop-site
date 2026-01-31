@@ -77,70 +77,80 @@
                 "name": "Custo-Benefício",
                 "shortName": "Custo",
                 "score": 8.5,
-                "description": "Melhor preço/OLED do mercado BR atualmente"
+                "description": "Melhor preço/OLED do mercado BR atualmente",
+                "weight": 0.1
             },
             {
                 "id": "c2",
                 "name": "Design & Acabamento",
                 "shortName": "Design",
-                "score": 9.0,
-                "description": "Bordas mínimas, perfil 4cm, base giratória"
+                "score": 9,
+                "description": "Bordas mínimas, perfil 4cm, base giratória",
+                "weight": 0.1
             },
             {
                 "id": "c3",
                 "name": "Processamento",
                 "shortName": "Processamento",
                 "score": 8.5,
-                "description": "α9 Gen6 eficiente, mas não é o topo α11"
+                "description": "α9 Gen6 eficiente, mas não é o topo α11",
+                "weight": 0.1
             },
             {
                 "id": "c4",
                 "name": "Qualidade de Imagem",
                 "shortName": "Imagem",
                 "score": 9.3,
-                "description": "Referência em preto, cores e ângulo de visão"
+                "description": "Referência em preto, cores e ângulo de visão",
+                "weight": 0.1
             },
             {
                 "id": "c5",
                 "name": "Qualidade de Áudio",
                 "shortName": "Áudio",
                 "score": 6.2,
-                "description": "40W insuficientes, graves fracos, precisa de soundbar"
+                "description": "40W insuficientes, graves fracos, precisa de soundbar",
+                "weight": 0.1
             },
             {
                 "id": "c6",
                 "name": "Gaming",
                 "shortName": "Gaming",
                 "score": 9.1,
-                "description": "VRR, ALLM, 4 HDMI 2.1, input lag 9ms — excelente"
+                "description": "VRR, ALLM, 4 HDMI 2.1, input lag 9ms — excelente",
+                "weight": 0.1
             },
             {
                 "id": "c7",
                 "name": "Smart TV & Apps",
                 "shortName": "Smart",
                 "score": 8.4,
-                "description": "WebOS 23 fluido, todos os apps BR, Magic Remote"
+                "description": "WebOS 23 fluido, todos os apps BR, Magic Remote",
+                "weight": 0.1
             },
             {
                 "id": "c8",
                 "name": "Conectividade",
                 "shortName": "Conectividade",
-                "score": 9.0,
-                "description": "4 HDMI 2.1, 3 USB, eARC, Wi-Fi 6, Bluetooth 5.0"
+                "score": 9,
+                "description": "4 HDMI 2.1, 3 USB, eARC, Wi-Fi 6, Bluetooth 5.0",
+                "weight": 0.1
             },
             {
                 "id": "c9",
                 "name": "Durabilidade",
                 "shortName": "Durabilidade",
-                "score": 7.0,
-                "description": "Burn-in é risco real após 5+ anos de uso intensivo"
+                "score": 7,
+                "description": "Burn-in é risco real após 5+ anos de uso intensivo",
+                "weight": 0.1
             },
             {
                 "id": "c10",
                 "name": "Suporte & Pós-Venda",
                 "shortName": "Suporte",
                 "score": 7.8,
-                "description": "LG RA1000, mas assistência de telas OLED é cara"
+                "description": "LG RA1000, mas assistência de telas OLED é cara",
+                "weight": 0.1
             }
         ]
     },
@@ -173,5 +183,6 @@
             "rating": "B",
             "message": "Consumo de 120W típico. Conta ~R$ 28/mês com 5h/dia de uso."
         }
-    }
+    },
+    "decisionFAQ": []
 }

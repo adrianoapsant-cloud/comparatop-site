@@ -1,0 +1,151 @@
+{
+    "product": {
+        "id": "TODO",
+        "name": "TODO",
+        "brand": "TODO",
+        "category": "washer",
+        "releaseYear": 2025
+    },
+    "header": {
+        "overallScore": 7.0,
+        "scoreLabel": "Bom",
+        "title": "TODO",
+        "subtitle": "TODO",
+        "badges": []
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "TODO"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "TODO"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "TODO"
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "TODO"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões Avaliadas",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Capacidade",
+                "shortName": "Cap",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c2",
+                "name": "Eficiência Energética",
+                "shortName": "Eff",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c3",
+                "name": "Qualidade de Lavagem",
+                "shortName": "Lav",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c4",
+                "name": "Centrifugação",
+                "shortName": "Cen",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c5",
+                "name": "Ruído",
+                "shortName": "Rui",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c6",
+                "name": "Durabilidade",
+                "shortName": "Dur",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c7",
+                "name": "Custo-Benefício",
+                "shortName": "C/B",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c8",
+                "name": "Praticidade",
+                "shortName": "Pra",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c9",
+                "name": "Conectividade",
+                "shortName": "Cnx",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c10",
+                "name": "Suporte",
+                "shortName": "Sup",
+                "score": 7.0,
+                "description": "TODO"
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "status": "optimal",
+            "message": "TODO"
+        },
+        "energyAlert": {
+            "rating": "A",
+            "message": "TODO"
+        }
+    },
+    "decisionFAQ": [
+        {
+            "id": "faq1",
+            "icon": "HelpCircle",
+            "question": "TODO?",
+            "answer": "TODO"
+        }
+    ],
+    "meta": {
+        "scaffold": {
+            "generatedAt": "TODO",
+            "rawInputHash": "TODO",
+            "specId": "washer",
+            "warningsCount": 0,
+            "status": "draft"
+        }
+    }
+}

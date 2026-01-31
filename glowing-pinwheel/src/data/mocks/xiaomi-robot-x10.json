@@ -3,7 +3,8 @@
         "id": "xiaomi-robot-x10",
         "name": "XIAOMI Robot Vacuum X10 com Auto-Esvaziamento",
         "brand": "Xiaomi",
-        "categoryId": "robot-vacuum"
+        "categoryId": "robot-vacuum",
+        "category": "robot-vacuum"
     },
     "header": {
         "score": 8.43,
@@ -12,7 +13,8 @@
         "badges": [
             "premium-pick",
             "editors-choice"
-        ]
+        ],
+        "overallScore": 8.1
     },
     "auditVerdict": {
         "solution": {
@@ -63,70 +65,80 @@
                 "name": "Navegação & Mapeamento",
                 "shortName": "Navegação",
                 "score": 9.5,
-                "description": "Sistema LDS (Laser Distance Sensor) com mapeamento 3D multi-andares. Zonas de restrição inteligentes configuráveis pelo app."
+                "description": "Sistema LDS (Laser Distance Sensor) com mapeamento 3D multi-andares. Zonas de restrição inteligentes configuráveis pelo app.",
+                "weight": 0.1
             },
             {
                 "id": "c2",
                 "name": "App & Conectividade",
                 "shortName": "App/Voz",
-                "score": 9.0,
-                "description": "App Xiaomi Home estável integrado ao ecossistema. Alexa e Google funcionam nativamente sem gambiarras."
+                "score": 9,
+                "description": "App Xiaomi Home estável integrado ao ecossistema. Alexa e Google funcionam nativamente sem gambiarras.",
+                "weight": 0.1
             },
             {
                 "id": "c3",
                 "name": "Sistema de Mop",
                 "shortName": "Mop",
                 "score": 7.5,
-                "description": "Mop estático com controle eletrônico de 3 níveis de água. Remove poeira fina, mas não esfrega manchas."
+                "description": "Mop estático com controle eletrônico de 3 níveis de água. Remove poeira fina, mas não esfrega manchas.",
+                "weight": 0.1
             },
             {
                 "id": "c4",
                 "name": "Escovas & Sucção",
                 "shortName": "Escovas",
-                "score": 7.0,
-                "description": "4000Pa de sucção adequado. Escova padrão com cerdas - não anti-emaranhamento como Roborock Q7."
+                "score": 7,
+                "description": "4000Pa de sucção adequado. Escova padrão com cerdas - não anti-emaranhamento como Roborock Q7.",
+                "weight": 0.1
             },
             {
                 "id": "c5",
                 "name": "Altura & Passagem",
                 "shortName": "Altura",
-                "score": 7.0,
-                "description": "9.5cm de altura padrão LiDAR. Verifique o vão dos seus móveis antes de comprar."
+                "score": 7,
+                "description": "9.5cm de altura padrão LiDAR. Verifique o vão dos seus móveis antes de comprar.",
+                "weight": 0.1
             },
             {
                 "id": "c6",
                 "name": "Peças no Brasil",
                 "shortName": "Peças BR",
-                "score": 7.0,
-                "description": "Xiaomi tem presença no Brasil com peças no Mercado Livre e Shopee. Melhor que marcas 100% importadas."
+                "score": 7,
+                "description": "Xiaomi tem presença no Brasil com peças no Mercado Livre e Shopee. Melhor que marcas 100% importadas.",
+                "weight": 0.1
             },
             {
                 "id": "c7",
                 "name": "Bateria & Autonomia",
                 "shortName": "Bateria",
                 "score": 9.5,
-                "description": "5200mAh = 180 minutos! A maior autonomia da categoria. Recharge & Resume para casas grandes."
+                "description": "5200mAh = 180 minutos! A maior autonomia da categoria. Recharge & Resume para casas grandes.",
+                "weight": 0.1
             },
             {
                 "id": "c8",
                 "name": "Nível de Ruído",
                 "shortName": "Ruído",
-                "score": 7.0,
-                "description": "Nível médio (~65dB). Não é silencioso, mas não incomoda para uso diário."
+                "score": 7,
+                "description": "Nível médio (~65dB). Não é silencioso, mas não incomoda para uso diário.",
+                "weight": 0.1
             },
             {
                 "id": "c9",
                 "name": "Base & Dock",
                 "shortName": "Base",
-                "score": 10.0,
-                "description": "DIFERENCIAL: Base AUTO-ESVAZIANTE inclusa! Coleta pó automaticamente. Zero trabalho manual."
+                "score": 10,
+                "description": "DIFERENCIAL: Base AUTO-ESVAZIANTE inclusa! Coleta pó automaticamente. Zero trabalho manual.",
+                "weight": 0.1
             },
             {
                 "id": "c10",
                 "name": "IA & Detecção",
                 "shortName": "IA",
                 "score": 7.5,
-                "description": "Sistema anticolisão e antiqueda funcionam bem. Não tem câmera para objetos pequenos."
+                "description": "Sistema anticolisão e antiqueda funcionam bem. Não tem câmera para objetos pequenos.",
+                "weight": 0.1
             }
         ]
     },
@@ -154,5 +166,6 @@
             "rating": "A",
             "message": "Bateria 5200mAh com 180min de autonomia. Baixo consumo elétrico."
         }
-    }
+    },
+    "decisionFAQ": []
 }

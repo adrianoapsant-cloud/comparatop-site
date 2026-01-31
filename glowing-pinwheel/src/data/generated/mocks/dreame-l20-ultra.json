@@ -1,0 +1,207 @@
+{
+    "product": {
+        "id": "dreame-l20-ultra",
+        "name": "Dreame L20 Ultra Robô Aspirador e Mop com Auto-Limpeza",
+        "brand": "Dreame",
+        "category": "robot-vacuum",
+        "releaseYear": 2026
+    },
+    "header": {
+        "overallScore": 7,
+        "scoreLabel": "Bom",
+        "title": "Dreame L20 Ultra Robô Aspirador e Mop com Auto-Limpeza",
+        "subtitle": "TODO: Preencher subtitle editorial para Dreame L20 Ultra",
+        "badges": []
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "TODO: Preencher pontos positivos"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "TODO: Preencher pontos de atenção"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "TODO: Preencher conclusão técnica editorial"
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "TODO: Preencher contra-indicações"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões PARR-BR para Robôs Aspiradores",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Navegação & Mapeamento",
+                "shortName": "Navegação",
+                "score": 9.5,
+                "weight": 0.25,
+                "icon": "radar",
+                "color": "cyan",
+                "description": "TODO: Preencher descrição da dimensão"
+            },
+            {
+                "id": "c2",
+                "name": "Software & Conectividade",
+                "shortName": "App/Voz",
+                "score": 9,
+                "weight": 0.15,
+                "icon": "smartphone",
+                "color": "purple",
+                "description": "TODO: Preencher descrição da dimensão"
+            },
+            {
+                "id": "c3",
+                "name": "Sistema de Mop",
+                "shortName": "Mop",
+                "score": 7,
+                "weight": 0.15,
+                "icon": "droplet",
+                "color": "blue",
+                "description": "TODO: Preencher descrição da dimensão"
+            },
+            {
+                "id": "c4",
+                "name": "Engenharia de Escovas",
+                "shortName": "Escovas",
+                "score": 9,
+                "weight": 0.1,
+                "icon": "sparkles",
+                "color": "emerald",
+                "description": "TODO: Preencher descrição da dimensão"
+            },
+            {
+                "id": "c5",
+                "name": "Altura e Acessibilidade",
+                "shortName": "Altura",
+                "score": 7.5,
+                "weight": 0.1,
+                "icon": "ruler",
+                "color": "orange",
+                "description": "TODO: Preencher descrição da dimensão"
+            },
+            {
+                "id": "c6",
+                "name": "Manutenibilidade",
+                "shortName": "Peças",
+                "score": 6,
+                "weight": 0.08,
+                "icon": "wrench",
+                "color": "slate",
+                "description": "TODO: Preencher descrição da dimensão"
+            },
+            {
+                "id": "c7",
+                "name": "Bateria e Autonomia",
+                "shortName": "Bateria",
+                "score": 9,
+                "weight": 0.05,
+                "icon": "battery",
+                "color": "green",
+                "description": "TODO: Preencher descrição da dimensão"
+            },
+            {
+                "id": "c8",
+                "name": "Acústica",
+                "shortName": "Ruído",
+                "score": 7,
+                "weight": 0.05,
+                "icon": "volume2",
+                "color": "amber",
+                "description": "TODO: Preencher descrição da dimensão"
+            },
+            {
+                "id": "c9",
+                "name": "Base de Carregamento",
+                "shortName": "Base",
+                "score": 5,
+                "weight": 0.05,
+                "icon": "home",
+                "color": "red",
+                "description": "TODO: Preencher descrição da dimensão"
+            },
+            {
+                "id": "c10",
+                "name": "Recursos de IA",
+                "shortName": "IA",
+                "score": 8,
+                "weight": 0.02,
+                "icon": "brain",
+                "color": "pink",
+                "description": "TODO: Preencher descrição da dimensão"
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "status": "warning",
+            "message": "Com 9.8cm de altura (torre LiDAR), o Q7 L5 precisa de vãos de pelo menos 10cm para passar sob móveis. Meça seus sofás e camas antes de comprar.",
+            "idealRange": {
+                "min": 6,
+                "max": 9
+            }
+        },
+        "soundAlert": {
+            "status": "acceptable",
+            "message": "O mop do Q7 L5 é estático: apenas arrasta um pano úmido. Para manchas secas, você ainda precisará de mop manual. Ideal para manutenção diária após a aspiração.",
+            "suggestions": [
+                {
+                    "condition": "Para manchas pesadas",
+                    "product": "Roborock S7/S8 com Sonic Mop",
+                    "reason": "Vibração de 3000rpm remove sujeira incrustada"
+                },
+                {
+                    "condition": "Para pisos de madeira",
+                    "product": "Usar modo 'baixo fluxo' no app",
+                    "reason": "Evita excesso de água que danifica madeira"
+                }
+            ]
+        },
+        "energyAlert": {
+            "rating": "A",
+            "message": "Consumo de ~30W durante operação. Custo mensal estimado de R$ 2-3 na conta de luz com uso diário."
+        }
+    },
+    "decisionFAQ": [
+        {
+            "id": "placeholder",
+            "icon": "HelpCircle",
+            "question": "TODO: Preencher FAQ 1",
+            "answer": "TODO: Preencher resposta"
+        }
+    ],
+    "meta": {
+        "scaffold": {
+            "generatedAt": "2026-01-22T11:39:52.018Z",
+            "rawInputHash": "944c3d4f",
+            "specId": "ROBOT_VACUUM_SCAFFOLD_SPEC",
+            "derivedEnergy": {
+                "source": "wattsUsage",
+                "kwhMonth": 2.93,
+                "calculation": "65W × 1.5h/dia × 30 dias ÷ 1000 = 2.92 kWh/mês"
+            },
+            "firedRulesCount": 2,
+            "warningsCount": 0,
+            "status": "draft"
+        }
+    }
+}

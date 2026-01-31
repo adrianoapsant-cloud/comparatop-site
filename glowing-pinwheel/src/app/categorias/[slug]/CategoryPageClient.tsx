@@ -265,15 +265,16 @@ export default function CategoryPageClient({
         return results;
     }, [filteredProducts, preferences, hasMatchFilters, matchCriteria]);
 
-    // Sort by match score if filters are active
+    // Sort by match score if filters are active and embed matchScore in products
     const finalProducts = useMemo(() => {
         if (!hasMatchFilters) return sortedProducts;
 
-        return [...sortedProducts].sort((a, b) => {
-            const matchA = matchResults.get(a.id)?.matchScore ?? 0;
-            const matchB = matchResults.get(b.id)?.matchScore ?? 0;
-            return matchB - matchA; // Higher match first
-        });
+        return [...sortedProducts]
+            .map(product => ({
+                ...product,
+                matchScore: matchResults.get(product.id)?.matchScore ?? 0
+            }))
+            .sort((a, b) => (b.matchScore ?? 0) - (a.matchScore ?? 0)); // Higher match first
     }, [sortedProducts, hasMatchFilters, matchResults]);
 
     // Visible products
@@ -403,7 +404,7 @@ export default function CategoryPageClient({
             {isGridView && (
                 <div className="max-w-7xl mx-auto px-4">
                     <TcoEngineSection
-                        products={sortedProducts}
+                        products={finalProducts}
                         categorySlug={categorySlug}
                         categoryName={categoryName}
                         defaultExpanded={false}
@@ -469,7 +470,7 @@ export default function CategoryPageClient({
                                 // TABLE VIEW: Full Engineering Analysis with TCO
                                 <div className="bg-white rounded-xl border border-gray-200 p-4">
                                     <TcoEngineSection
-                                        products={sortedProducts}
+                                        products={finalProducts}
                                         categorySlug={categorySlug}
                                         categoryName={categoryName}
                                         defaultExpanded={true}

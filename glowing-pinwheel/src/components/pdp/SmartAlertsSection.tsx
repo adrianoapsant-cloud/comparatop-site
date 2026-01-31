@@ -3,11 +3,12 @@
 import { Zap } from 'lucide-react';
 import { SmartSimulatorCard, type SmartCardData, type SmartCardSuggestion } from '@/components/SmartSimulatorCard';
 import type { ProductData } from '@/config/product-json-schema';
+import { ModuleFallback } from './ModuleFallback';
 
-type SimulatorsData = ProductData['simulators'];
+type SmartAlertsData = ProductData['simulators'];
 
-interface SimulatorsSectionProps {
-    data: SimulatorsData;
+interface SmartAlertsSectionProps {
+    data: SmartAlertsData;
     categoryId?: string; // Optional category for label customization
 }
 
@@ -59,6 +60,13 @@ const CATEGORY_LABELS: Record<string, CategoryLabels> = {
         soundTitle: 'Qualidade de Imagem',
         soundIcon: 'eye',
     },
+    air_fryer: {
+        sizeTitle: 'Dimensões na Bancada',
+        sizeIcon: 'ruler',
+        sizeUnit: 'cm',
+        soundTitle: 'Potência e Ruído',
+        soundIcon: 'volume-2',
+    },
     'robot-vacuum': {
         sizeTitle: 'Altura vs Móveis',
         sizeIcon: 'move-vertical',
@@ -82,19 +90,23 @@ const DEFAULT_LABELS: CategoryLabels = {
 // This function converts the current SimulatorsData format to SmartCardData[]
 // In the future, Gemini API will return SmartCardData directly
 
-function mapLegacyToSmartCards(data: SimulatorsData, categoryId?: string): SmartCardData[] {
+function mapLegacyToSmartCards(data: SmartAlertsData, categoryId?: string): SmartCardData[] {
     const cards: SmartCardData[] = [];
     const labels = CATEGORY_LABELS[categoryId || 'tv'] || DEFAULT_LABELS;
 
     // Size Alert Card
     if (data.sizeAlert) {
+        const idealRangeText = data.sizeAlert.idealRange
+            ? `Ideal: ${data.sizeAlert.idealRange.min}${labels.sizeUnit} - ${data.sizeAlert.idealRange.max}${labels.sizeUnit}`
+            : undefined;
+
         cards.push({
             type: data.sizeAlert.status === 'optimal' ? 'optimal' :
                 data.sizeAlert.status === 'warning' ? 'warning' : 'info',
             icon: labels.sizeIcon,
             title: labels.sizeTitle,
             description: data.sizeAlert.message,
-            metadata: `Ideal: ${data.sizeAlert.idealRange.min}${labels.sizeUnit} - ${data.sizeAlert.idealRange.max}${labels.sizeUnit}`,
+            metadata: idealRangeText,
         });
     }
 
@@ -115,14 +127,12 @@ function mapLegacyToSmartCards(data: SimulatorsData, categoryId?: string): Smart
                 if ('productName' in sug) {
                     return sug as unknown as SmartCardSuggestion;
                 }
-                // Legacy format conversion (has product/condition)
+                // Legacy format: just use productName, empty link triggers Amazon fallback
                 const legacySug = sug as { condition?: string; product: string; reason?: string; };
                 return {
-                    label: legacySug.condition || (idx === 0 ? "Kit Recomendado" : "Alternativa"),
+                    label: legacySug.condition,
                     productName: legacySug.product,
-                    actionLink: '#bundle-widget',
-                    actionType: 'scroll_to_bundle',
-                    variant: idx === 0 ? 'premium' : 'standard',
+                    actionLink: '', // Empty = triggers Amazon search fallback
                 } as SmartCardSuggestion;
             });
         }
@@ -156,14 +166,24 @@ function mapLegacyToSmartCards(data: SimulatorsData, categoryId?: string): Smart
 }
 
 // ============================================
-// SIMULATORS SECTION (REFACTORED)
+// SMART ALERTS SECTION (REFACTORED)
 // ============================================
 
-export function SimulatorsSection({ data, categoryId }: SimulatorsSectionProps) {
+export function SmartAlertsSection({ data, categoryId }: SmartAlertsSectionProps) {
     // Convert legacy data to SmartCardData format with category-specific labels
     const smartCards = mapLegacyToSmartCards(data, categoryId);
 
-    if (smartCards.length === 0) return null;
+    if (smartCards.length === 0) {
+        return (
+            <ModuleFallback
+                sectionId="simulators"
+                sectionName="Simuladores Inteligentes"
+                status="unavailable"
+                reason="Nenhum simulador disponível para este produto"
+                missingFields={['sizeAlert', 'soundAlert', 'energyAlert']}
+            />
+        );
+    }
 
     return (
         <section className="mt-12">

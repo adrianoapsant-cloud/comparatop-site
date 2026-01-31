@@ -1,0 +1,57 @@
+{
+    "product": {
+        "name": "LG Dual Inverter Voice 12000 BTUs",
+        "brand": "LG",
+        "model": "S4-Q12JA31A",
+        "categoryId": "air_conditioner",
+        "asin": "B0DEMO0003"
+    },
+    "price": {
+        "valueBRL": 2599.00,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://amazon.com.br/dp/B0DEMO0003"
+    },
+    "sources": [
+        {
+            "url": "https://amazon.com.br/dp/B0DEMO0003",
+            "type": "amazon"
+        },
+        {
+            "url": "https://lg.com.br/s4-q12ja31a",
+            "type": "manufacturer"
+        }
+    ],
+    "energy": {
+        "labelKwhMonth": 18
+    },
+    "specs": {
+        "btus": 12000,
+        "hasInverter": true,
+        "inverterType": "dual-inverter",
+        "voltage": "220V",
+        "noiseDb": 19,
+        "coverageArea": 20
+    },
+    "evidence": {
+        "specs.btus": {
+            "sourceUrl": "https://lg.com.br/s4-q12ja31a",
+            "note": "12000 BTUs"
+        },
+        "specs.hasInverter": {
+            "sourceUrl": "https://lg.com.br/s4-q12ja31a",
+            "note": "Dual Inverter"
+        },
+        "specs.inverterType": {
+            "sourceUrl": "https://lg.com.br/s4-q12ja31a",
+            "note": "Dual Inverter confirmado"
+        },
+        "energy.labelKwhMonth": {
+            "sourceUrl": "https://lg.com.br/s4-q12ja31a",
+            "note": "Etiqueta Procel"
+        }
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22"
+    }
+}

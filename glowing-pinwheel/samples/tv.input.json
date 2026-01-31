@@ -1,0 +1,49 @@
+{
+    "product": {
+        "name": "Samsung QN85C Neo QLED 55\" 4K 120Hz",
+        "brand": "Samsung",
+        "model": "QN85C 55",
+        "categoryId": "tv",
+        "asin": "B0C1TVEXAMPLE"
+    },
+    "price": {
+        "valueBRL": 3999.00,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://www.amazon.com.br/dp/B0C1TVEXAMPLE"
+    },
+    "sources": [
+        {
+            "url": "https://www.amazon.com.br/dp/B0C1TVEXAMPLE",
+            "accessedAt": "2026-01-22",
+            "type": "amazon"
+        },
+        {
+            "url": "https://www.samsung.com.br/tv-neo-qled-qn85c",
+            "accessedAt": "2026-01-22",
+            "type": "manufacturer"
+        }
+    ],
+    "energy": {
+        "wattsTypical": 100,
+        "usageHoursPerDay": 5
+    },
+    "specs": {
+        "screenSize": 55,
+        "panelType": "Neo QLED",
+        "resolution": "4K",
+        "refreshRate": 120,
+        "hdmiPorts": 4,
+        "hdmi21Ports": 4,
+        "hasVRR": true,
+        "hasALLM": true,
+        "hasDolbyVision": false,
+        "hasHDR10Plus": true,
+        "smartPlatform": "Tizen",
+        "brightness": 1500
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22T08:47:00-03:00",
+        "notas": "Exemplo de input para scaffold-product CLI - Smart TV"
+    }
+}

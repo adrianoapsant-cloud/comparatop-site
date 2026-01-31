@@ -13,12 +13,14 @@ import {
     getCoreRowModel,
     getSortedRowModel,
     getFilteredRowModel,
+    getPaginationRowModel,
     flexRender,
     SortingState,
+    PaginationState,
     Row,
     FilterFn,
 } from '@tanstack/react-table';
-import { Search, X, SlidersHorizontal, ArrowUpDown } from 'lucide-react';
+import { Search, X, SlidersHorizontal, ArrowUpDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { ProductTcoData, UsagePersona } from '@/types/tco';
 import type { ScoreViewMode } from '@/hooks/use-url-state';
@@ -106,13 +108,13 @@ export function DataTable({
     const [sorting, setSorting] = useState<SortingState>([]);
     const [globalFilter, setGlobalFilter] = useState('');
 
-    // Create columns with current config (includes scoreView)
+    // Create columns with current config
     const columns = useMemo(
         () => createColumns({ persona, years, scoreView, onViewDetails }),
         [persona, years, scoreView, onViewDetails]
     );
 
-    // Initialize TanStack Table
+    // Initialize TanStack Table with pagination
     const table = useReactTable({
         data,
         columns,
@@ -120,11 +122,17 @@ export function DataTable({
             sorting,
             globalFilter,
         },
+        initialState: {
+            pagination: {
+                pageSize: 10,
+            },
+        },
         onSortingChange: setSorting,
         onGlobalFilterChange: setGlobalFilter,
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
         globalFilterFn,
     });
 
@@ -253,7 +261,7 @@ export function DataTable({
                         </span>
                         {[
                             { id: 'price', label: 'Preço' },
-                            { id: 'tco', label: 'TCO' },
+                            { id: 'tco', label: 'Custo Total' },
                             { id: 'risk', label: 'Risco' },
                         ].map((option) => {
                             const column = table.getColumn(option.id);
@@ -289,6 +297,62 @@ export function DataTable({
                                 onViewDetails={onViewDetails}
                             />
                         ))}
+                    </div>
+                </div>
+            )}
+
+            {/* Pagination Controls */}
+            {(table.getPageCount() > 1 || data.length > 10) && (
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-4 pt-4 border-t border-gray-200">
+                    {/* Page info + Page size selector */}
+                    <div className="flex items-center gap-4">
+                        <span className="text-sm text-gray-600">
+                            Página {table.getState().pagination.pageIndex + 1} de {table.getPageCount()}
+                        </span>
+                        <div className="flex items-center gap-2">
+                            <span className="text-sm text-gray-500">Mostrar:</span>
+                            <select
+                                value={table.getState().pagination.pageSize}
+                                onChange={(e) => table.setPageSize(Number(e.target.value))}
+                                className="px-2 py-1 text-sm border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            >
+                                {[10, 20, 50, 100].map((size) => (
+                                    <option key={size} value={size}>
+                                        {size}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+
+                    {/* Prev/Next buttons */}
+                    <div className="flex gap-2">
+                        <button
+                            onClick={() => table.previousPage()}
+                            disabled={!table.getCanPreviousPage()}
+                            className={cn(
+                                'flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium',
+                                table.getCanPreviousPage()
+                                    ? 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                                    : 'bg-gray-50 text-gray-400 cursor-not-allowed'
+                            )}
+                        >
+                            <ChevronLeft className="w-4 h-4" />
+                            Anterior
+                        </button>
+                        <button
+                            onClick={() => table.nextPage()}
+                            disabled={!table.getCanNextPage()}
+                            className={cn(
+                                'flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium',
+                                table.getCanNextPage()
+                                    ? 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                                    : 'bg-gray-50 text-gray-400 cursor-not-allowed'
+                            )}
+                        >
+                            Próxima
+                            <ChevronRight className="w-4 h-4" />
+                        </button>
                     </div>
                 </div>
             )}

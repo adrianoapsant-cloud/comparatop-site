@@ -1,0 +1,42 @@
+{
+    "product": {
+        "name": "Samsung Galaxy Tab S9 FE 256GB WiFi",
+        "brand": "Samsung",
+        "model": "Galaxy Tab S9 FE",
+        "categoryId": "tablet",
+        "asin": "B0DEMO00004"
+    },
+    "price": {
+        "valueBRL": 2799.00,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://amazon.com.br/dp/B0DEMO00004"
+    },
+    "sources": [
+        {
+            "url": "https://amazon.com.br/dp/B0DEMO00004",
+            "type": "amazon"
+        },
+        {
+            "url": "https://samsung.com.br/galaxy-tab-s9-fe",
+            "type": "manufacturer"
+        }
+    ],
+    "specs": {
+        "storage": 256,
+        "displaySize": 10.9,
+        "ram": 8,
+        "resolution": "2304x1440",
+        "displayType": "LCD",
+        "refreshRate": 90,
+        "processor": "Samsung Exynos 1380",
+        "battery": 8000,
+        "hasPenSupport": true,
+        "hasLte": false,
+        "hasFaceId": false,
+        "os": "Android 14"
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22"
+    }
+}

@@ -1,0 +1,52 @@
+{
+    "product": {
+        "name": "Dell Inspiron 15 3520 i5-1235U 16GB 512GB SSD",
+        "brand": "Dell",
+        "model": "Inspiron 15 3520",
+        "categoryId": "laptop",
+        "asin": "B0DEMO0006"
+    },
+    "price": {
+        "valueBRL": 3299.00,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://amazon.com.br/dp/B0DEMO0006"
+    },
+    "sources": [
+        {
+            "url": "https://amazon.com.br/dp/B0DEMO0006",
+            "type": "amazon"
+        },
+        {
+            "url": "https://dell.com.br/inspiron-3520",
+            "type": "manufacturer"
+        }
+    ],
+    "specs": {
+        "processor": "Intel Core i5-1235U",
+        "ram": 16,
+        "storage": 512,
+        "screenSize": 15.6,
+        "resolution": "1920x1080",
+        "displayType": "IPS",
+        "weightKg": 1.85,
+        "hasBacklitKeyboard": true
+    },
+    "evidence": {
+        "specs.processor": {
+            "sourceUrl": "https://dell.com.br/inspiron-3520",
+            "note": "Core i5-1235U"
+        },
+        "specs.ram": {
+            "sourceUrl": "https://dell.com.br/inspiron-3520",
+            "note": "16GB DDR4"
+        },
+        "specs.storage": {
+            "sourceUrl": "https://dell.com.br/inspiron-3520",
+            "note": "512GB NVMe SSD"
+        }
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22"
+    }
+}

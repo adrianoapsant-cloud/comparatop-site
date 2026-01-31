@@ -20,6 +20,7 @@ import {
     type Metacategory
 } from '@/lib/scoring/semantic-adapter';
 import { getUnifiedConfig, hasUnifiedConfig } from '@/lib/scoring/unified-configs';
+import { ModuleFallback } from '@/components/pdp/ModuleFallback';
 
 interface UnifiedBreakdownProps {
     product: Product;
@@ -50,7 +51,16 @@ export function UnifiedBreakdown({
         return semanticAdapter.process(product as unknown as Record<string, unknown>, config);
     }, [product]);
 
-    if (!data) return null;
+    if (!data) {
+        return (
+            <ModuleFallback
+                sectionId="unified_breakdown"
+                sectionName="Análise Completa"
+                status="loading"
+                reason="Processando análise unificada..."
+            />
+        );
+    }
 
     return (
         <div className={`unified-breakdown ${className}`}>

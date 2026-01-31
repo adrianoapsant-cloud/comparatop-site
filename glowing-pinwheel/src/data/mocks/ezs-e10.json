@@ -1,0 +1,390 @@
+{
+    "meta": {
+        "version": "1.0",
+        "generatedAt": "2026-01-29T08:10:00Z",
+        "productId": "ezs-e10",
+        "rubricSourceRef": "src/config/category-playbooks/robot_vacuum.ts",
+        "tcoRecipeRef": "src/lib/scaffold/specs/robot-vacuum.ts",
+        "componentLibraryRef": "src/data/components/robot-vacuum-components.ts",
+        "baselineProductId": "roborock-q7-l5",
+        "baselineSourceRef": "src/data/products.ts"
+    },
+    "product": {
+        "id": "ezs-e10",
+        "categoryId": "robot-vacuum",
+        "categoryProfileId": "balanced",
+        "name": "Aspirador Robô EZS E10 5.500 Pa Laser iPath (AI.Map 2.0)",
+        "shortName": "EZS E10",
+        "brand": "EZS",
+        "model": "E10",
+        "price": 1599.98,
+        "asin": "B0DW9X5QQ9",
+        "ean": "",
+        "upc": "",
+        "imageUrl": "/images/products/ezs-e10.svg",
+        "status": "published",
+        "benefitSubtitle": "LiDAR iPath + AI.Map 2.0 com 5.500Pa por menos de R$ 1.600",
+        "releaseYear": 2024,
+        "updatedAt": "2026-01-29",
+        "evidenceLevel": "medium",
+        "contextualScoreRange": [
+            6.3,
+            7.2
+        ],
+        "contextualScoreConfidence": "medium",
+        "contextualScoreConfidenceNote": "Baseado em VOC do Pelando/Amazon e specs confirmadas; marca desconhecida gera incerteza.",
+        "tcoTotalRange": [
+            3100,
+            3900
+        ],
+        "tcoConfidence": "low",
+        "tcoConfidenceNote": "Marca sem histórico no BR, custo de peças estimado via similares chineses."
+    },
+    "productDimensions": {
+        "diameter": 35,
+        "height": 10
+    },
+    "header": {
+        "overallScore": 6.72,
+        "scoreLabel": "Bom",
+        "title": "EZS E10",
+        "subtitle": "LiDAR iPath com 5.500Pa de sucção por preço agressivo",
+        "badges": [
+            {
+                "type": "feature",
+                "label": "LiDAR iPath",
+                "icon": "radar"
+            },
+            {
+                "type": "feature",
+                "label": "5.500Pa Sucção",
+                "icon": "zap"
+            },
+            {
+                "type": "feature",
+                "label": "AI.Map 2.0",
+                "icon": "brain"
+            }
+        ]
+    },
+    "voc": {
+        "consensusScore": 82,
+        "totalReviews": "50+",
+        "acceptableFlaw": "Marca desconhecida no Brasil — disponibilidade de peças de reposição incerta. Um usuário no Pelando expressou preocupação com pouca informação sobre a marca na internet",
+        "realWorldScenario": "Usuários elogiam a eficiência na remoção de cabelos e pelos de pets em uma única passada. O LiDAR cria mapas precisos evitando que o robô se perca ou bata em móveis. Preço promocional de ~R$999 no ML torna atrativo vs concorrentes",
+        "goldenTip": "Use o Boost-EZS para tapetes — ele ajusta sucção automaticamente. Configure zonas proibidas no app para proteger fios e áreas sensíveis"
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "Navegação LiDAR iPath com AI.Map 2.0 de alta precisão",
+                "5.500Pa de sucção — potência competitiva para tapetes",
+                "150min de autonomia + Recharge & Resume",
+                "Zonas de restrição inteligentes via app",
+                "Preço agressivo: specs de R$2.000+ por R$1.600"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "Marca DESCONHECIDA no Brasil: suporte pós-venda incerto",
+                "Mop ESTÁTICO: apenas arrasta pano úmido",
+                "Altura de 10cm: pode travar em móveis baixos",
+                "Sem autoesvaziamento: base simples"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "O EZS E10 entrega especificações competitivas com robôs de R$2.000+ por preço agressivo. A navegação LiDAR e mapeamento AI são diferenciais reais. O risco está no pós-venda: marca desconhecida significa incerteza em peças e assistência. Vale para quem aceita esse trade-off por economia."
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "Valoriza suporte pós-venda e peças fáceis",
+                "Quer marca estabelecida (Roborock, Xiaomi, iRobot)",
+                "Precisa de mop que esfregue manchas",
+                "Seus móveis têm vão menor que 10cm"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões PARR-BR para Robôs Aspiradores",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Navegação & Mapeamento",
+                "shortName": "Navegação",
+                "score": 9,
+                "weight": 0.25,
+                "icon": "radar",
+                "color": "cyan",
+                "description": "PREMIUM: LiDAR iPath com AI.Map 2.0. Mapeamento multi-andares e zonas de restrição."
+            },
+            {
+                "id": "c2",
+                "name": "Software & Conectividade",
+                "shortName": "App/Voz",
+                "score": 8,
+                "weight": 0.15,
+                "icon": "smartphone",
+                "color": "purple",
+                "description": "BOM: App com edição de mapa, zonas, agendamento. Alexa e Google funcionam."
+            },
+            {
+                "id": "c3",
+                "name": "Sistema de Mop",
+                "shortName": "Mop",
+                "score": 5,
+                "weight": 0.15,
+                "icon": "droplet",
+                "color": "blue",
+                "description": "BÁSICO: Mop estático apenas arrasta pano úmido. NÃO é vibratório."
+            },
+            {
+                "id": "c4",
+                "name": "Engenharia de Escovas",
+                "shortName": "Escovas",
+                "score": 6,
+                "weight": 0.10,
+                "icon": "sparkles",
+                "color": "emerald",
+                "description": "PADRÃO: Não menciona escovas de silicone anti-emaranhamento."
+            },
+            {
+                "id": "c5",
+                "name": "Altura e Acessibilidade",
+                "shortName": "Altura",
+                "score": 5,
+                "weight": 0.10,
+                "icon": "ruler",
+                "color": "orange",
+                "description": "ALTURA PADRÃO: 10cm por causa da torre LiDAR."
+            },
+            {
+                "id": "c6",
+                "name": "Manutenibilidade",
+                "shortName": "Peças",
+                "score": 5,
+                "weight": 0.08,
+                "icon": "wrench",
+                "color": "slate",
+                "description": "CAUTELA: Marca desconhecida no Brasil. Peças incertas."
+            },
+            {
+                "id": "c7",
+                "name": "Bateria e Autonomia",
+                "shortName": "Bateria",
+                "score": 8,
+                "weight": 0.05,
+                "icon": "battery",
+                "color": "green",
+                "description": "EXCELENTE: 150min de autonomia + Recharge & Resume."
+            },
+            {
+                "id": "c8",
+                "name": "Acústica",
+                "shortName": "Ruído",
+                "score": 6,
+                "weight": 0.05,
+                "icon": "volume2",
+                "color": "amber",
+                "description": "NÃO ESPECIFICADO: Valor padrão estimado ~65dB."
+            },
+            {
+                "id": "c9",
+                "name": "Base de Carregamento",
+                "shortName": "Base",
+                "score": 4,
+                "weight": 0.05,
+                "icon": "home",
+                "color": "red",
+                "description": "BÁSICO: Base apenas carrega. Sem autoesvaziamento."
+            },
+            {
+                "id": "c10",
+                "name": "Recursos de IA",
+                "shortName": "IA",
+                "score": 6,
+                "weight": 0.02,
+                "icon": "brain",
+                "color": "pink",
+                "description": "BOM: LiDAR é o diferencial. Não menciona câmera ou IA frontal."
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "status": "warning",
+            "message": "Com 10cm de altura (torre LiDAR), o EZS E10 precisa de vãos de pelo menos 10.5cm para passar sob móveis. Meça seus sofás e camas antes de comprar.",
+            "idealRange": {
+                "min": 6,
+                "max": 9
+            }
+        },
+        "soundAlert": {
+            "status": "acceptable",
+            "message": "O mop do EZS E10 é estático: apenas arrasta um pano úmido. Para manchas secas, você ainda precisará de mop manual. Ideal para manutenção diária.",
+            "suggestions": [
+                {
+                    "condition": "Para manchas pesadas",
+                    "product": "Roborock S7/S8 com Sonic Mop",
+                    "reason": "Vibração de 3000rpm remove sujeira incrustada"
+                },
+                {
+                    "condition": "Para pisos de madeira",
+                    "product": "Usar modo 'baixo fluxo' no app",
+                    "reason": "Evita excesso de água que danifica madeira"
+                }
+            ]
+        },
+        "energyAlert": {
+            "rating": "A",
+            "message": "Consumo de ~30W durante operação. Custo mensal estimado de R$ 2-3 na conta de luz com uso diário."
+        }
+    },
+    "tco": {
+        "purchasePrice": 1600,
+        "energyCost5y": 270,
+        "maintenanceCost5y": 1600,
+        "totalCost5y": 3470,
+        "monthlyReserve": 31,
+        "lifespan": {
+            "years": 3,
+            "categoryAverage": 7,
+            "limitingComponent": "Bateria Li-ion Premium (5200mAh)",
+            "limitingComponentLife": 3.5,
+            "weibullExplanation": "Baseado em uso médio de 4h/dia (1.460h/ano), a bateria Li-ion de 5200mAh tem vida útil estimada de 3.5 anos segundo a distribuição Weibull (η=3.5, 90% dos aparelhos chegam a essa marca). O componente limitante define a vida útil total do produto."
+        },
+        "repairability": {
+            "score": 4.8,
+            "level": "moderate",
+            "categoryAverage": 6.5,
+            "components": [
+                {
+                    "name": "Placa Principal Smart (com LiDAR)",
+                    "score": 2,
+                    "price": 450,
+                    "availability": "scarce",
+                    "failureSymptoms": [
+                        "Robô não liga / não dá sinal",
+                        "Reinicia sozinho / trava",
+                        "Não conecta Wi-Fi / some do app"
+                    ],
+                    "repairAdvice": "Custo alto frequentemente inviabiliza reparo. Marca desconhecida agrava disponibilidade."
+                },
+                {
+                    "name": "Sensor LiDAR (Torre LDS)",
+                    "score": 4,
+                    "price": 500,
+                    "availability": "scarce",
+                    "failureSymptoms": [
+                        "Anda em círculos",
+                        "Mapa não fecha / erro de mapa",
+                        "Erro LDS / torre não gira",
+                        "Perde localização constantemente"
+                    ],
+                    "repairAdvice": "Peça crítica. Disponibilidade incerta para marca desconhecida."
+                },
+                {
+                    "name": "Motor de Sucção Brushless Premium (Nidec)",
+                    "score": 4,
+                    "price": 350,
+                    "availability": "limited",
+                    "failureSymptoms": [
+                        "Perda de sucção mesmo com filtro limpo",
+                        "Barulho anormal",
+                        "Superaquece e desliga"
+                    ],
+                    "repairAdvice": "Reparo possível se encontrar peça compatível."
+                },
+                {
+                    "name": "Bateria Li-ion Premium (5200mAh)",
+                    "score": 6,
+                    "price": 550,
+                    "availability": "limited",
+                    "failureSymptoms": [
+                        "Autonomia reduziu muito",
+                        "Não completa a limpeza",
+                        "Desliga quando aumenta sucção"
+                    ],
+                    "repairAdvice": "Componente limitante. Buscar bateria compatível em marketplaces."
+                },
+                {
+                    "name": "Módulo de Roda (Motor + Engrenagem)",
+                    "score": 7,
+                    "price": 180,
+                    "availability": "limited",
+                    "failureSymptoms": [
+                        "Anda torto",
+                        "Patina / não sobe desnível",
+                        "Fica travado"
+                    ],
+                    "repairAdvice": "Peça relativamente genérica. Buscar compatível."
+                },
+                {
+                    "name": "Kit Escovas (Central + Laterais + Filtro)",
+                    "score": 10,
+                    "price": 90,
+                    "availability": "available",
+                    "failureSymptoms": [
+                        "Perda de desempenho",
+                        "Cabelo enrolado travando escova"
+                    ],
+                    "repairAdvice": "Consumível. Kits genéricos funcionam bem."
+                }
+            ]
+        }
+    },
+    "decisionFAQ": [
+        {
+            "id": "brand_risk",
+            "icon": "AlertTriangle",
+            "question": "Nunca ouvi falar da marca EZS. É confiável?",
+            "answer": "Sendo honesto: não há histórico no Brasil. A EZS aparenta ser uma marca chinesa OEM sem representação oficial. As specs são reais (LiDAR, 5500Pa), mas o risco está no pós-venda. Se a bateria ou LiDAR falharem, você dependerá de peças genéricas. Recomendamos apenas para quem aceita esse trade-off pela economia de ~R$500 vs Roborock."
+        },
+        {
+            "id": "comparison",
+            "icon": "Scale",
+            "question": "EZS E10 vs Roborock Q7 L5: Qual eu devo escolher?",
+            "answer": "Resumo prático: O E10 oferece specs similares (LiDAR, mapeamento, 150min) por R$500 menos. A diferença está na marca: Roborock tem ecossistema Xiaomi, peças disponíveis e reputação. EZS é aposta. Se seu orçamento é apertado e você aceita o risco, E10 é opção. Se valoriza segurança pós-compra, pague mais pelo Q7 L5."
+        },
+        {
+            "id": "maintenance",
+            "icon": "Wrench",
+            "question": "E se precisar de peças de reposição?",
+            "answer": "Este é o maior risco. Não há assistência técnica oficial EZS no Brasil. Você dependerá de: (1) Peças genéricas em AliExpress/Shopee com prazo de 30-60 dias; (2) Técnicos independentes que aceitem trabalhar com a marca. Bateria e escovas são mais fáceis de encontrar. LiDAR e placa são problemáticos."
+        }
+    ],
+    "interactiveTools": [
+        {
+            "id": "dimension-check",
+            "icon": "ruler",
+            "title": "Será que cabe?",
+            "badge": "Teste Rápido",
+            "badgeColor": "orange",
+            "description": "Verifique se o robô passa debaixo dos seus móveis",
+            "toolType": "geometry",
+            "configRef": "robo-passa-movel"
+        },
+        {
+            "id": "cleaning-area-calc",
+            "icon": "maximize",
+            "title": "Cobertura de Limpeza",
+            "badge": "Simulador",
+            "badgeColor": "blue",
+            "description": "Calcule quantos cômodos o robô consegue limpar por carga",
+            "toolType": "calculator",
+            "configRef": "robo-cobertura-limpeza"
+        }
+    ]
+}

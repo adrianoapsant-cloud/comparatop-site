@@ -1,0 +1,54 @@
+{
+    "product": {
+        "name": "Sample Ups Product",
+        "brand": "SampleBrand",
+        "model": "Model-001",
+        "categoryId": "ups",
+        "asin": "B0SAMPLE01"
+    },
+    "price": {
+        "valueBRL": 999,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://amazon.com.br/dp/B0SAMPLE01"
+    },
+    "sources": [
+        {
+            "url": "https://amazon.com.br/dp/B0SAMPLE01",
+            "type": "amazon"
+        },
+        {
+            "url": "https://manufacturer.com/sample",
+            "type": "manufacturer"
+        }
+    ],
+    "specs": {
+        "va": "standard",
+        "watts": "standard",
+        "batteryMinutes": 30,
+        "outlets": "standard",
+        "hasPureSineWave": true,
+        "hasAvr": true
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22"
+    },
+    "evidence": {
+        "specs.va": {
+            "sourceUrl": "https://manufacturer.com/sample",
+            "note": "Especificação oficial"
+        },
+        "specs.watts": {
+            "sourceUrl": "https://manufacturer.com/sample",
+            "note": "Especificação oficial"
+        },
+        "specs.batteryMinutes": {
+            "sourceUrl": "https://manufacturer.com/sample",
+            "note": "Especificação oficial"
+        },
+        "specs.outlets": {
+            "sourceUrl": "https://manufacturer.com/sample",
+            "note": "Especificação oficial"
+        }
+    }
+}

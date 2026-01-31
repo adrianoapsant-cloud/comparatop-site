@@ -8,6 +8,30 @@
 import type { Product, MainCompetitor } from '@/types/category';
 
 // ============================================
+// ROBOT VACUUM IMPORTS (modular architecture)
+// ============================================
+// Existing entry files
+import { liectroux_xr500_pro } from './products.entry.liectroux-xr500-pro';
+import { wkjwqwhy_a6s } from './products.entry.wkjwqwhy-a6s';
+import { xiaomi_robot_vacuum_s40c } from './products.entry.xiaomi-robot-vacuum-s40c';
+import { wap_robot_w90 } from './products.entry.wap-robot-w90';
+import { xiaomi_robot_vacuum_s20_plus_white } from './products.entry.xiaomi-robot-vacuum-s20-plus-white';
+import { samsung_vr5000rm } from './products.entry.samsung-vr5000rm';
+import { kabum_smart_700 } from './products.entry.kabum-smart-700';
+import { product as philco_pas26p } from './products.entry.philco-pas26p';
+
+// Newly extracted entry files (from products.ts inline)
+import { wap_robot_w400 } from './products.entry.wap-robot-w400';
+import { roborock_q7_l5 } from './products.entry.roborock-q7-l5';
+import { electrolux_erb20_home_control_experience } from './products.entry.electrolux-erb20-home-control-experience';
+import { liectroux_l200_robo_aspirador_3em1_app_alexa_google } from './products.entry.liectroux-l200-robo-aspirador-3em1-app-alexa-google';
+import { xiaomi_robot_x10 } from './products.entry.xiaomi-robot-x10';
+import { ezs_e10 } from './products.entry.ezs-e10';
+import { eufy_x10_pro_omni } from './products.entry.eufy-x10-pro-omni';
+import { eufy_omni_c20 } from './products.entry.eufy-omni-c20';
+import { xiaomi_robot_vacuum_x20_pro } from './products.entry.xiaomi-robot-vacuum-x20-pro';
+
+// ============================================
 // SMART TVs - Scores match TV_CATEGORY criteria
 // ============================================
 
@@ -307,6 +331,7 @@ export const SAMPLE_TVS: Product[] = [
             ],
         },
     },
+
 ];
 
 // ============================================
@@ -977,516 +1002,26 @@ export const SAMPLE_AIR_CONDITIONERS: Product[] = [
 // ============================================
 
 export const SAMPLE_ROBOT_VACUUMS: Product[] = [
-    {
-        id: 'wap-robot-w400',
-        categoryId: 'robot-vacuum',
-        name: 'WAP Aspirador de Pó Robô ROBOT W400 3 em 1',
-        shortName: 'WAP Robot W400',
-        brand: 'WAP',
-        model: 'ROBOT W400',
-        price: 989,  // ATUALIZADO 18/01/2026 (era 1099)
-        asin: 'B0CGBR6QFC',
-        imageUrl: '/images/products/wap-robot-w400.svg',
-        status: 'published',
-        benefitSubtitle: 'Automação básica com Alexa/Google por menos de R$ 1.200',
-        scores: {
-            // PARR-BR Scoring Framework AUDITADO 18/01/2026
-            // Metodologia: Réguas de Calibração + Evidências YouTube BR/Amazon BR
-            c1: 2.5,  // Navegação (25%) - ALEATÓRIA CONFIRMADA (bate-e-volta). NÃO é giroscópico! W1000/W3000 sim, W400 NÃO.
-            c2: 7.5,  // App/Conectividade (15%) - App WAP CONNECT funcional + Alexa/Google. Diferencial na faixa.
-            c3: 7.0,  // Mop (15%) - Mop estático com reservatório. Controle de fluxo básico (não vibratório).
-            c4: 5.5,  // Escovas (10%) - Escova central padrão + laterais. 1400Pa sucção (baixo vs 2000-3000Pa atuais).
-            c5: 9.5,  // Altura (10%) - 7.5cm CONFIRMADO = Ultra-slim. Passa sob móveis planejados BR.
-            c6: 9.0,  // Peças BR (8%) - WAP marca nacional. ML e Shopee com filtros, escovas, reservatórios disponíveis.
-            c7: 4.0,  // Bateria (5%) - 100min autonomia. PENALIDADE -3.0: SEM Recharge & Resume.
-            c8: 6.0,  // Ruído (5%) - Sem especificação oficial. Reviews não reclamam = nota neutra.
-            c9: 5.0,  // Base (5%) - Base de carregamento simples inclusa. Sem autoesvaziamento.
-            c10: 2.0, // IA (2%) - SEM detecção de objetos. Apenas bate e desvia. Zero IA.
-        },
-        specs: {
-            suctionPower: 30,
-            batteryCapacity: 2600,
-            dustbinCapacity: 300,
-            waterTankCapacity: 200,
-            noiseLevel: 65,
-            width: 32,
-            height: 7.5,  // CORRIGIDO: 7.5cm confirmado (era 8)
-            depth: 32,
-        },
-        attributes: {
-            navigationType: 'random',  // CRÍTICO: Navegação aleatória
-            hasMop: true,
-            mopType: 'passive_drag',   // Mop estático
-            hasAutoEmpty: false,
-            hasMapping: false,          // Sem mapeamento
-            hasNoGoZones: false,        // Sem barreiras virtuais
-            hasRechargeResume: false,   // Não volta para continuar
-            hasAppControl: true,
-            voiceAssistants: ['Alexa', 'Google'],
-            wifiBand: '2.4GHz',
-            climbHeight: 15,            // mm
-            brushType: 'mixed_bristle', // Cerdas mistas = enrola
-            batteryMah: 2600,
-            chargingTimeHours: 4,
-            runtimeMinutes: 100,  // CORRIGIDO: 100min confirmado (era 90)
-        },
-        technicalSpecs: {
-            // Limpeza
-            suctionPower: 1400,  // Pa
-            dustbinCapacity: 300,  // ml
-            waterTankCapacity: 200,  // ml
-            mopType: 'Estático com Reservatório',
-            brushType: 'Cerdas Mistas',
-            filterType: 'HEPA',
-            // Navegação
-            navigation: 'Aleatória (Bate-e-Volta)',
-            mapping: false,
-            lidar: false,
-            camera: false,
-            obstacleDetection: 'Apenas Sensores de Colisão',
-            climbHeight: 15,  // mm
-            // Bateria
-            runtime: '100 minutos',
-            batteryCapacity: 2600,  // mAh
-            chargingTime: '4 horas',
-            autoRecharge: true,
-            rechargeResume: false,
-            // Conectividade
-            wifi: true,
-            appControl: true,
-            voiceControl: 'Alexa, Google Assistente',
-            scheduling: true,
-            // Base/Dock
-            dockType: 'Carregamento Simples',
-            autoEmpty: false,
-            autoMopWash: false,
-            autoRefill: false,
-            // Dimensões
-            height: 7.5,  // cm
-            diameter: 32,  // cm
-            weight: 2.6,  // kg
-            noiseLevel: 65,  // dB
-            power: 30,  // W
-        },
-        scoreReasons: {
-            c1: 'PENALIDADE: Navegação aleatória "bate-volta" é ineficiente. Limpa mesmos lugares várias vezes e esquece outros. Para casas >50m², considere LiDAR.',
-            c2: 'DIFERENCIAL: Integração Alexa e Google é RARA nessa faixa de preço. Diga "Alexa, ligue o robô" sem precisar do celular.',
-            c3: 'LIMITAÇÃO: Mop passivo apenas arrasta um pano úmido. Remove poeira fina, mas NÃO esfrega manchas. Para piso encardido, use mop manual.',
-            c4: 'ATENÇÃO PETS: Escova de cerdas mistas enrola cabelo e pelos. Se tiver cachorro/gato, prepare-se para limpar a escova semanalmente.',
-            c5: 'DESTAQUE: Com 7.5cm de altura (ultra-slim), passa facilmente sob sofás e camas baixas. Muitos robôs LiDAR têm torre que trava em móveis.',
-            c6: 'GARANTIA BR: WAP é marca nacional com peças vendidas no Mercado Livre (filtros, escovas). Evita o risco de importado sem peça.',
-            c9: 'SEM DOCK: Não tem base auto-esvaziante nem lavagem de mop. Você precisa esvaziar o reservatório de 300ml manualmente a cada uso.',
-        },
-        // ============================================
-        // VOC - Voice of Customer (Dados da Amazon)
-        // ============================================
-        voc: {
-            totalReviews: 1433,
-            averageRating: 4.2,
-            oneLiner: 'Custo-benefício imbatível para limpeza básica automatizada',
-            summary: 'Compradores elogiam a facilidade de uso, integração com Alexa/Google e o preço acessível. Principais críticas são sobre a navegação aleatória e capacidade limitada do reservatório. Ideal para apartamentos pequenos e manutenção diária.',
-            pros: [
-                'Controle por voz com Alexa e Google funciona perfeitamente',
-                'Preço acessível para entrada no mundo dos robôs',
-                '3 em 1: aspira, varre e passa pano',
-                'Retorna automaticamente à base para carregar',
-                'Silencioso comparado a aspiradores tradicionais',
-            ],
-            cons: [
-                'Navegação aleatória pode repetir áreas e esquecer outras',
-                'Reservatório de 300ml enche rápido em casas com pets',
-                'Mop não remove manchas pesadas, só poeira leve',
-                'Wi-Fi apenas 2.4GHz pode dar problema em roteadores mesh',
-            ],
-            sources: [
-                { name: 'Amazon Brasil', url: 'https://www.amazon.com.br/dp/B0CGBR6QFC', count: 1433 },
-            ],
-        },
-        painPointsSolved: ['Falta de tempo para varrer diariamente', 'Acúmulo de poeira debaixo de móveis', 'Automatizar limpeza de rotina'],
-        badges: ['best-value', 'budget-pick'],
-        offers: [
-            {
-                store: 'Amazon',
-                storeSlug: 'amazon',
-                price: 989,
-                originalPrice: 1099,  // Preço anterior
-                url: 'https://www.amazon.com.br/dp/B0CGBR6QFC',
-                affiliateUrl: 'https://amzn.to/wap-robot-w400',
-                inStock: true,
-                lastChecked: '2026-01-18'
-            },
-            {
-                store: 'Mercado Livre',
-                storeSlug: 'mercadolivre',
-                price: 1149,
-                url: 'https://www.mercadolivre.com.br/wap-robot-w400',
-                inStock: true,
-                lastChecked: '2026-01-18'
-            },
-        ],
-        lastUpdated: '2026-01-18',
-        gallery: ['/images/products/wap-robot-w400.svg', '/images/products/wap-robot-w400-dock.svg'],
-        featureBenefits: [
-            { icon: 'Mic', title: 'Alexa & Google', description: 'Diga "Alexa, ligue o robô". Controle por voz sem precisar do celular.' },
-            { icon: 'Droplets', title: '3 em 1', description: 'Aspira, varre e passa pano em uma passada. Limpeza completa automatizada.' },
-            { icon: 'Clock', title: '100 min de Autonomia', description: 'Limpa apartamentos de até 60m² em uma carga. Volta sozinho para base.' },
-            { icon: 'TrendingDown', title: '-35% de Desconto', description: 'De R$ 1.699 por R$ 1.099. Mais de 300 vendas no mês passado.' },
-        ],
-        benchmarks: [
-            { label: 'Potência de Sucção', productValue: 30, categoryAverage: 45, unit: 'W', higherIsBetter: true },
-            { label: 'Autonomia', productValue: 100, categoryAverage: 120, unit: 'min', higherIsBetter: true },
-            { label: 'Reservatório', productValue: 300, categoryAverage: 400, unit: 'ml', higherIsBetter: true },
-            { label: 'Altura (Passa Móveis)', productValue: 7.5, categoryAverage: 9.5, unit: 'cm', higherIsBetter: false },
-        ],
-        priceHistory: [
-            { date: '2025-10-01', price: 1699 },
-            { date: '2025-11-01', price: 1499 },
-            { date: '2025-12-01', price: 1299 },
-            { date: '2025-12-25', price: 999 },
-            { date: '2026-01-18', price: 1099 },
-        ],
-        mainCompetitor: {
-            id: 'electrolux-robo-er',
-            name: 'Electrolux Robô ER 2h20min',
-            shortName: 'Electrolux ER',
-            imageUrl: '/images/products/electrolux-robo-er.svg',
-            price: 732,
-            score: 6.8,
-            keyDifferences: [
-                { label: 'Controle de Voz', current: 'Alexa + Google', rival: 'Apenas controle remoto', winner: 'current' },
-                { label: 'Preço', current: 'R$ 989', rival: 'R$ 732', winner: 'rival' },
-                { label: 'Autonomia', current: '100 min', rival: '140 min', winner: 'rival' },
-            ],
-        },
-    },
-    // ============================================
-    // ROBOROCK Q7 L5 - LiDAR Premium (Cadastrado 18/01/2026)
-    // ============================================
-    {
-        id: 'roborock-q7-l5',
-        categoryId: 'robot-vacuum',
-        name: 'Roborock Q7 L5 Robô Aspirador e Esfregão com LiDAR',
-        shortName: 'Roborock Q7 L5',
-        brand: 'Roborock',
-        model: 'Q7 L5',
-        price: 2105.95,
-        asin: 'B0F3337BV7',
-        imageUrl: '/images/products/roborock-q7-l5.svg',
-        status: 'published',
-        benefitSubtitle: 'LiDAR preciso com 8000Pa de sucção e escovas anti-emaranhamento para pets',
-        scores: {
-            // PARR-BR Scoring Framework - Cadastrado 18/01/2026
-            // Metodologia: Réguas de Calibração + Pesquisa Amazon BR + Web Search
-            c1: 9.5,  // Navegação (25%) - LiDAR + Mapeamento 3D + Zonas de Restrição. Premium.
-            c2: 9.0,  // App/Conectividade (15%) - Roborock App estável + mapa interativo + Alexa/Google
-            c3: 7.0,  // Mop (15%) - Mop estático com reservatório (NÃO vibratório como S7/S8)
-            c4: 9.0,  // Escovas (10%) - Dual anti-emaranhamento! Ideal para pets.
-            c5: 7.5,  // Altura (10%) - 9.8cm (LiDAR padrão, não ultra-slim)
-            c6: 6.0,  // Peças BR (8%) - Importadas (Roborock China). Mais difícil que WAP nacional.
-            c7: 9.0,  // Bateria (5%) - 150min + Recharge & Resume ✓
-            c8: 7.0,  // Ruído (5%) - Nível médio (~65dB estimado)
-            c9: 5.0,  // Base (5%) - Base simples. Q7 Max+ tem autoesvaziamento, Q7 L5 NÃO.
-            c10: 8.0, // IA (2%) - Boa detecção de obstáculos via sensores 3D
-        },
-        specs: {
-            suctionPower: 8000,  // Pa
-            batteryCapacity: 5200,  // mAh
-            dustbinCapacity: 470,  // ml
-            waterTankCapacity: 350,  // ml
-            noiseLevel: 65,  // dB estimado
-            width: 35,  // cm (diâmetro)
-            height: 9.8,  // cm (altura LiDAR padrão)
-            depth: 35,
-        },
-        attributes: {
-            navigationType: 'lidar',  // LiDAR Navigation
-            hasMop: true,
-            mopType: 'static_tank',  // Mop estático com reservatório
-            hasAutoEmpty: false,  // Q7 L5 não tem autoesvaziamento
-            hasMapping: true,  // Mapeamento 3D
-            hasNoGoZones: true,  // Zonas de restrição ✓
-            hasRechargeResume: true,  // Recharge & Resume ✓
-            hasAppControl: true,
-            voiceAssistants: ['Alexa', 'Google'],
-            wifiBand: '2.4GHz',
-            climbHeight: 20,  // mm
-            brushType: 'dual_rubber_anti_tangle',  // Escovas anti-emaranhamento
-            batteryMah: 5200,
-            chargingTimeHours: 4,
-            runtimeMinutes: 150,
-        },
-        technicalSpecs: {
-            // Limpeza
-            suctionPower: 8000,  // Pa
-            dustbinCapacity: 470,  // ml
-            waterTankCapacity: 350,  // ml
-            mopType: 'Estático com Reservatório',
-            brushType: 'Dual Anti-Emaranhamento',
-            filterType: 'HEPA E11',
-            // Navegação
-            navigation: 'LiDAR + Mapeamento 3D',
-            mapping: true,
-            lidar: true,
-            camera: false,
-            obstacleDetection: 'Sensores 3D Estruturados',
-            climbHeight: 20,  // mm
-            // Bateria
-            runtime: '150 minutos',
-            batteryCapacity: 5200,  // mAh
-            chargingTime: '4 horas',
-            autoRecharge: true,
-            rechargeResume: true,  // ✓ Continua de onde parou
-            // Conectividade
-            wifi: true,
-            appControl: true,
-            voiceControl: 'Alexa, Google Assistente',
-            scheduling: true,
-            multiFloorMapping: true,  // Mapeamento multi-andares
-            // Base/Dock
-            dockType: 'Carregamento Simples',
-            autoEmpty: false,  // Q7 L5 NÃO tem
-            autoMopWash: false,
-            autoRefill: false,
-            // Dimensões
-            height: 9.8,  // cm
-            diameter: 35,  // cm
-            weight: 3.2,  // kg
-            noiseLevel: 65,  // dB
-            voltage: 120,  // V (conforme Amazon)
-        },
-        scoreReasons: {
-            c1: 'PREMIUM: LiDAR de alta precisão com mapeamento 3D. Zonas de restrição inteligentes. Navegação eficiente sem repetições.',
-            c2: 'EXCELENTE: App Roborock é referência do mercado. Mapa interativo, agendamento, controle de voz Alexa/Google.',
-            c3: 'LIMITAÇÃO: Mop estático apenas arrasta pano úmido. NÃO é vibratório como Roborock S7/S8. Para manchas pesadas, insuficiente.',
-            c4: 'DESTAQUE PETS: Escovas duplas de borracha anti-emaranhamento! Não enrola pelos como escovas de cerdas.',
-            c5: 'ALTURA PADRÃO: 9.8cm por causa da torre LiDAR. Pode travar em alguns móveis planejados. Robôs vSLAM são mais baixos.',
-            c6: 'ATENÇÃO: Marca chinesa importada. Peças disponíveis via AliExpress, não Mercado Livre. Prazo maior.',
-            c7: 'EXCELENTE: 150min de autonomia + Recharge & Resume. Limpa casas grandes, recarrega e continua automaticamente.',
-            c9: 'BÁSICO: Base apenas carrega. Para autoesvaziamento, considere Q7 Max+ (mais caro).',
-            c10: 'BOA IA: Sensores 3D detectam obstáculos. Não é câmera como S8 Pro Ultra, mas funciona bem.',
-        },
-        voc: {
-            totalReviews: 3512,
-            averageRating: 4.2,
-            oneLiner: 'LiDAR premium com sucção potente e anti-emaranhamento para pets',
-            summary: 'Compradores elogiam a navegação LiDAR precisa, mapeamento multi-andares e escovas que não enrolam pelos. Principais críticas são sobre o mop básico (não vibratório) e a altura que trava em alguns móveis. Ideal para casas com pets e múltiplos cômodos.',
-            pros: [
-                'Navegação LiDAR extremamente precisa',
-                '8000Pa de sucção para sujeira pesada',
-                'Escovas anti-emaranhamento excelentes para pets',
-                'Mapeamento de múltiplos andares',
-                'Recharge & Resume funciona perfeitamente',
-            ],
-            cons: [
-                'Mop estático não remove manchas pesadas',
-                'Altura 9.8cm pode travar em móveis baixos',
-                'Peças importadas (demora para chegar)',
-                'Base simples, sem autoesvaziamento',
-            ],
-            sources: [
-                { name: 'Amazon Brasil', url: 'https://www.amazon.com.br/dp/B0F3337BV7', count: 3512 },
-            ],
-        },
-        painPointsSolved: ['Casa com pets (pelos)', 'Múltiplos cômodos', 'Limpeza profunda de carpetes', 'Automação avançada'],
-        badges: ['premium-pick'],
-        offers: [
-            {
-                store: 'Amazon',
-                storeSlug: 'amazon',
-                price: 2105.95,
-                url: 'https://www.amazon.com.br/dp/B0F3337BV7',
-                affiliateUrl: 'https://amzn.to/roborock-q7-l5',
-                inStock: true,
-                lastChecked: '2026-01-18',
-            },
-        ],
-        lastUpdated: '2026-01-18',
-        gallery: ['/images/products/roborock-q7-l5.svg'],
-        featureBenefits: [
-            { icon: 'Radar', title: 'LiDAR de Precisão', description: 'Mapeia sua casa em 3D e limpa de forma eficiente, sem repetir áreas.' },
-            { icon: 'Dog', title: 'Anti-Emaranhamento', description: 'Escovas duplas de borracha não enrolam pelos de pets. Zero manutenção.' },
-            { icon: 'Zap', title: '8000Pa de Sucção', description: 'Potência máxima para carpetes, tapetes e sujeira pesada.' },
-            { icon: 'Clock', title: 'Casas Grandes', description: '150min de autonomia + volta para carregar e continua automaticamente.' },
-        ],
-        mainCompetitor: {
-            id: 'wap-robot-w400',
-            name: 'WAP Robot W400 3 em 1',
-            shortName: 'WAP W400',
-            imageUrl: '/images/products/wap-robot-w400.svg',
-            price: 989,
-            score: 5.81,
-            keyDifferences: [
-                { label: 'Navegação', current: 'LiDAR 3D', rival: 'Aleatória', winner: 'current' },
-                { label: 'Sucção', current: '8000Pa', rival: '1400Pa', winner: 'current' },
-                { label: 'Preço', current: 'R$ 2.105', rival: 'R$ 989', winner: 'rival' },
-            ],
-        },
-    },
-    // ============================================
-    // XIAOMI ROBOT VACUUM X10 - LiDAR + Auto-Empty (Cadastrado 18/01/2026)
-    // ============================================
-    {
-        id: 'xiaomi-robot-x10',
-        categoryId: 'robot-vacuum',
-        name: 'XIAOMI Robot Vacuum X10 com Auto-Esvaziamento',
-        shortName: 'Xiaomi X10',
-        brand: 'Xiaomi',
-        model: 'Robot Vacuum X10',
-        price: 3000,
-        asin: 'B0BW4LVTTD',
-        imageUrl: '/images/products/xiaomi-x10.svg',
-        status: 'published',
-        benefitSubtitle: 'LDS Premium com base auto-esvaziante e 4000Pa para casas grandes',
-        scores: {
-            // PARR-BR Scoring Framework - Cadastrado 18/01/2026
-            // Metodologia: Réguas de Calibração + Pesquisa Amazon BR + Specs Oficiais
-            c1: 9.5,  // Navegação (25%) - LDS Laser + Mapeamento Inteligente multi-andares. Premium.
-            c2: 9.0,  // App/Conectividade (15%) - Xiaomi Home app estável + Alexa/Google. Ecossistema sólido.
-            c3: 7.5,  // Mop (15%) - Mop estático com controle eletrônico de 3 níveis. Não vibratório.
-            c4: 7.0,  // Escovas (10%) - Escova padrão (não anti-emaranhamento). Troca regular com pets.
-            c5: 7.0,  // Altura (10%) - ~9.5cm padrão LiDAR. Não ultra-slim.
-            c6: 7.0,  // Peças BR (8%) - Xiaomi tem peças no ML/Shopee. Melhor que Roborock puro.
-            c7: 9.5,  // Bateria (5%) - 5200mAh = 180min autonomia! + Recharge & Resume.
-            c8: 7.0,  // Ruído (5%) - Nível médio (~65dB)
-            c9: 10.0, // Base (5%) - AUTO-ESVAZIAMENTO incluído! Coleta pó automática. Diferencial.
-            c10: 7.5, // IA (2%) - Anti-colisão avançado + detecção básica.
-        },
-        specs: {
-            suctionPower: 4000,  // Pa
-            batteryCapacity: 5200,  // mAh
-            dustbinCapacity: 400,  // ml
-            waterTankCapacity: 200,  // ml
-            noiseLevel: 65,  // dB estimado
-            width: 35,  // cm (diâmetro)
-            height: 9.5,  // cm (altura LiDAR padrão)
-            depth: 35,
-        },
-        attributes: {
-            navigationType: 'lidar',  // LDS Laser Navigation
-            hasMop: true,
-            mopType: 'static_electronic',  // Mop estático com controle eletrônico
-            hasAutoEmpty: true,  // ✓ BASE AUTO-ESVAZIANTE!
-            hasMapping: true,  // Mapeamento inteligente
-            hasNoGoZones: true,  // Zonas de restrição ✓
-            hasRechargeResume: true,  // Recharge & Resume ✓
-            hasAppControl: true,
-            voiceAssistants: ['Alexa', 'Google'],
-            wifiBand: '2.4GHz',
-            climbHeight: 20,  // mm
-            brushType: 'standard_bristle',  // Escova padrão
-            batteryMah: 5200,
-            chargingTimeHours: 4,
-            runtimeMinutes: 180,
-        },
-        technicalSpecs: {
-            // Limpeza
-            suctionPower: 4000,  // Pa (17000Pa na base)
-            dustbinCapacity: 400,  // ml
-            waterTankCapacity: 200,  // ml (controle 3 níveis)
-            mopType: 'Estático com Controle Eletrônico',
-            brushType: 'Escova Principal + Laterais',
-            filterType: 'HEPA',
-            // Navegação
-            navigation: 'LDS (Laser Distance Sensor)',
-            mapping: true,
-            lidar: true,
-            camera: false,
-            obstacleDetection: 'Anticolisão + Antiqueda',
-            climbHeight: 20,  // mm
-            // Bateria
-            runtime: '180 minutos',
-            batteryCapacity: 5200,  // mAh
-            chargingTime: '4 horas',
-            autoRecharge: true,
-            rechargeResume: true,  // ✓ Continua de onde parou
-            // Conectividade
-            wifi: true,
-            appControl: true,
-            voiceControl: 'Alexa, Google Assistente',
-            scheduling: true,
-            multiFloorMapping: true,  // Mapeamento multi-andares
-            // Base/Dock
-            dockType: 'Auto-Esvaziamento',
-            autoEmpty: true,  // ✓ DIFERENCIAL!
-            autoMopWash: false,
-            autoRefill: false,
-            // Dimensões
-            height: 9.5,  // cm
-            diameter: 35,  // cm
-            weight: 3.5,  // kg
-            noiseLevel: 65,  // dB
-            voltage: 127,  // V
-        },
-        scoreReasons: {
-            c1: 'PREMIUM: Navegação LDS (Laser) com mapeamento inteligente multi-andares. Zonas de restrição configuráveis pelo app.',
-            c2: 'EXCELENTE: App Xiaomi Home integrado ao ecossistema. Alexa e Google funcionam nativamente. Boa estabilidade.',
-            c3: 'LIMITAÇÃO: Mop estático com 3 níveis de água, mas NÃO vibratório. Limpa poeira fina, não esfrega manchas.',
-            c4: 'ATENÇÃO PETS: Escova padrão com cerdas pode enrolar pelos. Limpeza semanal necessária com cachorros/gatos.',
-            c5: 'PADRÃO LiDAR: 9.5cm de altura com torre laser. Verifique vão dos móveis antes de comprar.',
-            c6: 'XIAOMI BRASIL: Peças disponíveis no ML/Shopee. Melhor suprimento que marcas 100% importadas.',
-            c7: 'AUTONOMIA MÁXIMA: 5200mAh = 180min! A maior da categoria. + Recharge & Resume para casas grandes.',
-            c9: 'DIFERENCIAL: Base AUTO-ESVAZIANTE inclusa! Coleta pó automaticamente. Zero trabalho manual por semanas.',
-            c10: 'BOA IA: Sistema anticolisão e antiqueda funcionam bem. Não tem câmera para objetos pequenos.',
-        },
-        voc: {
-            totalReviews: 6465,
-            averageRating: 4.5,
-            oneLiner: 'LDS Premium com auto-esvaziamento e mega autonomia para casas grandes',
-            summary: 'Compradores elogiam muito a base auto-esvaziante, a autonomia de 180min e a integração com Alexa/Google. Principais críticas são sobre a escova que enrola cabelo e o mop básico. Ideal para quem quer esquecer que o robô existe.',
-            pros: [
-                'Base auto-esvaziante dispensa trabalho manual por semanas',
-                '180 minutos de autonomia - a maior da categoria',
-                'Integração perfeita com Alexa e Google',
-                'Mapeamento multi-andares preciso',
-                'Ecossistema Xiaomi confiável',
-            ],
-            cons: [
-                'Escova padrão enrola cabelo/pelos de pets',
-                'Mop estático não remove manchas pesadas',
-                'Altura padrão pode travar em móveis baixos',
-                'Wi-Fi apenas 2.4GHz',
-            ],
-            sources: [
-                { name: 'Amazon Brasil', url: 'https://www.amazon.com.br/dp/B0BW4LVTTD', count: 6465 },
-            ],
-        },
-        painPointsSolved: ['Esvaziar reservatório manualmente', 'Casas muito grandes', 'Automação total', 'Integração smart home'],
-        badges: ['premium-pick', 'editors-choice'],
-        offers: [
-            {
-                store: 'Amazon',
-                storeSlug: 'amazon',
-                price: 3000,
-                url: 'https://www.amazon.com.br/dp/B0BW4LVTTD',
-                affiliateUrl: 'https://amzn.to/xiaomi-x10',
-                inStock: true,
-                lastChecked: '2026-01-18',
-            },
-        ],
-        lastUpdated: '2026-01-18',
-        gallery: ['/images/products/xiaomi-x10.svg'],
-        featureBenefits: [
-            { icon: 'Trash2', title: 'Auto-Esvaziamento', description: 'Base coleta pó automaticamente. Esqueça que o robô existe por semanas.' },
-            { icon: 'Radar', title: 'LDS Laser', description: 'Navegação precisa com mapeamento 3D de múltiplos andares.' },
-            { icon: 'Battery', title: '180min Autonomia', description: 'A maior bateria da categoria. Limpa casas de até 200m² em uma carga.' },
-            { icon: 'Mic', title: 'Alexa & Google', description: 'Diga "Alexa, mande o robô limpar a sala". Funciona nativamente.' },
-        ],
-        mainCompetitor: {
-            id: 'roborock-q7-l5',
-            name: 'Roborock Q7 L5 LiDAR',
-            shortName: 'Roborock Q7 L5',
-            imageUrl: '/images/products/roborock-q7-l5.svg',
-            price: 2106,
-            score: 8.11,
-            keyDifferences: [
-                { label: 'Auto-Esvaziamento', current: 'Sim ✓', rival: 'Não', winner: 'current' },
-                { label: 'Autonomia', current: '180min', rival: '150min', winner: 'current' },
-                { label: 'Escovas Anti-Tangle', current: 'Não', rival: 'Sim ✓', winner: 'rival' },
-            ],
-        },
-    },
+    // Modular architecture: all products imported from entry files
+    wap_robot_w400,
+    roborock_q7_l5,
+    electrolux_erb20_home_control_experience,
+    liectroux_l200_robo_aspirador_3em1_app_alexa_google,
+    xiaomi_robot_x10,
+    ezs_e10,
+    eufy_x10_pro_omni,
+    eufy_omni_c20,
+    xiaomi_robot_vacuum_x20_pro,
+    // Pre-existing entry files
+    liectroux_xr500_pro,
+    wkjwqwhy_a6s,
+    xiaomi_robot_vacuum_s40c,
+    wap_robot_w90,
+    xiaomi_robot_vacuum_s20_plus_white,
+    samsung_vr5000rm,
+    kabum_smart_700,
+    philco_pas26p as unknown as Product,
 ];
-
 
 // ============================================
 // SMARTWATCHES - Nova Categoria (Cadastrado 18/01/2026)
@@ -1643,6 +1178,96 @@ export const SAMPLE_SMARTWATCHES: Product[] = [
                 { label: 'Compatibilidade', current: 'Android + Samsung', rival: 'Apenas iPhone', winner: 'current' },
                 { label: 'Preço', current: 'R$ 2.199', rival: 'R$ 4.499', winner: 'current' },
                 { label: 'Ecossistema', current: 'Wear OS', rival: 'watchOS', winner: 'rival' },
+            ],
+        },
+    },
+    {
+        id: 'haylou-rt3-ls16-tactical',
+        categoryId: 'smartwatch',
+        name: 'Relógio Smartwatch Haylou LS16 (RT3) Tactical Bluetooth 5.2 Tela AMOLED 1,43"',
+        shortName: 'Haylou RT3 (LS16) Tactical',
+        brand: 'Haylou',
+        model: 'LS16 (RT3)',
+        price: 249, // Estimativa de mercado para smartwatch de entrada/intermediário
+        imageUrl: '/images/products/haylou-rt3-ls16-tactical.svg',
+        status: 'published',
+        benefitSubtitle: 'Tela AMOLED 1,43", Bluetooth 5.2, bateria de até 15 dias e resistência IP68.',
+        scores: {
+            c1: 8.5,  // Tela - AMOLED 1.43"
+            c2: 9.5,  // Bateria - 15 dias (ótimo)
+            c3: 6.0,  // Sensores Saúde - Básico (HR/SpO2)
+            c4: 5.0,  // Fitness - Sem GPS nativo
+            c5: 6.0,  // Ecossistema - App proprietário
+            c6: 9.0,  // Custo-Benefício - Alto valor pelo preço
+            c7: 9.0,  // Design - Caixa em titânio
+            c8: 8.5,  // Resistência - IP68
+            c9: 7.0,  // Notificações - Básico
+            c10: 1.0, // Pagamentos - Sem NFC
+        },
+        specs: {
+            screenSize: 45, // mm (caixa) / 1.43" tela
+            width: 45,
+            height: 45,
+            depth: 10.1, // Estimado
+        },
+        attributes: {
+            displayType: 'AMOLED',
+            connectivity: 'Bluetooth 5.2',
+            waterResistance: 'IP68',
+            sensors: ['HR', 'SpO2'],
+            voiceAssistants: [],
+            nfc: false,
+            gps: 'Não',
+            batteryLife: '15 dias',
+        },
+        technicalSpecs: {
+            displaySize: '1.43"',
+            displayType: 'AMOLED',
+            bluetooth: '5.2',
+            batteryLife: '15 dias',
+            waterResistance: 'IP68',
+            caseMaterial: 'Titânio',
+        },
+        scoreReasons: {
+            c1: 'Tela AMOLED de 1.43" oferece cores vibrantes e boa visibilidade.',
+            c2: 'Bateria de até 15 dias é um grande diferencial para a categoria.',
+            c3: 'Sensores básicos de frequência cardíaca e oxigenação (SpO2).',
+            c4: 'Não possui GPS integrado, dependendo do celular para rastreio preciso.',
+            c5: 'Sistema proprietário da Haylou, funcional mas menos expansível que WearOS.',
+            c6: 'Excelente construção em titânio e tela AMOLED por um preço acessível.',
+            c7: 'Design robusto com caixa em titânio e visual tático.',
+            c8: 'Classificação IP68 garante proteção contra água e poeira no uso diário.',
+        },
+        voc: {
+            averageRating: 4.5,
+            totalReviews: 150,
+            oneLiner: 'Smartwatch robusto com tela premium e muita bateria',
+            summary: 'Usuários elogiam a qualidade da tela AMOLED e a duração da bateria. O design em titânio também é um ponto forte. A falta de GPS integrado é a principal crítica para esportistas.',
+            pros: ['Tela AMOLED', 'Bateria 15 dias', 'Design em titânio', 'Preço'],
+            cons: ['Sem GPS', 'Sem NFC', 'App básico'],
+            sources: [{ name: 'Amazon BR', url: '', count: 150 }],
+        },
+        badges: ['best-value'],
+        offers: [],
+        lastUpdated: '2026-01-28',
+        gallery: ['/images/products/haylou-rt3-ls16-tactical.svg'],
+        featureBenefits: [
+            { icon: 'MonitorSmartphone', title: 'Tela AMOLED', description: 'Visor de 1.43" com alta definição e cores vivas.' },
+            { icon: 'Battery', title: '15 Dias de Bateria', description: 'Esqueça o carregador com até duas semanas de uso.' },
+            { icon: 'Shield', title: 'Titânio & IP68', description: 'Construção robusta resistente a água e poeira.' },
+            { icon: 'Phone', title: 'Chamadas Bluetooth', description: 'Atenda ligações diretamente pelo relógio.' },
+        ],
+        mainCompetitor: {
+            id: 'colmi-c81',
+            name: 'Colmi C81',
+            shortName: 'Colmi C81',
+            imageUrl: '/images/products/colmi-c81.svg',
+            price: 220,
+            score: 7.0,
+            keyDifferences: [
+                { label: 'Material', current: 'Titânio', rival: 'Plástico/Metal', winner: 'current' },
+                { label: 'Tela', current: 'AMOLED', rival: 'AMOLED', winner: 'current' },
+                { label: 'Preço', current: 'R$ 249', rival: 'R$ 220', winner: 'rival' },
             ],
         },
     },

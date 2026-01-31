@@ -1,14 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-
 // ============================================
-// UNIFIED VOICE HOOK - Projeto Voz Unificada
+// UNIFIED VOICE HOOK - Versão Estática (v2)
 // ============================================
-// Fetches structured verdict data from Gemini API
-// Returns unified_score, verdict_card, pros_cons, radar_tooltips
+// IMPORTANTE: Este hook agora lê TODOS os dados do arquivo do produto.
+// A API do Gemini foi desconectada para evitar duplicidade e custos.
+// Os dados devem vir pré-preenchidos no arquivo .ts do produto.
 
-// Generic radar tooltips - API returns category-specific keys
+import { useMemo } from 'react';
+
 export interface CommunityConsensusData {
     /** Percentage of 4-5 star reviews (0-100) */
     approval_percentage: number;
@@ -39,7 +39,7 @@ export interface UnifiedVoiceData {
     radar_tooltips: Record<string, string>;
     // Category-specific dimension scores - keys vary by category
     dimension_scores?: Record<string, number>;
-    // Category ID from API
+    // Category ID from product
     categoryId?: string;
     // Community consensus from real Amazon/ML reviews
     community_consensus?: CommunityConsensusData;
@@ -52,129 +52,157 @@ interface UseUnifiedVoiceResult {
     fromCache: boolean;
 }
 
-export function useUnifiedVoice(productId: string): UseUnifiedVoiceResult {
-    const [data, setData] = useState<UnifiedVoiceData | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-    const [fromCache, setFromCache] = useState(false);
+// Product type with all unified voice fields
+interface ProductWithUnifiedVoice {
+    id: string;
+    name: string;
+    shortName?: string;
+    brand?: string;
+    categoryId?: string;
+    benefitSubtitle?: string;
+    header?: {
+        overallScore?: number;
+        title?: string;
+        subtitle?: string;
+    };
+    auditVerdict?: {
+        dontBuyIf?: {
+            items?: string[];
+        };
+    };
+    curiositySandwich?: {
+        icon: string;
+        text: string;
+    };
+    voc?: {
+        pros?: string[];
+        cons?: string[];
+        totalReviews?: number;
+        averageRating?: number;
+        consensusScore?: number;
+        sources?: Array<{ store: string }>;
+    };
+    scoreReasons?: Record<string, string>;
+    scores?: Record<string, number>;
+}
 
-    useEffect(() => {
-        if (!productId) {
-            setLoading(false);
-            return;
+/**
+ * Hook estático para ler dados do produto.
+ * 
+ * DEPRECATED: O parâmetro productId não é mais usado.
+ * Use useUnifiedVoiceFromProduct(product) ao invés.
+ */
+export function useUnifiedVoice(productId: string): UseUnifiedVoiceResult {
+    // DEPRECATED: Retorna null - use useUnifiedVoiceFromProduct
+    console.warn('[useUnifiedVoice] DEPRECATED: Use useUnifiedVoiceFromProduct(product) instead. API Gemini desconectada.');
+
+    return {
+        data: null,
+        loading: false,
+        error: 'API Gemini desconectada. Use useUnifiedVoiceFromProduct(product).',
+        fromCache: true,
+    };
+}
+
+/**
+ * Hook estático para extrair dados do UnifiedVoice a partir do produto.
+ * Todos os dados vêm do arquivo .ts do produto - sem chamadas à API.
+ */
+export function useUnifiedVoiceFromProduct(product: ProductWithUnifiedVoice | null): UseUnifiedVoiceResult {
+    const data = useMemo<UnifiedVoiceData | null>(() => {
+        if (!product) return null;
+
+        // Extract score from header or calculate from scores
+        let unifiedScore = 7.5;
+        if (product.header?.overallScore !== undefined) {
+            unifiedScore = product.header.overallScore;
+            // Normalize if on 0-100 scale
+            if (unifiedScore > 10) {
+                unifiedScore = unifiedScore / 10;
+            }
+        } else if (product.scores) {
+            const values = Object.values(product.scores).filter((v): v is number => typeof v === 'number');
+            if (values.length > 0) {
+                unifiedScore = values.reduce((a, b) => a + b, 0) / values.length;
+            }
         }
 
-        const fetchData = async () => {
-            setLoading(true);
-            setError(null);
-
-            try {
-                const response = await fetch(`/api/reviews/${productId}`);
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch unified voice data');
-                }
-
-                const json = await response.json();
-
-                // Extract unified voice data from response
-                const voiceData: UnifiedVoiceData = {
-                    unified_score: json.unified_score ?? 7.5,
-                    verdict_card: json.verdict_card ?? {
-                        headline: 'Análise em Processamento',
-                        target_audience: 'Usuário geral',
-                        dealbreaker: 'Aguarde análise completa',
-                    },
-                    curiosity_sandwich: json.curiosity_sandwich,
-                    pros_cons: json.pros_cons ?? {
-                        pros: [],
-                        cons: [],
-                    },
-                    radar_tooltips: json.radar_tooltips ?? {},
-                    dimension_scores: json.dimension_scores,
-                    categoryId: json.categoryId,
-                    community_consensus: json.community_consensus,
-                };
-
-                setData(voiceData);
-                setFromCache(json.metadata?.fromCache ?? false);
-            } catch (err) {
-                console.error('[useUnifiedVoice] Error:', err);
-                setError(String(err));
-            } finally {
-                setLoading(false);
-            }
+        // Build verdict_card from header and auditVerdict
+        const verdictCard = {
+            headline: product.header?.title || product.shortName || product.name || 'Produto',
+            target_audience: product.header?.subtitle || '',
+            dealbreaker: product.auditVerdict?.dontBuyIf?.items?.[0] || '',
         };
 
-        fetchData();
-    }, [productId]);
+        // Curiosity sandwich from product (optional field)
+        const curiositySandwich = product.curiositySandwich;
 
-    return { data, loading, error, fromCache };
+        // Pros/Cons from VOC
+        const prosCons = {
+            pros: product.voc?.pros || [],
+            cons: product.voc?.cons || [],
+        };
+
+        // Radar tooltips from scoreReasons
+        const radarTooltips: Record<string, string> = {};
+        if (product.scoreReasons) {
+            Object.entries(product.scoreReasons).forEach(([key, value]) => {
+                radarTooltips[key] = value;
+            });
+        }
+
+        // Dimension scores from scores
+        const dimensionScores: Record<string, number> = {};
+        if (product.scores) {
+            Object.entries(product.scores).forEach(([key, value]) => {
+                if (typeof value === 'number') {
+                    dimensionScores[key] = value;
+                }
+            });
+        }
+
+        // Community consensus from VOC
+        const communityConsensus: CommunityConsensusData | undefined = product.voc ? {
+            approval_percentage: product.voc.consensusScore || 0,
+            total_reviews: formatReviewCount(product.voc.totalReviews || 0),
+            star_rating: product.voc.averageRating || 0,
+            sources: product.voc.sources?.map(s => s.store) || [],
+        } : undefined;
+
+        return {
+            unified_score: unifiedScore,
+            verdict_card: verdictCard,
+            curiosity_sandwich: curiositySandwich,
+            pros_cons: prosCons,
+            radar_tooltips: radarTooltips,
+            dimension_scores: dimensionScores,
+            categoryId: product.categoryId,
+            community_consensus: communityConsensus,
+        };
+    }, [product]);
+
+    return {
+        data,
+        loading: false,
+        error: null,
+        fromCache: true, // Always static
+    };
+}
+
+// Helper to format review count
+function formatReviewCount(count: number): string {
+    if (count >= 1000) {
+        return `${(count / 1000).toFixed(1)}k`;
+    }
+    return String(count);
 }
 
 // ============================================
 // CATEGORY-SPECIFIC FIELD MAPPINGS
 // ============================================
-// Maps category-specific API field names to c1-c10
+// SSOT: Importado de @/config/criteria-labels.ts
 
-const TV_FIELD_MAP = {
-    c1: 'custo_beneficio',
-    c2: 'processamento',
-    c3: 'confiabilidade',
-    c4: 'sistema',
-    c5: 'gaming',
-    c6: 'brilho',
-    c7: 'pos_venda',
-    c8: 'som',
-    c9: 'conectividade',
-    c10: 'design',
-};
-
-const FRIDGE_FIELD_MAP = {
-    c1: 'custo_beneficio',
-    c2: 'eficiencia_energetica',
-    c3: 'capacidade',
-    c4: 'refrigeracao',
-    c5: 'confiabilidade',
-    c6: 'ruido',
-    c7: 'pos_venda',
-    c8: 'recursos_smart',
-    c9: 'design',
-    c10: 'funcionalidades',
-};
-
-const AC_FIELD_MAP = {
-    c1: 'custo_beneficio',
-    c2: 'eficiencia',
-    c3: 'capacidade_btu',
-    c4: 'durabilidade',
-    c5: 'silencio',
-    c6: 'inverter',
-    c7: 'pos_venda',
-    c8: 'filtros',
-    c9: 'conectividade',
-    c10: 'design',
-};
-
-const ROBOT_VACUUM_FIELD_MAP = {
-    c1: 'navegacao',           // Navegação & Mapeamento
-    c2: 'app_voz',             // Software & Conectividade
-    c3: 'mop',                 // Eficiência de Mop
-    c4: 'escovas',             // Engenharia de Escovas
-    c5: 'altura',              // Restrições Físicas
-    c6: 'pecas',               // Manutenibilidade
-    c7: 'bateria',             // Autonomia
-    c8: 'ruido',               // Acústica
-    c9: 'base',                // Automação (Docks)
-    c10: 'ia',                 // Recursos vs Gimmicks
-};
-
-const CATEGORY_FIELD_MAPS: Record<string, Record<string, string>> = {
-    tv: TV_FIELD_MAP,
-    fridge: FRIDGE_FIELD_MAP,
-    air_conditioner: AC_FIELD_MAP,
-    'robot-vacuum': ROBOT_VACUUM_FIELD_MAP,
-};
+import { CATEGORY_FIELD_MAPS } from '@/config/criteria-labels';
 
 // ============================================
 // HELPER: Map radar tooltips to ProductDNAData format
@@ -198,4 +226,3 @@ export function mapRadarTooltipsToDNA(
 
     return result;
 }
-

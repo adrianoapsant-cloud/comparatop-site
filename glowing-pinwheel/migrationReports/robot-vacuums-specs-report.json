@@ -1,0 +1,215 @@
+{
+  "timestamp": "2026-01-31T17:20:27.832Z",
+  "mode": "write",
+  "totalProducts": 17,
+  "alreadyHadSpecs": 0,
+  "migrated": 17,
+  "failedValidation": 0,
+  "usedFallbackDefaultsCount": {
+    "dockType": 3,
+    "obstacleDetection": 1
+  },
+  "missingByField": {
+    "dockType": 3,
+    "obstacleDetection": 1
+  },
+  "examples": [
+    {
+      "productId": "electrolux-erb20-home-control-experience",
+      "filePath": "C:\\Users\\Adriano Antonio\\Desktop\\Projeto_ComparaTop_Oficial\\glowing-pinwheel\\src\\data\\products.entry.electrolux-erb20-home-control-experience.ts",
+      "status": "migrated",
+      "inferredCount": 9,
+      "missingFields": [],
+      "usedDefaults": [],
+      "errors": [],
+      "specs": {
+        "navigationType": "random",
+        "mopType": "static",
+        "brushType": "suction-only",
+        "dockType": "basic",
+        "obstacleDetection": "bump-only",
+        "heightCm": 7,
+        "noiseDb": 70,
+        "runtimeMinutes": 132,
+        "batteryMah": 2600
+      }
+    },
+    {
+      "productId": "eufy-omni-c20",
+      "filePath": "C:\\Users\\Adriano Antonio\\Desktop\\Projeto_ComparaTop_Oficial\\glowing-pinwheel\\src\\data\\products.entry.eufy-omni-c20.ts",
+      "status": "migrated",
+      "inferredCount": 9,
+      "missingFields": [],
+      "usedDefaults": [],
+      "errors": [],
+      "specs": {
+        "navigationType": "lidar",
+        "mopType": "rotating",
+        "brushType": "bristle",
+        "dockType": "auto-wash",
+        "obstacleDetection": "bump-only",
+        "heightCm": 8.5,
+        "noiseDb": 56,
+        "runtimeMinutes": 132,
+        "batteryMah": 3200
+      }
+    },
+    {
+      "productId": "eufy-x10-pro-omni",
+      "filePath": "C:\\Users\\Adriano Antonio\\Desktop\\Projeto_ComparaTop_Oficial\\glowing-pinwheel\\src\\data\\products.entry.eufy-x10-pro-omni.ts",
+      "status": "migrated",
+      "inferredCount": 9,
+      "missingFields": [],
+      "usedDefaults": [],
+      "errors": [],
+      "specs": {
+        "navigationType": "lidar",
+        "mopType": "rotating",
+        "brushType": "anti-tangle",
+        "dockType": "auto-wash",
+        "obstacleDetection": "ai-camera",
+        "heightCm": 11.35,
+        "noiseDb": 60,
+        "runtimeMinutes": 173,
+        "batteryMah": 5200
+      }
+    },
+    {
+      "productId": "ezs-e10",
+      "filePath": "C:\\Users\\Adriano Antonio\\Desktop\\Projeto_ComparaTop_Oficial\\glowing-pinwheel\\src\\data\\products.entry.ezs-e10.ts",
+      "status": "migrated",
+      "inferredCount": 9,
+      "missingFields": [],
+      "usedDefaults": [],
+      "errors": [],
+      "specs": {
+        "navigationType": "lidar",
+        "mopType": "static",
+        "brushType": "bristle",
+        "dockType": "basic",
+        "obstacleDetection": "infrared",
+        "heightCm": 10,
+        "noiseDb": 65,
+        "runtimeMinutes": 150,
+        "batteryMah": 5200
+      }
+    },
+    {
+      "productId": "kabum-smart-700-kbsf003-preto",
+      "filePath": "C:\\Users\\Adriano Antonio\\Desktop\\Projeto_ComparaTop_Oficial\\glowing-pinwheel\\src\\data\\products.entry.kabum-smart-700.ts",
+      "status": "migrated",
+      "inferredCount": 8,
+      "missingFields": [],
+      "usedDefaults": [],
+      "errors": [],
+      "specs": {
+        "navigationType": "lidar",
+        "mopType": "static",
+        "brushType": "bristle",
+        "dockType": "basic",
+        "obstacleDetection": "bump-only",
+        "heightCm": 9.6,
+        "runtimeMinutes": 140,
+        "batteryMah": 3000
+      }
+    },
+    {
+      "productId": "liectroux-l200-robo-aspirador-3em1-app-alexa-google",
+      "filePath": "C:\\Users\\Adriano Antonio\\Desktop\\Projeto_ComparaTop_Oficial\\glowing-pinwheel\\src\\data\\products.entry.liectroux-l200-robo-aspirador-3em1-app-alexa-google.ts",
+      "status": "migrated",
+      "inferredCount": 9,
+      "missingFields": [],
+      "usedDefaults": [],
+      "errors": [],
+      "specs": {
+        "navigationType": "random",
+        "mopType": "static",
+        "brushType": "bristle",
+        "dockType": "basic",
+        "obstacleDetection": "bump-only",
+        "heightCm": 7.5,
+        "noiseDb": 65,
+        "runtimeMinutes": 120,
+        "batteryMah": 2600
+      }
+    },
+    {
+      "productId": "liectroux-xr500-pro",
+      "filePath": "C:\\Users\\Adriano Antonio\\Desktop\\Projeto_ComparaTop_Oficial\\glowing-pinwheel\\src\\data\\products.entry.liectroux-xr500-pro.ts",
+      "status": "migrated",
+      "inferredCount": 8,
+      "missingFields": [],
+      "usedDefaults": [],
+      "errors": [],
+      "specs": {
+        "navigationType": "lidar",
+        "mopType": "static",
+        "brushType": "bristle",
+        "dockType": "auto-empty",
+        "obstacleDetection": "bump-only",
+        "heightCm": 9.7,
+        "runtimeMinutes": 150,
+        "batteryMah": 3200
+      }
+    },
+    {
+      "productId": "philco-pas26p",
+      "filePath": "C:\\Users\\Adriano Antonio\\Desktop\\Projeto_ComparaTop_Oficial\\glowing-pinwheel\\src\\data\\products.entry.philco-pas26p.ts",
+      "status": "migrated",
+      "inferredCount": 9,
+      "missingFields": [],
+      "usedDefaults": [],
+      "errors": [],
+      "specs": {
+        "navigationType": "random",
+        "mopType": "static",
+        "brushType": "bristle",
+        "dockType": "basic",
+        "obstacleDetection": "bump-only",
+        "heightCm": 8,
+        "noiseDb": 65,
+        "runtimeMinutes": 90,
+        "batteryMah": 2600
+      }
+    },
+    {
+      "productId": "roborock-q7-l5",
+      "filePath": "C:\\Users\\Adriano Antonio\\Desktop\\Projeto_ComparaTop_Oficial\\glowing-pinwheel\\src\\data\\products.entry.roborock-q7-l5.ts",
+      "status": "migrated",
+      "inferredCount": 9,
+      "missingFields": [],
+      "usedDefaults": [],
+      "errors": [],
+      "specs": {
+        "navigationType": "lidar",
+        "mopType": "static",
+        "brushType": "anti-tangle",
+        "dockType": "basic",
+        "obstacleDetection": "3d-structured",
+        "heightCm": 9.8,
+        "noiseDb": 65,
+        "runtimeMinutes": 150,
+        "batteryMah": 5200
+      }
+    },
+    {
+      "productId": "samsung-vr5000rm-vr05r5050wk-az",
+      "filePath": "C:\\Users\\Adriano Antonio\\Desktop\\Projeto_ComparaTop_Oficial\\glowing-pinwheel\\src\\data\\products.entry.samsung-vr5000rm.ts",
+      "status": "migrated",
+      "inferredCount": 8,
+      "missingFields": [],
+      "usedDefaults": [],
+      "errors": [],
+      "specs": {
+        "navigationType": "gyro",
+        "mopType": "static",
+        "brushType": "bristle",
+        "dockType": "basic",
+        "obstacleDetection": "bump-only",
+        "heightCm": 8.5,
+        "noiseDb": 70,
+        "batteryMah": 3400
+      }
+    }
+  ]
+}

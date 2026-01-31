@@ -593,7 +593,7 @@ export function MatchFilterRibbon({
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             className={cn(
-                'sticky top-16 z-30 bg-white/95 backdrop-blur-sm',
+                'sticky top-0 z-30 bg-white/95 backdrop-blur-sm',
                 'border-b border-gray-100 shadow-sm',
                 'py-3 px-4',
                 className

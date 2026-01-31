@@ -1,0 +1,42 @@
+{
+    "product": {
+        "name": "Dell S2722QC 27\" 4K USB-C",
+        "brand": "Dell",
+        "model": "S2722QC",
+        "categoryId": "monitor",
+        "asin": "B0DEMO00003"
+    },
+    "price": {
+        "valueBRL": 2199.00,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://amazon.com.br/dp/B0DEMO00003"
+    },
+    "sources": [
+        {
+            "url": "https://amazon.com.br/dp/B0DEMO00003",
+            "type": "amazon"
+        },
+        {
+            "url": "https://dell.com.br/s2722qc",
+            "type": "manufacturer"
+        }
+    ],
+    "specs": {
+        "screenSize": 27,
+        "resolution": "3840x2160",
+        "refreshRate": 60,
+        "panelType": "IPS",
+        "responseTimeMs": 4,
+        "hasHdr": true,
+        "hasVrr": true,
+        "hasPivot": true,
+        "hasHeightAdjust": true,
+        "hasUsbc": true,
+        "speakersWatts": 6,
+        "contrastRatio": "1000:1"
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22"
+    }
+}

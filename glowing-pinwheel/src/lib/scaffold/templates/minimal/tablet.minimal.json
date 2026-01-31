@@ -1,0 +1,151 @@
+{
+    "product": {
+        "id": "TODO",
+        "name": "TODO",
+        "brand": "TODO",
+        "category": "tablet",
+        "releaseYear": 2025
+    },
+    "header": {
+        "overallScore": 7.0,
+        "scoreLabel": "Bom",
+        "title": "TODO",
+        "subtitle": "TODO",
+        "badges": []
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "TODO"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "TODO"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "TODO"
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "TODO"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões Avaliadas",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Tela",
+                "shortName": "Tel",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c2",
+                "name": "Desempenho",
+                "shortName": "Des",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c3",
+                "name": "Bateria",
+                "shortName": "Bat",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c4",
+                "name": "Produtividade",
+                "shortName": "Pro",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c5",
+                "name": "Construção",
+                "shortName": "Con",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c6",
+                "name": "Software",
+                "shortName": "Sof",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c7",
+                "name": "Custo-Benefício",
+                "shortName": "C/B",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c8",
+                "name": "Ecossistema",
+                "shortName": "Eco",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c9",
+                "name": "Armazenamento",
+                "shortName": "Arm",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c10",
+                "name": "Acessórios",
+                "shortName": "Ace",
+                "score": 7.0,
+                "description": "TODO"
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "status": "optimal",
+            "message": "TODO"
+        },
+        "energyAlert": {
+            "rating": "B",
+            "message": "TODO"
+        }
+    },
+    "decisionFAQ": [
+        {
+            "id": "faq1",
+            "icon": "HelpCircle",
+            "question": "TODO?",
+            "answer": "TODO"
+        }
+    ],
+    "meta": {
+        "scaffold": {
+            "generatedAt": "TODO",
+            "rawInputHash": "TODO",
+            "specId": "tablet",
+            "warningsCount": 0,
+            "status": "draft"
+        }
+    }
+}

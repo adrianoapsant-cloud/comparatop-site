@@ -1,0 +1,56 @@
+{
+    "product": {
+        "name": "Consul CRM50 Frost Free 410L",
+        "brand": "Consul",
+        "model": "CRM50",
+        "categoryId": "fridge",
+        "asin": "B0DEMO0002"
+    },
+    "price": {
+        "valueBRL": 2899.00,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://amazon.com.br/dp/B0DEMO0002"
+    },
+    "sources": [
+        {
+            "url": "https://amazon.com.br/dp/B0DEMO0002",
+            "type": "amazon"
+        },
+        {
+            "url": "https://consul.com.br/crm50",
+            "type": "manufacturer"
+        }
+    ],
+    "energy": {
+        "inmetroKwhYear": 360
+    },
+    "specs": {
+        "capacityLiters": 410,
+        "hasFrostFree": true,
+        "hasInverter": false,
+        "voltage": "220V",
+        "doorType": "top-freezer"
+    },
+    "evidence": {
+        "specs.capacityLiters": {
+            "sourceUrl": "https://consul.com.br/crm50",
+            "note": "410 litros brutos"
+        },
+        "specs.hasFrostFree": {
+            "sourceUrl": "https://consul.com.br/crm50",
+            "note": "Frost Free confirmado"
+        },
+        "specs.hasInverter": {
+            "sourceUrl": "https://consul.com.br/crm50",
+            "note": "Motor convencional"
+        },
+        "energy.inmetroKwhYear": {
+            "sourceUrl": "https://consul.com.br/crm50",
+            "note": "Etiqueta INMETRO"
+        }
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22"
+    }
+}

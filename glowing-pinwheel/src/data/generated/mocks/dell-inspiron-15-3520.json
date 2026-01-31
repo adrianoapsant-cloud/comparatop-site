@@ -1,0 +1,166 @@
+{
+    "product": {
+        "id": "dell-inspiron-15-3520",
+        "name": "Dell Inspiron 15 3520 i5-1235U 16GB 512GB SSD",
+        "brand": "Dell",
+        "category": "laptop",
+        "releaseYear": 2026
+    },
+    "header": {
+        "overallScore": 7,
+        "scoreLabel": "Bom",
+        "title": "Dell Inspiron 15 3520 i5-1235U 16GB 512GB SSD",
+        "subtitle": "TODO: Preencher subtitle editorial para Dell",
+        "badges": []
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "TODO: Preencher pontos positivos"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "TODO: Preencher pontos de atenção"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "TODO: Preencher conclusão técnica editorial"
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "TODO: Preencher contra-indicações"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões Avaliadas",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Desempenho",
+                "shortName": "Des",
+                "score": 7,
+                "description": "TODO",
+                "weight": 0.1
+            },
+            {
+                "id": "c2",
+                "name": "Portabilidade",
+                "shortName": "Por",
+                "score": 7,
+                "description": "TODO",
+                "weight": 0.1
+            },
+            {
+                "id": "c3",
+                "name": "Tela",
+                "shortName": "Tel",
+                "score": 7,
+                "description": "TODO",
+                "weight": 0.1
+            },
+            {
+                "id": "c4",
+                "name": "Bateria",
+                "shortName": "Bat",
+                "score": 7,
+                "description": "TODO",
+                "weight": 0.1
+            },
+            {
+                "id": "c5",
+                "name": "Teclado",
+                "shortName": "Tec",
+                "score": 7,
+                "description": "TODO",
+                "weight": 0.1
+            },
+            {
+                "id": "c6",
+                "name": "Construção",
+                "shortName": "Con",
+                "score": 7,
+                "description": "TODO",
+                "weight": 0.1
+            },
+            {
+                "id": "c7",
+                "name": "Custo-Benefício",
+                "shortName": "C/B",
+                "score": 7,
+                "description": "TODO",
+                "weight": 0.1
+            },
+            {
+                "id": "c8",
+                "name": "Conectividade",
+                "shortName": "Cnx",
+                "score": 7,
+                "description": "TODO",
+                "weight": 0.1
+            },
+            {
+                "id": "c9",
+                "name": "Armazenamento",
+                "shortName": "Arm",
+                "score": 7,
+                "description": "TODO",
+                "weight": 0.1
+            },
+            {
+                "id": "c10",
+                "name": "Suporte",
+                "shortName": "Sup",
+                "score": 7,
+                "description": "TODO",
+                "weight": 0.1
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "status": "optimal",
+            "message": "TODO"
+        },
+        "energyAlert": {
+            "rating": "B",
+            "message": "TODO"
+        }
+    },
+    "decisionFAQ": [
+        {
+            "id": "placeholder",
+            "icon": "HelpCircle",
+            "question": "TODO: Preencher FAQ 1",
+            "answer": "TODO: Preencher resposta"
+        }
+    ],
+    "meta": {
+        "scaffold": {
+            "generatedAt": "2026-01-22T13:01:06.166Z",
+            "rawInputHash": "f9e2df32",
+            "categoryId": "laptop",
+            "derivedEnergy": {
+                "source": "baseline",
+                "kwhMonth": 10,
+                "calculation": "Baseline da categoria: 10 kWh/mês"
+            },
+            "firedRulesCount": 2,
+            "status": "draft"
+        }
+    }
+}

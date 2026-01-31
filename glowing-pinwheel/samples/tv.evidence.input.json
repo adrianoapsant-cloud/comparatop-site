@@ -1,0 +1,73 @@
+{
+    "product": {
+        "name": "Samsung QN85C 55\" 4K Neo QLED",
+        "brand": "Samsung",
+        "model": "QN85C 55",
+        "categoryId": "tv",
+        "asin": "B0C6VJBTGQ"
+    },
+    "price": {
+        "valueBRL": 4999.00,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://amazon.com.br/dp/B0C6VJBTGQ"
+    },
+    "sources": [
+        {
+            "url": "https://amazon.com.br/dp/B0C6VJBTGQ",
+            "type": "amazon"
+        },
+        {
+            "url": "https://samsung.com.br/qn85c",
+            "type": "manufacturer"
+        }
+    ],
+    "energy": {
+        "wattsTypical": 100,
+        "usageHoursPerDay": 5
+    },
+    "specs": {
+        "screenSize": 55,
+        "panelType": "Neo QLED",
+        "resolution": "4K",
+        "refreshRate": 120,
+        "hdmi21Ports": 4,
+        "vrr": true,
+        "allm": true,
+        "dolbyVision": false,
+        "inputLagMs": 9
+    },
+    "evidence": {
+        "product.brand": {
+            "sourceUrl": "https://samsung.com.br/qn85c",
+            "note": "Marca oficial Samsung"
+        },
+        "product.model": {
+            "sourceUrl": "https://samsung.com.br/qn85c",
+            "note": "Código oficial do produto"
+        },
+        "price.valueBRL": {
+            "sourceUrl": "https://amazon.com.br/dp/B0C6VJBTGQ",
+            "note": "Preço Amazon BR"
+        },
+        "specs.screenSize": {
+            "sourceUrl": "https://samsung.com.br/qn85c",
+            "note": "Ficha técnica oficial"
+        },
+        "specs.panelType": {
+            "sourceUrl": "https://samsung.com.br/qn85c",
+            "note": "Ficha técnica oficial"
+        },
+        "specs.resolution": {
+            "sourceUrl": "https://samsung.com.br/qn85c",
+            "note": "Ficha técnica oficial"
+        },
+        "specs.refreshRate": {
+            "sourceUrl": "https://samsung.com.br/qn85c",
+            "note": "Ficha técnica oficial"
+        }
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22"
+    }
+}

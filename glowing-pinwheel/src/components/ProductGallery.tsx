@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import {
     ChevronLeft, ChevronRight, Maximize2, X, Play,
-    Rotate3d, ZoomIn
+    Rotate3d, ZoomIn, ExternalLink
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useHaptic } from '@/hooks/useHaptic';
@@ -26,22 +27,25 @@ interface ProductGalleryProps {
     items: GalleryItem[];
     productName: string;
     compareButton?: React.ReactNode; // Optional compare toggle slot
+    affiliateUrl?: string; // Link de afiliado para redirecionar ao clicar na imagem
 }
 
 // ============================================
 // MAIN COMPONENT
 // ============================================
 
-export function ProductGallery({ items, productName, compareButton }: ProductGalleryProps) {
+export function ProductGallery({ items, productName, compareButton, affiliateUrl }: ProductGalleryProps) {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-    const [zoomLevel, setZoomLevel] = useState(1); // For mobile pinch gesture simulation
+    const [zoomLevel, setZoomLevel] = useState(1);
     const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+    const [isZooming, setIsZooming] = useState(false);
 
     // Refs for interactions
     const heroRef = useRef<HTMLDivElement>(null);
     const carouselRef = useRef<HTMLDivElement>(null);
-    const zoomLensRef = useRef<HTMLDivElement>(null);
+    const touchStartX = useRef<number>(0);
+    const touchStartY = useRef<number>(0);
 
     const haptic = useHaptic();
 
@@ -53,7 +57,25 @@ export function ProductGallery({ items, productName, compareButton }: ProductGal
     useEffect(() => {
         setIsVideoPlaying(false);
         setZoomLevel(1);
+        setIsZooming(false);
     }, [activeIndex]);
+
+    // ============================================
+    // NAVIGATION HELPERS
+    // ============================================
+    const goToNext = useCallback(() => {
+        if (activeIndex < safeItems.length - 1) {
+            setActiveIndex(prev => prev + 1);
+            haptic.trigger();
+        }
+    }, [activeIndex, safeItems.length, haptic]);
+
+    const goToPrev = useCallback(() => {
+        if (activeIndex > 0) {
+            setActiveIndex(prev => prev - 1);
+            haptic.trigger();
+        }
+    }, [activeIndex, haptic]);
 
     // ============================================
     // DESKTOP ZOOM LOGIC (Mouseover)
@@ -67,12 +89,30 @@ export function ProductGallery({ items, productName, compareButton }: ProductGal
 
         heroRef.current.style.setProperty('--zoom-x', `${x}%`);
         heroRef.current.style.setProperty('--zoom-y', `${y}%`);
-        heroRef.current.classList.add('zoomed');
+        setIsZooming(true);
     };
 
     const handleMouseLeave = () => {
-        if (!heroRef.current) return;
-        heroRef.current.classList.remove('zoomed');
+        setIsZooming(false);
+    };
+
+    // ============================================
+    // MOBILE SWIPE LOGIC (Touch events)
+    // ============================================
+    const handleTouchStart = (e: React.TouchEvent) => {
+        touchStartX.current = e.touches[0].clientX;
+        touchStartY.current = e.touches[0].clientY;
+    };
+
+    const handleTouchEnd = (e: React.TouchEvent) => {
+        const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+        const deltaY = e.changedTouches[0].clientY - touchStartY.current;
+
+        // Only trigger horizontal swipe if horizontal movement > vertical (avoid scroll interference)
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+            if (deltaX < 0) goToNext();
+            else goToPrev();
+        }
     };
 
     // ============================================
@@ -136,43 +176,73 @@ export function ProductGallery({ items, productName, compareButton }: ProductGal
             );
         }
 
-        // Standard Image with Desktop Zoom - With Next.js Image for LCP
+        // Imagem com zoom hover e lightbox ao clicar (independente de affiliateUrl)
         return (
             <div
                 ref={heroRef}
-                className="w-full h-full relative overflow-hidden cursor-crosshair md:cursor-zoom-in"
+                className="w-full h-full relative overflow-hidden touch-pan-y cursor-zoom-in"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
-                onClick={() => window.innerWidth < 768 && setIsLightboxOpen(true)}
-                style={{
-                    '--url': `url(${activeItem.url})`,
-                    '--zoom-x': '50%',
-                    '--zoom-y': '50%',
-                } as React.CSSProperties}
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+                onClick={() => setIsLightboxOpen(true)}
+                style={{ '--zoom-x': '50%', '--zoom-y': '50%' } as React.CSSProperties}
             >
-                {/* 
-                 * LCP Optimization: Using next/image with priority for hero
-                 * fill + sizes ensures proper CLS handling
-                 */}
                 <div className="relative w-full h-full p-4">
                     <Image
                         src={activeItem.url}
                         alt={activeItem.alt || productName}
                         fill
-                        priority={activeIndex === 0}  // Only first image is priority
+                        priority={activeIndex === 0}
                         sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-contain transition-opacity duration-200"
+                        className={cn(
+                            "object-contain transition-opacity duration-200",
+                            isZooming && "md:opacity-0"
+                        )}
                     />
                 </div>
 
-                {/* Inner Zoom Lens (Desktop) */}
-                <div className="hidden md:block absolute inset-0 opacity-0 transition-opacity bg-no-repeat bg-[#ffffff] pointer-events-none z-10 [&.zoomed]:opacity-100"
+                <div
+                    className={cn(
+                        "hidden md:block absolute inset-0 bg-no-repeat bg-white pointer-events-none z-10 transition-opacity duration-200",
+                        isZooming ? "opacity-100" : "opacity-0"
+                    )}
                     style={{
-                        backgroundImage: 'var(--url)',
+                        backgroundImage: `url(${activeItem.url})`,
                         backgroundPosition: 'var(--zoom-x) var(--zoom-y)',
-                        backgroundSize: '200%', // 2x Zoom level
+                        backgroundSize: '200%',
                     }}
                 />
+
+                {!isZooming && (
+                    <div className="hidden md:flex absolute bottom-4 right-4 z-20 items-center gap-1.5 px-3 py-1.5 bg-black/50 backdrop-blur rounded-full text-white text-xs">
+                        <Maximize2 size={14} /> Ampliar
+                    </div>
+                )}
+            </div>
+        );
+    };
+
+    // ============================================
+    // POSITION DOTS (Mobile)
+    // ============================================
+    const PositionDots = () => {
+        if (safeItems.length <= 1) return null;
+        return (
+            <div className="md:hidden flex justify-center gap-2 py-3">
+                {safeItems.map((_, idx) => (
+                    <button
+                        key={idx}
+                        onClick={() => { setActiveIndex(idx); haptic.trigger(); }}
+                        aria-label={`Ver imagem ${idx + 1}`}
+                        className={cn(
+                            "rounded-full transition-all duration-300",
+                            idx === activeIndex
+                                ? "w-6 h-2 bg-brand-core"
+                                : "w-2 h-2 bg-gray-300 hover:bg-gray-400"
+                        )}
+                    />
+                ))}
             </div>
         );
     };
@@ -230,18 +300,43 @@ export function ProductGallery({ items, productName, compareButton }: ProductGal
                     </div>
                 )}
 
-                {/* Mobile: Counter Badge 1/N */}
-                <div className="md:hidden absolute top-4 right-4 z-20 px-3 py-1 bg-black/60 backdrop-blur rounded-full">
-                    <span className="text-xs font-bold text-white tracking-widest">
-                        {activeIndex + 1}/{safeItems.length}
-                    </span>
-                </div>
+                {/* Mobile: Swipe hint on first view */}
+                {safeItems.length > 1 && (
+                    <div className="md:hidden absolute top-4 right-4 z-20 px-3 py-1 bg-black/60 backdrop-blur rounded-full">
+                        <span className="text-xs font-medium text-white">
+                            ← Deslize →
+                        </span>
+                    </div>
+                )}
 
                 {/* Main Content */}
                 {renderHeroContent()}
 
-                {/* Mobile: Swipe affordance / Navigation */}
-                <div className="md:hidden absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-black/5 to-transparent pointer-events-none opacity-0 transition-opacity" />
+                {/* Desktop Navigation Arrows (only if multiple items) */}
+                {safeItems.length > 1 && (
+                    <>
+                        <button
+                            onClick={goToPrev}
+                            disabled={activeIndex === 0}
+                            className={cn(
+                                "hidden md:flex absolute left-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 items-center justify-center rounded-full bg-white/90 shadow-lg transition-all",
+                                activeIndex === 0 ? "opacity-30 cursor-not-allowed" : "hover:bg-white hover:scale-105"
+                            )}
+                        >
+                            <ChevronLeft size={20} />
+                        </button>
+                        <button
+                            onClick={goToNext}
+                            disabled={activeIndex === safeItems.length - 1}
+                            className={cn(
+                                "hidden md:flex absolute right-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 items-center justify-center rounded-full bg-white/90 shadow-lg transition-all",
+                                activeIndex === safeItems.length - 1 ? "opacity-30 cursor-not-allowed" : "hover:bg-white hover:scale-105"
+                            )}
+                        >
+                            <ChevronRight size={20} />
+                        </button>
+                    </>
+                )}
 
                 {/* Lightbox Trigger Icon (Mobile) */}
                 <div className="md:hidden absolute bottom-4 right-4 z-20 w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-lg pointer-events-none">
@@ -249,7 +344,10 @@ export function ProductGallery({ items, productName, compareButton }: ProductGal
                 </div>
             </div>
 
-            {/* MOBILE: Horizontal Carousel (Below) */}
+            {/* MOBILE: Position Dots (below hero) */}
+            <PositionDots />
+
+            {/* MOBILE: Horizontal Thumbnail Carousel (Below dots) */}
             <div
                 ref={carouselRef}
                 className="md:hidden flex gap-3 overflow-x-auto pb-4 px-1 snap-x snap-mandatory scrollbar-hide"
@@ -259,7 +357,7 @@ export function ProductGallery({ items, productName, compareButton }: ProductGal
                         key={idx}
                         onClick={() => setActiveIndex(idx)}
                         className={cn(
-                            'snap-center flex-shrink-0 w-20 h-20 rounded-xl border relative bg-white',
+                            'snap-center flex-shrink-0 w-16 h-16 rounded-lg border relative bg-white',
                             activeIndex === idx
                                 ? 'border-brand-core ring-2 ring-brand-core/10'
                                 : 'border-gray-200'
@@ -270,47 +368,152 @@ export function ProductGallery({ items, productName, compareButton }: ProductGal
                             alt=""
                             className="w-full h-full object-contain p-1"
                         />
-                        {/* Peek: Add margin right to last item to show end */}
-                        {idx === safeItems.length - 1 && <div className="w-6 flex-shrink-0" />}
                     </button>
                 ))}
             </div>
 
-            {/* LIGHTBOX MODAL (Mobile Fullscreen) */}
-            {isLightboxOpen && (
-                <div className="fixed inset-0 z-[100] bg-black text-white touch-none animate-in fade-in duration-200">
-                    {/* Header */}
-                    <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-50">
-                        <span className="text-sm font-medium">{activeIndex + 1} / {safeItems.length}</span>
-                        <button
-                            onClick={() => setIsLightboxOpen(false)}
-                            className="p-2 bg-white/10 rounded-full"
+            {/* LIGHTBOX MODAL - Mercado Livre Style (Portal to body) */}
+            {isLightboxOpen && typeof document !== 'undefined' && createPortal(
+                <div
+                    className="fixed inset-0 z-[9999] flex items-center justify-center animate-in fade-in duration-200"
+                    onClick={() => setIsLightboxOpen(false)}
+                >
+                    {/* Semi-transparent backdrop */}
+                    <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
+
+                    {/* Close button - top right */}
+                    <button
+                        onClick={() => setIsLightboxOpen(false)}
+                        className="absolute top-4 right-4 z-50 w-12 h-12 flex items-center justify-center bg-white rounded-full shadow-lg hover:bg-gray-100 transition-colors"
+                    >
+                        <X size={24} className="text-gray-700" />
+                    </button>
+
+                    {/* Counter badge - top left */}
+                    <div className="absolute top-4 left-4 z-50 px-4 py-2 bg-white rounded-full shadow-lg">
+                        <span className="text-sm font-semibold text-gray-700">
+                            {activeIndex + 1} / {safeItems.length}
+                        </span>
+                    </div>
+
+                    {/* Main content card - larger for better zoom */}
+                    <div
+                        className="relative z-10 bg-white rounded-lg shadow-2xl w-[95vw] max-w-[1200px] h-[90vh]"
+                        onClick={(e) => e.stopPropagation()}
+                        onTouchStart={handleTouchStart}
+                        onTouchEnd={handleTouchEnd}
+                    >
+                        {/* Image container - Amazon-style zoom */}
+                        <div
+                            className="flex items-center justify-center h-full relative overflow-hidden p-4 md:p-8"
                         >
-                            <X size={24} />
-                        </button>
-                    </div>
-
-                    {/* Main Zoomable Image */}
-                    <div className="flex items-center justify-center h-full w-full overflow-hidden">
-                        {/* Note: Simply rendering image focused for now, implementing real Pinch-to-Zoom requires gesture libs or complex touch logic. 
-                            Using simple max-scale toggle for MVP. */}
-                        <img
-                            src={activeItem.url}
-                            className={cn(
-                                "w-full h-auto max-h-screen object-contain transition-transform duration-300",
-                                zoomLevel > 1 && "scale-150 cursor-grab"
+                            {zoomLevel === 1 ? (
+                                /* Normal view - clickable image */
+                                <>
+                                    <img
+                                        src={activeItem.url}
+                                        alt={activeItem.alt || productName}
+                                        className="max-w-full max-h-full object-contain select-none cursor-zoom-in"
+                                        onClick={() => setZoomLevel(2.5)}
+                                        draggable={false}
+                                    />
+                                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-3 py-1.5 bg-black/60 backdrop-blur rounded-full text-white text-xs pointer-events-none">
+                                        <ZoomIn size={14} /> Clique para ampliar
+                                    </div>
+                                </>
+                            ) : (
+                                /* Zoomed view - Pan with mouse/touch using transform */
+                                <div
+                                    className="w-full h-full cursor-crosshair relative overflow-hidden"
+                                    onClick={() => setZoomLevel(1)}
+                                    onMouseMove={(e) => {
+                                        const rect = e.currentTarget.getBoundingClientRect();
+                                        const x = ((e.clientX - rect.left) / rect.width - 0.5) * -100;
+                                        const y = ((e.clientY - rect.top) / rect.height - 0.5) * -100;
+                                        const img = e.currentTarget.querySelector('img');
+                                        if (img) img.style.transform = `scale(2.5) translate(${x}%, ${y}%)`;
+                                    }}
+                                    onTouchMove={(e) => {
+                                        const rect = e.currentTarget.getBoundingClientRect();
+                                        const touch = e.touches[0];
+                                        const x = ((touch.clientX - rect.left) / rect.width - 0.5) * -100;
+                                        const y = ((touch.clientY - rect.top) / rect.height - 0.5) * -100;
+                                        const img = e.currentTarget.querySelector('img');
+                                        if (img) img.style.transform = `scale(2.5) translate(${x}%, ${y}%)`;
+                                    }}
+                                >
+                                    <img
+                                        src={activeItem.url}
+                                        alt={activeItem.alt || productName}
+                                        className="w-full h-full object-contain select-none transition-transform duration-75"
+                                        style={{ transform: 'scale(2.5) translate(0%, 0%)' }}
+                                        draggable={false}
+                                    />
+                                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-3 py-1.5 bg-black/60 backdrop-blur rounded-full text-white text-xs pointer-events-none">
+                                        Mova para explorar • Clique para sair
+                                    </div>
+                                </div>
                             )}
-                            onClick={() => setZoomLevel(z => z === 1 ? 2 : 1)}
-                            alt=""
-                        />
+                        </div>
+
+                        {/* Thumbnail strip - bottom */}
+                        {safeItems.length > 1 && (
+                            <div className="border-t border-gray-200 bg-gray-50 p-3 flex justify-center gap-2 overflow-x-auto">
+                                {safeItems.map((item, idx) => (
+                                    <button
+                                        key={idx}
+                                        onClick={() => setActiveIndex(idx)}
+                                        className={cn(
+                                            "w-14 h-14 md:w-16 md:h-16 rounded-lg border-2 flex-shrink-0 overflow-hidden bg-white transition-all",
+                                            idx === activeIndex
+                                                ? "border-blue-500 ring-2 ring-blue-200"
+                                                : "border-gray-200 hover:border-gray-400"
+                                        )}
+                                    >
+                                        <img
+                                            src={item.url}
+                                            alt=""
+                                            className="w-full h-full object-contain p-1"
+                                        />
+                                    </button>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
-                    {/* Footer Hint */}
-                    <div className="absolute bottom-8 left-0 right-0 text-center">
-                        <p className="text-xs text-white/60">Toque duas vezes para ampliar</p>
-                    </div>
-                </div>
+                    {/* Navigation arrows - sides */}
+                    {safeItems.length > 1 && (
+                        <>
+                            <button
+                                onClick={(e) => { e.stopPropagation(); goToPrev(); }}
+                                disabled={activeIndex === 0}
+                                className={cn(
+                                    "absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-50 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-white rounded-full shadow-lg transition-all",
+                                    activeIndex === 0
+                                        ? "opacity-40 cursor-not-allowed"
+                                        : "hover:bg-gray-100 hover:scale-105"
+                                )}
+                            >
+                                <ChevronLeft size={28} className="text-gray-700" />
+                            </button>
+                            <button
+                                onClick={(e) => { e.stopPropagation(); goToNext(); }}
+                                disabled={activeIndex === safeItems.length - 1}
+                                className={cn(
+                                    "absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-50 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-white rounded-full shadow-lg transition-all",
+                                    activeIndex === safeItems.length - 1
+                                        ? "opacity-40 cursor-not-allowed"
+                                        : "hover:bg-gray-100 hover:scale-105"
+                                )}
+                            >
+                                <ChevronRight size={28} className="text-gray-700" />
+                            </button>
+                        </>
+                    )}
+                </div>,
+                document.body
             )}
         </div>
     );
 }
+

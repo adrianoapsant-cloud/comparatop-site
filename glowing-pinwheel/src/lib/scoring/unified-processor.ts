@@ -14,6 +14,10 @@
 
 import type { Product, ScoredProduct } from '@/types/category';
 import { getBaseScore } from '@/lib/getBaseScore';
+import {
+    checkMutualExclusion,
+    ROBOT_VACUUM_PROFILES_V4
+} from '@/lib/scoring/hmum-v4-geo-restrictive';
 
 // ============================================
 // TYPES
@@ -407,6 +411,22 @@ export function calculateUnifiedScore(
 ): UnifiedScoringResult {
     // Normalize contextIds to array
     const normalizedContextIds = normalizeContextIds(contextIds);
+
+    // ========================================
+    // PHASE 0: MUTUAL EXCLUSION CHECK
+    // ========================================
+    // For robot vacuum category, use v4 profiles which have mutuallyExclusiveWith
+    // This will throw MutualExclusionError if conflicting contexts are selected
+    const categoryId = product.categoryId || 'tv';
+    const isRobotVacuum = categoryId.toLowerCase().includes('robot') ||
+        categoryId.toLowerCase().includes('robo') ||
+        categoryId.toLowerCase().includes('aspirador');
+
+    if (isRobotVacuum && normalizedContextIds.length > 1) {
+        // Use v4 profiles which have exclusion rules defined
+        checkMutualExclusion(normalizedContextIds, ROBOT_VACUUM_PROFILES_V4);
+    }
+
     // 1. Extract criteria from product
     const criteria = extractCriteria(product);
 
@@ -417,7 +437,6 @@ export function calculateUnifiedScore(
     }
 
     // 2. Get context profiles for this category
-    const categoryId = product.categoryId || 'tv';
     const profiles = getContextProfiles(categoryId);
 
     // 3. Get BASE score from product JSON (pre-calculated by Gemini)

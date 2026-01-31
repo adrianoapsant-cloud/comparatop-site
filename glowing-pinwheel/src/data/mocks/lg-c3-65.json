@@ -86,7 +86,7 @@
                 "id": "c2",
                 "name": "Design & Acabamento",
                 "shortName": "Design",
-                "score": 9.0,
+                "score": 9,
                 "weight": 0.08,
                 "icon": "palette",
                 "color": "purple",
@@ -127,7 +127,7 @@
                 "name": "Gaming",
                 "shortName": "Gaming",
                 "score": 9.1,
-                "weight": 0.10,
+                "weight": 0.1,
                 "icon": "gamepad",
                 "color": "green",
                 "description": "VRR, ALLM, 4 HDMI 2.1, input lag 9ms — excelente"
@@ -146,7 +146,7 @@
                 "id": "c8",
                 "name": "Conectividade",
                 "shortName": "Conectividade",
-                "score": 9.0,
+                "score": 9,
                 "weight": 0.07,
                 "icon": "wifi",
                 "color": "indigo",
@@ -156,7 +156,7 @@
                 "id": "c9",
                 "name": "Durabilidade",
                 "shortName": "Durabilidade",
-                "score": 7.0,
+                "score": 7,
                 "weight": 0.07,
                 "icon": "shield",
                 "color": "slate",
@@ -212,5 +212,6 @@
             "rating": "B",
             "message": "Consumo de 120W típico. Conta ~R$ 28/mês com 5h/dia de uso."
         }
-    }
+    },
+    "decisionFAQ": []
 }

@@ -568,7 +568,7 @@ const LifespanExplanationCard = memo(function LifespanExplanationCard({ explanat
                                                 {explanation.limitingComponent.name}
                                             </p>
                                             <p className="text-xs text-red-500 mt-1">
-                                                Durabilidade esperada: {explanation.limitingComponent.l10Hours.toLocaleString()} horas
+                                                Vida base: {explanation.calculationBreakdown.baseLifeYears} anos
                                                 (90% dos aparelhos chegam lá)
                                             </p>
                                         </div>
@@ -578,11 +578,11 @@ const LifespanExplanationCard = memo(function LifespanExplanationCard({ explanat
                                 {/* Calculation Steps */}
                                 <div className="p-3 bg-white dark:bg-slate-900 rounded-lg space-y-2">
                                     <p className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                                        📐 Cálculo:
+                                        📐 Cálculo (Weibull):
                                     </p>
                                     <div className="text-sm text-slate-600 dark:text-slate-400 space-y-1">
                                         <p>• Uso estimado: {explanation.usageAssumptions.dailyHours}h/dia ({explanation.usageAssumptions.annualHours.toLocaleString()}h/ano)</p>
-                                        <p>• Base: {explanation.limitingComponent.l10Hours.toLocaleString()}h ÷ {explanation.usageAssumptions.annualHours.toLocaleString()}h = {explanation.calculationBreakdown.baseLifeYears} anos</p>
+                                        <p>• Vida base (η): {explanation.calculationBreakdown.baseLifeYears} anos (90% chegam)</p>
                                         <p>• {explanation.qualityMultipliers.brand.name}: +{((explanation.qualityMultipliers.brand.factor - 1) * 100).toFixed(0)}% → {explanation.calculationBreakdown.afterBrandMultiplier} anos</p>
                                         <p>• {explanation.qualityMultipliers.technology.name}: +{((explanation.qualityMultipliers.technology.factor - 1) * 100).toFixed(0)}% → {explanation.calculationBreakdown.finalEstimate} anos</p>
                                     </div>

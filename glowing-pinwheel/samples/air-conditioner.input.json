@@ -1,0 +1,48 @@
+{
+    "product": {
+        "name": "LG Dual Inverter Voice S4-Q12JA31A 12000 BTUs",
+        "brand": "LG",
+        "model": "S4-Q12JA31A",
+        "categoryId": "air_conditioner",
+        "asin": "B0CACEXAMPLE"
+    },
+    "price": {
+        "valueBRL": 2799.00,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://www.amazon.com.br/dp/B0CACEXAMPLE"
+    },
+    "sources": [
+        {
+            "url": "https://www.amazon.com.br/dp/B0CACEXAMPLE",
+            "accessedAt": "2026-01-22",
+            "type": "amazon"
+        },
+        {
+            "url": "https://www.lg.com.br/ar-condicionado-dual-inverter",
+            "accessedAt": "2026-01-22",
+            "type": "manufacturer"
+        }
+    ],
+    "energy": {
+        "labelKwhMonth": 45.5
+    },
+    "specs": {
+        "btus": 12000,
+        "hasInverter": true,
+        "inverterType": "dual-inverter",
+        "acType": "split",
+        "voltage": "220v",
+        "energyClass": "A",
+        "noiseDb": 19,
+        "noiseDbExternal": 50,
+        "coverageArea": 20,
+        "hasWifi": true,
+        "hasHeating": false,
+        "cycle": "frio"
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22T08:47:00-03:00",
+        "notas": "Exemplo de input para scaffold-product CLI - Ar Condicionado"
+    }
+}

@@ -214,6 +214,50 @@ function generateACSimulators(product: Product): SimulatorsData {
     };
 }
 
+/**
+ * Generate simulators data for an Air Fryer product
+ */
+function generateAirFryerSimulators(product: Product): SimulatorsData {
+    const specs = (product.specs || {}) as Record<string, unknown>;
+    const attrs = (product.attributes || {}) as Record<string, unknown>;
+
+    const capacity = Number(specs.capacity || attrs.capacity || specs.liters) || 8;
+    const power = Number(specs.power || attrs.power || specs.watts) || 1500;
+    const hasDigitalDisplay = Boolean(specs.digitalDisplay || attrs.digitalDisplay);
+
+    // Capacity adequacy (8L is ideal for family of 4-5)
+    const idealMin = 4;
+    const idealMax = 10;
+    const sizeStatus = capacity >= idealMin && capacity <= idealMax ? 'optimal' :
+        capacity >= 2 ? 'acceptable' : 'warning';
+
+    // Power adequacy (1500-2000W is ideal range)
+    const powerStatus = power >= 1500 ? 'optimal' : power >= 1000 ? 'acceptable' : 'warning';
+
+    // Energy estimate (typical 30min use = 0.5-1kWh)
+    const energyPerUse = (power * 0.5) / 1000; // kWh per 30min
+    const costPerUse = energyPerUse * 0.75; // R$0.75/kWh
+
+    return {
+        sizeAlert: {
+            status: sizeStatus as 'optimal' | 'acceptable' | 'warning',
+            message: `Capacidade de ${capacity}L é ${sizeStatus === 'optimal' ? 'ideal para famílias de 3-5 pessoas' : sizeStatus === 'acceptable' ? 'adequada para casais ou famílias pequenas' : 'limitada para uma pessoa'}.`,
+            idealRange: { min: idealMin, max: idealMax },
+        },
+        soundAlert: {
+            status: powerStatus as 'optimal' | 'acceptable' | 'warning',
+            message: power >= 1500
+                ? `Potência de ${power}W proporciona fritura rápida e uniforme.`
+                : `Potência de ${power}W é moderada. Pode demorar mais para fritar.`,
+            suggestions: undefined,
+        },
+        energyAlert: {
+            rating: 'A' as 'A' | 'B' | 'C' | 'D' | 'E',
+            message: `Consumo de ~${power}W durante operação. Custo estimado de R$ ${costPerUse.toFixed(2)} por uso (30min).`,
+        },
+    };
+}
+
 // ============================================
 // MAIN EXPORT FUNCTION
 // ============================================
@@ -233,6 +277,9 @@ export function generateSimulatorsData(product: Product): SimulatorsData | null 
         case 'air_conditioner':
         case 'ar-condicionado':
             return generateACSimulators(product);
+        case 'air_fryer':
+        case 'fritadeira':
+            return generateAirFryerSimulators(product);
         default:
             // Return generic data for unsupported categories
             return null;
@@ -243,6 +290,6 @@ export function generateSimulatorsData(product: Product): SimulatorsData | null 
  * Check if a product category supports simulators
  */
 export function supportsSimulators(categoryId: string): boolean {
-    const supported = ['tv', 'smart-tv', 'fridge', 'geladeira', 'air_conditioner', 'ar-condicionado'];
+    const supported = ['tv', 'smart-tv', 'fridge', 'geladeira', 'air_conditioner', 'ar-condicionado', 'air_fryer', 'fritadeira'];
     return supported.includes(categoryId.toLowerCase());
 }

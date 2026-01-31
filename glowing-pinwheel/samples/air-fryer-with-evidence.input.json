@@ -1,0 +1,57 @@
+{
+    "product": {
+        "name": "Fritadeira Air Fryer Mondial AFN-90-B",
+        "brand": "Mondial",
+        "model": "AFN-90-B",
+        "categoryId": "air-fryer",
+        "asin": "B0COMPLETE01"
+    },
+    "price": {
+        "valueBRL": 349.90,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://amazon.com.br/dp/B0COMPLETE01"
+    },
+    "sources": [
+        {
+            "url": "https://amazon.com.br/dp/B0COMPLETE01",
+            "type": "amazon"
+        },
+        {
+            "url": "https://mondial.com.br/afn-90",
+            "type": "manufacturer"
+        }
+    ],
+    "specs": {
+        "capacityLiters": 5.5,
+        "powerWatts": 1500,
+        "hasDigital": true,
+        "hasDualBasket": false,
+        "hasWindow": false
+    },
+    "evidence": {
+        "product.brand": {
+            "sourceUrl": "https://mondial.com.br/afn-90",
+            "note": "Marca oficial"
+        },
+        "product.model": {
+            "sourceUrl": "https://mondial.com.br/afn-90",
+            "note": "Código do fabricante"
+        },
+        "price.valueBRL": {
+            "sourceUrl": "https://amazon.com.br/dp/B0COMPLETE01",
+            "note": "Preço Amazon"
+        },
+        "specs.capacityLiters": {
+            "sourceUrl": "https://mondial.com.br/afn-90",
+            "note": "Ficha técnica"
+        },
+        "specs.powerWatts": {
+            "sourceUrl": "https://mondial.com.br/afn-90",
+            "note": "Ficha técnica"
+        }
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22"
+    }
+}

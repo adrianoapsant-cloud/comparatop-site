@@ -1,0 +1,224 @@
+{
+    "product": {
+        "id": "aoc-40s5045-78g",
+        "name": "Smart TV AOC 40\" 40S5045/78G Roku TV DLED Full HD",
+        "brand": "AOC",
+        "category": "tv",
+        "releaseYear": 2026
+    },
+    "header": {
+        "overallScore": 7.3,
+        "scoreLabel": "Bom",
+        "title": "Smart TV AOC 40\" Full HD Roku TV",
+        "subtitle": "Um dos modelos Full HD mais acessíveis e funcionais de 2026",
+        "badges": [
+            "best-value",
+            "most-popular"
+        ]
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "Melhor custo-benefício para locais menores (quarto, escritório)",
+                "Sistema Roku TV rápido, com todos os apps (Netflix, Disney+, etc)",
+                "Imagem Full HD real (1080p), superior às HDs (720p) comuns nesta faixa"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "Som de 10W é apenas para uso casual; filmes exigem caixas externas",
+                "Sem Bluetooth: não conecta fones de ouvido sem fio nativamente"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "A AOC 40S5045 vence pelo pragmatismo. Entrega uma tela Full HD decente e um sistema operacional excelente (Roku) por um preço que muitas vezes compete com modelos HD. Se o objetivo é assistir streaming sem gastar muito, é a escolha racional."
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "Precisa de Bluetooth para fones de ouvido",
+                "Sala for grande (acima de 2.5m de distância)",
+                "É gamer de nova geração (apenas 60Hz, sem recursos avançados)"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões Avaliadas",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Custo-Benefício",
+                "shortName": "Custo",
+                "score": 8,
+                "weight": 0.15,
+                "icon": "dollarSign",
+                "color": "emerald",
+                "description": "Preço de ~R$ 1.099 é excelente para Full HD 40"
+            },
+            {
+                "id": "c2",
+                "name": "Design & Acabamento",
+                "shortName": "Design",
+                "score": 7,
+                "weight": 0.08,
+                "icon": "palette",
+                "color": "purple",
+                "description": "Simples, plástico, bordas médias, funcional"
+            },
+            {
+                "id": "c3",
+                "name": "Processamento",
+                "shortName": "Processamento",
+                "score": 8,
+                "weight": 0.12,
+                "icon": "cpu",
+                "color": "blue",
+                "description": "Roku TV roda leve e sem travamentos"
+            },
+            {
+                "id": "c4",
+                "name": "Qualidade de Imagem",
+                "shortName": "Imagem",
+                "score": 8,
+                "weight": 0.18,
+                "icon": "monitor",
+                "color": "cyan",
+                "description": "Full HD em 40\" oferece boa densidade e nitidez"
+            },
+            {
+                "id": "c5",
+                "name": "Qualidade de Áudio",
+                "shortName": "Áudio",
+                "score": 5,
+                "weight": 0.08,
+                "icon": "volume2",
+                "color": "orange",
+                "description": "10W é fraco, apenas para TV aberta/YouTube"
+            },
+            {
+                "id": "c6",
+                "name": "Gaming",
+                "shortName": "Gaming",
+                "score": 7,
+                "weight": 0.1,
+                "icon": "gamepad",
+                "color": "green",
+                "description": "60Hz padrão, baixo input lag, mas sem VRR"
+            },
+            {
+                "id": "c7",
+                "name": "Smart TV & Apps",
+                "shortName": "Smart",
+                "score": 9,
+                "weight": 0.08,
+                "icon": "smartphone",
+                "color": "pink",
+                "description": "Roku é excelente: simples, rápido e completo"
+            },
+            {
+                "id": "c8",
+                "name": "Conectividade",
+                "shortName": "Conectividade",
+                "score": 6,
+                "weight": 0.07,
+                "icon": "wifi",
+                "color": "indigo",
+                "description": "Wi-Fi ok, 3 HDMI, mas sem Bluetooth"
+            },
+            {
+                "id": "c9",
+                "name": "Durabilidade",
+                "shortName": "Durabilidade",
+                "score": 7,
+                "weight": 0.07,
+                "icon": "shield",
+                "color": "slate",
+                "description": "Construção robusta, sem histórico grave"
+            },
+            {
+                "id": "c10",
+                "name": "Suporte & Pós-Venda",
+                "shortName": "Suporte",
+                "score": 7,
+                "weight": 0.07,
+                "icon": "headphones",
+                "color": "teal",
+                "description": "Rede nacional da AOC/TPV é ampla"
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "type": "info",
+            "icon": "ruler",
+            "title": "Tamanho Ideal",
+            "status": "optimal",
+            "message": "TV de 40\" (89cm largura) é perfeita para distâncias entre 1.5m e 2m (pé da cama).",
+            "idealRange": {
+                "min": 1.5,
+                "max": 2.2
+            }
+        },
+        "soundAlert": {
+            "type": "warning",
+            "icon": "volume2",
+            "title": "Áudio Básico",
+            "status": "warning",
+            "message": "10W de potência pode ser baixo para filmes de ação. Considere uma Soundbar.",
+            "suggestions": [
+                {
+                    "condition": "Opção Econômica",
+                    "product": "Soundbar JBL Cinema SB190",
+                    "reason": "Melhora graves e diálogos"
+                }
+            ]
+        },
+        "energyAlert": {
+            "type": "success",
+            "icon": "zap",
+            "title": "Econômica",
+            "status": "good",
+            "message": "Baixo consumo (~15 kWh/mês). Impacto mínimo na conta de luz."
+        }
+    },
+    "decisionFAQ": [
+        {
+            "id": "q1",
+            "icon": "HelpCircle",
+            "question": "Tem Bluetooth?",
+            "answer": "Não nativamente. Você precisará usar o app Roku no celular (modo audição privada) para ouvir com fones, ou um adaptador P2/Bluetooth."
+        },
+        {
+            "id": "q2",
+            "icon": "Monitor",
+            "question": "A imagem é boa?",
+            "answer": "Sim, por ser Full HD em 40 polegadas, a definição é ótima, superior a modelos HD de 32\"."
+        }
+    ],
+    "meta": {
+        "scaffold": {
+            "generatedAt": "2026-01-23T21:24:56.681Z",
+            "rawInputHash": "20760d38",
+            "categoryId": "tv",
+            "derivedEnergy": {
+                "source": "baseline",
+                "kwhMonth": 15,
+                "calculation": "Estimativa LED 40\""
+            },
+            "firedRulesCount": 0,
+            "status": "draft"
+        }
+    }
+}

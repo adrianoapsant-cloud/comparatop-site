@@ -1,0 +1,151 @@
+{
+    "product": {
+        "id": "TODO",
+        "name": "TODO",
+        "brand": "TODO",
+        "category": "soundbar",
+        "releaseYear": 2025
+    },
+    "header": {
+        "overallScore": 7.0,
+        "scoreLabel": "Bom",
+        "title": "TODO",
+        "subtitle": "TODO",
+        "badges": []
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "TODO"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "TODO"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "TODO"
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "TODO"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões Avaliadas",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Qualidade de Som",
+                "shortName": "Som",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c2",
+                "name": "Graves",
+                "shortName": "Gra",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c3",
+                "name": "Diálogos",
+                "shortName": "Dia",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c4",
+                "name": "Surround",
+                "shortName": "Sur",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c5",
+                "name": "Conectividade",
+                "shortName": "Cnx",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c6",
+                "name": "Facilidade de Uso",
+                "shortName": "Uso",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c7",
+                "name": "Custo-Benefício",
+                "shortName": "C/B",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c8",
+                "name": "Design",
+                "shortName": "Des",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c9",
+                "name": "Potência",
+                "shortName": "Pot",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c10",
+                "name": "Ecossistema",
+                "shortName": "Eco",
+                "score": 7.0,
+                "description": "TODO"
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "status": "optimal",
+            "message": "TODO"
+        },
+        "energyAlert": {
+            "rating": "B",
+            "message": "TODO"
+        }
+    },
+    "decisionFAQ": [
+        {
+            "id": "faq1",
+            "icon": "HelpCircle",
+            "question": "TODO?",
+            "answer": "TODO"
+        }
+    ],
+    "meta": {
+        "scaffold": {
+            "generatedAt": "TODO",
+            "rawInputHash": "TODO",
+            "specId": "soundbar",
+            "warningsCount": 0,
+            "status": "draft"
+        }
+    }
+}

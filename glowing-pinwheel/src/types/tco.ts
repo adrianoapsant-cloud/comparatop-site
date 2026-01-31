@@ -149,6 +149,23 @@ export interface ProductTcoData {
 
     /** Technical score (0-10) - ComparaTop's 10 Dores analysis */
     technicalScore?: number;
+
+    /** Match score from filter chips (0-100) */
+    matchScore?: number;
+
+    /** PARR-BR profile badges (c1-c10) - true if score > 7 */
+    profileBadges?: {
+        c1?: boolean;  // Casa Grande (Navegação)
+        c2?: boolean;  // Smart (App/Conectividade)
+        c3?: boolean;  // Mop (Eficiência de Mop)
+        c4?: boolean;  // Pets (Escovas)
+        c5?: boolean;  // Compacto (Altura)
+        c6?: boolean;  // Fácil Manut (Peças)
+        c7?: boolean;  // Bateria+ (Autonomia)
+        c8?: boolean;  // Silencioso (Ruído)
+        c9?: boolean;  // Auto-Dock (Base)
+        c10?: boolean; // IA (Detecção)
+    };
 }
 
 /**

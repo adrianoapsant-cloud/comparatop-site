@@ -1,0 +1,182 @@
+{
+    "product": {
+        "id": "apple-watch-series-9-45mm",
+        "name": "Apple Watch Series 9 45mm GPS+Cellular",
+        "brand": "Apple",
+        "category": "smartwatch",
+        "releaseYear": 2026
+    },
+    "header": {
+        "score": 8.73,
+        "scoreLabel": "Bom",
+        "title": "Apple Watch Series 9 45mm GPS+Cellular",
+        "badges": [],
+        "overallScore": 7,
+        "subtitle": "TODO: Preencher subtitle editorial para Apple"
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "TODO: Preencher pontos positivos"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "TODO: Preencher pontos de atenção"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "TODO: Preencher conclusão técnica editorial"
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "TODO: Preencher contra-indicações"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões para Smartwatches",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Tela & Display",
+                "shortName": "Tela",
+                "score": 9.5,
+                "description": "Super AMOLED 1.5\" com cristal de safira. Brilho excelente ao sol. Always On Display eficiente.",
+                "weight": 0.1
+            },
+            {
+                "id": "c2",
+                "name": "Bateria",
+                "shortName": "Bateria",
+                "score": 7,
+                "description": "~30 horas com LTE. Carregamento rápido (30min para 45%). Precisa carregar diariamente.",
+                "weight": 0.1
+            },
+            {
+                "id": "c3",
+                "name": "Sensores de Saúde",
+                "shortName": "Saúde",
+                "score": 9.5,
+                "description": "HR, SpO2, ECG, BIA (composição corporal), temperatura de pele. Os mais completos do Android.",
+                "weight": 0.1
+            },
+            {
+                "id": "c4",
+                "name": "Fitness",
+                "shortName": "Fitness",
+                "score": 9,
+                "description": "GPS dupla frequência L1+L5, 100+ modos esporte, detecção automática de exercício.",
+                "weight": 0.1
+            },
+            {
+                "id": "c5",
+                "name": "Ecossistema",
+                "shortName": "Ecossist.",
+                "score": 8.5,
+                "description": "Wear OS 5 + One UI Watch 6. Funciona com Android, brilha com Samsung Galaxy.",
+                "weight": 0.1
+            },
+            {
+                "id": "c6",
+                "name": "Custo-Benefício",
+                "shortName": "Custo",
+                "score": 7.5,
+                "description": "R$ 2.199 é premium, mas entrega recursos que justificam vs. competição.",
+                "weight": 0.1
+            },
+            {
+                "id": "c7",
+                "name": "Design",
+                "shortName": "Design",
+                "score": 9,
+                "description": "Corpo em alumínio, cristal de safira, pulseiras intercambiáveis. Estilo premium.",
+                "weight": 0.1
+            },
+            {
+                "id": "c8",
+                "name": "Resistência",
+                "shortName": "Resist.",
+                "score": 9,
+                "description": "5ATM + IP68 + MIL-STD-810H. Natação e banho OK. Safira resiste riscos.",
+                "weight": 0.1
+            },
+            {
+                "id": "c9",
+                "name": "Notificações",
+                "shortName": "Notific.",
+                "score": 9,
+                "description": "Resposta inteligente com Galaxy AI. Sugestões contextuais de resposta.",
+                "weight": 0.1
+            },
+            {
+                "id": "c10",
+                "name": "Pagamentos",
+                "shortName": "NFC Pay",
+                "score": 9.5,
+                "description": "Samsung Pay + Google Wallet. NFC completo, todas as bandeiras.",
+                "weight": 0.1
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "status": "optimal",
+            "message": "Versão 44mm é ideal para pulsos médios/grandes. Para pulsos finos, considere 40mm.",
+            "idealRange": {
+                "min": 40,
+                "max": 44
+            }
+        },
+        "soundAlert": {
+            "status": "acceptable",
+            "message": "Bateria de ~30h requer carregamento diário. Carregamento rápido (30min para 45%) ajuda.",
+            "suggestions": [
+                {
+                    "condition": "Para semanas sem carregar",
+                    "product": "Smartband básica (Mi Band, Amazfit)",
+                    "reason": "Bateria 10-14 dias"
+                }
+            ]
+        },
+        "energyAlert": {
+            "rating": "A",
+            "message": "Consumo baixo graças ao processador 3nm. Carregamento wireless eficiente."
+        }
+    },
+    "meta": {
+        "scaffold": {
+            "generatedAt": "2026-01-22T11:56:59.409Z",
+            "rawInputHash": "890d8772",
+            "categoryId": "smartwatch",
+            "derivedEnergy": {
+                "source": "baseline",
+                "kwhMonth": 0.1,
+                "calculation": "Baseline da categoria: 0.1 kWh/mês"
+            },
+            "firedRulesCount": 4,
+            "status": "draft"
+        }
+    },
+    "decisionFAQ": [
+        {
+            "id": "placeholder",
+            "icon": "HelpCircle",
+            "question": "TODO: Preencher FAQ 1",
+            "answer": "TODO: Preencher resposta"
+        }
+    ]
+}

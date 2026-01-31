@@ -15,6 +15,7 @@ import type { Product } from '@/types/category';
 import { getProductUnknownUnknowns, type ProductUnknownUnknown } from '@/data/unknown-unknowns-filter';
 import { getUnknownUnknowns } from '@/data/unknown-unknowns-data';
 import { ProductUnknownUnknownsAccordion } from './ProductUnknownUnknownsAccordion';
+import { ModuleFallback } from './ModuleFallback';
 
 // ============================================
 // PROPS
@@ -39,14 +40,30 @@ export function ProductUnknownUnknownsWidget({
     const applicableItems = getProductUnknownUnknowns(product);
     const categoryData = getUnknownUnknowns(product.categoryId);
 
-    // No category data = don't render
+    // No category data = show explicit fallback
     if (!categoryData) {
-        return null;
+        return (
+            <ModuleFallback
+                sectionId="hidden_engineering"
+                sectionName="Engenharia Oculta"
+                status="unavailable"
+                reason={`Categoria "${product.categoryId}" não está mapeada no Unknown Unknowns`}
+                missingFields={[`getUnknownUnknowns('${product.categoryId}')`]}
+            />
+        );
     }
 
-    // No applicable items
+    // No applicable items for this specific product
     if (applicableItems.length === 0 && !showEvenIfEmpty) {
-        return null;
+        return (
+            <ModuleFallback
+                sectionId="hidden_engineering"
+                sectionName="Engenharia Oculta"
+                status="coming_soon"
+                reason="Nenhum ponto de atenção identificado para este produto específico"
+                missingFields={['applicableItems.length === 0']}
+            />
+        );
     }
 
     // Count by severity (using adjusted severity if available)
@@ -107,10 +124,34 @@ export function ProductUnknownUnknownsWidget({
             {/* Content */}
             <div className="p-4">
                 {applicableItems.length > 0 ? (
-                    <ProductUnknownUnknownsAccordion
-                        items={applicableItems}
-                        productName={product.shortName || product.name}
-                    />
+                    <>
+                        {/* Always visible: first 2 items (sorted by severity) */}
+                        <ProductUnknownUnknownsAccordion
+                            items={applicableItems.slice(0, 2)}
+                            productName={product.shortName || product.name}
+                        />
+
+                        {/* Remaining items in native accordion */}
+                        {applicableItems.length > 2 && (
+                            <details className="ct-details-soft mt-3">
+                                <summary className="ct-summary">
+                                    <span className="ct-summary-content">
+                                        Ver análise completa (+{applicableItems.length - 2} itens)
+                                    </span>
+                                    <span className="ct-details-badge ct-details-badge--tech">
+                                        Técnico
+                                    </span>
+                                    <span className="ct-chevron" aria-hidden="true">▾</span>
+                                </summary>
+                                <div className="ct-details-body p-0">
+                                    <ProductUnknownUnknownsAccordion
+                                        items={applicableItems.slice(2)}
+                                        productName={product.shortName || product.name}
+                                    />
+                                </div>
+                            </details>
+                        )}
+                    </>
                 ) : (
                     <div className="text-center py-6 text-slate-500 dark:text-slate-400">
                         <CheckCircle className="w-8 h-8 mx-auto mb-2 text-emerald-500" />

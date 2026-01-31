@@ -1,0 +1,47 @@
+{
+    "product": {
+        "name": "Electrolux Premium Care 13kg LFE13",
+        "brand": "Electrolux",
+        "model": "LFE13",
+        "categoryId": "washer",
+        "asin": "B0DEMO0007"
+    },
+    "price": {
+        "valueBRL": 3899.00,
+        "observedAt": "2026-01-22",
+        "sourceUrl": "https://amazon.com.br/dp/B0DEMO0007"
+    },
+    "sources": [
+        {
+            "url": "https://amazon.com.br/dp/B0DEMO0007",
+            "type": "amazon"
+        },
+        {
+            "url": "https://electrolux.com.br/lfe13",
+            "type": "manufacturer"
+        }
+    ],
+    "energy": {
+        "inmetroKwhYear": 156
+    },
+    "specs": {
+        "capacityKg": 13,
+        "hasInverter": true,
+        "voltage": "220V",
+        "spinRpm": 1400
+    },
+    "evidence": {
+        "specs.capacityKg": {
+            "sourceUrl": "https://electrolux.com.br/lfe13",
+            "note": "13kg"
+        },
+        "specs.hasInverter": {
+            "sourceUrl": "https://electrolux.com.br/lfe13",
+            "note": "Motor Inverter"
+        }
+    },
+    "meta": {
+        "cadastradoPor": "opus",
+        "cadastradoEm": "2026-01-22"
+    }
+}

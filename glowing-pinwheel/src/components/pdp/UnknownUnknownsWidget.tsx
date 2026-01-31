@@ -14,6 +14,7 @@
 import { AlertTriangle, FileSearch, ShieldAlert } from 'lucide-react';
 import type { CategoryUnknownUnknowns } from '@/types/engineering-schema';
 import { UnknownUnknownsAccordion } from './UnknownUnknownsAccordion';
+import { ModuleFallback } from './ModuleFallback';
 
 // ============================================
 // PROPS
@@ -37,9 +38,16 @@ export function UnknownUnknownsWidget({
     filterBrands,
     filterSeverity,
 }: UnknownUnknownsWidgetProps) {
-    // No data = don't render
+    // No data = show explicit fallback
     if (!data || data.items.length === 0) {
-        return null;
+        return (
+            <ModuleFallback
+                sectionId="hidden_engineering"
+                sectionName="Engenharia Oculta"
+                status="unavailable"
+                reason="Dados de engenharia oculta não disponíveis para esta categoria"
+            />
+        );
     }
 
     // Apply filters
@@ -61,9 +69,16 @@ export function UnknownUnknownsWidget({
         );
     }
 
-    // No items after filtering
+    // No items after filtering - show coming_soon
     if (filteredItems.length === 0) {
-        return null;
+        return (
+            <ModuleFallback
+                sectionId="hidden_engineering"
+                sectionName="Engenharia Oculta"
+                status="coming_soon"
+                reason="Nenhum ponto de atenção identificado para este perfil de filtragem"
+            />
+        );
     }
 
     // Count by severity for summary

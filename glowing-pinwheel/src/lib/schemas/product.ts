@@ -40,11 +40,12 @@ export const VoCSchema = z.object({
     summary: z.string(),
     pros: z.array(z.string()),
     cons: z.array(z.string()),
+    // Sources is now optional - simplified for easier product registration
     sources: z.array(z.object({
         name: z.string(),
         url: z.string(),
         count: z.number(),
-    })),
+    })).optional().default([]),
 });
 
 /**
@@ -189,6 +190,17 @@ export const ProductSchema = z.object({
     scoring_facts: z.record(z.string(), z.union([z.string(), z.number(), z.boolean(), z.array(z.string()), z.null()])).optional(),
     scoring_category: z.string().optional(),
 
+    // === CAMPOS OPCIONAIS (Recommended Accessory) ===
+    recommendedAccessory: z.object({
+        asin: z.string(),
+        name: z.string(),
+        shortName: z.string(),
+        price: z.number(),
+        imageUrl: z.string(),
+        reason: z.string(),
+        affiliateUrl: z.string().optional(),
+    }).optional(),
+
     // === STATUS DE PUBLICAÇÃO ===
     /** 
      * Status do produto:
@@ -196,6 +208,30 @@ export const ProductSchema = z.object({
      * - 'published': Produto publicado, campos críticos faltantes geram FAIL (bloqueia CI)
      */
     status: z.enum(['draft', 'published']).default('draft'),
+
+    // === SIMPLIFIED PDP FLAG ===
+    /** Se true, usa SimplifiedPDP como layout padrão (não precisa de ?simplified=true) */
+    useSimplifiedPDP: z.boolean().optional(),
+
+    // === EXTENDED PDP FIELDS (passthrough - aceita qualquer estrutura) ===
+    /** Confidence band fields */
+    evidenceLevel: z.string().optional(),
+    contextualScoreRange: z.array(z.number()).optional(),
+    contextualScoreConfidence: z.string().optional(),
+    tcoTotalRange: z.array(z.number()).optional(),
+    tcoConfidence: z.enum(['high', 'medium', 'low']).optional(),
+    tcoConfidenceNote: z.string().optional(),
+
+    /** Extended data for SimplifiedPDP - passthrough (will be typed in category.ts) */
+    header: z.any().optional(),
+    productDna: z.any().optional(),
+    auditVerdict: z.any().optional(),
+    extendedVoc: z.any().optional(),
+    extendedTco: z.any().optional(),
+    simulators: z.any().optional(),
+    decisionFAQ: z.any().optional(),
+    interactiveTools: z.any().optional(),
+    productDimensions: z.any().optional(),
 });
 
 // ============================================

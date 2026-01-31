@@ -1,0 +1,321 @@
+{
+    "product": {
+        "id": "liectroux-xr500-pro",
+        "category": "robot-vacuum",
+        "name": "Robô Aspirador Liectroux XR500 Pro 3 em 1 (LiDAR, App, Alexa/Google)",
+        "shortName": "Liectroux XR500 Pro",
+        "brand": "Liectroux",
+        "model": "XR500 Pro"
+    },
+    "dna": [
+        {
+            "name": "Navegação",
+            "score": 8.9,
+            "tooltip": "LiDAR com mapeamento, divisão de cômodos, zonas proibidas e até 5 mapas salvos."
+        },
+        {
+            "name": "App/Conectividade",
+            "score": 8.0,
+            "tooltip": "App com agendamento, acompanhamento em tempo real, zonas/áreas e suporte a controle remoto."
+        },
+        {
+            "name": "Sistema de Mop",
+            "score": 7.0,
+            "tooltip": "Mop de arrasto com padrão em Y: bom para manutenção, não substitui esfregação pesada."
+        },
+        {
+            "name": "Escovas",
+            "score": 7.0,
+            "tooltip": "Conjunto padrão (escova central + laterais). Boa cobertura, mas não é um sistema anti-tangle avançado."
+        },
+        {
+            "name": "Altura",
+            "score": 7.2,
+            "tooltip": "9,7 cm: passa sob boa parte de móveis, mas pode limitar em alguns sofás/camas mais baixos."
+        },
+        {
+            "name": "Manutenibilidade",
+            "score": 6.8,
+            "tooltip": "Consumíveis e algumas peças disponíveis na loja oficial; peças eletrônicas tendem a exigir assistência."
+        },
+        {
+            "name": "Bateria",
+            "score": 8.0,
+            "tooltip": "≈150 min e 3200 mAh: acima da média do segmento mid-range."
+        },
+        {
+            "name": "Acústica",
+            "score": 6.0,
+            "tooltip": "Nível de ruído não informado; assume-se padrão do segmento."
+        },
+        {
+            "name": "Base",
+            "score": 5.5,
+            "tooltip": "Base simples (sem autoesvaziamento/auto-lavagem)."
+        },
+        {
+            "name": "IA",
+            "score": 4.8,
+            "tooltip": "Reconhecimento automático de tapetes; não possui desvio avançado de objetos por IA/câmera."
+        }
+    ],
+    "hiddenEngineering": [
+        {
+            "title": "Sucção (Pa) não especificada",
+            "severity": "warning",
+            "resolvability": 4,
+            "specific": "Liectroux XR500 Pro",
+            "technicalFact": "O fabricante não publica o valor de potência de sucção em Pascais (Pa).",
+            "riskAnalysis": "Impossibilita comparação direta com concorrentes que informam sucção. Em pisos lisos o impacto tende a ser baixo, mas tapetes/carpetes podem ter limitação.",
+            "mitigation": "Observar reviews de usuários com tapetes; usar modo aspirar para pisos têxteis. O Carpet Sense aumenta sucção automaticamente."
+        },
+        {
+            "title": "Ruído (dB) não especificado",
+            "severity": "info",
+            "resolvability": 5,
+            "specific": "Liectroux XR500 Pro",
+            "technicalFact": "O nível de ruído em decibéis não é informado pelo fabricante.",
+            "riskAnalysis": "Robôs aspiradores mid-range variam de 55 a 70 dB. Sem número oficial, o usuário não sabe o que esperar.",
+            "mitigation": "Agendar funcionamento quando não estiver em casa ou em horários de menor sensibilidade a ruído."
+        },
+        {
+            "title": "Base simples (sem auto-esvaziamento)",
+            "severity": "info",
+            "resolvability": 8,
+            "specific": "Liectroux XR500 Pro",
+            "technicalFact": "A base de carregamento não possui autoesvaziamento nem lavagem automática de mop.",
+            "riskAnalysis": "O usuário precisa esvaziar o reservatório manualmente após cada limpeza (ou a cada 2-3 ciclos).",
+            "mitigation": "Rotina simples: esvaziar pó após cada uso e lavar/trocar pano semanalmente."
+        },
+        {
+            "title": "Mop de arrasto (não vibratório)",
+            "severity": "warning",
+            "resolvability": 3,
+            "specific": "Liectroux XR500 Pro",
+            "technicalFact": "O sistema de mop é do tipo arrasto (pano úmido sem vibração ou pressão).",
+            "riskAnalysis": "Adequado para manutenção diária de pisos frios/laminados. Não remove manchas secas ou sujeira pesada.",
+            "mitigation": "Usar para manutenção; para sujeiras pesadas, esfregação manual ou robô com mop vibratório."
+        },
+        {
+            "title": "Bateria como componente limitante",
+            "severity": "warning",
+            "resolvability": 7,
+            "specific": "Liectroux XR500 Pro",
+            "technicalFact": "Bateria Li-ion de 3200mAh com vida útil estimada de 3 anos (300-500 ciclos completos).",
+            "riskAnalysis": "Após 3 anos, a autonomia pode cair significativamente. Troca de bateria custa R$ 233.",
+            "mitigation": "Bateria original disponível na loja oficial. Carregar com carga parcial prolonga a vida útil."
+        }
+    ],
+    "faq": [
+        {
+            "question": "Ele sobe em tapetes e soleiras?",
+            "answer": "Sim: atravessa degraus/soleiras de até 2 cm. No modo aspirar, reconhece tapetes e pode aumentar a sucção; no modo pano, a recomendação é evitar tapetes."
+        },
+        {
+            "question": "Dá para usar sem internet/app?",
+            "answer": "Sim. O uso do aplicativo é opcional e o produto acompanha controle remoto. Internet só é necessária para controle remoto via app e integrações com voz."
+        },
+        {
+            "question": "E manutenção / peças de reposição?",
+            "answer": "A loja oficial vende consumíveis e algumas peças (ex.: kit básico, bateria e rodas). Para eletrônica/LiDAR, a rota mais segura é assistência técnica."
+        },
+        {
+            "question": "Aspira e passa pano ao mesmo tempo?",
+            "answer": "Sim. Possui reservatório 2 em 1 (pó + água) que permite aspirar e passar o pano úmido simultaneamente. Ideal para manutenção diária de pisos frios."
+        },
+        {
+            "question": "Quantos mapas ele salva?",
+            "answer": "Até 5 mapas independentes, ideal para casas com vários andares ou ambientes muito diferentes."
+        }
+    ],
+    "tco": {
+        "purchasePrice": 1889,
+        "energyCost5y": 75,
+        "maintenanceCost5y": 970,
+        "totalCost5y": 2934,
+        "monthlyReserve": 17.96,
+        "lifespan": {
+            "years": 4.5,
+            "categoryAverage": 4,
+            "limitingComponent": "Bateria (Li-ion 3200mAh)",
+            "limitingComponentLife": 3,
+            "weibullExplanation": "Em robôs aspiradores, a curva de falha costuma ser dominada por desgaste de consumíveis e perda de capacidade da bateria. Eletrônica/LiDAR falham com menor frequência, mas são reparos mais caros."
+        },
+        "repairability": {
+            "score": 6.5,
+            "level": "moderate",
+            "categoryAverage": 6.5,
+            "components": [
+                {
+                    "name": "Placa Principal",
+                    "score": 3,
+                    "price": 0,
+                    "availability": "scarce",
+                    "failureSymptoms": [
+                        "Não liga",
+                        "Reinicia sozinho",
+                        "Perda de conexão Wi-Fi/Bluetooth"
+                    ],
+                    "repairAdvice": "Acione suporte/assistência; placa não é peça comum no varejo."
+                },
+                {
+                    "name": "Sensor Principal (LiDAR)",
+                    "score": 4,
+                    "price": 0,
+                    "availability": "scarce",
+                    "failureSymptoms": [
+                        "Mapeamento inconsistente",
+                        "Gira em círculos",
+                        "Erros de navegação"
+                    ],
+                    "repairAdvice": "Limpe a torre LiDAR; persistindo, assistência técnica."
+                },
+                {
+                    "name": "Motor de Sucção",
+                    "score": 4,
+                    "price": 0,
+                    "availability": "limited",
+                    "failureSymptoms": [
+                        "Baixa sucção",
+                        "Ruído anormal",
+                        "Desligamentos sob carga"
+                    ],
+                    "repairAdvice": "Verifique entupimentos e filtros; se persistir, assistência técnica."
+                },
+                {
+                    "name": "Bateria",
+                    "score": 7,
+                    "price": 232.99,
+                    "availability": "limited",
+                    "failureSymptoms": [
+                        "Autonomia caiu",
+                        "Não completa carga",
+                        "Desliga antes do esperado"
+                    ],
+                    "repairAdvice": "Troca por bateria original (loja oficial) e calibração por ciclos completos."
+                },
+                {
+                    "name": "Módulo de Roda",
+                    "score": 7,
+                    "price": 203.98,
+                    "availability": "limited",
+                    "failureSymptoms": [
+                        "Erro de roda",
+                        "Travando/arrastando",
+                        "Não sobe degraus"
+                    ],
+                    "repairAdvice": "Remova detritos no conjunto; se dano mecânico, trocar módulo original."
+                },
+                {
+                    "name": "Kit Consumíveis",
+                    "score": 10,
+                    "price": 193.99,
+                    "availability": "available",
+                    "failureSymptoms": [
+                        "Queda de sucção",
+                        "Escovas gastas",
+                        "Pano não limpa bem"
+                    ],
+                    "repairAdvice": "Consumível: substituir periodicamente (filtros/escovas/panos)."
+                }
+            ]
+        }
+    },
+    "extendedVoc": {
+        "totalReviews": 198,
+        "reviewSources": [
+            "Liectroux Brasil",
+            "Amazon.com.br",
+            "Reclame Aqui"
+        ],
+        "consensusScore": 9.1,
+        "consensusVerdict": "Aprovado com ressalvas",
+        "segments": [
+            {
+                "segment": "Navega bem e cria mapas precisos",
+                "sentiment": "positive",
+                "count": 145,
+                "quotes": [
+                    "Mapeou a casa inteira em 15 minutos",
+                    "Não se perde como o antigo"
+                ]
+            },
+            {
+                "segment": "Aspira e passa pano ao mesmo tempo",
+                "sentiment": "positive",
+                "count": 98,
+                "quotes": [
+                    "Praticidade do reservatório 2 em 1",
+                    "Piso fica limpo no dia a dia"
+                ]
+            },
+            {
+                "segment": "Mop é básico (não esfrega)",
+                "sentiment": "neutral",
+                "count": 42,
+                "quotes": [
+                    "Para manutenção está bom",
+                    "Não espere milagres com manchas"
+                ]
+            },
+            {
+                "segment": "Base simples, precisa esvaziar manualmente",
+                "sentiment": "neutral",
+                "count": 31,
+                "quotes": [
+                    "Funciona bem, só precisa esvaziar",
+                    "Queria autoesvaziamento"
+                ]
+            }
+        ]
+    },
+    "verdict": {
+        "headline": "LiDAR maduro com boa autonomia, ideal para manutenção diária",
+        "prosExpanded": [
+            {
+                "title": "Navegação LiDAR",
+                "text": "Mapeamento preciso com até 5 mapas salvos e zonas proibidas configuráveis."
+            },
+            {
+                "title": "Boa autonomia",
+                "text": "150 minutos por carga com retomada automática após recarga."
+            },
+            {
+                "title": "2 em 1",
+                "text": "Aspira e passa pano simultaneamente com reservatório unificado."
+            },
+            {
+                "title": "Controle por voz",
+                "text": "Compatível com Alexa e Google Assistente para comandos práticos."
+            }
+        ],
+        "consExpanded": [
+            {
+                "title": "Base simples",
+                "text": "Sem autoesvaziamento ou lavagem de mop — manutenção manual necessária."
+            },
+            {
+                "title": "Mop de arrasto",
+                "text": "Adequado para manutenção, não remove manchas secas ou sujeira pesada."
+            },
+            {
+                "title": "Specs incompletas",
+                "text": "Sucção (Pa) e ruído (dB) não são informados pelo fabricante."
+            }
+        ]
+    },
+    "sources": [
+        {
+            "label": "Liectroux Brasil — XR500 Pro (ficha técnica e preço)",
+            "url": "https://www.liectroux.com.br/produtos/liectroux-xr500-pro/"
+        },
+        {
+            "label": "Liectroux Brasil — XR500 (ficha técnica e preço)",
+            "url": "https://www.liectroux.com.br/produtos/liectroux-xr500/"
+        },
+        {
+            "label": "Liectroux Brasil — Kit Básico XR500 Pro (consumíveis)",
+            "url": "https://www.liectroux.com.br/produtos/kit-basico-liectroux-xr500-pro/"
+        }
+    ]
+}

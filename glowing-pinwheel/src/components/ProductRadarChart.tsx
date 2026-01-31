@@ -262,17 +262,17 @@ export function extractDNAFromProduct(product: {
             c10: '🔌 Conectividade',
         },
         'robot-vacuum': {
-            // PARR-BR criteria for Robot Vacuums (PARR = Practical Robot Rating)
-            c1: '🗺️ Navegação',        // Navegação & Mapeamento (25%)
-            c2: '📱 App/Voz',          // Software & Conectividade (15%)
-            c3: '🧹 Mop',              // Eficiência de Mop (15%)
-            c4: '🔄 Escovas',          // Engenharia de Escovas (10%)
-            c5: '📏 Altura',           // Restrições Físicas (10%)
-            c6: '🔧 Peças',            // Manutenibilidade (8%)
-            c7: '🔋 Bateria',          // Autonomia (5%)
-            c8: '🔇 Ruído',            // Acústica (5%)
-            c9: '🏠 Base',             // Automação/Docks (5%)
-            c10: '🤖 IA',              // Recursos vs Gimmicks (2%)
+            // PARR-BR criteria for Robot Vacuums
+            c1: 'Navegação',           // Navegação & Mapeamento
+            c2: 'Aplicativo',          // Software & Conectividade
+            c3: 'Limpeza Úmida',       // Eficiência de Mop
+            c4: 'Escovas',             // Engenharia de Escovas
+            c5: 'Altura',              // Restrições Físicas
+            c6: 'Manutenção',          // Manutenibilidade
+            c7: 'Bateria',             // Autonomia
+            c8: 'Silêncio',            // Acústica
+            c9: 'Base',                // Automação/Docks
+            c10: 'Inteligência',       // Recursos IA
         },
         smartphone: {
             // 10 Dores Brasil - Smartphones (Jan 2026)
@@ -286,6 +286,19 @@ export function extractDNAFromProduct(product: {
             c8: '📡 Conectividade',     // CPI 7%
             c9: '💾 Armazenamento',     // AGD 5%
             c10: '✨ Recursos',         // IFM 2%
+        },
+        air_fryer: {
+            // 10 Critérios Air Fryer Brasil (Jan 2026)
+            c1: '🍳 Capacidade',        // Litros/kg – quantas porções de alimento
+            c2: '⚡ Potência',            // Watts – velocidade de preparo
+            c3: '🔥 Fritura Uniforme',   // Qualidade de cozimento
+            c4: '🛡️ Construção',        // Durabilidade dos materiais
+            c5: '👌 Facilidade de Uso', // Controles, display, usabilidade
+            c6: '🍽️ Acessórios',         // Grelhas extras, separadores
+            c7: '🔇 Ruído',              // dB durante operação
+            c8: '💰 Custo-Benefício',   // Valor x recursos
+            c9: '✨ Design',            // Estética e compacidade
+            c10: '🧹 Limpeza',           // Antiaderente, lava-louças
         },
     };
 

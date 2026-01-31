@@ -1,0 +1,24 @@
+/**
+ * @file builtin_oven.ts
+ * @description Playbook de critérios para Fornos de Embutir
+ * Pesos: 25+20+10+10+10+8+7+5+3+2 = 100% ✓
+ */
+import type { CategoryPlaybook } from './tv';
+
+export const BUILTIN_OVEN_PLAYBOOK: CategoryPlaybook = {
+    categoryId: 'builtin_oven',
+    displayName: 'Fornos de Embutir',
+    market: 'Mercado Brasileiro',
+    criteria: [
+        { scoreKey: 'c1', label: 'Isolamento Térmico (Segurança)', weight: 0.25, painTriggers: ['Lateral do forno que queima o móvel (MDF estufado)', 'Painel frontal superaquecido (Risco de queimadura)', 'Falta de Ventilação Tangencial'], pleasureTriggers: ['Motor de Ventilação Tangencial (Refrigeração externa)', 'Porta com vidro triplo (Toque frio)', 'Cavidade selada e isolada'], implementationNotes: 'Se não tem ventilação tangencial, é risco para móveis planejados.' },
+        { scoreKey: 'c2', label: 'Uniformidade (Convecção)', weight: 0.20, painTriggers: ['Assa desigual (Queima fundo, cru na frente)', 'Exige girar a forma manualmente', 'Pontos frios na câmara'], pleasureTriggers: ['Convecção Verdadeira (Ventoinha com resistência circular)', 'Distribuição de calor homogênea', 'Assa em múltiplos níveis simultâneos'], implementationNotes: 'Convecção é o segredo do assado perfeito. Forno estático é obsoleto.' },
+        { scoreKey: 'c3', label: 'Função Air Fryer (Realidade)', weight: 0.10, painTriggers: ['Função "Air Fryer" lenta e ineficiente (Marketing)', 'Falta de fluxo de ar para crocância', 'Acessórios inadequados'], pleasureTriggers: ['Fluxo de ar de alta velocidade', 'Cesto/Bandeja perfurada inclusa', 'Capacidade de fritar grandes porções (1kg+)'], implementationNotes: 'O forno não substitui a Air Fryer pequena em velocidade, mas ganha em volume.' },
+        { scoreKey: 'c4', label: 'Facilidade de Limpeza', weight: 0.10, painTriggers: ['Revestimento poroso "Autolimpante" (Mancha e não limpa)', 'Resistência inferior exposta (Difícil limpar)', 'Cantos vivos acumuladores de gordura'], pleasureTriggers: ['Revestimento Esmaltado Liso (Easy Clean/Cleartec)', 'Resistência inferior oculta sob o piso', 'Vidro da porta removível para lavagem'], implementationNotes: '"Autolimpante" é tecnologia antiga e suja. Esmalte liso é superior.' },
+        { scoreKey: 'c5', label: 'Capacidade Real (Usabilidade)', weight: 0.10, painTriggers: ['Forno "44L" que não cabe forma de pizza', 'Litragem nominal inútil (Profundidade rasa)', 'Apenas 1 grade ou níveis limitados'], pleasureTriggers: ['Capacidade útil para travessas grandes (Lasanha/Pizza)', 'Múltiplos níveis de prateleira (7 níveis)', 'Grelhas deslizantes telescópicas'], implementationNotes: 'Não olhar apenas litros. Verificar dimensões internas úteis.' },
+        { scoreKey: 'c6', label: 'Interface e UX', weight: 0.08, painTriggers: ['Painel touch que falha com calor ou dedo molhado', 'Timer sonoro que não desliga o forno (Cuidado!)', 'Programação complexa e não intuitiva'], pleasureTriggers: ['Painel intuitivo e responsivo', 'Timer com corte de gás/energia (Desligamento automático)', 'Feedback visual claro de temperatura'], implementationNotes: 'Timer que só apita é perigoso. Exigir timer com corte (Shut-off).' },
+        { scoreKey: 'c7', label: 'Instalação e Nicho', weight: 0.07, painTriggers: ['Exigência de nicho com ventilação impossível na marcenaria', 'Cabo de energia curto ou plugue derretido', 'Medidas fora do padrão de mercado'], pleasureTriggers: ['Medidas padrão de nicho (Fácil substituição)', 'Instalação "Plug and Play" com ventilação frontal', 'Cabo resistente e de bom comprimento'], implementationNotes: 'O forno tem que caber no móvel padrão.' },
+        { scoreKey: 'c8', label: 'Durabilidade (Vidro e Porta)', weight: 0.05, painTriggers: ['Vidro que estoura espontaneamente (Tensão estrutural)', 'Puxador que esquenta demais', 'Dobradiças frágeis que desalinham a porta'], pleasureTriggers: ['Vidro temperado de alta qualidade e fixação segura', 'Puxador com isolamento térmico', 'Estrutura do chassi rígida'], implementationNotes: 'Vidro estourado é pesadelo recorrente.' },
+        { scoreKey: 'c9', label: 'Eficiência Energética', weight: 0.03, painTriggers: ['Perda de calor excessiva (Cozinha vira sauna)', 'Consumo alto por falta de isolamento'], pleasureTriggers: ['Porta com vedação hermética e vidro duplo/triplo', 'Retenção de calor eficiente (Assa mais rápido)', 'Função "Eco" ou aproveitamento de calor residual'], implementationNotes: 'Forno bem isolado gasta menos e cozinha melhor.' },
+        { scoreKey: 'c10', label: 'Custo-Benefício', weight: 0.02, painTriggers: ['Preço de forno profissional em produto de entrada', 'Marca sem peças de reposição'], pleasureTriggers: ['Equilíbrio entre preço e funcionalidades (Convecção)', 'Rede de assistência técnica acessível'], implementationNotes: 'Pagar mais por convecção vale a pena. Pagar por design "vidro espelhado" é vaidade.' },
+    ],
+};

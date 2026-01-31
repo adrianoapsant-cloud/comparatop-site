@@ -33,9 +33,10 @@ import { GeometryEngine } from '@/components/engines/GeometryEngine';
 import { RateEngine } from '@/components/engines/RateEngine';
 import { ComparisonEngine } from '@/components/engines/ComparisonEngine';
 import { AuditVerdictSection, SimulatorsSection } from '@/components/pdp';
+import { ModuleFallback } from '@/components/pdp/ModuleFallback';
 import { getProductExtendedData } from '@/lib/product-loader';
 import { generateSimulatorsData, supportsSimulators } from '@/lib/simulators-generator';
-import { useUnifiedVoice, mapRadarTooltipsToDNA } from '@/hooks/useUnifiedVoice';
+// REMOVED: useUnifiedVoice API - all data now comes from static JSON
 import type { ProductData } from '@/config/product-json-schema';
 import dynamic from 'next/dynamic';
 import { ProductGallery, type GalleryItem } from '@/components/ProductGallery';
@@ -128,6 +129,7 @@ function ProductHero({ product, unifiedScore, headline, curiositySandwich, isLoa
                 <ProductGallery
                     items={galleryItems}
                     productName={product.name}
+                    affiliateUrl={product.offers?.[0]?.affiliateUrl || product.offers?.[0]?.url}
                     compareButton={
                         <CompareToggle
                             product={{
@@ -149,17 +151,11 @@ function ProductHero({ product, unifiedScore, headline, curiositySandwich, isLoa
                 {/* Visual Architecture - Sticky Summary (Desktop Only) */}
                 <StickySummaryCard product={product} rating={overallScore} />
 
-                {/* Hook Badge - Winning Hook (uses Gemini headline if available) */}
+                {/* Hook Badge - Winning Hook (uses static benefitSubtitle immediately, API headline overrides if available) */}
                 <div className="mb-2">
-                    {isLoading ? (
-                        <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 text-gray-400 rounded-full text-xs font-semibold animate-pulse">
-                            🏆 Analisando produto...
-                        </span>
-                    ) : (
-                        <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full text-xs font-semibold">
-                            🏆 {headline || product.benefitSubtitle || 'Melhor Opção da Categoria'}
-                        </span>
-                    )}
+                    <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full text-xs font-semibold">
+                        🏆 {headline || product.benefitSubtitle || 'Melhor Opção da Categoria'}
+                    </span>
                 </div>
 
                 {/* Title */}
@@ -244,6 +240,23 @@ function ProductHero({ product, unifiedScore, headline, curiositySandwich, isLoa
                     // Generate simulated offers based on product price
                     // In production, this would come from API/cache
                     const basePrice = product.price;
+
+                    // Busca link de afiliado do Mercado Livre dos offers do produto
+                    const mlOffer = product.offers?.find(o =>
+                        o.storeSlug === 'mercadolivre' ||
+                        o.store?.toLowerCase().includes('mercado') ||
+                        o.url?.includes('mercadolivre.com')
+                    );
+                    const mlAffiliateUrl = mlOffer?.url || mlOffer?.affiliateUrl;
+
+                    // Busca link de afiliado da Amazon dos offers do produto
+                    const amazonOffer = product.offers?.find(o =>
+                        o.storeSlug === 'amazon' ||
+                        o.store?.toLowerCase().includes('amazon') ||
+                        o.url?.includes('amazon.com')
+                    );
+                    const amazonAffiliateUrl = amazonOffer?.url || amazonOffer?.affiliateUrl;
+
                     const offers: OfferData[] = [
                         {
                             platform: 'amazon',
@@ -253,6 +266,7 @@ function ProductHero({ product, unifiedScore, headline, curiositySandwich, isLoa
                             shipping: 'free',
                             inStock: true,
                             productKeyword: product.name,
+                            affiliateUrl: amazonAffiliateUrl, // Usa link de afiliado se disponível
                         },
                         {
                             platform: 'mercadolivre',
@@ -262,6 +276,7 @@ function ProductHero({ product, unifiedScore, headline, curiositySandwich, isLoa
                             shipping: 'free', // Frete grátis para consistência UX
                             inStock: true,
                             productKeyword: product.name,
+                            affiliateUrl: mlAffiliateUrl, // Usa link de afiliado se disponível
                         },
                     ];
 
@@ -279,9 +294,7 @@ function ProductHero({ product, unifiedScore, headline, curiositySandwich, isLoa
                 {/* Botões de lojas: REMOVIDO - já integrado no SmartOfferCard acima */}
                 {/* A seção "Ver todas as lojas" foi removida para evitar duplicação */}
 
-                <p className="text-xs text-text-muted text-center mt-4">
-                    Atualizado em {product.lastUpdated}
-                </p>
+                {/* Data de atualização removida para design mais limpo */}
             </div>
         </section>
     );
@@ -305,12 +318,18 @@ interface CuriositySandwichProps {
 function CuriositySandwich({ product, overallScore, categoryMedian, geminiData }: CuriositySandwichProps) {
     // If Gemini provided the insight, use it directly (ensures consistent score)
     if (geminiData?.text) {
+        // Filter out robot emoji 🤖 - use a neutral icon instead
+        const displayIcon = geminiData.icon === '🤖' ? '📊' : (geminiData.icon || '📊');
+        // Replace internal term "unified_score" with user-friendly "nota geral"
+        const displayText = geminiData.text
+            .replace(/unified_score/gi, 'nota geral')
+            .replace(/Com um nota geral/gi, 'Com uma nota geral'); // Fix grammar
         return (
             <div className="mb-3 p-3 rounded-lg bg-blue-50 border border-blue-100">
                 <div className="flex gap-2">
-                    <span className="text-lg flex-shrink-0">{geminiData.icon || '📊'}</span>
+                    <span className="text-lg flex-shrink-0">{displayIcon}</span>
                     <p className="text-xs text-blue-800 leading-relaxed">
-                        {geminiData.text}
+                        {displayText}
                     </p>
                 </div>
             </div>
@@ -964,8 +983,15 @@ function ContextualCalculatorWidget({ product }: { product: Product }) {
         );
     }
 
-    // Category not supported yet - return a generic message
-    return null;
+    // Category not supported yet - show explicit fallback instead of silently disappearing
+    return (
+        <ModuleFallback
+            sectionId="interactive_tools"
+            sectionName="Ferramentas Interativas"
+            status="coming_soon"
+            reason={`Ferramentas interativas em desenvolvimento para ${product.categoryId}`}
+        />
+    );
 }
 
 // ============================================
@@ -1110,9 +1136,8 @@ export function ProductDetailPage({ product, layoutConfig, layoutMode, layoutRea
     // State for extended data from JSON
     const [extendedData, setExtendedData] = useState<ProductData | null>(null);
 
-    // === UNIFIED VOICE - Projeto Voz Unificada ===
-    // Carrega dados estruturados do Gemini API
-    const { data: unifiedVoice, loading: aiLoading } = useUnifiedVoice(product.id);
+    // ALL DATA NOW COMES FROM STATIC JSON (extendedData from mocks/*.json)
+    // API calls removed for instant loading - see /docs/pdp-architecture.md
 
     // Load extended data from JSON on mount
     useEffect(() => {
@@ -1157,7 +1182,7 @@ export function ProductDetailPage({ product, layoutConfig, layoutMode, layoutRea
     const solution = getSolution();
     const attention = product.scoreReasons?.c3 || 'Verifique a garantia e disponibilidade de assistência técnica na sua região.';
     // Use unifiedScore (Gemini first, static fallback) for consistency
-    const conclusion = `Com nota ${unifiedScore.toFixed(2)}/10, este ${product.brand} atende bem a maioria dos usuários. Ideal para quem busca ${unifiedVoice?.verdict_card?.target_audience || product.benefitSubtitle || 'um produto confiável'}.`;
+    const conclusion = `Com nota ${unifiedScore.toFixed(2)}/10, este ${product.brand} atende bem a maioria dos usuários. Ideal para quem busca ${product.benefitSubtitle || 'um produto confiável'}.`;
 
     // Generate "don't buy if" reasons - ALWAYS show at least one based on real data
     const dontBuyReasons: string[] = [];
@@ -1347,9 +1372,9 @@ export function ProductDetailPage({ product, layoutConfig, layoutMode, layoutRea
                             <ProductHero
                                 product={product}
                                 unifiedScore={unifiedScore}
-                                headline={extendedData?.header?.subtitle || unifiedVoice?.verdict_card?.headline}
-                                curiositySandwich={unifiedVoice?.curiosity_sandwich}
-                                isLoading={aiLoading}
+                                headline={extendedData?.header?.subtitle || product.benefitSubtitle}
+                                curiositySandwich={(product as any).curiositySandwich || undefined}
+                                isLoading={false}
                             />
 
                             {/* Context Score Section - Personalização HMUM */}
@@ -1430,14 +1455,14 @@ export function ProductDetailPage({ product, layoutConfig, layoutMode, layoutRea
                                 ) : (
                                     <>
                                         <AuditVerdict
-                                            solution={unifiedVoice?.verdict_card?.headline || solution}
-                                            attention={unifiedVoice?.verdict_card?.dealbreaker || attention}
+                                            solution={solution}
+                                            attention={attention}
                                             conclusion={conclusion}
                                             score={unifiedScore}
-                                            pros={unifiedVoice?.pros_cons?.pros}
-                                            cons={unifiedVoice?.pros_cons?.cons}
+                                            pros={undefined}
+                                            cons={undefined}
                                             dontBuyReasons={finalReasons}
-                                            isLoading={aiLoading}
+                                            isLoading={false}
                                         />
                                     </>
                                 )}
@@ -1452,11 +1477,9 @@ export function ProductDetailPage({ product, layoutConfig, layoutMode, layoutRea
                             <div className="mt-6">
                                 <CommunityConsensusCard
                                     data={{
-                                        // ✅ USE GEMINI DATA when available, fallback to estimates
-                                        consensusScore: unifiedVoice?.community_consensus?.approval_percentage
-                                            ?? Math.round(85 + (unifiedScore - 7) * 5),
-                                        totalReviews: unifiedVoice?.community_consensus?.total_reviews
-                                            ?? (product.price > 5000 ? "2.5k+" : "5k+"),
+                                        // Static consensus estimation (to be filled in mock JSON)
+                                        consensusScore: Math.round(85 + (unifiedScore - 7) * 5),
+                                        totalReviews: product.price > 5000 ? "2.5k+" : "5k+",
                                         acceptableFlaw: (() => {
                                             // Category-specific usability flaws (NOT specs - that's in AuditVerdict)
                                             if (product.categoryId === 'tv') {
@@ -1563,7 +1586,15 @@ export function ProductDetailPage({ product, layoutConfig, layoutMode, layoutRea
                                         );
                                     } catch (error) {
                                         console.error('[ProductDetailPage] Error rendering ownership insights:', error);
-                                        return null;
+                                        return (
+                                            <ModuleFallback
+                                                sectionId="ownership_insights"
+                                                sectionName="Impacto no Bolso (TCO)"
+                                                status="error"
+                                                reason="Erro ao calcular custo de propriedade"
+                                                missingFields={[String(error)]}
+                                            />
+                                        );
                                     }
                                 })()}
                             </section>
@@ -1593,7 +1624,17 @@ export function ProductDetailPage({ product, layoutConfig, layoutMode, layoutRea
                                 const simulatorsData = extendedData?.simulators ||
                                     (supportsSimulators(product.categoryId) ? generateSimulatorsData(product) : null);
 
-                                if (!simulatorsData) return null;
+                                if (!simulatorsData) {
+                                    return (
+                                        <ModuleFallback
+                                            sectionId="simulators"
+                                            sectionName="Simuladores Inteligentes"
+                                            status={extendedData === null ? 'loading' : 'unavailable'}
+                                            reason={extendedData === null ? 'Carregando simuladores...' : `Simuladores não disponíveis para a categoria ${product.categoryId}`}
+                                            missingFields={['extendedData.simulators', `supportsSimulators('${product.categoryId}')`]}
+                                        />
+                                    );
+                                }
                                 return <SimulatorsSection data={simulatorsData as any} categoryId={product.categoryId} />;
                             })()}
 
@@ -1697,25 +1738,7 @@ export function ProductDetailPage({ product, layoutConfig, layoutMode, layoutRea
                                         attributes: product.attributes as Record<string, unknown>,
                                     });
 
-                                    // Optionally enhance with Gemini tooltips if available
-                                    if (unifiedVoice?.radar_tooltips) {
-                                        const categoryId = product.categoryId || 'tv';
-                                        const mappedTooltips = mapRadarTooltipsToDNA(
-                                            unifiedVoice.radar_tooltips,
-                                            undefined, // Don't use Gemini scores, only tooltips
-                                            categoryId
-                                        );
-                                        // Merge Gemini tooltips into static DNA data
-                                        return dnaData.map((item, index) => {
-                                            const criterionKey = `c${index + 1}`;
-                                            const geminiData = mappedTooltips[criterionKey];
-                                            return {
-                                                ...item,
-                                                // Keep static score, use Gemini reason if available
-                                                reason: geminiData?.reason || item.reason,
-                                            };
-                                        });
-                                    }
+                                    // All radar tooltips now come from static scoreReasons in product JSON
 
                                     return dnaData;
                                 })()}
@@ -1766,7 +1789,7 @@ export function ProductDetailPage({ product, layoutConfig, layoutMode, layoutRea
                                             asin: (product as unknown as { asin?: string }).asin || 'B0SAMPLE',
                                             price: product.price,
                                             imageUrl: product.imageUrl,
-                                            slug: product.id,
+                                            affiliateUrl: product.offers?.[0]?.affiliateUrl || product.offers?.[0]?.url || `https://www.amazon.com.br/dp/${(product as any).asin}?tag=comparatop-20`,
                                         }}
                                         accessory={{
                                             name: bundleMatch.accessory.name,
@@ -1774,7 +1797,7 @@ export function ProductDetailPage({ product, layoutConfig, layoutMode, layoutRea
                                             asin: bundleMatch.accessory.asin,
                                             price: bundleMatch.accessory.price,
                                             imageUrl: bundleMatch.accessory.imageUrl,
-                                            slug: bundleMatch.accessory.id,
+                                            affiliateUrl: (bundleMatch.accessory as any).affiliateUrl || `https://www.amazon.com.br/dp/${bundleMatch.accessory.asin}?tag=comparatop-20`,
                                         }}
                                         title={bundleMatch.accessory.accessoryCategoryId === 'soundbar' ? '🔊 Complete sua experiência' : '✨ Acessório recomendado'}
                                         subtitle={bundleMatch.matchReason}

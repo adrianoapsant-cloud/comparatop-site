@@ -1,0 +1,30 @@
+{
+  "categoryId": "air-fryer",
+  "missingRequired": [],
+  "missingEvidence": [
+    "product.brand",
+    "product.model",
+    "price.valueBRL",
+    "energy.inmetroKwhYear"
+  ],
+  "suggestedJson": {
+    "evidence": {
+      "product.brand": {
+        "sourceUrl": "https://...",
+        "note": "Fonte oficial"
+      },
+      "product.model": {
+        "sourceUrl": "https://...",
+        "note": "Fonte oficial"
+      },
+      "price.valueBRL": {
+        "sourceUrl": "https://...",
+        "note": "Fonte oficial"
+      },
+      "energy.inmetroKwhYear": {
+        "sourceUrl": "https://...",
+        "note": "Fonte oficial"
+      }
+    }
+  }
+}

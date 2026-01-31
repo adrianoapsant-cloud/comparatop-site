@@ -1,0 +1,161 @@
+{
+    "product": {
+        "id": "TODO_PRODUCT_ID",
+        "name": "TODO: Nome do Produto",
+        "brand": "TODO: Marca",
+        "category": "smartphone",
+        "releaseYear": 2025
+    },
+    "header": {
+        "overallScore": 7.0,
+        "scoreLabel": "Bom",
+        "title": "TODO: Nome do Produto",
+        "subtitle": "TODO: Subtitle editorial - máx 120 caracteres",
+        "badges": []
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "TODO: Ponto positivo 1",
+                "TODO: Ponto positivo 2",
+                "TODO: Ponto positivo 3"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "TODO: Ponto de atenção 1",
+                "TODO: Ponto de atenção 2"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "TODO: Conclusão técnica editorial - 2-3 frases descrevendo o produto de forma objetiva"
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "TODO: Contra-indicação 1",
+                "TODO: Contra-indicação 2"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões Avaliadas",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Autonomia Real",
+                "shortName": "Aut",
+                "score": 7.0,
+                "description": "TODO: Descrição c1"
+            },
+            {
+                "id": "c2",
+                "name": "Estabilidade de Software",
+                "shortName": "Sof",
+                "score": 7.0,
+                "description": "TODO: Descrição c2"
+            },
+            {
+                "id": "c3",
+                "name": "Custo-Benefício",
+                "shortName": "C/B",
+                "score": 7.0,
+                "description": "TODO: Descrição c3"
+            },
+            {
+                "id": "c4",
+                "name": "Câmera Social",
+                "shortName": "Cam",
+                "score": 7.0,
+                "description": "TODO: Descrição c4"
+            },
+            {
+                "id": "c5",
+                "name": "Resiliência Física",
+                "shortName": "Res",
+                "score": 7.0,
+                "description": "TODO: Descrição c5"
+            },
+            {
+                "id": "c6",
+                "name": "Qualidade de Tela",
+                "shortName": "Tel",
+                "score": 7.0,
+                "description": "TODO: Descrição c6"
+            },
+            {
+                "id": "c7",
+                "name": "Pós-Venda",
+                "shortName": "Pós",
+                "score": 7.0,
+                "description": "TODO: Descrição c7"
+            },
+            {
+                "id": "c8",
+                "name": "Conectividade",
+                "shortName": "Con",
+                "score": 7.0,
+                "description": "TODO: Descrição c8"
+            },
+            {
+                "id": "c9",
+                "name": "Armazenamento",
+                "shortName": "Arm",
+                "score": 7.0,
+                "description": "TODO: Descrição c9"
+            },
+            {
+                "id": "c10",
+                "name": "Recursos Úteis",
+                "shortName": "Rec",
+                "score": 7.0,
+                "description": "TODO: Descrição c10"
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "status": "optimal",
+            "message": "TODO: Tamanho de tela e ergonomia"
+        },
+        "energyAlert": {
+            "rating": "B",
+            "message": "TODO: Autonomia estimada em horas"
+        }
+    },
+    "decisionFAQ": [
+        {
+            "id": "faq1",
+            "icon": "HelpCircle",
+            "question": "TODO: Pergunta frequente 1?",
+            "answer": "TODO: Resposta 1"
+        },
+        {
+            "id": "faq2",
+            "icon": "HelpCircle",
+            "question": "TODO: Pergunta frequente 2?",
+            "answer": "TODO: Resposta 2"
+        }
+    ],
+    "meta": {
+        "scaffold": {
+            "generatedAt": "TODO_GENERATED_AT",
+            "rawInputHash": "TODO_HASH",
+            "specId": "smartphone",
+            "warningsCount": 0,
+            "status": "draft"
+        }
+    }
+}

@@ -1,0 +1,151 @@
+{
+    "product": {
+        "id": "TODO",
+        "name": "TODO",
+        "brand": "TODO",
+        "category": "monitor",
+        "releaseYear": 2025
+    },
+    "header": {
+        "overallScore": 7.0,
+        "scoreLabel": "Bom",
+        "title": "TODO",
+        "subtitle": "TODO",
+        "badges": []
+    },
+    "auditVerdict": {
+        "solution": {
+            "title": "A Solução",
+            "icon": "checkCircle",
+            "color": "emerald",
+            "items": [
+                "TODO"
+            ]
+        },
+        "attentionPoint": {
+            "title": "Ponto de Atenção",
+            "icon": "alertTriangle",
+            "color": "amber",
+            "items": [
+                "TODO"
+            ]
+        },
+        "technicalConclusion": {
+            "title": "Conclusão Técnica",
+            "icon": "clipboard",
+            "color": "blue",
+            "text": "TODO"
+        },
+        "dontBuyIf": {
+            "title": "Não Compre Se",
+            "icon": "xCircle",
+            "color": "red",
+            "items": [
+                "TODO"
+            ]
+        }
+    },
+    "productDna": {
+        "title": "DNA do Produto",
+        "subtitle": "10 Dimensões Avaliadas",
+        "dimensions": [
+            {
+                "id": "c1",
+                "name": "Qualidade de Imagem",
+                "shortName": "Img",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c2",
+                "name": "Gaming",
+                "shortName": "Gam",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c3",
+                "name": "Ergonomia",
+                "shortName": "Erg",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c4",
+                "name": "Conectividade",
+                "shortName": "Cnx",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c5",
+                "name": "Construção",
+                "shortName": "Con",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c6",
+                "name": "Custo-Benefício",
+                "shortName": "C/B",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c7",
+                "name": "HDR",
+                "shortName": "HDR",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c8",
+                "name": "Brilho",
+                "shortName": "Bri",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c9",
+                "name": "Cores",
+                "shortName": "Cor",
+                "score": 7.0,
+                "description": "TODO"
+            },
+            {
+                "id": "c10",
+                "name": "Design",
+                "shortName": "Des",
+                "score": 7.0,
+                "description": "TODO"
+            }
+        ]
+    },
+    "simulators": {
+        "sizeAlert": {
+            "status": "optimal",
+            "message": "TODO"
+        },
+        "energyAlert": {
+            "rating": "B",
+            "message": "TODO"
+        }
+    },
+    "decisionFAQ": [
+        {
+            "id": "faq1",
+            "icon": "HelpCircle",
+            "question": "TODO?",
+            "answer": "TODO"
+        }
+    ],
+    "meta": {
+        "scaffold": {
+            "generatedAt": "TODO",
+            "rawInputHash": "TODO",
+            "specId": "monitor",
+            "warningsCount": 0,
+            "status": "draft"
+        }
+    }
+}

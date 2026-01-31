@@ -37,12 +37,26 @@ import { ProductUnknownUnknownsWidget } from '@/components/pdp/ProductUnknownUnk
 import { DecisionFAQWrapper } from '@/components/pdp/DecisionFAQWrapper';
 
 // ============================================
+// SIMPLIFIED PDP (Modular Architecture)
+// ============================================
+import { SimplifiedPDP } from '@/components/pdp/SimplifiedPDP';
+import { loadMockData } from '@/lib/pdp/load-mock-data';
+import { ContextualCalculatorWidget } from '@/components/pdp/ContextualCalculatorWidget';
+import { CuriositySandwichWidget } from '@/components/pdp/CuriositySandwichWidget';
+import { FeatureBenefitsWidget } from '@/components/pdp/FeatureBenefitsWidget';
+import { BenchmarksWidget } from '@/components/pdp/BenchmarksWidget';
+import { CommunityConsensusCard } from '@/components/CommunityConsensusCard';
+import { AttributionBanner } from '@/components/attribution/DataAttribution';
+import { ManualDownloadSection } from '@/components/ManualDownloadSection';
+import { CostBenefitWidget } from '@/components/pdp/CostBenefitWidget';
+
+// ============================================
 // TYPES
 // ============================================
 
 interface ProductPageProps {
     params: Promise<{ slug: string }>;
-    searchParams: Promise<{ forceLayout?: string }>;
+    searchParams: Promise<{ forceLayout?: string; simplified?: string }>;
 }
 
 // ============================================
@@ -290,7 +304,11 @@ function demoToProduct(demo: ReturnType<typeof getDemoProduct>): Product | null 
 
 export default async function ProductPage({ params, searchParams }: ProductPageProps) {
     const { slug } = await params;
-    const { forceLayout } = await searchParams;
+    const { forceLayout, simplified } = await searchParams;
+
+    // Feature Flag: SimplifiedPDP
+    // Priority: URL param > product-level flag
+    const simplifiedFromUrl = simplified === 'true';
 
     // DEBUG: Log what product is being rendered
     console.log(`[PAGE DEBUG] Slug: ${slug}, isDemoSlug: ${isDemoSlug(slug)}`);
@@ -332,6 +350,28 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
 
     // Enhance product with contextual scoring data
     const product = enhanceProductWithScoring(rawProduct);
+
+    // ========================================
+    // SIMPLIFIED PDP MODE (Feature Flag + Product Flag)
+    // Usage: /produto/slug?simplified=true OR product.useSimplifiedPDP=true
+    // ========================================
+    const useSimplifiedPDP = simplifiedFromUrl || product.useSimplifiedPDP === true;
+
+    if (useSimplifiedPDP) {
+        console.log('[SIMPLIFIED PDP] Rendering modular SimplifiedPDP for:', slug,
+            simplifiedFromUrl ? '(URL param)' : '(product flag)');
+
+        // Load mock data for this product (server-side)
+        const mockData = loadMockData(slug);
+
+        // TRUE ZERO-SLOT: All modules render internally from product/mock data
+        return (
+            <SimplifiedPDP
+                product={product}
+                mockData={mockData}
+            />
+        );
+    }
 
     // ========================================
     // DEBUG: Force Layout Override
