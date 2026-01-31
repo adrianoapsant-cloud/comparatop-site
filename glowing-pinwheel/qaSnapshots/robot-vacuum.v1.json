@@ -1,7 +1,7 @@
 {
   "version": 1,
   "category": "robot-vacuum",
-  "generatedAt": "2026-01-31T17:52:52.682Z",
+  "generatedAt": "2026-01-31T22:52:45.165Z",
   "productCount": 17,
   "items": [
     {
@@ -10,7 +10,7 @@
         "c1": 2.5,
         "c2": 6,
         "c3": 5,
-        "c4": null,
+        "c4": 6.5,
         "c5": 9.8,
         "c6": 6,
         "c7": 8.2,
