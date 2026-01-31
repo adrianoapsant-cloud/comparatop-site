@@ -68,7 +68,7 @@ export const wkjwqwhy_a6s: Product = {
 
     // Structured specs for scoring module
     structuredSpecs: {
-        navigationType: 'gyro',
+        navigationType: 'gyroscope',
         mopType: 'static',
         brushType: 'bristle',
         dockType: 'basic',
@@ -80,7 +80,7 @@ export const wkjwqwhy_a6s: Product = {
     },
 
     attributes: {
-        navigationType: 'gyro',
+        navigationType: 'gyroscope',
         hasMop: true,
         mopType: 'pano-arrasto',
         hasAutoEmpty: false,

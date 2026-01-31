@@ -97,7 +97,7 @@ export const samsung_vr5000rm: Product = {
 
     // Structured specs for scoring module
     structuredSpecs: {
-        navigationType: 'gyro',
+        navigationType: 'gyroscope',
         mopType: 'static',
         brushType: 'bristle',
         dockType: 'basic',
@@ -108,7 +108,7 @@ export const samsung_vr5000rm: Product = {
     },
     attributes: {
         priceRange: 'Budget',
-        navigationType: 'gyro',
+        navigationType: 'gyroscope',
         moppingSystem: 'Pano arrastado (básico)',
         hasMapping: false,
         hasNoGoZones: false,

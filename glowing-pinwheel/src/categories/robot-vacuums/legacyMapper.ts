@@ -29,7 +29,7 @@ export interface InferenceResult {
 // ============================================
 
 export const FALLBACK_SPECS: RobotVacuumSpecs = {
-    navigationType: 'gyro',
+    navigationType: 'gyroscope',
     mopType: 'static',
     brushType: 'bristle',
     dockType: 'basic',
@@ -102,7 +102,7 @@ function inferNavigationType(p: LegacyProduct): RobotVacuumSpecs['navigationType
 
     if (str.includes('lidar')) return 'lidar';
     if (str.includes('vslam') || str.includes('câmera') || str.includes('camera')) return 'vslam';
-    if (str.includes('giroscóp') || str.includes('gyro') || str.includes('giroscop')) return 'gyro';
+    if (str.includes('giroscóp') || str.includes('gyro') || str.includes('giroscop')) return 'gyroscope';
     if (str.includes('aleatória') || str.includes('aleator') || str.includes('random')) return 'random';
 
     // Check boolean flags
@@ -451,7 +451,7 @@ export function hasValidStructuredSpecs(product: LegacyProduct): boolean {
     if (!specs) return false;
 
     // Check if navigationType is a valid enum value (not legacy string)
-    const validNavTypes = ['random', 'gyro', 'vslam', 'lidar'];
+    const validNavTypes = ['random', 'gyroscope', 'vslam', 'lidar'];
     if (typeof specs.navigationType !== 'string') return false;
     if (!validNavTypes.includes(specs.navigationType)) return false;
 
