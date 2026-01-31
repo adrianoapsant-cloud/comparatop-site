@@ -1190,7 +1190,7 @@ export const SAMPLE_SMARTWATCHES: Product[] = [
         model: 'LS16 (RT3)',
         price: 249, // Estimativa de mercado para smartwatch de entrada/intermediário
         imageUrl: '/images/products/haylou-rt3-ls16-tactical.svg',
-        status: 'published',
+        status: 'draft', // Changed to draft because no offers registered
         benefitSubtitle: 'Tela AMOLED 1,43", Bluetooth 5.2, bateria de até 15 dias e resistência IP68.',
         scores: {
             c1: 8.5,  // Tela - AMOLED 1.43"
