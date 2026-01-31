@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [main, master]
 
+defaults:
+  run:
+    working-directory: glowing-pinwheel
+
 jobs:
   quality-gate:
     runs-on: ubuntu-latest
@@ -19,6 +23,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+          cache-dependency-path: glowing-pinwheel/package-lock.json
 
       - name: Install dependencies
         run: npm ci
