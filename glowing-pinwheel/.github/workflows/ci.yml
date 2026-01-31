@@ -23,14 +23,23 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Category QA Gate
+        run: npm run gate:qa
+        env:
+          STRICT_SPECS: 'true'
+
       - name: TypeScript check
         run: npx tsc --noEmit --skipLibCheck
 
       - name: Build
         run: npm run build
+        env:
+          STRICT_SPECS: 'true'
 
       - name: Integrity Suite (with server)
         run: npm run test:integrity
+        env:
+          STRICT_SPECS: 'true'
 
   lint:
     runs-on: ubuntu-latest
