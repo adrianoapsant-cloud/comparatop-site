@@ -116,7 +116,7 @@ export function ProductRadarChart({
 
                             {/* Note: Comparison feature requires merged data approach */}
 
-                            {/* Main Product - Static (no animation for perf) */}
+                            {/* Main Product */}
                             <Radar
                                 name={productName}
                                 dataKey="score"
@@ -126,7 +126,6 @@ export function ProductRadarChart({
                                 strokeWidth={2}
                                 dot={{ r: 4, fill: '#3b82f6', stroke: '#fff', strokeWidth: 2 }}
                                 activeDot={{ r: 6, fill: '#3b82f6', stroke: '#fff', strokeWidth: 2 }}
-                                isAnimationActive={false}
                             />
 
                             {/* Gradient Definition */}
