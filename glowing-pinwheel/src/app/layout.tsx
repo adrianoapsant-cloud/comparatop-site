@@ -13,6 +13,7 @@ import { GlobalComparisonBar } from "@/components/GlobalComparisonBar";
 import { LayoutShell } from "@/components/layout/LayoutShell";
 import { FrictionNudge } from "@/components/FrictionNudge";
 import { WebVitalsReporter } from "@/components/WebVitalsReporter";
+import { Analytics } from "@vercel/analytics/next";
 
 // ============================================
 // AUDIT EDITORIAL - Font Configuration
@@ -68,6 +69,7 @@ export default function RootLayout({
           </ComparisonProvider>
         </ReviewProvider>
         <WebVitalsReporter />
+        <Analytics />
       </body>
     </html>
   );
