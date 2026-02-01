@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
+import Image from 'next/image';
 import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 
 // ============================================
@@ -148,12 +149,18 @@ export function ProductGalleryZoom({ images, initialIndex = 0 }: ProductGalleryZ
                     onMouseMove={handleMouseMove}
                     onClick={() => setIsModalOpen(true)}
                 >
-                    <img
-                        src={activeImage.src}
-                        alt={activeImage.alt}
-                        className="w-full h-full object-contain p-4 select-none"
-                        draggable={false}
-                    />
+                    {/* Optimized Image with next/image for LCP */}
+                    <div className="relative w-full h-full p-4">
+                        <Image
+                            src={activeImage.src}
+                            alt={activeImage.alt}
+                            fill
+                            priority={activeIndex === 0}
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                            className="object-contain select-none"
+                            draggable={false}
+                        />
+                    </div>
 
                     {/* Lens overlay (desktop only) - semi-transparent box following cursor */}
                     {isZooming && (
