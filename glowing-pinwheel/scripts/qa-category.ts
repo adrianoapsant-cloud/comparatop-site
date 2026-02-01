@@ -271,8 +271,9 @@ async function main() {
             const validation = module.specSchema.safeParse(specs);
 
             if (!validation.success) {
-                result.schemaErrors = validation.error.errors.map(
-                    e => `${e.path.join('.')}: ${e.message}`
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                result.schemaErrors = (validation.error?.issues ?? []).map(
+                    (e: any) => `${e.path.join('.')}: ${e.message}`
                 );
                 schemaErrors++;
                 result.isFallback = true;

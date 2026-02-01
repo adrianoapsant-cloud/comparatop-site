@@ -95,10 +95,16 @@ export default async function CategoryPage({ params }: PageProps) {
     const initialCards: ProductCardVM[] = selectProductCards(healthyVMs);
 
     // ============================================
-    // SUPABASE: Fetch products from database
+    // SUPABASE: Fetch products from database (with graceful fallback)
     // ============================================
-    const dbProducts = await getScoredProductsByCategoryFromDB(slug);
-    console.log(`[CategoryPage] Loaded ${dbProducts.length} products from Supabase for "${slug}"`);
+    let dbProducts: Awaited<ReturnType<typeof getScoredProductsByCategoryFromDB>> = [];
+    try {
+        dbProducts = await getScoredProductsByCategoryFromDB(slug);
+        console.log(`[CategoryPage] Loaded ${dbProducts.length} products from Supabase for "${slug}"`);
+    } catch (err) {
+        // Supabase may be unavailable in CI or dev environments without env vars
+        console.warn(`[CategoryPage] Supabase fetch failed for "${slug}", using static data:`, err);
+    }
 
     // Generate JSON-LD Breadcrumb
     const breadcrumbLD = categoryBreadcrumb(category.name, slug);

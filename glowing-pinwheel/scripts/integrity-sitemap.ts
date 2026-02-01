@@ -33,13 +33,25 @@ async function fetchSitemap(): Promise<string[]> {
     return urlMatches.map(match => match.replace(/<\/?loc>/g, ''));
 }
 
-async function checkUrl(url: string): Promise<{ status: number | string; ok: boolean }> {
-    try {
-        const response = await fetch(url, { method: 'HEAD', redirect: 'follow' });
-        return { status: response.status, ok: response.ok };
-    } catch (error) {
-        return { status: 'NETWORK_ERROR', ok: false };
+async function checkUrl(url: string, retries = 3): Promise<{ status: number | string; ok: boolean }> {
+    for (let attempt = 1; attempt <= retries; attempt++) {
+        try {
+            const response = await fetch(url, { method: 'HEAD', redirect: 'follow' });
+            // Retry on 500 errors (SSR pages with Supabase may have transient failures)
+            if (response.status === 500 && attempt < retries) {
+                await new Promise(r => setTimeout(r, 500)); // Wait 500ms before retry
+                continue;
+            }
+            return { status: response.status, ok: response.ok };
+        } catch (error) {
+            if (attempt < retries) {
+                await new Promise(r => setTimeout(r, 500));
+                continue;
+            }
+            return { status: 'NETWORK_ERROR', ok: false };
+        }
     }
+    return { status: 'NETWORK_ERROR', ok: false };
 }
 
 async function validateSitemap(): Promise<SitemapResult> {

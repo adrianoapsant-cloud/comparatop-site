@@ -27,7 +27,7 @@ export interface RobotVacuumScores {
 
 const NAVIGATION_SCORES = {
     random: 2.5,
-    gyro: 5.0,
+    gyroscope: 5.0,
     vslam: 7.0,
     lidar: 8.8,
 } as const;

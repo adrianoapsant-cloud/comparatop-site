@@ -59,9 +59,10 @@ export function getRobotVacuumDerived(product: ScoredProduct): RobotVacuumDerive
     const inference = inferRobotVacuumSpecsFromLegacy(legacyProduct);
     const merged = mergeRobotVacuumSpecs(undefined, inference.specsPartial);
 
-    // STRICT MODE: Throw error if fallback is used
+    // STRICT MODE: Log error (but don't throw to avoid crashing pages)
+    // QA Gate enforces structuredSpecs validation separately
     if (isStrictMode) {
-        throw new Error(
+        console.error(
             `[STRICT_SPECS] robot-vacuums fallback for "${product.id}": ` +
             `Missing fields: ${inference.missingKeys.join(', ')}. ` +
             `Add structuredSpecs to this product or set STRICT_SPECS=false.`

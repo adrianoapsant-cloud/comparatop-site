@@ -5,7 +5,7 @@
 import { z } from 'zod';
 
 // Navigation types
-const NavigationType = z.enum(['random', 'gyro', 'vslam', 'lidar']);
+const NavigationType = z.enum(['random', 'gyroscope', 'vslam', 'lidar']);
 
 // Mop types
 const MopType = z.enum(['none', 'static', 'vibrating', 'rotating']);
