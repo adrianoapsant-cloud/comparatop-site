@@ -14,7 +14,8 @@
 import { MetadataRoute } from 'next';
 import { ALL_PRODUCTS } from '@/data/products';
 import { CATEGORIES as CATEGORY_DEFINITIONS } from '@/data/categories';
-import { getAllCategories } from '@/config/categories';
+import { CATEGORIES } from '@/config/categories';
+import { listCategories } from '@/categories/registry';
 import {
     getIndexableProducts,
     getIndexingStats,
@@ -34,16 +35,28 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://comparatop.com.br'
 // ============================================================================
 
 /**
- * Gera lista de categorias para o sitemap a partir de categories.ts (SSOT)
- * Prioridades baseadas no tier da categoria
+ * Gera lista de categorias para o sitemap usando APENAS categorias do registry
+ * (categorias com páginas implementadas, não stubs ou definições futuras)
  */
 function getRegisteredCategorySlugs(): Array<{ slug: string; name: string; priority: number }> {
-    const categories = getAllCategories();
-    return categories.map(cat => ({
-        slug: cat.slug,
-        name: cat.name,
-        priority: 0.9, // Podem ser diferenciadas por tier se necessário
-    }));
+    // Usa registry como SSOT - apenas categorias com páginas implementadas
+    const activeRegistrySlugs = listCategories(); // e.g., ['robot-vacuum']
+
+    // Mapear para slugs de URL (registry usa 'robot-vacuum', URL usa 'robos-aspiradores')
+    const slugToUrlSlug: Record<string, string> = {
+        'robot-vacuum': 'robos-aspiradores',
+        // Adicionar mapeamentos conforme novas categorias forem implementadas
+    };
+
+    return activeRegistrySlugs.map(registrySlug => {
+        const urlSlug = slugToUrlSlug[registrySlug] || registrySlug;
+        const categoryDef = CATEGORIES[registrySlug];
+        return {
+            slug: urlSlug,
+            name: categoryDef?.name || registrySlug,
+            priority: 0.9,
+        };
+    });
 }
 
 const FERRAMENTAS = [
@@ -127,9 +140,8 @@ function generateAllBattles(): Array<{ slug: string; categoryId: string; score: 
     const productsByCategory = groupProductsByCategory(ALL_PRODUCTS);
     const allBattles: Array<{ slug: string; categoryId: string; score: number }> = [];
 
-    // Obter categorias registradas (SSOT)
-    const registeredCategories = getAllCategories();
-    const registeredCategoryIds = new Set(registeredCategories.map(c => c.id));
+    // Obter categorias registradas (SSOT) - usa registry
+    const registeredCategoryIds = new Set(listCategories()); // e.g., Set(['robot-vacuum'])
 
     let totalStats = {
         categories: 0,
