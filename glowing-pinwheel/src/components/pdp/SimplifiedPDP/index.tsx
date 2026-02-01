@@ -8,6 +8,7 @@
  */
 
 import React, { useMemo } from 'react';
+import dynamic from 'next/dynamic';
 import type { Product } from '@/types/category';
 import { usePDPData, type PDPDataContract } from './hooks/usePDPData';
 import type { MockData } from '@/lib/pdp/load-mock-data';
@@ -19,30 +20,32 @@ import { getBaseScore } from '@/lib/getBaseScore';
 import { TransparencyHeader } from '@/components/TransparencyHeader';
 import { generateEnhancedProductSchema, generateSpeakableSchema } from '@/lib/schema/enhanced-product-schema';
 
-// Sections
+// Above-the-fold sections (loaded immediately)
 import { HeroSection } from './sections/HeroSection';
-import { ScoreSection } from './sections/ScoreSection';
-import { VerdictSection } from './sections/VerdictSection';
-import { TCOSection } from './sections/TCOSection';
-import { HiddenEngineeringSection } from './sections/HiddenEngineeringSection';
-import { TechSpecsSection } from './sections/TechSpecsSection';
-import { FAQSection } from './sections/FAQSection';
 import { SimplifiedContextScoreSection } from './sections/SimplifiedContextScoreSection';
-import { SimplifiedTCOSection } from './sections/SimplifiedTCOSection';
-import { CalculatorsSection } from './sections/CalculatorsSection';
+import { VerdictSection } from './sections/VerdictSection';
 import { AuditVerdictSection } from '@/components/pdp/AuditVerdictSection';
-import { SmartAlertsSection } from '@/components/pdp/SmartAlertsSection';
-import { MethodologyAccordion } from '@/components/MethodologyAccordion';
-import { ProductUnknownUnknownsWidget } from '@/components/pdp/ProductUnknownUnknownsWidget';
-import { CommunityConsensusCard } from '@/components/CommunityConsensusCard';
 import { FeatureBenefitsWidget } from '@/components/pdp/FeatureBenefitsWidget';
-import { BenchmarksWidget } from '@/components/pdp/BenchmarksWidget';
 import { ManualDownloadSection } from '@/components/ManualDownloadSection';
 import { InlineDataCorrectionCTA } from '@/components/feedback/InlineDataCorrectionCTA';
 import { BundleWidget } from '@/components/BundleWidget';
 import { extractRadarDimensions, hasValidRadarDimensions } from '@/lib/pdp/extract-radar-dimensions';
 import { generateAuditVerdict, canGenerateAuditVerdict } from '@/lib/pdp/audit-verdict-generator';
 import { generateFeatureBenefits, canGenerateFeatureBenefits } from '@/lib/pdp/generate-feature-benefits';
+
+// Below-the-fold sections (lazy loaded for performance)
+const ScoreSection = dynamic(() => import('./sections/ScoreSection').then(m => ({ default: m.ScoreSection })), { ssr: false });
+const FAQSection = dynamic(() => import('./sections/FAQSection').then(m => ({ default: m.FAQSection })), { ssr: false });
+const TechSpecsSection = dynamic(() => import('./sections/TechSpecsSection').then(m => ({ default: m.TechSpecsSection })), { ssr: false });
+const TCOSection = dynamic(() => import('./sections/TCOSection').then(m => ({ default: m.TCOSection })), { ssr: false });
+const HiddenEngineeringSection = dynamic(() => import('./sections/HiddenEngineeringSection').then(m => ({ default: m.HiddenEngineeringSection })), { ssr: false });
+const SimplifiedTCOSection = dynamic(() => import('./sections/SimplifiedTCOSection').then(m => ({ default: m.SimplifiedTCOSection })), { ssr: false });
+const CalculatorsSection = dynamic(() => import('./sections/CalculatorsSection').then(m => ({ default: m.CalculatorsSection })), { ssr: false });
+const CommunityConsensusCard = dynamic(() => import('@/components/CommunityConsensusCard').then(m => ({ default: m.CommunityConsensusCard })), { ssr: false });
+const MethodologyAccordion = dynamic(() => import('@/components/MethodologyAccordion').then(m => ({ default: m.MethodologyAccordion })), { ssr: false });
+const SmartAlertsSection = dynamic(() => import('@/components/pdp/SmartAlertsSection').then(m => ({ default: m.SmartAlertsSection })), { ssr: false });
+const ProductUnknownUnknownsWidget = dynamic(() => import('@/components/pdp/ProductUnknownUnknownsWidget').then(m => ({ default: m.ProductUnknownUnknownsWidget })), { ssr: false });
+const BenchmarksWidget = dynamic(() => import('@/components/pdp/BenchmarksWidget').then(m => ({ default: m.BenchmarksWidget })), { ssr: false });
 
 // External components (passed via slots for RSC compatibility)
 interface SimplifiedPDPProps {
