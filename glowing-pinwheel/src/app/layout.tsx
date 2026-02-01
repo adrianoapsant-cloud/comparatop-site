@@ -47,6 +47,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={`${inter.variable} ${fraunces.variable} ${jetbrainsMono.variable}`}>
+      {/* Preconnect to image CDNs for faster LCP */}
+      <head>
+        <link rel="preconnect" href="https://m.media-amazon.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://m.media-amazon.com" />
+        <link rel="preconnect" href="https://images-na.ssl-images-amazon.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://images-na.ssl-images-amazon.com" />
+      </head>
       <body className="bg-noise antialiased min-h-screen font-sans text-ct-text">
         <ReviewProvider>
           <ComparisonProvider>
