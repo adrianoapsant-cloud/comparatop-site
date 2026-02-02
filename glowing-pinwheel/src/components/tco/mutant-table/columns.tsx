@@ -207,7 +207,7 @@ function TcoCell({
     );
 }
 
-// Score Cell - Dynamic rendering based on scoreView
+// Score Cell - Always shows hexagonal badge with semantic colors
 function ScoreCell({
     product,
     scoreView,
@@ -215,50 +215,10 @@ function ScoreCell({
     product: ProductTcoData;
     scoreView: ScoreViewMode;
 }) {
-    // Community View: Yellow stars (0-5) + review count
-    if (scoreView === 'community') {
-        const rating = product.communityRating ?? 4.0;
-        const reviews = product.communityReviews ?? 0;
-        const fullStars = Math.floor(rating);
-        const hasHalfStar = rating % 1 >= 0.5;
-
-        // Format review count (e.g., 12345 -> "12k")
-        const formatReviews = (count: number) => {
-            if (count >= 1000) {
-                return `(${(count / 1000).toFixed(1).replace('.0', '')}k)`;
-            }
-            return `(${count})`;
-        };
-
-        return (
-            <div className="flex flex-col items-center gap-1">
-                <div className="flex items-center gap-0.5">
-                    {[...Array(5)].map((_, i) => (
-                        <Star
-                            key={i}
-                            className={cn(
-                                'w-4 h-4',
-                                i < fullStars
-                                    ? 'fill-yellow-400 text-yellow-400'
-                                    : i === fullStars && hasHalfStar
-                                        ? 'fill-yellow-400/50 text-yellow-400'
-                                        : 'text-gray-300'
-                            )}
-                        />
-                    ))}
-                </div>
-                <div className="flex items-center gap-1">
-                    <span className="text-sm font-semibold text-gray-900">{rating.toFixed(1)}</span>
-                    <span className="text-xs text-gray-500">{formatReviews(reviews)}</span>
-                </div>
-            </div>
-        );
-    }
-
-    // Technical View: Hexagonal badge (0-10) with semantic color
+    // Technical score always as main display
     const score = product.technicalScore ?? product.editorialScore ?? 7.0;
 
-    // Semantic colors
+    // Semantic colors based on score value
     const getScoreColor = (s: number) => {
         if (s >= 8.5) return { bg: 'bg-emerald-500', text: 'text-white', label: 'Excelente' };
         if (s >= 7.0) return { bg: 'bg-blue-500', text: 'text-white', label: 'Bom' };
@@ -267,6 +227,18 @@ function ScoreCell({
     };
 
     const colors = getScoreColor(score);
+
+    // Community data for secondary display
+    const communityRating = product.communityRating ?? 0;
+    const communityReviews = product.communityReviews ?? 0;
+
+    // Format review count (e.g., 12345 -> "12k")
+    const formatReviews = (count: number) => {
+        if (count >= 1000) {
+            return `(${(count / 1000).toFixed(1).replace('.0', '')}k)`;
+        }
+        return count > 0 ? `(${count})` : '';
+    };
 
     return (
         <Tooltip
@@ -282,7 +254,7 @@ function ScoreCell({
             position="top"
         >
             <div className="flex flex-col items-center gap-1 cursor-help">
-                {/* Hexagonal Badge */}
+                {/* Hexagonal Badge - Always visible */}
                 <div className={cn(
                     'relative w-12 h-12 flex items-center justify-center',
                     'clip-hexagon',
@@ -293,13 +265,24 @@ function ScoreCell({
                     }}
                 >
                     <span className={cn('text-lg font-bold', colors.text)}>
-                        {score.toFixed(1)}
+                        {score.toFixed(2)}
                     </span>
                 </div>
+
+                {/* Label - Always visible */}
                 <div className="flex items-center gap-1">
                     <Shield className="w-3 h-3 text-blue-500" />
                     <span className="text-xs font-medium text-gray-600">{colors.label}</span>
                 </div>
+
+                {/* Community rating - Show only in community view if data exists */}
+                {scoreView === 'community' && communityReviews > 0 && (
+                    <div className="flex items-center gap-1 text-xs text-gray-500">
+                        <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                        <span>{communityRating.toFixed(1)}</span>
+                        <span>{formatReviews(communityReviews)}</span>
+                    </div>
+                )}
             </div>
         </Tooltip>
     );
@@ -337,53 +320,18 @@ export function createColumns(config: ColumnConfig): ColumnDef<ProductTcoData>[]
             enableGlobalFilter: true,
         },
 
-        // Column: Nota ComparaTop (editorial score - first evaluation criterion)
+        // Column: Score (Unified hexagonal badge)
         {
-            id: 'notaComparatop',
+            id: 'score',
             accessorFn: (row) => row.technicalScore ?? row.editorialScore ?? 7.0,
             header: ({ column }) => (
                 <button
-                    className="flex items-center gap-1 font-semibold text-emerald-700 hover:text-emerald-900"
+                    className="flex items-center gap-1 font-semibold text-blue-700 hover:text-blue-900"
                     onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
                 >
+                    <Shield className="w-4 h-4 text-blue-500" />
                     Nota
-                    <ArrowUpDown className="w-4 h-4 text-emerald-400" />
-                </button>
-            ),
-            cell: ({ row }) => {
-                const score = row.original.technicalScore ?? row.original.editorialScore ?? 7.0;
-                return (
-                    <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-sm font-bold">
-                        {score.toFixed(1)}
-                    </span>
-                );
-            },
-            enableSorting: true,
-        },
-
-        // Column: Score (Community Stars or Technical Badge)
-        {
-            id: 'score',
-            accessorFn: (row) => scoreView === 'community'
-                ? (row.communityRating ?? 4.0)
-                : (row.technicalScore ?? row.editorialScore ?? 7.0),
-            header: ({ column }) => (
-                <button
-                    className="flex items-center gap-1 font-semibold text-gray-700 hover:text-gray-900"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-                >
-                    {scoreView === 'community' ? (
-                        <>
-                            <Star className="w-4 h-4 text-yellow-500" />
-                            Nota
-                        </>
-                    ) : (
-                        <>
-                            <Shield className="w-4 h-4 text-blue-500" />
-                            Auditoria
-                        </>
-                    )}
-                    <ArrowUpDown className="w-4 h-4 text-gray-400" />
+                    <ArrowUpDown className="w-4 h-4 text-blue-400" />
                 </button>
             ),
             cell: ({ row }) => (

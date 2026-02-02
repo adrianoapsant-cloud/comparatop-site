@@ -1,0 +1,210 @@
+{
+  "generatedAt": "2026-02-02T13:38:53.970Z",
+  "totalProducts": 34,
+  "products": {
+    "samsung-qn90c-65": {
+      "name": "Samsung QN90C Neo QLED 65\"",
+      "categoryId": "tv",
+      "currentScore": 8.37,
+      "hasScores": true
+    },
+    "lg-c3-65": {
+      "name": "LG OLED C3 65\"",
+      "categoryId": "tv",
+      "currentScore": 8.62,
+      "hasScores": true
+    },
+    "tcl-c735-65": {
+      "name": "TCL C735 QLED 65\"",
+      "categoryId": "tv",
+      "currentScore": 7.68,
+      "hasScores": true
+    },
+    "samsung-rf23-family-hub": {
+      "name": "Samsung RF23A9771SR Family Hub",
+      "categoryId": "fridge",
+      "currentScore": 8.7,
+      "hasScores": true
+    },
+    "brastemp-inverse-460": {
+      "name": "Brastemp Inverse BRE59AK 460L",
+      "categoryId": "fridge",
+      "currentScore": 7.95,
+      "hasScores": true
+    },
+    "consul-crm50-410": {
+      "name": "Consul CRM50 Frost Free 410L",
+      "categoryId": "fridge",
+      "currentScore": 7.2,
+      "hasScores": true
+    },
+    "panasonic-bb71-black": {
+      "name": "Panasonic BB71 Inverter Black Glass",
+      "categoryId": "fridge",
+      "currentScore": 8.55,
+      "hasScores": true
+    },
+    "samsung-rt53-evolution": {
+      "name": "Samsung Evolution RT53 com POWERvolt",
+      "categoryId": "fridge",
+      "currentScore": 8.24,
+      "hasScores": true
+    },
+    "electrolux-if43b": {
+      "name": "Geladeira Electrolux Frost Free Inverter 390L Efficient AutoSense (IF43B)",
+      "categoryId": "fridge",
+      "currentScore": 8.32,
+      "hasScores": true
+    },
+    "panasonic-bb64": {
+      "name": "Geladeira Panasonic BB64 Aço Escovado Inverse Frost Free 460L Inverter A+++ (NR-BB64PV1X)",
+      "categoryId": "fridge",
+      "currentScore": 8.45,
+      "hasScores": true
+    },
+    "hq-150rdf": {
+      "name": "Geladeira Refrigerador Compacto HQ Defrost 150 Litros Preto (HQ-150RDF)",
+      "categoryId": "fridge",
+      "currentScore": 6.35,
+      "hasScores": true
+    },
+    "lg-dual-inverter-12000": {
+      "name": "LG Dual Inverter Voice 12000 BTUs",
+      "categoryId": "air_conditioner",
+      "currentScore": 8.85,
+      "hasScores": true
+    },
+    "samsung-windfree-12000": {
+      "name": "Samsung WindFree 12000 BTUs",
+      "categoryId": "air_conditioner",
+      "currentScore": 8.85,
+      "hasScores": true
+    },
+    "electrolux-eco-9000": {
+      "name": "Electrolux Eco Turbo 9000 BTUs",
+      "categoryId": "air_conditioner",
+      "currentScore": 7.6,
+      "hasScores": true
+    },
+    "consul-inverter-12000": {
+      "name": "Consul Inverter 12000 BTUs",
+      "categoryId": "air_conditioner",
+      "currentScore": 8.1,
+      "hasScores": true
+    },
+    "lg-dual-inverter-voice-ai": {
+      "name": "LG Dual Inverter Voice + AI 12000 BTUs",
+      "categoryId": "air_conditioner",
+      "currentScore": 8.83,
+      "hasScores": true
+    },
+    "samsung-windfree-connect": {
+      "name": "Samsung WindFree Connect Sem Vento",
+      "categoryId": "air_conditioner",
+      "currentScore": 8.86,
+      "hasScores": true
+    },
+    "liectroux-xr500-pro": {
+      "name": "Robô Aspirador Liectroux XR500 Pro 3 em 1 (LiDAR, App, Alexa/Google)",
+      "categoryId": "robot-vacuum",
+      "currentScore": 7.51,
+      "hasScores": true
+    },
+    "wkjwqwhy-a6s": {
+      "name": "Robô Aspirador 2 em 1 WKJWQWHY A6S (Aspira e Passa Pano) com Wi‑Fi - Bivolt",
+      "categoryId": "robot-vacuum",
+      "currentScore": 6.05,
+      "hasScores": true
+    },
+    "xiaomi-robot-vacuum-s40c": {
+      "name": "XIAOMI Xiaomi Robot Vacuum S40C (E101) — Robô aspirador e passa pano com navegação LiDAR (LDS)",
+      "categoryId": "robot-vacuum",
+      "currentScore": 6.94,
+      "hasScores": true
+    },
+    "wap-robot-w90": {
+      "name": "WAP Aspirador de Pó Robô ROBOT W90 3 em 1 — Automático, 250 ml, sensores antiqueda/anticolisão",
+      "categoryId": "robot-vacuum",
+      "currentScore": 4.24,
+      "hasScores": true
+    },
+    "xiaomi-robot-vacuum-s20-plus-white": {
+      "name": "Xiaomi Robot Vacuum S20+ (Branco)",
+      "categoryId": "robot-vacuum",
+      "currentScore": 7.74,
+      "hasScores": true
+    },
+    "samsung-vr5000rm-vr05r5050wk-az": {
+      "name": "Samsung Robô Aspirador 2 em 1 Preto VR5000RM (VR05R5050WK/AZ) — Aspira e Passa Pano, Wi-Fi SmartThings",
+      "categoryId": "robot-vacuum",
+      "currentScore": 6.31,
+      "hasScores": true
+    },
+    "kabum-smart-700-kbsf003-preto": {
+      "name": "Robô Aspirador e Passa Pano KaBuM! Smart 700 (KBSF003) — Laser 3D, App, Alexa/Google, Bivolt",
+      "categoryId": "robot-vacuum",
+      "currentScore": 6.17,
+      "hasScores": true
+    },
+    "philco-pas26p": {
+      "name": "Aspirador Robô Philco PAS26P (Bivolt)",
+      "categoryId": "robot-vacuum",
+      "currentScore": 6.02,
+      "hasScores": true
+    },
+    "wap-robot-w400": {
+      "name": "WAP Aspirador de Pó Robô ROBOT W400 3 em 1",
+      "categoryId": "robot-vacuum",
+      "currentScore": 5.81,
+      "hasScores": true
+    },
+    "roborock-q7-l5": {
+      "name": "Roborock Q7 L5 Robô Aspirador e Esfregão com LiDAR",
+      "categoryId": "robot-vacuum",
+      "currentScore": 8.11,
+      "hasScores": true
+    },
+    "electrolux-erb20-home-control-experience": {
+      "name": "Robô Aspirador de Pó Electrolux Home e Control Experience ERB20 Bivolt Preto e Cinza",
+      "categoryId": "robot-vacuum",
+      "currentScore": 4.86,
+      "hasScores": true
+    },
+    "liectroux-l200-robo-aspirador-3em1-app-alexa-google": {
+      "name": "Robô Aspirador Liectroux L200 3 em 1 Aspira Varre Passa Pano Com Aplicativo Compatível Com Alexa e Google Bivolt",
+      "categoryId": "robot-vacuum",
+      "currentScore": 5.27,
+      "hasScores": true
+    },
+    "xiaomi-robot-x10": {
+      "name": "XIAOMI Robot Vacuum X10 com Auto-Esvaziamento",
+      "categoryId": "robot-vacuum",
+      "currentScore": 8.29,
+      "hasScores": true
+    },
+    "ezs-e10": {
+      "name": "Aspirador Robô EZS E10 5.500 Pa Laser iPath (AI.Map 2.0)",
+      "categoryId": "robot-vacuum",
+      "currentScore": 6.72,
+      "hasScores": true
+    },
+    "eufy-x10-pro-omni": {
+      "name": "eufy X10 Pro Omni Robô Aspirador 8.000 Pa com Omni Station (220V)",
+      "categoryId": "robot-vacuum",
+      "currentScore": 8.51,
+      "hasScores": true
+    },
+    "eufy-omni-c20": {
+      "name": "eufy Omni C20 Robô Aspirador e Mop 7.000 Pa com Estação Tudo-em-Um (220V)",
+      "categoryId": "robot-vacuum",
+      "currentScore": 7.71,
+      "hasScores": true
+    },
+    "xiaomi-robot-vacuum-x20-pro": {
+      "name": "XIAOMI Robot Vacuum X20 Pro — robô aspirador e limpa-chão com navegação a laser (LDS), sucção 7000 Pa, base all-in-one, branco (versão ES)",
+      "categoryId": "robot-vacuum",
+      "currentScore": 8.21,
+      "hasScores": true
+    }
+  }
+}

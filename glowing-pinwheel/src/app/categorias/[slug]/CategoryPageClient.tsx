@@ -16,13 +16,11 @@ import { useState, useMemo, useEffect, useRef, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import { MethodologyCard } from '@/components/MethodologyCard';
 import { EditorialWinners } from '@/components/EditorialWinners';
 import { CategoryFilters, FilterState } from '@/components/CategoryFilters';
 import { MatchFilterRibbon, useMatchFilters } from '@/components/MatchFilterRibbon';
-import { HybridProductList } from '@/components/HybridProductList';
-import { useResponsivePagination } from '@/hooks/useIsMobile';
+
 import { scoreProduct } from '@/lib/scoring';
 import { calculateMatchScore, getCriteriaForCategory } from '@/core/match';
 import type { MatchResult } from '@/core/match/types';
@@ -31,8 +29,7 @@ import { getProductsByCategory } from '@/data/products';
 import { useChat } from '@/contexts/ChatContext';
 import type { ScoredProduct } from '@/types/category';
 import type { ProductCardVM } from '@/lib/viewmodels/productCardVM';
-import { TcoEngineSection, TcoToolbar } from '@/components/tco';
-import { useDisplayView } from '@/hooks/use-url-state';
+import { TcoEngineSection } from '@/components/tco';
 
 // ============================================
 // DYNAMIC FILTER OPTIONS BY CATEGORY
@@ -135,8 +132,6 @@ export default function CategoryPageClient({
     const category = getCategoryById(categoryId);
 
     // State
-    const { initialCount, loadMoreCount, isMobile } = useResponsivePagination();
-    const [visibleCount, setVisibleCount] = useState(initialCount);
     const [sortBy, setSortBy] = useState<'quality' | 'price' | 'value'>('quality');
     const [filters, setFilters] = useState<FilterState>({
         priceRange: [0, 20000],
@@ -144,8 +139,7 @@ export default function CategoryPageClient({
         dynamicFilters: {},
     });
 
-    // Display view state (Grid vs Table)
-    const { isGridView, isTableView } = useDisplayView();
+
 
     // ============================================
     // PRODUCTS: Prefer Supabase (initialProducts), fallback to file data
@@ -277,51 +271,30 @@ export default function CategoryPageClient({
             .sort((a, b) => (b.matchScore ?? 0) - (a.matchScore ?? 0)); // Higher match first
     }, [sortedProducts, hasMatchFilters, matchResults]);
 
-    // Visible products
-    const visibleProducts = finalProducts.slice(0, visibleCount);
-    const hasMore = visibleCount < finalProducts.length;
+
 
     // Update catalog snapshot for chat context
     const { updateCatalogSnapshot } = useChat();
     const lastSnapshotKeyRef = useRef<string>('');
 
     useEffect(() => {
-        if (visibleProducts.length === 0) return;
+        if (finalProducts.length === 0) return;
 
-        const snapshotKey = visibleProducts.map(p => p.id).join(',');
+        const snapshotKey = finalProducts.map(p => p.id).join(',');
 
         if (snapshotKey === lastSnapshotKeyRef.current) return;
         lastSnapshotKeyRef.current = snapshotKey;
 
-        updateCatalogSnapshot(visibleProducts.map(p => ({
+        updateCatalogSnapshot(finalProducts.map(p => ({
             id: p.id,
             name: p.name,
             price: p.price,
             score: p.computed?.overall ?? 0,
             category: categoryId
         })));
-    }, [visibleProducts, categoryId, updateCatalogSnapshot]);
+    }, [finalProducts, categoryId, updateCatalogSnapshot]);
 
-    // Calculate current page for SEO fallback
-    const currentPage = Math.ceil(visibleCount / loadMoreCount);
-    const nextPage = currentPage + 1;
 
-    // Handle load more with pushState for SEO
-    const loadMore = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        e.preventDefault();
-        const newCount = Math.min(visibleCount + loadMoreCount, finalProducts.length);
-        setVisibleCount(newCount);
-
-        // Update URL for browser history (SEO-friendly)
-        const newPage = Math.ceil(newCount / loadMoreCount);
-        if (typeof window !== 'undefined') {
-            window.history.pushState(
-                { page: newPage, count: newCount },
-                '',
-                `?page=${newPage}`
-            );
-        }
-    };
 
     // Dynamic filters for this category
     const dynamicOptions = DYNAMIC_FILTERS[categoryId] || [];
@@ -400,17 +373,7 @@ export default function CategoryPageClient({
                 />
             )}
 
-            {/* TCO Engine Section - ONLY visible in Grid mode as a bonus section */}
-            {isGridView && (
-                <div className="max-w-7xl mx-auto px-4">
-                    <TcoEngineSection
-                        products={finalProducts}
-                        categorySlug={categorySlug}
-                        categoryName={categoryName}
-                        defaultExpanded={false}
-                    />
-                </div>
-            )}
+
 
             {/* Main Content */}
             <div className="max-w-7xl mx-auto px-4 pb-24">
@@ -433,82 +396,18 @@ export default function CategoryPageClient({
                             categoryName={categoryName}
                         />
 
-                        {/* Rest of Products */}
+                        {/* Products Section */}
                         <section>
-                            {/* TCO Toolbar - Command Island */}
-                            <TcoToolbar
-                                productCount={filteredProducts.length}
-                                sticky={false}
-                                className="mb-6"
-                            />
 
-                            {/* Section Header */}
-                            <div className="flex items-center justify-between mb-4">
-                                <h2 className="font-display text-lg font-semibold text-text-primary">
-                                    {isTableView ? '📊 Análise de Engenharia' : '📋 Todos os Produtos'} ({filteredProducts.length})
-                                </h2>
-
-                                {/* Sort Dropdown - Only visible in Grid mode */}
-                                {isGridView && (
-                                    <div className="flex items-center gap-2">
-                                        <span className="text-sm text-text-muted hidden sm:inline">Ordenar:</span>
-                                        <select
-                                            value={sortBy}
-                                            onChange={(e) => setSortBy(e.target.value as 'quality' | 'price' | 'value')}
-                                            className="px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white"
-                                        >
-                                            <option value="quality">Melhor Avaliados</option>
-                                            <option value="value">Custo-Benefício</option>
-                                            <option value="price">Menor Preço</option>
-                                        </select>
-                                    </div>
-                                )}
+                            {/* TCO Engine - Default View */}
+                            <div className="bg-white rounded-xl border border-gray-200 p-4">
+                                <TcoEngineSection
+                                    products={finalProducts}
+                                    categorySlug={categorySlug}
+                                    categoryName={categoryName}
+                                    defaultExpanded={true}
+                                />
                             </div>
-
-                            {/* CONDITIONAL RENDERING: Grid or Table */}
-                            {isTableView ? (
-                                // TABLE VIEW: Full Engineering Analysis with TCO
-                                <div className="bg-white rounded-xl border border-gray-200 p-4">
-                                    <TcoEngineSection
-                                        products={finalProducts}
-                                        categorySlug={categorySlug}
-                                        categoryName={categoryName}
-                                        defaultExpanded={true}
-                                    />
-                                </div>
-                            ) : (
-                                // GRID VIEW: Visual Product Cards
-                                <>
-                                    <HybridProductList
-                                        products={visibleProducts}
-                                        matchResults={matchResults}
-                                        hasMatchFilters={hasMatchFilters}
-                                    />
-
-                                    {/* Load More - SEO-friendly anchor with pushState */}
-                                    {hasMore && (
-                                        <div className="mt-8 text-center">
-                                            <a
-                                                href={`/categorias/${categorySlug}?page=${nextPage}`}
-                                                onClick={loadMore}
-                                                className={cn(
-                                                    'inline-flex items-center gap-2 px-8 py-4 rounded-xl',
-                                                    'bg-white border border-gray-200',
-                                                    'font-body font-semibold text-text-primary',
-                                                    'hover:bg-gray-50 hover:border-brand-core',
-                                                    'transition-all shadow-sm hover:shadow-md'
-                                                )}
-                                            >
-                                                <span>Carregar Mais Produtos</span>
-                                                <span className="text-sm text-text-muted">({finalProducts.length - visibleCount} restantes)</span>
-                                            </a>
-                                            <p className="mt-2 text-xs text-text-muted">
-                                                Página {currentPage} de {Math.ceil(finalProducts.length / loadMoreCount)}
-                                            </p>
-                                        </div>
-                                    )}
-                                </>
-                            )}
 
                             {/* Empty State */}
                             {filteredProducts.length === 0 && (

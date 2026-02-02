@@ -4,13 +4,9 @@
  * 
  * ARQUITETURA DE SCORING (2026-02-02):
  * 1. PARR Ponderado via getUnifiedScore() - SSOT para produtos com scores c1-c10
- * 2. HMUM Score (fallback para categorias com config completo)
- * 3. header.overallScore (Gemini pre-calculated)
- * 4. computed.overall (legacy scored products)
- * 5. 7.5 (fallback final)
- * 
- * NOTA: Este arquivo será migrado para usar apenas getUnifiedScore no futuro.
- * Por enquanto mantém compatibilidade com callsites existentes.
+ * 2. header.overallScore (Gemini pre-calculated)
+ * 3. computed.overall (legacy scored products)
+ * 4. 7.5 (fallback final)
  * 
  * @example
  * import { getBaseScore } from '@/lib/getBaseScore';
@@ -18,7 +14,6 @@
  */
 
 import type { Product, ScoredProduct } from '@/types/category';
-import { getHMUMScore, hasHMUMSupport } from './getHMUMBreakdown';
 import {
     getUnifiedScore,
     normalizeCategoryId,
@@ -54,7 +49,7 @@ export function normalizeScore(score: number): number {
  * Get the base score for a product.
  * 
  * Uses PARR Ponderado (via getUnifiedScore) as the primary scoring method.
- * Falls back to HMUM, header.overallScore, or computed.overall for legacy support.
+ * Falls back to header.overallScore or computed.overall for legacy support.
  * 
  * @param product - The product to get the score for
  * @returns The base score (0-10), with 2 decimal places
@@ -69,27 +64,19 @@ export function getBaseScore(product: Product | ScoredProduct): number {
         }
     }
 
-    // 2. FALLBACK: Try HMUM calculation (Cobb-Douglas multiplicative model)
-    if (hasHMUMSupport(product)) {
-        const hmumScore = getHMUMScore(product);
-        if (hmumScore !== null) {
-            return normalizeScore(hmumScore);
-        }
-    }
-
-    // 3. FALLBACK: Try header.overallScore (saved by Gemini)
+    // 2. FALLBACK: Try header.overallScore (saved by Gemini)
     const productWithHeader = product as ProductWithHeader;
     if (productWithHeader.header?.overallScore !== undefined) {
         return normalizeScore(productWithHeader.header.overallScore);
     }
 
-    // 4. FALLBACK: computed.overall (for legacy scored products)
+    // 3. FALLBACK: computed.overall (for legacy scored products)
     const scoredProduct = product as ScoredProduct;
     if (scoredProduct.computed?.overall !== undefined) {
         return normalizeScore(scoredProduct.computed.overall);
     }
 
-    // 5. FINAL FALLBACK - neutral score
+    // 4. FINAL FALLBACK - neutral score
     return 7.5;
 }
 

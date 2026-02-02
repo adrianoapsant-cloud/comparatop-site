@@ -18,7 +18,7 @@ import {
     REQUIRED_DIMENSION_FIELDS,
 } from './contract';
 import { getAllCategoryIds } from '@/data/categories';
-import { HMUM_CONFIG_ALIASES, getHmumConfigForCategory } from '@/lib/scoring/hmum/configs';
+import { CATEGORY_WEIGHTS, CATEGORY_ALIASES } from '@/lib/scoring/category-weights';
 
 // ============================================
 // TYPES
@@ -57,8 +57,8 @@ export function resolveCategoryId(input: string): string {
     }
 
     // Tentar resolver via alias reverso (slug legado → canônico)
-    for (const [canonical, legacy] of Object.entries(HMUM_CONFIG_ALIASES)) {
-        if (legacy === input || canonical === input) {
+    for (const [alias, canonical] of Object.entries(CATEGORY_ALIASES)) {
+        if (alias === input) {
             return canonical;
         }
     }
@@ -238,14 +238,11 @@ export function validatePdpModules(
                 }
             });
 
-            // Verificar que dimensões correspondem à categoria (via HMUM config)
-            const hmumConfig = getHmumConfigForCategory(resolvedCategoryId);
-            if (hmumConfig) {
-                const expectedCriteriaIds = hmumConfig.criteria.map(c => c.id);
-                const mockDimensionIds = dimensions.map(d => d.id as string);
-
-                // Verificar se os IDs das dimensões correspondem aos critérios esperados
-                // (pode ser c1, c2... ou nomes semânticos dependendo da implementação)
+            // Verificar que dimensões correspondem à categoria (via CATEGORY_WEIGHTS)
+            const categoryWeights = CATEGORY_WEIGHTS[resolvedCategoryId];
+            if (categoryWeights) {
+                // Category has weights defined - dimensions should match criteria count
+                const expectedCriteriaCount = Object.keys(categoryWeights).length;
                 // Por enquanto, apenas verificar contagem
             }
         }
