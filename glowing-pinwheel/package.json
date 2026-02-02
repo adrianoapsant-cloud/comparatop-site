@@ -45,6 +45,8 @@
     "validate:scores": "npx tsx scripts/validate-scores.ts",
     "generate:score-baseline": "npx tsx scripts/generate-score-baseline.ts",
     "compare:score-baseline": "npx tsx scripts/compare-score-baseline.ts",
+    "generate:golden": "npx tsx scripts/generate-unified-golden.ts",
+    "compare:golden": "npx tsx scripts/compare-unified-golden.ts",
     "typecheck": "npx tsc --noEmit --skipLibCheck",
     "gate:full": "npm run validate:scores && npm run gate:qa && npm run typecheck",
     "gate": "npm run gate:qa",
