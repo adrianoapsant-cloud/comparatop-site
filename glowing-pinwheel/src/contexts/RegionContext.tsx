@@ -204,20 +204,25 @@ export function RegionProvider({ children }: { children: ReactNode }) {
     }, []);
 
     // ============================================
-    // AUTO-DETECT LOCATION ON FIRST LOAD (DISABLED)
+    // AUTO-DETECT LOCATION ON FIRST LOAD
     // ============================================
-    // Desativado para não solicitar permissão de localização automaticamente
-    // O usuário pode detectar manualmente usando o botão de região se necessário
 
-    // useEffect(() => {
-    //     if (!isRegionSet && !hasAttemptedDetection.current && typeof window !== 'undefined') {
-    //         hasAttemptedDetection.current = true;
-    //         const timer = setTimeout(() => {
-    //             detectLocation();
-    //         }, 500);
-    //         return () => clearTimeout(timer);
-    //     }
-    // }, [isRegionSet, detectLocation]);
+    useEffect(() => {
+        // Only detect if:
+        // 1. Region has not been set (either via localStorage or manual selection)
+        // 2. We haven't already attempted detection
+        // 3. We're in the browser
+        if (!isRegionSet && !hasAttemptedDetection.current && typeof window !== 'undefined') {
+            hasAttemptedDetection.current = true;
+
+            // Small delay to let the page render first
+            const timer = setTimeout(() => {
+                detectLocation();
+            }, 500);
+
+            return () => clearTimeout(timer);
+        }
+    }, [isRegionSet, detectLocation]);
 
     // ============================================
     // FETCH RATE FROM API WHEN STATE CHANGES
