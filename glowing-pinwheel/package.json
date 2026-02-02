@@ -43,6 +43,8 @@
     "qa:all": "npx tsx scripts/qa-all.ts",
     "gate:qa": "cross-env STRICT_SPECS=true npm run qa:all",
     "validate:scores": "npx tsx scripts/validate-scores.ts",
+    "generate:score-baseline": "npx tsx scripts/generate-score-baseline.ts",
+    "compare:score-baseline": "npx tsx scripts/compare-score-baseline.ts",
     "typecheck": "npx tsc --noEmit --skipLibCheck",
     "gate:full": "npm run validate:scores && npm run gate:qa && npm run typecheck",
     "gate": "npm run gate:qa",

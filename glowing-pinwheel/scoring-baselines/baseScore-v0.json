@@ -1,0 +1,757 @@
+{
+  "version": "v0",
+  "generatedAt": "2026-02-02T14:02:25.164Z",
+  "productCount": 37,
+  "entries": {
+    "samsung-qn90c-65": {
+      "id": "samsung-qn90c-65",
+      "categoryId": "tv",
+      "normalizedCategoryId": "smart-tv",
+      "name": "Samsung QN90C Neo QLED 65\"",
+      "baseScore": 8.37,
+      "scores": {
+        "c1": 8,
+        "c2": 9,
+        "c3": 8,
+        "c4": 8.5,
+        "c5": 9.5,
+        "c6": 8.5,
+        "c7": 7,
+        "c8": 8,
+        "c9": 9,
+        "c10": 8.5,
+        "gaming": 9.5,
+        "imageQuality": 9,
+        "connectivity": 9
+      }
+    },
+    "lg-c3-65": {
+      "id": "lg-c3-65",
+      "categoryId": "tv",
+      "normalizedCategoryId": "smart-tv",
+      "name": "LG OLED C3 65\"",
+      "baseScore": 8.62,
+      "scores": {
+        "c1": 7.5,
+        "c2": 9.5,
+        "c3": 9,
+        "c4": 9,
+        "c5": 9.8,
+        "c6": 7.5,
+        "c7": 8.5,
+        "c8": 7.5,
+        "c9": 9,
+        "c10": 9.5,
+        "gaming": 9.8,
+        "imageQuality": 9.5,
+        "connectivity": 9
+      }
+    },
+    "tcl-c735-65": {
+      "id": "tcl-c735-65",
+      "categoryId": "tv",
+      "normalizedCategoryId": "smart-tv",
+      "name": "TCL C735 QLED 65\"",
+      "baseScore": 7.68,
+      "scores": {
+        "c1": 9,
+        "c2": 7,
+        "c3": 7.5,
+        "c4": 7.5,
+        "c5": 7.5,
+        "c6": 7,
+        "c7": 8.5,
+        "c8": 7,
+        "c9": 7.5,
+        "c10": 7.5,
+        "gaming": 7.5,
+        "imageQuality": 7,
+        "connectivity": 7.5
+      }
+    },
+    "samsung-rf23-family-hub": {
+      "id": "samsung-rf23-family-hub",
+      "categoryId": "fridge",
+      "normalizedCategoryId": "fridge",
+      "name": "Samsung RF23A9771SR Family Hub",
+      "baseScore": 8.7,
+      "scores": {
+        "c1": 6.5,
+        "c2": 8,
+        "c3": 9.5,
+        "c4": 9.2,
+        "c5": 9,
+        "c6": 7.5,
+        "c7": 8.5,
+        "c8": 9.8,
+        "c9": 9.5,
+        "c10": 9.5
+      }
+    },
+    "brastemp-inverse-460": {
+      "id": "brastemp-inverse-460",
+      "categoryId": "fridge",
+      "normalizedCategoryId": "fridge",
+      "name": "Brastemp Inverse BRE59AK 460L",
+      "baseScore": 7.95,
+      "scores": {
+        "c1": 8.5,
+        "c2": 8.5,
+        "c3": 8,
+        "c4": 8.5,
+        "c5": 8.5,
+        "c6": 8,
+        "c7": 9,
+        "c8": 5,
+        "c9": 8,
+        "c10": 7.5
+      }
+    },
+    "consul-crm50-410": {
+      "id": "consul-crm50-410",
+      "categoryId": "fridge",
+      "normalizedCategoryId": "fridge",
+      "name": "Consul CRM50 Frost Free 410L",
+      "baseScore": 7.2,
+      "scores": {
+        "c1": 9.5,
+        "c2": 9,
+        "c3": 7,
+        "c4": 7.5,
+        "c5": 8,
+        "c6": 7.5,
+        "c7": 8.5,
+        "c8": 3,
+        "c9": 6.5,
+        "c10": 5.5
+      }
+    },
+    "panasonic-bb71-black": {
+      "id": "panasonic-bb71-black",
+      "categoryId": "fridge",
+      "normalizedCategoryId": "fridge",
+      "name": "Panasonic BB71 Inverter Black Glass",
+      "baseScore": 8.55,
+      "scores": {
+        "c1": 8.5,
+        "c2": 9.2,
+        "c3": 8.8,
+        "c4": 9,
+        "c5": 9,
+        "c6": 8.5,
+        "c7": 8,
+        "c8": 7,
+        "c9": 9,
+        "c10": 8.5
+      }
+    },
+    "samsung-rt53-evolution": {
+      "id": "samsung-rt53-evolution",
+      "categoryId": "fridge",
+      "normalizedCategoryId": "fridge",
+      "name": "Samsung Evolution RT53 com POWERvolt",
+      "baseScore": 8.24,
+      "scores": {
+        "c1": 9.1,
+        "c2": 8.8,
+        "c3": 9.2,
+        "c4": 8.8,
+        "c5": 9,
+        "c6": 8,
+        "c7": 7.5,
+        "c8": 6,
+        "c9": 7.5,
+        "c10": 8.5
+      }
+    },
+    "electrolux-if43b": {
+      "id": "electrolux-if43b",
+      "categoryId": "fridge",
+      "normalizedCategoryId": "fridge",
+      "name": "Geladeira Electrolux Frost Free Inverter 390L Efficient AutoSense (IF43B)",
+      "baseScore": 8.32,
+      "scores": {
+        "c1": 9,
+        "c2": 9.2,
+        "c3": 7.5,
+        "c4": 8.5,
+        "c5": 8.5,
+        "c6": 8,
+        "c7": 7.5,
+        "c8": 8.5,
+        "c9": 8.5,
+        "c10": 8
+      }
+    },
+    "panasonic-bb64": {
+      "id": "panasonic-bb64",
+      "categoryId": "fridge",
+      "normalizedCategoryId": "fridge",
+      "name": "Geladeira Panasonic BB64 Aço Escovado Inverse Frost Free 460L Inverter A+++ (NR-BB64PV1X)",
+      "baseScore": 8.45,
+      "scores": {
+        "c1": 8.5,
+        "c2": 9.5,
+        "c3": 8.5,
+        "c4": 9,
+        "c5": 9,
+        "c6": 8.5,
+        "c7": 8,
+        "c8": 7,
+        "c9": 8.5,
+        "c10": 8
+      }
+    },
+    "hq-150rdf": {
+      "id": "hq-150rdf",
+      "categoryId": "fridge",
+      "normalizedCategoryId": "fridge",
+      "name": "Geladeira Refrigerador Compacto HQ Defrost 150 Litros Preto (HQ-150RDF)",
+      "baseScore": 6.35,
+      "scores": {
+        "c1": 9,
+        "c2": 6.5,
+        "c3": 6,
+        "c4": 7,
+        "c5": 7,
+        "c6": 7.5,
+        "c7": 5.5,
+        "c8": 3,
+        "c9": 7,
+        "c10": 5
+      }
+    },
+    "lg-dual-inverter-12000": {
+      "id": "lg-dual-inverter-12000",
+      "categoryId": "air_conditioner",
+      "normalizedCategoryId": "air_conditioner",
+      "name": "LG Dual Inverter Voice 12000 BTUs",
+      "baseScore": 8.85,
+      "scores": {
+        "c1": 9,
+        "c2": 9.5,
+        "c3": 8.5,
+        "c4": 9,
+        "c5": 9,
+        "c6": 9.5,
+        "c7": 8.5,
+        "c8": 8,
+        "c9": 9,
+        "c10": 8.5
+      }
+    },
+    "samsung-windfree-12000": {
+      "id": "samsung-windfree-12000",
+      "categoryId": "air_conditioner",
+      "normalizedCategoryId": "air_conditioner",
+      "name": "Samsung WindFree 12000 BTUs",
+      "baseScore": 8.85,
+      "scores": {
+        "c1": 8.5,
+        "c2": 9.5,
+        "c3": 9,
+        "c4": 8.5,
+        "c5": 9.5,
+        "c6": 9,
+        "c7": 8.5,
+        "c8": 8,
+        "c9": 9,
+        "c10": 9
+      }
+    },
+    "electrolux-eco-9000": {
+      "id": "electrolux-eco-9000",
+      "categoryId": "air_conditioner",
+      "normalizedCategoryId": "air_conditioner",
+      "name": "Electrolux Eco Turbo 9000 BTUs",
+      "baseScore": 7.6,
+      "scores": {
+        "c1": 9.5,
+        "c2": 8,
+        "c3": 7.5,
+        "c4": 7.5,
+        "c5": 7,
+        "c6": 7,
+        "c7": 7.5,
+        "c8": 8.5,
+        "c9": 6,
+        "c10": 7.5
+      }
+    },
+    "consul-inverter-12000": {
+      "id": "consul-inverter-12000",
+      "categoryId": "air_conditioner",
+      "normalizedCategoryId": "air_conditioner",
+      "name": "Consul Inverter 12000 BTUs",
+      "baseScore": 8.1,
+      "scores": {
+        "c1": 9,
+        "c2": 8.5,
+        "c3": 8,
+        "c4": 8,
+        "c5": 8,
+        "c6": 8.5,
+        "c7": 8,
+        "c8": 8.5,
+        "c9": 7,
+        "c10": 7.5
+      }
+    },
+    "lg-dual-inverter-voice-ai": {
+      "id": "lg-dual-inverter-voice-ai",
+      "categoryId": "air_conditioner",
+      "normalizedCategoryId": "air_conditioner",
+      "name": "LG Dual Inverter Voice + AI 12000 BTUs",
+      "baseScore": 8.83,
+      "scores": {
+        "c1": 8.8,
+        "c2": 9.5,
+        "c3": 8.5,
+        "c4": 9,
+        "c5": 9.5,
+        "c6": 9.5,
+        "c7": 8.5,
+        "c8": 8,
+        "c9": 9,
+        "c10": 8
+      }
+    },
+    "samsung-windfree-connect": {
+      "id": "samsung-windfree-connect",
+      "categoryId": "air_conditioner",
+      "normalizedCategoryId": "air_conditioner",
+      "name": "Samsung WindFree Connect Sem Vento",
+      "baseScore": 8.86,
+      "scores": {
+        "c1": 8.2,
+        "c2": 9.4,
+        "c3": 8.5,
+        "c4": 9,
+        "c5": 9,
+        "c6": 9,
+        "c7": 8.5,
+        "c8": 8,
+        "c9": 9.5,
+        "c10": 9.5
+      }
+    },
+    "wap-robot-w400": {
+      "id": "wap-robot-w400",
+      "categoryId": "robot-vacuum",
+      "normalizedCategoryId": "robot-vacuum",
+      "name": "WAP Aspirador de Pó Robô ROBOT W400 3 em 1",
+      "baseScore": 5.81,
+      "scores": {
+        "c1": 2.5,
+        "c2": 7.5,
+        "c3": 7,
+        "c4": 5.5,
+        "c5": 9.5,
+        "c6": 9,
+        "c7": 4,
+        "c8": 6,
+        "c9": 5,
+        "c10": 2
+      }
+    },
+    "roborock-q7-l5": {
+      "id": "roborock-q7-l5",
+      "categoryId": "robot-vacuum",
+      "normalizedCategoryId": "robot-vacuum",
+      "name": "Roborock Q7 L5 Robô Aspirador e Esfregão com LiDAR",
+      "baseScore": 8.11,
+      "scores": {
+        "c1": 9.5,
+        "c2": 9,
+        "c3": 7,
+        "c4": 9,
+        "c5": 7.5,
+        "c6": 6,
+        "c7": 9,
+        "c8": 7,
+        "c9": 5,
+        "c10": 8
+      }
+    },
+    "electrolux-erb20-home-control-experience": {
+      "id": "electrolux-erb20-home-control-experience",
+      "categoryId": "robot-vacuum",
+      "normalizedCategoryId": "robot-vacuum",
+      "name": "Robô Aspirador de Pó Electrolux Home e Control Experience ERB20 Bivolt Preto e Cinza",
+      "baseScore": 4.86,
+      "scores": {
+        "c1": 4,
+        "c2": 1,
+        "c3": 5,
+        "c4": 6,
+        "c5": 9,
+        "c6": 8,
+        "c7": 6,
+        "c8": 6,
+        "c9": 4,
+        "c10": 1
+      }
+    },
+    "liectroux-l200-robo-aspirador-3em1-app-alexa-google": {
+      "id": "liectroux-l200-robo-aspirador-3em1-app-alexa-google",
+      "categoryId": "robot-vacuum",
+      "normalizedCategoryId": "robot-vacuum",
+      "name": "Robô Aspirador Liectroux L200 3 em 1 Aspira Varre Passa Pano Com Aplicativo Compatível Com Alexa e Google Bivolt",
+      "baseScore": 5.27,
+      "scores": {
+        "c1": 3,
+        "c2": 7,
+        "c3": 5,
+        "c4": 6,
+        "c5": 9,
+        "c6": 5,
+        "c7": 5,
+        "c8": 6,
+        "c9": 5,
+        "c10": 1
+      }
+    },
+    "xiaomi-robot-x10": {
+      "id": "xiaomi-robot-x10",
+      "categoryId": "robot-vacuum",
+      "normalizedCategoryId": "robot-vacuum",
+      "name": "XIAOMI Robot Vacuum X10 com Auto-Esvaziamento",
+      "baseScore": 8.29,
+      "scores": {
+        "c1": 9.5,
+        "c2": 9,
+        "c3": 7.5,
+        "c4": 7,
+        "c5": 7,
+        "c6": 7,
+        "c7": 9.5,
+        "c8": 7,
+        "c9": 10,
+        "c10": 7.5
+      }
+    },
+    "ezs-e10": {
+      "id": "ezs-e10",
+      "categoryId": "robot-vacuum",
+      "normalizedCategoryId": "robot-vacuum",
+      "name": "Aspirador Robô EZS E10 5.500 Pa Laser iPath (AI.Map 2.0)",
+      "baseScore": 6.72,
+      "scores": {
+        "c1": 9,
+        "c2": 8,
+        "c3": 5,
+        "c4": 6,
+        "c5": 5,
+        "c6": 5,
+        "c7": 8,
+        "c8": 6,
+        "c9": 4,
+        "c10": 6
+      }
+    },
+    "eufy-x10-pro-omni": {
+      "id": "eufy-x10-pro-omni",
+      "categoryId": "robot-vacuum",
+      "normalizedCategoryId": "robot-vacuum",
+      "name": "eufy X10 Pro Omni Robô Aspirador 8.000 Pa com Omni Station (220V)",
+      "baseScore": 8.51,
+      "scores": {
+        "c1": 9,
+        "c2": 9,
+        "c3": 9,
+        "c4": 9,
+        "c5": 7,
+        "c6": 6,
+        "c7": 8,
+        "c8": 8,
+        "c9": 10,
+        "c10": 9
+      }
+    },
+    "eufy-omni-c20": {
+      "id": "eufy-omni-c20",
+      "categoryId": "robot-vacuum",
+      "normalizedCategoryId": "robot-vacuum",
+      "name": "eufy Omni C20 Robô Aspirador e Mop 7.000 Pa com Estação Tudo-em-Um (220V)",
+      "baseScore": 7.71,
+      "scores": {
+        "c1": 7.2,
+        "c2": 8.2,
+        "c3": 6.8,
+        "c4": 8.5,
+        "c5": 9.6,
+        "c6": 7,
+        "c7": 6.5,
+        "c8": 8.3,
+        "c9": 8.8,
+        "c10": 5.5
+      }
+    },
+    "xiaomi-robot-vacuum-x20-pro": {
+      "id": "xiaomi-robot-vacuum-x20-pro",
+      "categoryId": "robot-vacuum",
+      "normalizedCategoryId": "robot-vacuum",
+      "name": "XIAOMI Robot Vacuum X20 Pro — robô aspirador e limpa-chão com navegação a laser (LDS), sucção 7000 Pa, base all-in-one, branco (versão ES)",
+      "baseScore": 8.21,
+      "scores": {
+        "c1": 8.8,
+        "c2": 8.2,
+        "c3": 8.3,
+        "c4": 7.8,
+        "c5": 8,
+        "c6": 7.2,
+        "c7": 8,
+        "c8": 7.5,
+        "c9": 9,
+        "c10": 7.5
+      }
+    },
+    "liectroux-xr500-pro": {
+      "id": "liectroux-xr500-pro",
+      "categoryId": "robot-vacuum",
+      "normalizedCategoryId": "robot-vacuum",
+      "name": "Robô Aspirador Liectroux XR500 Pro 3 em 1 (LiDAR, App, Alexa/Google)",
+      "baseScore": 7.51,
+      "scores": {
+        "c1": 8.9,
+        "c2": 8,
+        "c3": 7,
+        "c4": 7,
+        "c5": 7.2,
+        "c6": 6.8,
+        "c7": 8,
+        "c8": 6,
+        "c9": 5.5,
+        "c10": 4.8
+      }
+    },
+    "wkjwqwhy-a6s": {
+      "id": "wkjwqwhy-a6s",
+      "categoryId": "robot-vacuum",
+      "normalizedCategoryId": "robot-vacuum",
+      "name": "Robô Aspirador 2 em 1 WKJWQWHY A6S (Aspira e Passa Pano) com Wi‑Fi - Bivolt",
+      "baseScore": 6.05,
+      "scores": {
+        "c1": 6.5,
+        "c2": 6,
+        "c3": 6.5,
+        "c4": 5.5,
+        "c5": 8.5,
+        "c6": 4.5,
+        "c7": 6,
+        "c8": 6,
+        "c9": 3,
+        "c10": 2
+      }
+    },
+    "xiaomi-robot-vacuum-s40c": {
+      "id": "xiaomi-robot-vacuum-s40c",
+      "categoryId": "robot-vacuum",
+      "normalizedCategoryId": "robot-vacuum",
+      "name": "XIAOMI Xiaomi Robot Vacuum S40C (E101) — Robô aspirador e passa pano com navegação LiDAR (LDS)",
+      "baseScore": 6.94,
+      "scores": {
+        "c1": 8.5,
+        "c2": 8,
+        "c3": 6.5,
+        "c4": 6,
+        "c5": 7,
+        "c6": 6,
+        "c7": 6.5,
+        "c8": 5.5,
+        "c9": 4,
+        "c10": 3
+      }
+    },
+    "wap-robot-w90": {
+      "id": "wap-robot-w90",
+      "categoryId": "robot-vacuum",
+      "normalizedCategoryId": "robot-vacuum",
+      "name": "WAP Aspirador de Pó Robô ROBOT W90 3 em 1 — Automático, 250 ml, sensores antiqueda/anticolisão",
+      "baseScore": 4.24,
+      "scores": {
+        "c1": 3.5,
+        "c2": 2,
+        "c3": 4,
+        "c4": 4,
+        "c5": 8.5,
+        "c6": 6,
+        "c7": 6.5,
+        "c8": 6,
+        "c9": 2,
+        "c10": 0.5
+      }
+    },
+    "xiaomi-robot-vacuum-s20-plus-white": {
+      "id": "xiaomi-robot-vacuum-s20-plus-white",
+      "categoryId": "robot-vacuum",
+      "normalizedCategoryId": "robot-vacuum",
+      "name": "Xiaomi Robot Vacuum S20+ (Branco)",
+      "baseScore": 7.74,
+      "scores": {
+        "c1": 9,
+        "c2": 8,
+        "c3": 8.5,
+        "c4": 6.5,
+        "c5": 7,
+        "c6": 6.5,
+        "c7": 8.5,
+        "c8": 7.5,
+        "c9": 4.5,
+        "c10": 6
+      }
+    },
+    "samsung-vr5000rm-vr05r5050wk-az": {
+      "id": "samsung-vr5000rm-vr05r5050wk-az",
+      "categoryId": "robot-vacuum",
+      "normalizedCategoryId": "robot-vacuum",
+      "name": "Samsung Robô Aspirador 2 em 1 Preto VR5000RM (VR05R5050WK/AZ) — Aspira e Passa Pano, Wi-Fi SmartThings",
+      "baseScore": 6.31,
+      "scores": {
+        "c1": 6,
+        "c2": 7,
+        "c3": 4.5,
+        "c4": 6,
+        "c5": 8.8,
+        "c6": 7,
+        "c7": 7.5,
+        "c8": 6.5,
+        "c9": 6,
+        "c10": 2
+      }
+    },
+    "kabum-smart-700-kbsf003-preto": {
+      "id": "kabum-smart-700-kbsf003-preto",
+      "categoryId": "robot-vacuum",
+      "normalizedCategoryId": "robot-vacuum",
+      "name": "Robô Aspirador e Passa Pano KaBuM! Smart 700 (KBSF003) — Laser 3D, App, Alexa/Google, Bivolt",
+      "baseScore": 6.17,
+      "scores": {
+        "c1": 7,
+        "c2": 7,
+        "c3": 5,
+        "c4": 5,
+        "c5": 7,
+        "c6": 6,
+        "c7": 6.5,
+        "c8": 5,
+        "c9": 6,
+        "c10": 3
+      }
+    },
+    "philco-pas26p": {
+      "id": "philco-pas26p",
+      "categoryId": "robot-vacuum",
+      "normalizedCategoryId": "robot-vacuum",
+      "name": "Aspirador Robô Philco PAS26P (Bivolt)",
+      "baseScore": 6.02,
+      "scores": {
+        "c1": 6.5,
+        "c2": 6,
+        "c3": 5,
+        "c4": 6.5,
+        "c5": 7,
+        "c6": 6.5,
+        "c7": 6,
+        "c8": 6,
+        "c9": 2.5,
+        "c10": 7.5
+      }
+    },
+    "samsung-galaxy-watch7-44mm-lte": {
+      "id": "samsung-galaxy-watch7-44mm-lte",
+      "categoryId": "smartwatch",
+      "normalizedCategoryId": "smartwatch",
+      "name": "Samsung Galaxy Watch7 44mm LTE com Galaxy AI",
+      "baseScore": 8.75,
+      "scores": {
+        "c1": 9.5,
+        "c2": 7,
+        "c3": 9.5,
+        "c4": 9,
+        "c5": 8.5,
+        "c6": 7.5,
+        "c7": 9,
+        "c8": 9,
+        "c9": 9,
+        "c10": 9.5
+      }
+    },
+    "haylou-rt3-ls16-tactical": {
+      "id": "haylou-rt3-ls16-tactical",
+      "categoryId": "smartwatch",
+      "normalizedCategoryId": "smartwatch",
+      "name": "Relógio Smartwatch Haylou LS16 (RT3) Tactical Bluetooth 5.2 Tela AMOLED 1,43\"",
+      "baseScore": 6.95,
+      "scores": {
+        "c1": 8.5,
+        "c2": 9.5,
+        "c3": 6,
+        "c4": 5,
+        "c5": 6,
+        "c6": 9,
+        "c7": 9,
+        "c8": 8.5,
+        "c9": 7,
+        "c10": 1
+      }
+    },
+    "samsung-galaxy-a56-5g": {
+      "id": "samsung-galaxy-a56-5g",
+      "categoryId": "smartphone",
+      "normalizedCategoryId": "smartphone",
+      "name": "Samsung Galaxy A56 5G 128GB",
+      "baseScore": 8.52,
+      "scores": {
+        "c1": 8.5,
+        "c2": 8.8,
+        "c3": 8.5,
+        "c4": 7.5,
+        "c5": 8.5,
+        "c6": 9,
+        "c7": 9,
+        "c8": 9,
+        "c9": 8,
+        "c10": 8
+      }
+    }
+  },
+  "categorySummary": {
+    "smart-tv": {
+      "count": 3,
+      "avgScore": 8.22,
+      "minScore": 7.68,
+      "maxScore": 8.62
+    },
+    "fridge": {
+      "count": 8,
+      "avgScore": 7.97,
+      "minScore": 6.35,
+      "maxScore": 8.7
+    },
+    "air_conditioner": {
+      "count": 6,
+      "avgScore": 8.51,
+      "minScore": 7.6,
+      "maxScore": 8.86
+    },
+    "robot-vacuum": {
+      "count": 17,
+      "avgScore": 6.73,
+      "minScore": 4.24,
+      "maxScore": 8.51
+    },
+    "smartwatch": {
+      "count": 2,
+      "avgScore": 7.85,
+      "minScore": 6.95,
+      "maxScore": 8.75
+    },
+    "smartphone": {
+      "count": 1,
+      "avgScore": 8.52,
+      "minScore": 8.52,
+      "maxScore": 8.52
+    }
+  }
+}
