@@ -16,7 +16,7 @@ import { formatPrice } from '@/lib/l10n';
 import { ExternalLink, ShoppingCart } from 'lucide-react';
 import { SmartOfferCard, type OfferData } from '@/components/SmartOfferCard';
 import { SmartStickyFooter } from '@/components/SmartStickyFooter';
-import { getBaseScore } from '@/lib/getBaseScore';
+import { getUnifiedScore } from '@/lib/scoring/getUnifiedScore';
 import { TransparencyHeader } from '@/components/TransparencyHeader';
 import { generateEnhancedProductSchema, generateSpeakableSchema } from '@/lib/schema/enhanced-product-schema';
 
@@ -141,7 +141,7 @@ export function SimplifiedPDP({
     const hasPrice = product.price && product.price > 0;
     const categoryId = mockData?.product?.category || product.categoryId;
     const displayName = product.shortName || product.name;
-    const baseScore = getBaseScore(product);
+    const baseScore = getUnifiedScore(product);
 
     // Score for schema (alias for clarity)
 
@@ -183,7 +183,7 @@ export function SimplifiedPDP({
                     SEÇÕES NA ORDEM ESPECIFICADA PELO USUÁRIO
                    ============================================ */}
 
-                {/* 1. Score Contextual - baseScore uses getBaseScore() like HeroSection */}
+                {/* 1. Score Contextual - baseScore uses getUnifiedScore() like HeroSection */}
                 <SimplifiedContextScoreSection
                     data={data}
                     baseScore={baseScore}

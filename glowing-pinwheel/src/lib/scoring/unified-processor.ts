@@ -13,7 +13,7 @@
  */
 
 import type { Product, ScoredProduct } from '@/types/category';
-import { getBaseScore } from '@/lib/getBaseScore';
+import { getUnifiedScore } from '@/lib/scoring/getUnifiedScore';
 import {
     checkMutualExclusion,
     ROBOT_VACUUM_PROFILES_V4
@@ -439,10 +439,10 @@ export function calculateUnifiedScore(
     // 2. Get context profiles for this category
     const profiles = getContextProfiles(categoryId);
 
-    // 3. Get BASE score from product JSON (pre-calculated by Gemini)
-    // This ensures consistency: header.overallScore is the single source of truth
+    // 3. Get BASE score from product JSON using unified scoring
+    // This ensures consistency: getUnifiedScore is the single source of truth
     const baseProfile = profiles.find(p => p.id === 'general_use') || profiles[0];
-    const baseScore = getBaseScore(product);
+    const baseScore = getUnifiedScore(product);
 
     // 4. Calculate CONTEXTUAL score with combined profiles
     const isBaseOnly = normalizedContextIds.length === 0 ||

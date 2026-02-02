@@ -9,7 +9,7 @@
 
 import type { Product } from '@/types/category';
 import { getCategoryPriceStats } from '@/lib/category-prices';
-import { getBaseScore } from '@/lib/getBaseScore';
+import { getUnifiedScore } from '@/lib/scoring/getUnifiedScore';
 
 export interface CuriositySandwichWidgetProps {
     product: Product;
@@ -17,7 +17,7 @@ export interface CuriositySandwichWidgetProps {
 }
 
 export function CuriositySandwichWidget({ product, geminiData }: CuriositySandwichWidgetProps) {
-    const overallScore = getBaseScore(product);
+    const overallScore = getUnifiedScore(product);
     const categoryStats = getCategoryPriceStats(product.categoryId);
     const categoryMedian = categoryStats.median || product.price * 1.2;
 

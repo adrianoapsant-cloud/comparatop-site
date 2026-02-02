@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { SAMPLE_TVS, SAMPLE_FRIDGES, SAMPLE_AIR_CONDITIONERS } from '@/data/products';
-import { getBaseScore } from '@/lib/getBaseScore';
+import { getUnifiedScore } from '@/lib/scoring/getUnifiedScore';
 import type { Product } from '@/types/category';
 
 /**
@@ -108,7 +108,7 @@ function generateComparaTopUrl(product: Product): string {
 }
 
 function formatProduct(product: Product) {
-    const hmumScore = getBaseScore(product);
+    const hmumScore = getUnifiedScore(product);
 
     return {
         id: product.id,

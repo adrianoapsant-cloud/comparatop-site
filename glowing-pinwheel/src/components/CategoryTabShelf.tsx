@@ -12,7 +12,7 @@ import Link from 'next/link';
 import { ArrowRight, Tv, Refrigerator, Wind, Smartphone, Laptop, ShoppingCart, ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { ScoredProduct } from '@/types/category';
-import { getBaseScore } from '@/lib/getBaseScore';
+import { getUnifiedScore } from '@/lib/scoring/getUnifiedScore';
 import { useComparison } from '@/contexts/ComparisonContext';
 
 // ============================================
@@ -63,7 +63,7 @@ interface MiniProductCardProps {
 }
 
 function MiniProductCard({ product, rank }: MiniProductCardProps) {
-    const score = getBaseScore(product);
+    const score = getUnifiedScore(product);
     const { addProduct, removeProduct, isSelected } = useComparison();
     const selected = isSelected(product.id);
 

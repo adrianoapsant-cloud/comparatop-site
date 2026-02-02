@@ -1,13 +1,12 @@
 /**
  * Scoring Engine - Server-Side Only
  * 
- * @description Product scoring using getBaseScore() as the single source of truth.
+ * @description Product scoring using getUnifiedScore() as the single source of truth.
  * 
  * IMPORTANT: The legacy QS/VS/GS system has been COMPLETELY ABANDONED.
- * All scores now come from getBaseScore() which reads:
- * 1. header.overallScore (from Gemini analysis)
- * 2. Calculated from product.scores using standard weights
- * 3. Fallback to 7.5
+ * All scores now come from getUnifiedScore() which reads:
+ * 1. product.scores (c1-c10) with PARR weights
+ * 2. Fallback to 7.5
  * 
  * DO NOT import this file in client components.
  */
@@ -23,7 +22,7 @@ import type {
     CriterionComparison,
 } from '@/types/category';
 import { getCategoryById } from '@/config/categories';
-import { getBaseScore } from '@/lib/getBaseScore';
+import { getUnifiedScore } from '@/lib/scoring/getUnifiedScore';
 
 // ============================================
 // MAIN SCORING FUNCTION
@@ -32,13 +31,13 @@ import { getBaseScore } from '@/lib/getBaseScore';
 /**
  * Calculate all scores for a product.
  * 
- * USES getBaseScore() as the SINGLE SOURCE OF TRUTH for overall score.
+ * USES getUnifiedScore() as the SINGLE SOURCE OF TRUTH for overall score.
  * The legacy QS/VS/GS system has been completely removed.
  * 
  * @param product - The product with raw scores
  * @param category - Optional category override (auto-fetches if not provided)
  * @param profile - Optional user profile (kept for API compatibility, not used)
- * @returns ComputedScores with overall score from getBaseScore()
+ * @returns ComputedScores with overall score from getUnifiedScore()
  */
 export function calculateProductScores(
     product: Product,
@@ -51,9 +50,9 @@ export function calculateProductScores(
         throw new Error(`Category not found: ${product.categoryId}`);
     }
 
-    // 2. Get the UNIFIED score using getBaseScore()
+    // 2. Get the UNIFIED score using getUnifiedScore()
     // This is the ONLY source of truth for scores across the entire site
-    const overall = getBaseScore(product);
+    const overall = getUnifiedScore(product);
 
     // 3. Calculate price per quality point
     const pricePerPoint = product.price / (overall > 0 ? overall : 1);
@@ -146,7 +145,7 @@ export function compareProducts(
     category: CategoryDefinition,
     profile?: UserProfile | null
 ): ProductComparison {
-    // Score both products using getBaseScore()
+    // Score both products using getUnifiedScore()
     const scoredA = scoreProduct(productA, category, profile);
     const scoredB = scoreProduct(productB, category, profile);
 
@@ -340,7 +339,7 @@ export function validateProductScores(
 /**
  * Get effective weights for a category.
  * DEPRECATED: Kept for backwards compatibility only.
- * All scoring now uses getBaseScore() directly.
+ * All scoring now uses getUnifiedScore() directly.
  */
 export function getEffectiveWeights(
     category: CategoryDefinition,

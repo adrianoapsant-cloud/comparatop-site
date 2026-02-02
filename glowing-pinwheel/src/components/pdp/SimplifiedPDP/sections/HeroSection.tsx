@@ -9,7 +9,7 @@ import React, { useMemo } from 'react';
 import { PDPDataContract } from '../hooks/usePDPData';
 import { ProductGalleryZoom } from '@/components/ProductGalleryZoom';
 import { CompareToggle } from '@/components/CompareToggle';
-import { getBaseScore } from '@/lib/getBaseScore';
+import { getUnifiedScore } from '@/lib/scoring/getUnifiedScore';
 import { CuriositySandwichWidget } from '@/components/pdp/CuriositySandwichWidget';
 import { ConfidenceBand, formatScoreRange, formatScoreValue } from '@/components/ui/ConfidenceBand';
 import { InfoTooltip } from '@/components/ui/InfoTooltip';
@@ -169,13 +169,41 @@ export function HeroSection({ data }: HeroSectionProps) {
 
                     {/* Score Badge + Faixa + Confiança - Tudo inline */}
                     <div className="flex flex-wrap items-center gap-3 mt-3">
-                        {/* Score principal */}
-                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100">
-                            <span className="font-bold text-lg text-emerald-700">
-                                {getBaseScore(product).toFixed(2)}
-                            </span>
-                            <span className="text-yellow-500">⭐</span>
-                        </div>
+                        {/* Score principal - Hexagonal Badge with semantic colors */}
+                        {(() => {
+                            const score = getUnifiedScore(product);
+                            // Semantic colors based on score value
+                            const getScoreStyle = (s: number) => {
+                                if (s >= 8.5) return { bg: 'bg-emerald-500', text: 'text-white', label: 'Excelente' };
+                                if (s >= 7.0) return { bg: 'bg-blue-500', text: 'text-white', label: 'Bom' };
+                                if (s >= 5.5) return { bg: 'bg-amber-500', text: 'text-white', label: 'Regular' };
+                                return { bg: 'bg-red-500', text: 'text-white', label: 'Atenção' };
+                            };
+                            const colors = getScoreStyle(score);
+
+                            return (
+                                <div className="flex flex-col items-center gap-1">
+                                    {/* Hexagonal Badge */}
+                                    <div
+                                        className={`relative w-14 h-14 flex items-center justify-center ${colors.bg}`}
+                                        style={{
+                                            clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+                                        }}
+                                    >
+                                        <span className={`text-xl font-bold ${colors.text}`}>
+                                            {score.toFixed(2)}
+                                        </span>
+                                    </div>
+                                    {/* Label */}
+                                    <div className="flex items-center gap-1">
+                                        <svg className="w-3 h-3 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+                                        </svg>
+                                        <span className="text-xs font-medium text-gray-600">{colors.label}</span>
+                                    </div>
+                                </div>
+                            );
+                        })()}
 
                         {/* Faixa + Confiança inline */}
                         {(product as { contextualScoreRange?: [number, number] }).contextualScoreRange && (

@@ -25,6 +25,10 @@ import { ModuleFallback } from '@/components/pdp/ModuleFallback';
 // Robot vacuum scoring module (SSOT for tags/scores)
 import { getRobotVacuumDerived, type RobotVacuumDerived } from '@/categories/robot-vacuums';
 
+// Score calculation - SINGLE SOURCE OF TRUTH
+import { getUnifiedScore } from '@/lib/scoring/getUnifiedScore';
+import type { Product } from '@/types/category';
+
 // ============================================
 // TYPES
 // ============================================
@@ -206,8 +210,9 @@ function convertToTcoProduct(
     let communityReviews: number;
     let technicalScore: number;
 
-    // Technical score from editorial (0-10 scale)
-    technicalScore = Math.round((productScore * 10)) / 10;
+    // Technical score - USE CENTRAL FUNCTION (SSOT)
+    // getUnifiedScore handles all fallbacks: PARR weighted → product.scores → 7.5
+    technicalScore = getUnifiedScore(product as Product);
 
     // Check if product has VoC (Voice of Customer) data
     // Support both formats: consensusScore (0-100%) or averageRating (0-5)
@@ -243,9 +248,8 @@ function convertToTcoProduct(
         communityReviews = Math.round(baseReviews + priceHash);
     }
 
-    // Round values
+    // Round community rating only (technicalScore already rounded by getUnifiedScore)
     communityRating = Math.round(communityRating * 10) / 10;
-    technicalScore = Math.round(technicalScore * 10) / 10;
 
     return {
         id: product.id,

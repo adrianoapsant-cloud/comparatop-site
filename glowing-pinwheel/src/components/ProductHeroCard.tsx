@@ -8,7 +8,7 @@ import { CompareToggle } from '@/components/CompareToggle';
 import { BuyBox } from '@/components/BuyBox';
 import { L10N, getBadgeLabel, formatPrice } from '@/lib/l10n';
 import type { ScoredProduct, CategoryDefinition, RatingCriteria } from '@/types/category';
-import { getBaseScore } from '@/lib/getBaseScore';
+import { getUnifiedScore } from '@/lib/scoring/getUnifiedScore';
 
 // ============================================
 // SCORE BAR COMPONENT
@@ -205,7 +205,7 @@ export function ProductHeroCard({
                         {L10N.scores.overall.full}
                     </span>
                     <span className="text-data text-3xl font-bold text-brand-core">
-                        {getBaseScore(product).toFixed(2)}
+                        {getUnifiedScore(product).toFixed(2)}
                     </span>
                 </div>
             </div>

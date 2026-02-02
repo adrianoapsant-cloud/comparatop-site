@@ -18,7 +18,8 @@ import { scoreProduct } from '@/lib/scoring';
 import { getBestAccessoryForProduct, calculateBundleSavings } from '@/lib/bundle-matcher';
 import { getCategoryPriceStats } from '@/lib/category-prices';
 import type { Product, BenchmarkScore, FeatureBenefit } from '@/types/category';
-import { getBaseScore, getScoreColorClass, getScoreBgClass } from '@/lib/getBaseScore';
+import { getUnifiedScore } from '@/lib/scoring/getUnifiedScore';
+import { getScoreColorClass, getScoreBgClass } from '@/lib/getBaseScore';
 import { getProductById } from '@/data/products';
 // REMOVED: StickyAction/StickyActionMobile - replaced by SmartStickyFooter
 import { CompareToggle } from '@/components/CompareToggle';
@@ -116,9 +117,9 @@ function ProductHero({ product, unifiedScore, headline, curiositySandwich, isLoa
         return product.imageUrl ? [{ type: 'image', url: product.imageUrl }] : [];
     }, [product]);
 
-    // Use unified base score from product JSON (pre-calculated by Gemini)
+    // Use unified base score from product JSON using getUnifiedScore
     // This ensures the same score appears across ALL pages and components
-    const overallScore = getBaseScore(product);
+    const overallScore = getUnifiedScore(product);
     const scoreColor = getScoreColorClass(overallScore);
     const scoreBg = getScoreBgClass(overallScore);
 
@@ -163,15 +164,39 @@ function ProductHero({ product, unifiedScore, headline, curiositySandwich, isLoa
                     {product.name}
                 </h1>
 
-                {/* Score Badge */}
+                {/* Score Badge - Hexagonal with semantic colors */}
                 <div className="flex items-center gap-2 mb-3">
-                    {/* Score always shows instantly (static data from product.scores) */}
-                    <div className={cn('flex items-center gap-2 px-3 py-1.5 rounded-full', scoreBg)}>
-                        <span className={cn('font-data text-lg font-bold', scoreColor)}>
-                            {overallScore.toFixed(2)}
-                        </span>
-                        <Star size={16} className={scoreColor} fill="currentColor" />
-                    </div>
+                    {/* Hexagonal badge - colors based on score value */}
+                    {(() => {
+                        const getScoreStyle = (s: number) => {
+                            if (s >= 8.5) return { bg: 'bg-emerald-500', text: 'text-white', label: 'Excelente' };
+                            if (s >= 7.0) return { bg: 'bg-blue-500', text: 'text-white', label: 'Bom' };
+                            if (s >= 5.5) return { bg: 'bg-amber-500', text: 'text-white', label: 'Regular' };
+                            return { bg: 'bg-red-500', text: 'text-white', label: 'Atenção' };
+                        };
+                        const colors = getScoreStyle(overallScore);
+
+                        return (
+                            <div className="flex flex-col items-center gap-1">
+                                {/* Hexagonal Badge */}
+                                <div
+                                    className={cn('relative w-14 h-14 flex items-center justify-center', colors.bg)}
+                                    style={{
+                                        clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+                                    }}
+                                >
+                                    <span className={cn('text-xl font-bold', colors.text)}>
+                                        {overallScore.toFixed(2)}
+                                    </span>
+                                </div>
+                                {/* Label */}
+                                <div className="flex items-center gap-1">
+                                    <Shield size={12} className="text-blue-500" />
+                                    <span className="text-xs font-medium text-gray-600">{colors.label}</span>
+                                </div>
+                            </div>
+                        );
+                    })()}
                     {product.badges?.includes('editors-choice') && (
                         <div className="flex items-center gap-1.5 px-3 py-1.5 bg-violet-100 text-violet-700 rounded-full">
                             <Award size={14} />
@@ -1153,10 +1178,10 @@ export function ProductDetailPage({ product, layoutConfig, layoutMode, layoutRea
         }
     }, [product]);
 
-    // UNIFIED SCORE: getBaseScore() is the SINGLE source of truth 
+    // UNIFIED SCORE: getUnifiedScore() is the SINGLE source of truth 
     // The API's unified_score is IGNORED because it can be stale/cached
     // Only textual content from the API is used (verdict_card, pros_cons, etc.)
-    const staticScore = getBaseScore(product);
+    const staticScore = getUnifiedScore(product);
     // ALWAYS use staticScore - never trust the API's score
     const unifiedScore = staticScore;
     const vsScore = scoredProduct?.computed?.vs ?? 5.0;
@@ -1835,7 +1860,7 @@ export function ProductDetailPage({ product, layoutConfig, layoutMode, layoutRea
                     shortName: product.shortName,
                     price: product.price,
                     imageUrl: product.imageUrl,
-                    score: getBaseScore(product),
+                    score: getUnifiedScore(product),
                     amazonUrl: (product as unknown as { asin?: string }).asin
                         ? `https://www.amazon.com.br/dp/${(product as unknown as { asin?: string }).asin}?tag=comparatop-20`
                         : undefined,
@@ -1850,9 +1875,9 @@ export function ProductDetailPage({ product, layoutConfig, layoutMode, layoutRea
                         price: product.mainCompetitor.price,
                         imageUrl: product.mainCompetitor.imageUrl || product.mainCompetitor.image,
                         score: fullRivalProduct
-                            ? getBaseScore(fullRivalProduct)
+                            ? getUnifiedScore(fullRivalProduct)
                             : ((product.mainCompetitor as unknown as Product).scores
-                                ? getBaseScore(product.mainCompetitor as unknown as Product)
+                                ? getUnifiedScore(product.mainCompetitor as unknown as Product)
                                 : (product.mainCompetitor.score ?? 7.5)),
                     };
                 })()}

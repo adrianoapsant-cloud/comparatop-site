@@ -2,15 +2,15 @@
  * @file getBaseScore.ts
  * @description Função utilitária centralizada para obter o score base de um produto.
  * 
- * HIERARQUIA DE SCORING (2026):
- * 0. HMUM Score (Hybrid Multiplicative Utility Model) - Cobb-Douglas based
- * 1. header.overallScore (Gemini pre-calculated)
- * 2. computed.overall (legacy scored products)
- * 3. Calculate from product.scores (weighted sum)
- * 4. 7.5 (fallback)
+ * ARQUITETURA DE SCORING (2026-02-02):
+ * 1. PARR Ponderado via getUnifiedScore() - SSOT para produtos com scores c1-c10
+ * 2. HMUM Score (fallback para categorias com config completo)
+ * 3. header.overallScore (Gemini pre-calculated)
+ * 4. computed.overall (legacy scored products)
+ * 5. 7.5 (fallback final)
  * 
- * O HMUM é o novo padrão para categorias configuradas. Usa modelo multiplicativo
- * que penaliza produtos com critérios muito fracos (deal breakers).
+ * NOTA: Este arquivo será migrado para usar apenas getUnifiedScore no futuro.
+ * Por enquanto mantém compatibilidade com callsites existentes.
  * 
  * @example
  * import { getBaseScore } from '@/lib/getBaseScore';
@@ -19,6 +19,13 @@
 
 import type { Product, ScoredProduct } from '@/types/category';
 import { getHMUMScore, hasHMUMSupport } from './getHMUMBreakdown';
+import {
+    getUnifiedScore,
+    normalizeCategoryId,
+} from './scoring/getUnifiedScore';
+
+// Re-export normalizeCategoryId for backward compatibility
+export { normalizeCategoryId };
 
 /**
  * Extended product type with header containing Gemini-calculated score
@@ -33,45 +40,36 @@ type ProductWithHeader = Product & {
 };
 
 /**
- * Get the base score for a product.
- * 
- * This function calculates/retrieves the product score using a hierarchy:
- * 
- * Hierarchy:
- * 0. HMUM Score (if category has config) - Cobb-Douglas multiplicative model
- * 1. header.overallScore (preferred - saved by Gemini)
- * 2. computed.overall (legacy scored products)
- * 3. Calculate from product.scores using standard weights
- * 4. 7.5 (final fallback)
- * 
- * @param product - The product to get the score for
- * @returns The base score (0-10), typically with 1 decimal place
- */
-/**
  * Normalize a score to 0-10 scale.
- * Scores > 10 are assumed to be on 0-100 scale and are divided by 10.
- * Scores <= 10 are assumed to be already on 0-10 scale.
- * 
- * NOTE: "Consenso da Comunidade" scores should NOT use this function
- * as they are intentionally on 0-100% scale.
- * 
- * @param score - Raw score value
- * @returns Normalized score on 0-10 scale
  */
 export function normalizeScore(score: number): number {
     if (typeof score !== 'number' || isNaN(score)) return 7.5;
-
-    // If score is > 10, assume it's on 0-100 scale and convert
     if (score > 10) {
-        return Math.round((score / 10) * 100) / 100; // e.g., 62 -> 6.2
+        return Math.round((score / 10) * 100) / 100;
     }
-
     return score;
 }
 
+/**
+ * Get the base score for a product.
+ * 
+ * Uses PARR Ponderado (via getUnifiedScore) as the primary scoring method.
+ * Falls back to HMUM, header.overallScore, or computed.overall for legacy support.
+ * 
+ * @param product - The product to get the score for
+ * @returns The base score (0-10), with 2 decimal places
+ */
 export function getBaseScore(product: Product | ScoredProduct): number {
-    // 0. NEW: Try HMUM calculation (Cobb-Douglas multiplicative model)
-    // This is the preferred method for categories with HMUM config
+    // 1. PRIMARY: Use PARR Ponderado via getUnifiedScore if product has scores
+    if (product.scores && Object.keys(product.scores).length > 0) {
+        // Check if we have c1-c10 scores (not just derived scores like 'gaming')
+        const hasCriteriaScores = Object.keys(product.scores).some(k => /^c\d+$/.test(k));
+        if (hasCriteriaScores) {
+            return getUnifiedScore(product);
+        }
+    }
+
+    // 2. FALLBACK: Try HMUM calculation (Cobb-Douglas multiplicative model)
     if (hasHMUMSupport(product)) {
         const hmumScore = getHMUMScore(product);
         if (hmumScore !== null) {
@@ -79,98 +77,24 @@ export function getBaseScore(product: Product | ScoredProduct): number {
         }
     }
 
-    // 1. Try header.overallScore (preferred - saved by Gemini)
+    // 3. FALLBACK: Try header.overallScore (saved by Gemini)
     const productWithHeader = product as ProductWithHeader;
     if (productWithHeader.header?.overallScore !== undefined) {
         return normalizeScore(productWithHeader.header.overallScore);
     }
 
-    // 2. Fallback: computed.overall (for legacy scored products)
+    // 4. FALLBACK: computed.overall (for legacy scored products)
     const scoredProduct = product as ScoredProduct;
     if (scoredProduct.computed?.overall !== undefined) {
         return normalizeScore(scoredProduct.computed.overall);
     }
 
-    // 3. Calculate from product.scores if available
-    // Uses category-specific weights for the 10 criteria
-    if (product.scores && Object.keys(product.scores).length > 0) {
-        // Category-specific weights
-        const CATEGORY_WEIGHTS: Record<string, Record<string, number>> = {
-            // TV weights (default)
-            tv: {
-                c1: 0.15,  // Custo-Benefício
-                c2: 0.08,  // Design
-                c3: 0.12,  // Processamento
-                c4: 0.18,  // Qualidade de Imagem
-                c5: 0.08,  // Áudio
-                c6: 0.10,  // Gaming
-                c7: 0.08,  // Smart TV
-                c8: 0.07,  // Conectividade
-                c9: 0.07,  // Durabilidade
-                c10: 0.07, // Suporte
-            },
-            // Robot Vacuum weights (PARR-BR)
-            'robot-vacuum': {
-                c1: 0.25,  // Navegação & Mapeamento (25%)
-                c2: 0.15,  // Software & Conectividade (15%)
-                c3: 0.15,  // Eficiência de Mop (15%)
-                c4: 0.10,  // Engenharia de Escovas (10%)
-                c5: 0.10,  // Restrições Físicas/Altura (10%)
-                c6: 0.08,  // Manutenibilidade/Peças (8%)
-                c7: 0.05,  // Autonomia/Bateria (5%)
-                c8: 0.05,  // Acústica/Ruído (5%)
-                c9: 0.05,  // Automação/Docks/Base (5%)
-                c10: 0.02, // Recursos vs Gimmicks/IA (2%)
-            },
-            // Smartphone weights (10 Dores Brasil)
-            smartphone: {
-                c1: 0.20,  // Autonomia Real (IARSE)
-                c2: 0.15,  // Estabilidade de Software (ESMI)
-                c3: 0.15,  // Custo-Benefício & Revenda (RCBIRV)
-                c4: 0.10,  // Câmera Social (QFSR)
-                c5: 0.10,  // Resiliência Física (RFCT)
-                c6: 0.08,  // Qualidade de Tela (QDAE)
-                c7: 0.08,  // Pós-Venda & Peças (EPST)
-                c8: 0.07,  // Conectividade (CPI)
-                c9: 0.05,  // Armazenamento (AGD)
-                c10: 0.02, // Recursos Úteis (IFM)
-            },
-        };
-
-        // Get weights for this category (fallback to TV)
-        const categoryId = product.categoryId || 'tv';
-        const weights = CATEGORY_WEIGHTS[categoryId] || CATEGORY_WEIGHTS.tv;
-
-        let weightedSum = 0;
-        let totalWeight = 0;
-
-        for (const [criterionId, score] of Object.entries(product.scores)) {
-            // Only process c1-c10 criteria
-            if (criterionId.match(/^c\d+$/) && typeof score === 'number') {
-                const weight = weights[criterionId] ?? 0.1;
-                // Normalize individual scores that may come as 0-100
-                const normalizedCriterionScore = normalizeScore(score);
-                weightedSum += normalizedCriterionScore * weight;
-                totalWeight += weight;
-            }
-        }
-
-        if (totalWeight > 0) {
-            // Round to 2 decimal places and normalize result
-            const result = Math.round((weightedSum / totalWeight) * 100) / 100;
-            return normalizeScore(result);
-        }
-    }
-
-    // 4. Final fallback - neutral score
+    // 5. FINAL FALLBACK - neutral score
     return 7.5;
 }
 
 /**
  * Get the score label for a product (e.g., "Muito Bom", "Excelente")
- * 
- * @param product - The product to get the label for
- * @returns The score label or a generated one based on score value
  */
 export function getScoreLabel(product: Product | ScoredProduct): string {
     const productWithHeader = product as ProductWithHeader;
@@ -178,7 +102,6 @@ export function getScoreLabel(product: Product | ScoredProduct): string {
         return productWithHeader.header.scoreLabel;
     }
 
-    // Generate label based on score
     const score = getBaseScore(product);
     if (score >= 9.0) return 'Excepcional';
     if (score >= 8.0) return 'Muito Bom';
@@ -190,9 +113,6 @@ export function getScoreLabel(product: Product | ScoredProduct): string {
 
 /**
  * Get the color class for a score badge
- * 
- * @param score - The score value (0-10)
- * @returns Tailwind CSS classes for text color
  */
 export function getScoreColorClass(score: number): string {
     if (score >= 8) return 'text-emerald-600';
@@ -202,9 +122,6 @@ export function getScoreColorClass(score: number): string {
 
 /**
  * Get the background color class for a score badge
- * 
- * @param score - The score value (0-10)
- * @returns Tailwind CSS classes for background color
  */
 export function getScoreBgClass(score: number): string {
     if (score >= 8) return 'bg-emerald-100';

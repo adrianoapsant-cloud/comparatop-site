@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { SAMPLE_TVS, SAMPLE_FRIDGES, SAMPLE_AIR_CONDITIONERS } from '@/data/products';
-import { getBaseScore } from '@/lib/getBaseScore';
+import { getUnifiedScore } from '@/lib/scoring/getUnifiedScore';
 import type { Product } from '@/types/category';
 
 /**
@@ -94,7 +94,7 @@ export async function GET(request: Request) {
 
     // Transform products for API response
     const products = matchingProducts.map(product => {
-        const hmumScore = getBaseScore(product);
+        const hmumScore = getUnifiedScore(product);
 
         return {
             id: product.id,

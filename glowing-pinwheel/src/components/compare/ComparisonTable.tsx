@@ -7,7 +7,7 @@
 
 import { formatScoreValue, formatScoreRange, formatCurrencyValue, formatCurrencyRange } from '@/lib/formatters';
 import { getConfidenceLabel } from '@/lib/metrics/confidence';
-import { getBaseScore } from '@/lib/getBaseScore';
+import { getUnifiedScore } from '@/lib/scoring/getUnifiedScore';
 import type { CompareRow, CompareCell } from './ComparisonTableClient';
 import type { Product } from '@/types/category';
 
@@ -73,8 +73,8 @@ export function buildComparisonRows(left: Product, right: Product): CompareRow[]
     const SECTION_RESUMO = 'Resumo';
 
     // Nota Contextual - calculated from scores
-    const leftScore = getBaseScore(left as any);
-    const rightScore = getBaseScore(right as any);
+    const leftScore = getUnifiedScore(left as any);
+    const rightScore = getUnifiedScore(right as any);
     addRow(
         SECTION_RESUMO,
         'Nota Contextual',

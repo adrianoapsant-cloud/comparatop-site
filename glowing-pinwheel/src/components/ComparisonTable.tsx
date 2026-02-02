@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { L10N, formatPrice } from '@/lib/l10n';
 import { getComparisonVerdict, getAttributeDifferences, type VerdictBadge, type AttributeDifference } from '@/lib/comparison';
 import type { ScoredProduct, CategoryDefinition } from '@/types/category';
-import { getBaseScore } from '@/lib/getBaseScore';
+import { getUnifiedScore } from '@/lib/scoring/getUnifiedScore';
 
 // ============================================
 // ATTRIBUTE CONFIG
@@ -128,7 +128,7 @@ export function ComparisonTable({ products, category }: ComparisonTableProps) {
     const verdict = getComparisonVerdict(productA, productB);
 
     // Rank all products by overall score
-    const rankedProducts = [...products].sort((a, b) => getBaseScore(b) - getBaseScore(a));
+    const rankedProducts = [...products].sort((a, b) => getUnifiedScore(b) - getUnifiedScore(a));
     const winnerId = rankedProducts[0].id;
 
     // Get attribute differences (using first 2 for comparison)
@@ -233,7 +233,7 @@ export function ComparisonTable({ products, category }: ComparisonTableProps) {
                                     'text-data text-3xl font-bold',
                                     winner ? 'text-amber-700' : 'text-text-primary'
                                 )}>
-                                    {getBaseScore(product).toFixed(2)}
+                                    {getUnifiedScore(product).toFixed(2)}
                                 </p>
                             </div>
                         </Link>

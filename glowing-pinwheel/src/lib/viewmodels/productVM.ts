@@ -10,7 +10,7 @@
  */
 
 import { type ProductValidated, validateProduct } from '@/lib/schemas/product';
-import { getBaseScore } from '@/lib/getBaseScore';
+import { getUnifiedScore } from '@/lib/scoring/getUnifiedScore';
 
 // ============================================
 // TYPES
@@ -227,7 +227,7 @@ function checkProductHealth(product: ProductValidated): {
 // ============================================
 
 export interface ToProductVMOptions {
-    /** Se true, calcula score via getBaseScore. Se false, usa score do cache se existir. */
+    /** Se true, calcula score via getUnifiedScore. Se false, usa score do cache se existir. */
     calculateScore?: boolean;
 }
 
@@ -259,7 +259,7 @@ export function toProductVM(
 
     // Calcular score
     const scoreValue = opts.calculateScore !== false
-        ? getBaseScore(product as never) // Cast para compatibilidade com tipo Product legado
+        ? getUnifiedScore(product as never) // Cast para compatibilidade com tipo Product legado
         : Object.values(product.scores).reduce((a, b) => a + b, 0) / 10;
 
     const scoreMetadata = getScoreMetadata(scoreValue);

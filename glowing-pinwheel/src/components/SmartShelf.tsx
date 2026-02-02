@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils';
 import type { ScoredProduct } from '@/types/category';
 import type { ShelfConfig } from '@/lib/home-personalization';
 import { getProductsForShelf } from '@/lib/home-personalization';
-import { getBaseScore } from '@/lib/getBaseScore';
+import { getUnifiedScore } from '@/lib/scoring/getUnifiedScore';
 import { useComparison } from '@/contexts/ComparisonContext';
 import { useRegion } from '@/contexts/RegionContext';
 import { calculateTco, getDefaultEnergyConsumption, formatTco } from '@/lib/tco';
@@ -173,7 +173,7 @@ function ProductCard({ product, rank, showRank, accentColor }: ProductCardProps)
                     {/* Score Badge */}
                     <div className="flex items-center gap-1 mb-3">
                         {(() => {
-                            const score = getBaseScore(p);
+                            const score = getUnifiedScore(p);
                             return (
                                 <span className={cn(
                                     'text-sm font-bold',

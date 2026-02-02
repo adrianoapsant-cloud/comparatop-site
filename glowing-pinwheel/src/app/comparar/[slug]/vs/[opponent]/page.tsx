@@ -4,7 +4,7 @@ import { ALL_PRODUCTS } from '@/data/products';
 import { buildComparisonRows } from '@/components/compare/ComparisonTable';
 import { ComparisonTableClient } from '@/components/compare/ComparisonTableClient';
 import { formatCurrencyValue } from '@/lib/formatters';
-import { getBaseScore } from '@/lib/getBaseScore';
+import { getUnifiedScore } from '@/lib/scoring/getUnifiedScore';
 
 interface PageProps {
     params: Promise<{
@@ -55,8 +55,8 @@ export default async function ComparisonPage({ params }: PageProps) {
     const rightName = rightProduct.shortName || rightProduct.name;
 
     // Calculate scores directly from raw product scores
-    const leftScore = getBaseScore(leftProduct as any);
-    const rightScore = getBaseScore(rightProduct as any);
+    const leftScore = getUnifiedScore(leftProduct as any);
+    const rightScore = getUnifiedScore(rightProduct as any);
 
     // Format prices
     const leftPrice = formatCurrencyValue(leftProduct.price);
