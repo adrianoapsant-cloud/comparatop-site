@@ -274,15 +274,50 @@ function ScoreCell({
                     <Shield className="w-3 h-3 text-blue-500" />
                     <span className="text-xs font-medium text-gray-600">{colors.label}</span>
                 </div>
+            </div>
+        </Tooltip>
+    );
+}
 
-                {/* Community rating - Show only in community view if data exists */}
-                {scoreView === 'community' && communityReviews > 0 && (
-                    <div className="flex items-center gap-1 text-xs text-gray-500">
-                        <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                        <span>{communityRating.toFixed(1)}</span>
-                        <span>{formatReviews(communityReviews)}</span>
-                    </div>
-                )}
+// Community Score Cell - Shows star rating
+function CommunityScoreCell({ product }: { product: ProductTcoData }) {
+    const communityRating = product.communityRating ?? 0;
+    const communityReviews = product.communityReviews ?? 0;
+
+    // Format review count (e.g., 12345 -> "12k")
+    const formatReviews = (count: number) => {
+        if (count >= 1000) {
+            return `${(count / 1000).toFixed(1).replace('.0', '')}k`;
+        }
+        return count > 0 ? `${count}` : '';
+    };
+
+    if (communityReviews === 0) {
+        return <span className="text-gray-300">—</span>;
+    }
+
+    return (
+        <Tooltip
+            content={
+                <div className="space-y-2">
+                    <p className="font-semibold">Consenso da Comunidade</p>
+                    <p className="text-gray-300">
+                        Média das avaliações de compradores verificados em marketplaces.
+                    </p>
+                </div>
+            }
+            position="top"
+        >
+            <div className="flex flex-col items-center gap-1 cursor-help">
+                {/* Star rating display */}
+                <div className="flex items-center gap-1">
+                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    <span className="text-lg font-bold text-gray-800">{communityRating.toFixed(1)}</span>
+                </div>
+                {/* Review count */}
+                <span className="text-xs text-gray-500">
+                    {formatReviews(communityReviews)} avaliações
+                </span>
             </div>
         </Tooltip>
     );
@@ -342,6 +377,24 @@ export function createColumns(config: ColumnConfig): ColumnDef<ProductTcoData>[]
             ),
             enableSorting: true,
         },
+
+        // Column: Community Score (only visible in community view)
+        ...(scoreView === 'community' ? [{
+            id: 'communityScore',
+            accessorFn: (row: ProductTcoData) => row.communityRating ?? 0,
+            header: ({ column }: { column: { toggleSorting: (desc: boolean) => void; getIsSorted: () => string | boolean } }) => (
+                <button
+                    className="flex items-center gap-1 font-semibold text-yellow-700 hover:text-yellow-900"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+                >
+                    <Star className="w-4 h-4 text-yellow-500" />
+                    Comunidade
+                    <ArrowUpDown className="w-4 h-4 text-yellow-400" />
+                </button>
+            ),
+            cell: ({ row }: { row: { original: ProductTcoData } }) => <CommunityScoreCell product={row.original} />,
+            enableSorting: true,
+        }] as ColumnDef<ProductTcoData>[] : []),
 
         // Column: Match (only shows value when filter is active)
         {
