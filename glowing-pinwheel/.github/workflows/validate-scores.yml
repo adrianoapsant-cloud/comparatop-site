@@ -1,0 +1,39 @@
+name: Scoring Data Integrity
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'src/data/products*.ts'
+      - 'src/lib/scoring/category-weights.ts'
+      - 'scripts/validate-scores.ts'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/data/products*.ts'
+      - 'src/lib/scoring/category-weights.ts'
+      - 'scripts/validate-scores.ts'
+
+jobs:
+  validate-scores:
+    name: Validate Scoring Data
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate Scores
+        run: npm run validate:scores
+
+      - name: TypeScript Check (scoring files)
+        run: npx tsc --noEmit --skipLibCheck src/lib/scoring/*.ts

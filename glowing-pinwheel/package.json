@@ -42,8 +42,9 @@
     "new:category": "npx tsx scripts/new-category-kit.ts",
     "qa:all": "npx tsx scripts/qa-all.ts",
     "gate:qa": "cross-env STRICT_SPECS=true npm run qa:all",
+    "validate:scores": "npx tsx scripts/validate-scores.ts",
     "typecheck": "npx tsc --noEmit --skipLibCheck",
-    "gate:full": "npm run gate:qa && npm run typecheck",
+    "gate:full": "npm run validate:scores && npm run gate:qa && npm run typecheck",
     "gate": "npm run gate:qa",
     "test:e2e": "npx playwright test"
   },
