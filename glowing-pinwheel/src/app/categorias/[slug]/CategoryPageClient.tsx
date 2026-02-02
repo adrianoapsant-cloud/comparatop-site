@@ -20,6 +20,13 @@ import { MethodologyCard } from '@/components/MethodologyCard';
 import { EditorialWinners } from '@/components/EditorialWinners';
 import { CategoryFilters, FilterState } from '@/components/CategoryFilters';
 import { MatchFilterRibbon, useMatchFilters } from '@/components/MatchFilterRibbon';
+import {
+    FloatingActionBar,
+    AdvancedSortSheet,
+    getSortLabel,
+    isCustomSort,
+    type ActiveSortMetric
+} from '@/components/tco/crystalline';
 
 import { scoreProduct } from '@/lib/scoring';
 import { calculateMatchScore, getCriteriaForCategory } from '@/core/match';
@@ -132,12 +139,16 @@ export default function CategoryPageClient({
     const category = getCategoryById(categoryId);
 
     // State
-    const [sortBy, setSortBy] = useState<'quality' | 'price' | 'value'>('quality');
+    const [sortBy, setSortBy] = useState<ActiveSortMetric>('score');
     const [filters, setFilters] = useState<FilterState>({
         priceRange: [0, 20000],
         brands: [],
         dynamicFilters: {},
     });
+
+    // Mobile Bottom Sheet states
+    const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+    const [mobileSortOpen, setMobileSortOpen] = useState(false);
 
 
 
@@ -185,16 +196,34 @@ export default function CategoryPageClient({
         });
     }, [scoredProducts, filters]);
 
-    // Sort products by overall score (highest first by default)
+    // Sort products by selected metric
     const sortedProducts = useMemo(() => {
         return [...filteredProducts].sort((a, b) => {
             switch (sortBy) {
                 case 'price':
+                    // Lowest price first
                     return a.price - b.price;
-                case 'value':
-                    return (b.computed?.vs ?? 0) - (a.computed?.vs ?? 0);
-                case 'quality':
+                case 'tco':
+                    // Sort by TCO total (lower is better) - fallback to price * 1.5 if no TCO data
+                    const tcoA = a.tcoData?.totalCost5y ?? a.price * 1.5;
+                    const tcoB = b.tcoData?.totalCost5y ?? b.price * 1.5;
+                    return tcoA - tcoB;
+                case 'score':
+                    // Technical score (higher is better)
+                    return (b.computed?.overall ?? 0) - (a.computed?.overall ?? 0);
+                case 'communityScore':
+                    // Community consensus score (higher is better)
+                    const commA = a.voc?.consensusScore ?? a.voc?.averageRating ?? 0;
+                    const commB = b.voc?.consensusScore ?? b.voc?.averageRating ?? 0;
+                    return commB - commA;
+                case 'risk':
+                    // Lower price-per-point is lower risk (use as proxy)
+                    return (a.computed?.pricePerPoint ?? 999) - (b.computed?.pricePerPoint ?? 999);
+                case 'match':
+                    // Match score - fallback to overall if no match data
+                    return (b.computed?.overall ?? 0) - (a.computed?.overall ?? 0);
                 default:
+                    // Default to technical score
                     return (b.computed?.overall ?? 0) - (a.computed?.overall ?? 0);
             }
         });
@@ -376,7 +405,7 @@ export default function CategoryPageClient({
 
 
             {/* Main Content */}
-            <div className="max-w-7xl mx-auto px-4 pb-24">
+            <div className="max-w-7xl mx-auto px-4 pb-32 lg:pb-12">
                 <div className="flex gap-8">
                     {/* Filters Sidebar */}
                     <CategoryFilters
@@ -386,6 +415,8 @@ export default function CategoryPageClient({
                         filters={filters}
                         onFilterChange={setFilters}
                         resultCount={filteredProducts.length}
+                        mobileOpen={mobileFilterOpen}
+                        onMobileOpenChange={setMobileFilterOpen}
                     />
 
                     {/* Main Column */}
@@ -431,6 +462,24 @@ export default function CategoryPageClient({
                     </main>
                 </div>
             </div>
+
+            {/* ================================================================== */}
+            {/* MOBILE: Floating Action Bar + Advanced Sort Sheet                  */}
+            {/* ================================================================== */}
+            <FloatingActionBar
+                onFilterClick={() => setMobileFilterOpen(true)}
+                onSortClick={() => setMobileSortOpen(true)}
+                filterCount={filters.brands.length + Object.values(filters.dynamicFilters).flat().length}
+                sortLabel={getSortLabel(sortBy)}
+                isCustomSort={isCustomSort(sortBy)}
+            />
+
+            <AdvancedSortSheet
+                isOpen={mobileSortOpen}
+                onClose={() => setMobileSortOpen(false)}
+                activeSort={sortBy}
+                onSortChange={setSortBy}
+            />
         </div>
     );
 }

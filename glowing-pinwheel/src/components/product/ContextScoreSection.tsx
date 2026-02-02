@@ -14,7 +14,7 @@ import { useState, useMemo } from 'react';
 import { ContextScoreExplanation } from './ContextScoreExplanation';
 import {
     MutualExclusionError,
-} from '@/lib/scoring/hmum-v4-geo-restrictive';
+} from '@/lib/scoring/context-geo-restrictive';
 // Use unified processor which preserves baseScore from product JSON
 import {
     calculateUnifiedScore,

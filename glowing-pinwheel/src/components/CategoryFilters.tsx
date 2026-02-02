@@ -33,6 +33,10 @@ interface CategoryFiltersProps {
     resultCount: number;
     /** Custom class */
     className?: string;
+    /** Controlled mobile drawer open state (optional) */
+    mobileOpen?: boolean;
+    /** Controlled mobile drawer toggle (optional) */
+    onMobileOpenChange?: (open: boolean) => void;
 }
 
 // ============================================
@@ -56,45 +60,51 @@ function MobileFilterDrawer({
         <>
             {/* Backdrop */}
             <div
-                className="fixed inset-0 bg-black/40 z-50 md:hidden"
+                className="fixed inset-0 bg-black/40 z-50 lg:hidden"
                 onClick={onClose}
             />
 
-            {/* Drawer */}
+            {/* Bottom Sheet (slides up from bottom) */}
             <div className={cn(
-                'fixed inset-y-0 left-0 w-[85%] max-w-sm z-50 md:hidden',
-                'bg-white shadow-2xl',
-                'animate-in slide-in-from-left duration-300'
+                'fixed inset-x-0 bottom-0 top-16 z-50 lg:hidden',
+                'bg-white rounded-t-3xl shadow-2xl',
+                'flex flex-col',
+                'animate-in slide-in-from-bottom duration-300'
             )}>
+                {/* Handle */}
+                <div className="flex justify-center pt-3 pb-1 flex-shrink-0">
+                    <div className="w-10 h-1 bg-slate-300 rounded-full" />
+                </div>
+
                 {/* Header */}
-                <div className="flex items-center justify-between p-4 border-b border-gray-200">
+                <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 flex-shrink-0">
                     <h2 className="font-display font-semibold text-lg text-text-primary">
                         Filtros
                     </h2>
                     <button
                         onClick={onClose}
-                        className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                        className="p-2 rounded-full hover:bg-slate-100 transition-colors"
                     >
                         <X size={20} className="text-text-secondary" />
                     </button>
                 </div>
 
-                {/* Content */}
-                <div className="p-4 overflow-y-auto max-h-[calc(100vh-140px)]">
+                {/* Content - Scrollable */}
+                <div className="flex-1 p-4 overflow-y-auto">
                     {children}
                 </div>
 
-                {/* Footer */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 bg-white">
+                {/* Sticky Footer */}
+                <div className="flex-shrink-0 p-4 border-t border-slate-100 bg-white">
                     <button
                         onClick={onClose}
                         className={cn(
-                            'w-full py-3 rounded-xl',
-                            'bg-brand-core text-white font-semibold',
-                            'hover:bg-brand-core/90 transition-colors'
+                            'w-full py-4 rounded-xl',
+                            'bg-indigo-600 text-white font-semibold text-base',
+                            'hover:bg-indigo-700 active:bg-indigo-800 transition-colors'
                         )}
                     >
-                        Ver {resultCount} resultados
+                        Ver {resultCount} {resultCount === 1 ? 'produto' : 'produtos'}
                     </button>
                 </div>
             </div>
@@ -154,8 +164,20 @@ export function CategoryFilters({
     onFilterChange,
     resultCount,
     className,
+    mobileOpen: externalMobileOpen,
+    onMobileOpenChange,
 }: CategoryFiltersProps) {
-    const [mobileOpen, setMobileOpen] = useState(false);
+    const [internalMobileOpen, setInternalMobileOpen] = useState(false);
+
+    // Use external state if provided, otherwise use internal
+    const mobileOpen = externalMobileOpen !== undefined ? externalMobileOpen : internalMobileOpen;
+    const setMobileOpen = (open: boolean) => {
+        if (onMobileOpenChange) {
+            onMobileOpenChange(open);
+        } else {
+            setInternalMobileOpen(open);
+        }
+    };
 
     const handlePriceChange = (type: 'min' | 'max', value: number) => {
         const newRange: [number, number] = [...filters.priceRange];
@@ -305,27 +327,29 @@ export function CategoryFilters({
 
     return (
         <>
-            {/* Mobile Filter Button */}
-            <div className="md:hidden mb-4">
-                <button
-                    onClick={() => setMobileOpen(true)}
-                    className={cn(
-                        'w-full py-3 px-4 rounded-xl',
-                        'bg-white border border-gray-200',
-                        'flex items-center justify-center gap-2',
-                        'font-body font-medium text-text-primary',
-                        'hover:bg-gray-50 transition-colors'
-                    )}
-                >
-                    <Filter size={18} />
-                    Filtrar
-                    {hasActiveFilters && (
-                        <span className="ml-1 px-1.5 py-0.5 bg-brand-core text-white text-[10px] font-bold rounded-full">
-                            {filters.brands.length + Object.values(filters.dynamicFilters).flat().length}
-                        </span>
-                    )}
-                </button>
-            </div>
+            {/* Mobile Filter Button - Hidden when controlled externally (FloatingActionBar handles it) */}
+            {!onMobileOpenChange && (
+                <div className="lg:hidden mb-4">
+                    <button
+                        onClick={() => setMobileOpen(true)}
+                        className={cn(
+                            'w-full py-3 px-4 rounded-xl',
+                            'bg-white border border-gray-200',
+                            'flex items-center justify-center gap-2',
+                            'font-body font-medium text-text-primary',
+                            'hover:bg-gray-50 transition-colors'
+                        )}
+                    >
+                        <Filter size={18} />
+                        Filtrar
+                        {hasActiveFilters && (
+                            <span className="ml-1 px-1.5 py-0.5 bg-brand-core text-white text-[10px] font-bold rounded-full">
+                                {filters.brands.length + Object.values(filters.dynamicFilters).flat().length}
+                            </span>
+                        )}
+                    </button>
+                </div>
+            )}
 
             {/* Mobile Drawer */}
             <MobileFilterDrawer

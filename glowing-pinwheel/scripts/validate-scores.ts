@@ -20,7 +20,7 @@
  *   npm run validate:scores
  */
 
-import { ALL_PRODUCTS } from '../src/data/products';
+import { ALL_PRODUCTS } from '../src/data/products.index';
 import {
     DEFAULT_WEIGHTS,
     CATEGORY_WEIGHTS,

@@ -17,7 +17,7 @@ import { getUnifiedScore } from '@/lib/scoring/getUnifiedScore';
 import {
     checkMutualExclusion,
     ROBOT_VACUUM_PROFILES_V4
-} from '@/lib/scoring/hmum-v4-geo-restrictive';
+} from '@/lib/scoring/context-geo-restrictive';
 
 // ============================================
 // TYPES

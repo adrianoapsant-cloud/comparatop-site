@@ -113,6 +113,7 @@ export const CATEGORY_ALIASES: Record<string, string> = {
 
     // Robot Vacuum variants -> robot-vacuum
     'robo-aspirador': 'robot-vacuum',
+    'robo-aspiradores': 'robot-vacuum',  // URL slug usado em /categorias/
     'aspirador-robo': 'robot-vacuum',
     'robo_aspirador': 'robot-vacuum',
     'robovac': 'robot-vacuum',

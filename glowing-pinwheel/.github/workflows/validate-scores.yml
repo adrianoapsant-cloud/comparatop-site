@@ -5,18 +5,22 @@ on:
     branches: [main, develop]
     paths:
       - 'src/data/products*.ts'
-      - 'src/lib/scoring/category-weights.ts'
+      - 'src/lib/scoring/**'
+      - 'scoring-baselines/**'
       - 'scripts/validate-scores.ts'
+      - 'scripts/compare-*.ts'
   pull_request:
     branches: [main]
     paths:
       - 'src/data/products*.ts'
-      - 'src/lib/scoring/category-weights.ts'
+      - 'src/lib/scoring/**'
+      - 'scoring-baselines/**'
       - 'scripts/validate-scores.ts'
+      - 'scripts/compare-*.ts'
 
 jobs:
-  validate-scores:
-    name: Validate Scoring Data
+  validate-scoring:
+    name: Validate Scoring Integrity
     runs-on: ubuntu-latest
     
     steps:
@@ -32,8 +36,29 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate Scores
+      # ========================================
+      # SCORING INTEGRITY CHECKS
+      # ========================================
+      
+      - name: '📊 Validate Scores (c1-c10 + weights)'
         run: npm run validate:scores
 
-      - name: TypeScript Check (scoring files)
-        run: npx tsc --noEmit --skipLibCheck src/lib/scoring/*.ts
+      - name: '🥇 Compare Golden File (unifiedScore)'
+        run: npm run compare:golden
+
+      - name: '📈 Compare Score Baseline (baseScore)'
+        run: npm run compare:score-baseline
+
+      - name: '✅ TypeScript Check (scoring files)'
+        run: npm run typecheck
+
+# ========================================
+# POLICY REMINDER (for contributors)
+# ========================================
+# 
+# When changing DEFAULT_WEIGHTS or CATEGORY_WEIGHTS:
+#   1. Bump WEIGHTS_VERSION in src/lib/scoring/category-weights.ts
+#   2. Run: npm run generate:golden
+#   3. Commit the new scoring-baselines/unifiedScore-vN.json
+#
+# Never run generate:* scripts in CI - they should only run locally.

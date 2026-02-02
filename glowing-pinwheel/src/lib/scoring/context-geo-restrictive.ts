@@ -1,8 +1,8 @@
 /**
- * @file hmum-v4-geo-restrictive.ts
- * @description HMUM v4.0 - Hybrid Geo-Restrictive Scoring Engine
+ * @file context-geo-restrictive.ts
+ * @description Contextual Scoring Engine v4.0 - Geometric Mean + Hard Filters
  * 
- * Evolution from v3.0 (MAX-based) to v4.0 (Geometric Mean + Hard Filters).
+ * Evolution from simpler weighted averages to context-aware scoring.
  * 
  * Key Changes:
  * - Phase 1: Hard Filters (Mutual Exclusion) to eliminate invalid combinations

@@ -26,6 +26,9 @@ import type { ProductTcoData, UsagePersona } from '@/types/tco';
 import type { ScoreViewMode } from '@/hooks/use-url-state';
 import { createColumns } from './columns';
 import { MutantCard } from './mutant-card';
+import { ZonedRow } from './zoned-row';
+import { ZonedHeader } from './zoned-header';
+import { ProductRowCard, HybridTableHeader, MobileSortChips, type ActiveSortMetric } from '../crystalline';
 
 // ============================================
 // TYPES
@@ -107,6 +110,7 @@ export function DataTable({
     // Table state
     const [sorting, setSorting] = useState<SortingState>([]);
     const [globalFilter, setGlobalFilter] = useState('');
+    const [activeSort, setActiveSort] = useState<ActiveSortMetric>('price');
 
     // Create columns with current config
     const columns = useMemo(
@@ -196,105 +200,60 @@ export function DataTable({
             )}
 
             {/* ================================================================== */}
-            {/* DESKTOP VIEW: Traditional Table (hidden on mobile)                */}
+            {/* DESKTOP VIEW: Hybrid Table with Sticky Header                     */}
             {/* ================================================================== */}
             {filteredRows.length > 0 && (
                 <div className="hidden md:block">
-                    <div className="rounded-xl border border-gray-200 overflow-hidden bg-white">
-                        <table className="w-full">
-                            {/* Table Header */}
-                            <thead className="bg-gray-50 border-b border-gray-200">
-                                {table.getHeaderGroups().map((headerGroup) => (
-                                    <tr key={headerGroup.id}>
-                                        {headerGroup.headers.map((header) => (
-                                            <th
-                                                key={header.id}
-                                                className={cn(
-                                                    'px-4 py-3 text-left text-sm',
-                                                    header.column.getCanSort() && 'cursor-pointer select-none'
-                                                )}
-                                            >
-                                                {header.isPlaceholder
-                                                    ? null
-                                                    : flexRender(
-                                                        header.column.columnDef.header,
-                                                        header.getContext()
-                                                    )}
-                                            </th>
-                                        ))}
-                                    </tr>
-                                ))}
-                            </thead>
+                    {/* Container with glassmorphism backdrop */}
+                    <div className="bg-white/60 backdrop-blur-sm rounded-2xl border border-white/40 shadow-lg shadow-indigo-500/5 overflow-hidden">
+                        {/* Sticky Header with Sort Dropdowns */}
+                        <HybridTableHeader
+                            table={table}
+                            scoreView={scoreView}
+                            activeSort={activeSort}
+                            onActiveSortChange={setActiveSort}
+                        />
 
-                            {/* Table Body */}
-                            <tbody className="divide-y divide-gray-100">
-                                {filteredRows.map((row) => (
-                                    <tr
-                                        key={row.id}
-                                        className="hover:bg-gray-50 transition-colors"
-                                    >
-                                        {row.getVisibleCells().map((cell) => (
-                                            <td key={cell.id} className="px-4 py-3">
-                                                {flexRender(
-                                                    cell.column.columnDef.cell,
-                                                    cell.getContext()
-                                                )}
-                                            </td>
-                                        ))}
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                        {/* Cards Container */}
+                        <div className="p-2 space-y-2 bg-slate-50/50">
+                            {filteredRows.map((row) => (
+                                <ProductRowCard
+                                    key={row.id}
+                                    row={row}
+                                    scoreView={scoreView}
+                                    persona={persona}
+                                    years={years}
+                                    activeSort={activeSort}
+                                />
+                            ))}
+                        </div>
                     </div>
                 </div>
             )}
 
             {/* ================================================================== */}
-            {/* MOBILE VIEW: Card Grid (hidden on desktop)                        */}
+            {/* MOBILE VIEW: Compact Cards with Sort Chips (hidden on desktop)     */}
             {/* ================================================================== */}
             {filteredRows.length > 0 && (
                 <div className="md:hidden">
-                    {/* Mobile Sort Controls */}
-                    <div className="flex items-center gap-2 mb-4 overflow-x-auto pb-2">
-                        <span className="text-xs font-medium text-gray-500 flex-shrink-0">
-                            Ordenar:
-                        </span>
-                        {[
-                            { id: 'price', label: 'Preço' },
-                            { id: 'tco', label: 'Custo Total' },
-                            { id: 'risk', label: 'Risco' },
-                        ].map((option) => {
-                            const column = table.getColumn(option.id);
-                            const isSorted = column?.getIsSorted();
+                    {/* Mobile Sort Chips */}
+                    <MobileSortChips
+                        table={table}
+                        activeSort={activeSort}
+                        onActiveSortChange={setActiveSort}
+                        className="mb-4"
+                    />
 
-                            return (
-                                <button
-                                    key={option.id}
-                                    onClick={() => column?.toggleSorting(isSorted === 'asc')}
-                                    className={cn(
-                                        'flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium',
-                                        'transition-colors flex-shrink-0',
-                                        isSorted
-                                            ? 'bg-blue-100 text-blue-700'
-                                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                                    )}
-                                >
-                                    {option.label}
-                                    <ArrowUpDown className="w-3 h-3" />
-                                </button>
-                            );
-                        })}
-                    </div>
-
-                    {/* Cards Grid */}
-                    <div className="space-y-4">
+                    {/* Cards Stack */}
+                    <div className="space-y-3">
                         {filteredRows.map((row) => (
-                            <MutantCard
+                            <ProductRowCard
                                 key={row.id}
-                                product={row.original}
+                                row={row}
+                                scoreView={scoreView}
                                 persona={persona}
                                 years={years}
-                                onViewDetails={onViewDetails}
+                                activeSort={activeSort}
                             />
                         ))}
                     </div>

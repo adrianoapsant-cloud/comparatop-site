@@ -467,7 +467,7 @@ export function TcoEngineSection({
                     </div>
 
                     {/* Product Table with Score Column */}
-                    <div className="bg-white rounded-xl border border-gray-200 p-4">
+                    <div className="bg-slate-50 rounded-xl p-4">
                         <h4 className="text-sm font-semibold text-gray-700 mb-4">
                             Catálogo Completo - {tcoProducts.length} produtos
                         </h4>
@@ -538,8 +538,9 @@ export function TcoEngineSection({
                         categorySlug={categorySlug}
                     />
                 </div>
-            )}
-        </section>
+            )
+            }
+        </section >
     );
 }
 

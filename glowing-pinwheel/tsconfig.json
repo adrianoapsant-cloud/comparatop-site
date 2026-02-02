@@ -42,6 +42,7 @@
     "roundtrips-v6-poc",
     "scripts",
     "backup_pre_audit_2026-01-05",
+    "deprecated",
     "**/__tests__"
   ]
 }

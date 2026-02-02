@@ -15,7 +15,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { ALL_PRODUCTS } from '../src/data/products';
+import { ALL_PRODUCTS } from '../src/data/products.index';
 import { getBaseScore } from '../src/lib/getBaseScore';
 import { normalizeCategoryId } from '../src/lib/scoring/getUnifiedScore';
 
