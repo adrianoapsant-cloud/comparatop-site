@@ -134,9 +134,9 @@ export function generateAmazonPDPLink(asin: string, affiliateTag?: string): stri
     // URL Limpa sem parâmetros de sessão
     let url = `${baseUrl}/${asin}`;
 
-    if (affiliateTag) {
-        url += `?tag=${affiliateTag}`;
-    }
+    // Always include affiliate tag — 'aferio-20' is the default (REGRA DE OURO)
+    const tag = affiliateTag || 'aferio-20';
+    url += `?tag=${tag}`;
 
     // Enforce variation selection (th=1) to ensure main product view
     if (!url.includes('th=1')) {
@@ -228,9 +228,9 @@ export function generateAmazonSearchLink(keyword: string, affiliateTag?: string,
         'rh': refinementHash,   // rh = refinement hash com filtros combinados
     });
 
-    if (affiliateTag) {
-        params.set('tag', affiliateTag);
-    }
+    // Always include affiliate tag — 'aferio-20' is the default (REGRA DE OURO: nunca gerar link sem tag)
+    const tag = affiliateTag || 'aferio-20';
+    params.set('tag', tag);
 
     if (subid) {
         params.set('subid', subid);
@@ -278,63 +278,29 @@ export function generateMercadoLivreDirectLink(productId: string, affiliateId?: 
 }
 
 /**
- * Gera URL de busca do Mercado Livre com filtros de qualidade
+ * Gera URL de busca do Mercado Livre com affiliate hash OBRIGATÓRIO.
  * 
- * Estratégia de proteção Anti-Golpe:
- * - Filtra por FRETE GRÁTIS (indica vendedores profissionais com Full)
- * - Prioriza LOJAS OFICIAIS (autenticidade garantida pelo ML)
- * - Apenas produtos NOVOS (exclui usados/recondicionados)
+ * FORMATO CORRETO (Hash Strategy — ML Social):
+ * https://lista.mercadolivre.com.br/{slug}#matt_tool=21144041&matt_word=aa20250829125621
  * 
- * @param keyword - Termo de busca
- * @param affiliateId - ID de afiliado do Mercado Livre
- * @param subid - Tracking ID para analytics (ex: 'price', 'parcela')
- * @returns URL de busca filtrada
+ * ATENÇÃO: ML NÃO usa query params para tracking de afiliado.
+ * O tracking DEVE estar no fragment (#), não nos params (?).
  * 
- * @example
- * generateMercadoLivreSearchLink('Samsung QN90C', 'comparatop', 'parcela')
- * // => "https://www.mercadolivre.com.br/jm/search?...&subid=parcela"
+ * @param keyword - Termo de busca (será slugificado com hífens)
+ * @returns URL com hash de afiliado
  */
 export function generateMercadoLivreSearchLink(
     keyword: string,
-    affiliateId?: string,
-    subid?: string,
-    options: { strict?: boolean } = { strict: true }
+    _affiliateId?: string,
+    _subid?: string,
+    _options?: { strict?: boolean }
 ): string {
-    const baseUrl = 'https://www.mercadolivre.com.br/jm/search';
-
-    const params = new URLSearchParams({
-        // as_word: Termo de busca (advanced search word)
-        'as_word': keyword,
-    });
-
-    // Filtros Anti-Golpe (apenas se strict mode estiver ativo)
-    if (options.strict) {
-        // shipping_cost: 'free' = Apenas produtos com Frete Grátis (indicador de vendedor Full)
-        params.set('shipping_cost', MERCADOLIVRE_FILTERS.SHIPPING_FREE);
-
-        // ITEM_CONDITION: 2230284 = Apenas produtos NOVOS
-        params.set('ITEM_CONDITION', MERCADOLIVRE_FILTERS.CONDITION_NEW);
+    if (!keyword || keyword.trim() === '') {
+        return 'https://lista.mercadolivre.com.br/';
     }
-
-    // Always include matt_tool for affiliate tracking
-    const toolId = affiliateId || ML_SOCIAL_CONFIG.MATT_TOOL;
-    if (toolId) {
-        // matt_tool: Parâmetro de tracking do programa de afiliados
-        params.set('matt_tool', toolId);
-    }
-
-    // Enforce global tracking_id
-    if (ML_SOCIAL_CONFIG.MATT_WORD) {
-        params.set('tracking_id', ML_SOCIAL_CONFIG.MATT_WORD);
-    }
-
-    if (subid) {
-        params.set('subid', subid);
-    }
-
-    // Se strict for true, adiciona filtro de Loja Oficial
-    const suffix = options.strict ? '&_LojaOficial=1' : '';
-    return `${baseUrl}?${params.toString()}${suffix}`;
+    // ML search URL usa hífens entre palavras no path
+    const slug = keyword.trim().toLowerCase().replace(/\s+/g, '-');
+    return `https://lista.mercadolivre.com.br/${slug}#matt_tool=${ML_SOCIAL_CONFIG.MATT_TOOL}&matt_word=${ML_SOCIAL_CONFIG.MATT_WORD}`;
 }
 
 /**

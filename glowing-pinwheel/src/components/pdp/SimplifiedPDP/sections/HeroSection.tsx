@@ -13,7 +13,7 @@ import { getUnifiedScore } from '@/lib/scoring/getUnifiedScore';
 import { CuriositySandwichWidget } from '@/components/pdp/CuriositySandwichWidget';
 import { ConfidenceBand, formatScoreRange, formatScoreValue } from '@/components/ui/ConfidenceBand';
 import { InfoTooltip } from '@/components/ui/InfoTooltip';
-import { generateMercadoLivreSearchLink, generateShopeeSearchLink, generateMagaluSearchLink } from '@/lib/safe-links';
+import { generateAmazonSearchLink, generateAmazonPDPLink, generateMercadoLivreSearchLink, generateShopeeSearchLink, generateMagaluSearchLink } from '@/lib/safe-links';
 
 interface HeroSectionProps {
     data: PDPDataContract;
@@ -281,83 +281,55 @@ export function HeroSection({ data }: HeroSectionProps) {
                         </div>
                     )}
 
-                    {/* Purchase Block - 1 Primary CTA + Other Stores */}
-                    <div className="mt-6 space-y-3">
-                        {/* Primary CTA - Best Offer (first/Amazon) */}
+                    {/* Purchase Block - CRO Optimized Marketplace Buttons */}
+                    <div className="mt-6 space-y-2.5">
+                        {/* Amazon - Primary CTA */}
                         <a
-                            href={(() => {
-                                const offer = product.offers?.[0];
-                                const url = offer?.affiliateUrl || offer?.url;
-                                const isPlaceholder = url?.includes('B0XXXXXXXX');
-
-                                // If URL is missing OR is a placeholder, use search fallback
-                                if (!url || isPlaceholder) {
-                                    return `https://www.amazon.com.br/s?k=${encodeURIComponent(product.name)}&tag=${process.env.NEXT_PUBLIC_AMAZON_TAG || 'aferio-20'}`;
-                                }
-
-                                return url;
-                            })()}
+                            href={getStoreUrl(product.offers, 'amazon', generateAmazonSearchLink(product.shortName || product.name))}
                             target="_blank"
                             rel="noopener noreferrer sponsored"
-                            className="ct-btn ct-btn-primary w-full"
+                            className="flex items-center justify-center gap-2 w-full px-5 py-3.5 rounded-xl text-base font-bold text-white transition-all hover:-translate-y-0.5 active:translate-y-0"
+                            style={{ background: 'linear-gradient(180deg, #FF9900 0%, #E88A00 100%)', boxShadow: '0 3px 8px rgba(255,153,0,0.4)' }}
                         >
-                            Ver melhor oferta ↗
+                            Ver na Amazon →
                         </a>
 
-                        {/* Secondary - Other Stores (native details/summary) */}
-                        <details className="group">
-                            <summary className="ct-btn ct-btn-secondary ct-summary-btn w-full">
-                                Ver em outras lojas
-                                <svg
-                                    className="w-4 h-4 transition-transform group-open:rotate-180"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </summary>
-                            <div className="ct-card-soft p-3 mt-2 space-y-2">
-                                {/* Mercado Livre */}
-                                <a
-                                    href={getStoreUrl(product.offers, 'mercado_livre', generateMercadoLivreSearchLink(product.shortName || product.name))}
-                                    target="_blank"
-                                    rel="noopener noreferrer sponsored"
-                                    className="ct-link flex items-center justify-between py-2 px-3 hover:bg-ct-surface rounded-lg transition-colors"
-                                >
-                                    <span>Mercado Livre</span>
-                                    <span className="text-xs text-ct-muted">Abrir ↗</span>
-                                </a>
-                                {/* Magazine Luiza */}
-                                <a
-                                    href={getStoreUrl(product.offers, 'magalu', generateMagaluSearchLink(product.shortName || product.name))}
-                                    target="_blank"
-                                    rel="noopener noreferrer sponsored"
-                                    className="ct-link flex items-center justify-between py-2 px-3 hover:bg-ct-surface rounded-lg transition-colors"
-                                >
-                                    <span>Magazine Luiza</span>
-                                    <span className="text-xs text-ct-muted">Abrir ↗</span>
-                                </a>
-                                {/* Shopee */}
-                                <a
-                                    href={generateShopeeSearchLink(product.shortName || product.name)}
-                                    target="_blank"
-                                    rel="noopener noreferrer sponsored"
-                                    className="ct-link flex items-center justify-between py-2 px-3 hover:bg-ct-surface rounded-lg transition-colors"
-                                >
-                                    <span>Shopee</span>
-                                    <span className="text-xs text-ct-muted">Abrir ↗</span>
-                                </a>
-                            </div>
-                        </details>
+                        {/* Mercado Livre */}
+                        <a
+                            href={getStoreUrl(product.offers, 'mercado_livre', generateMercadoLivreSearchLink(product.shortName || product.name))}
+                            target="_blank"
+                            rel="noopener noreferrer sponsored"
+                            className="flex items-center justify-center gap-2 w-full px-5 py-3.5 rounded-xl text-base font-bold transition-all hover:-translate-y-0.5 active:translate-y-0"
+                            style={{ background: 'linear-gradient(180deg, #FFE600 0%, #E6CF00 100%)', color: '#333', boxShadow: '0 3px 8px rgba(255,230,0,0.35)' }}
+                        >
+                            Conferir no Mercado Livre →
+                        </a>
 
-                        {/* Affiliate Disclosure - Microcopy */}
+                        {/* Magalu + Shopee side by side */}
+                        <div className="grid grid-cols-2 gap-2.5">
+                            <a
+                                href={getStoreUrl(product.offers, 'magalu', generateMagaluSearchLink(product.shortName || product.name))}
+                                target="_blank"
+                                rel="noopener noreferrer sponsored"
+                                className="flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl text-sm font-bold text-white transition-all hover:-translate-y-0.5 active:translate-y-0"
+                                style={{ background: 'linear-gradient(180deg, #0086FF 0%, #0070D4 100%)', boxShadow: '0 2px 6px rgba(0,134,255,0.35)' }}
+                            >
+                                Ver na Magalu
+                            </a>
+                            <a
+                                href={generateShopeeSearchLink(product.shortName || product.name)}
+                                target="_blank"
+                                rel="noopener noreferrer sponsored"
+                                className="flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl text-sm font-bold text-white transition-all hover:-translate-y-0.5 active:translate-y-0"
+                                style={{ background: 'linear-gradient(180deg, #EE4D2D 0%, #D44426 100%)', boxShadow: '0 2px 6px rgba(238,77,45,0.35)' }}
+                            >
+                                Ver na Shopee
+                            </a>
+                        </div>
+
+                        {/* Affiliate Disclosure */}
                         <p className="ct-affiliate-note text-center">
                             Links de afiliado — você não paga nada a mais.
-                        </p>
-                        {/* Authority Microcopy */}
-                        <p className="ct-affiliate-note text-center">
-                            Nota e TCO não mudam por loja — avaliamos o produto, não o vendedor.
                         </p>
                     </div>
                 </div>

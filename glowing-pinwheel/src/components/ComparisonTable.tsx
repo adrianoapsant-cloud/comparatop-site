@@ -2,12 +2,19 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Trophy, Medal, Check, X, ChevronDown, ChevronUp, Eye, EyeOff } from 'lucide-react';
+import { Trophy, Medal, Check, X, ChevronDown, ChevronUp, Eye, EyeOff, ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { L10N, formatPrice } from '@/lib/l10n';
 import { getComparisonVerdict, getAttributeDifferences, type VerdictBadge, type AttributeDifference } from '@/lib/comparison';
 import type { ScoredProduct, CategoryDefinition } from '@/types/category';
 import { getUnifiedScore } from '@/lib/scoring/getUnifiedScore';
+import {
+    generateAmazonPDPLink,
+    generateAmazonSearchLink,
+    generateMercadoLivreSearchLink,
+    generateMagaluSearchLink,
+    generateShopeeSearchLink,
+} from '@/lib/safe-links';
 
 // ============================================
 // ATTRIBUTE CONFIG
@@ -112,6 +119,14 @@ export function ComparisonTable({ products, category }: ComparisonTableProps) {
     const [showOnlyDifferences, setShowOnlyDifferences] = useState(true);
     const [showDetails, setShowDetails] = useState(false);
 
+    // Helper: Extract affiliate URL from product.offers by storeSlug, fallback to search
+    const getOfferUrl = (product: ScoredProduct, storeSlug: string): string | undefined => {
+        const offer = (product as any).offers?.find(
+            (o: any) => o.storeSlug === storeSlug
+        );
+        return offer?.affiliateUrl || offer?.url;
+    };
+
     if (products.length < 2) {
         return (
             <div className="text-center py-12">
@@ -161,82 +176,124 @@ export function ComparisonTable({ products, category }: ComparisonTableProps) {
                     const rank = getRank(product.id);
 
                     return (
-                        <Link
-                            key={product.id}
-                            href={`/produto/${product.id}`}
-                            className={cn(
-                                'p-4 rounded-xl border-2 transition-all hover:shadow-lg hover:scale-[1.02] cursor-pointer block',
-                                winner
-                                    ? 'bg-amber-50/50 border-amber-400 shadow-lg shadow-amber-100'
-                                    : 'bg-white border-gray-200 hover:border-brand-core/50'
-                            )}
-                        >
-                            {/* Winner Crown */}
-                            {winner && (
-                                <div className="flex items-center gap-2 mb-3 text-amber-600">
-                                    <Trophy size={20} />
-                                    <span className="font-body font-bold text-sm uppercase tracking-wide">
-                                        {L10N.comparison.winner}
-                                    </span>
-                                </div>
-                            )}
+                        <div key={product.id}>
+                            <Link
+                                href={`/produto/${product.id}`}
+                                className={cn(
+                                    'p-4 rounded-xl border-2 transition-all hover:shadow-lg hover:scale-[1.02] cursor-pointer block',
+                                    winner
+                                        ? 'bg-amber-50/50 border-amber-400 shadow-lg shadow-amber-100'
+                                        : 'bg-white border-gray-200 hover:border-brand-core/50'
+                                )}
+                            >
+                                {/* Winner Crown */}
+                                {winner && (
+                                    <div className="flex items-center gap-2 mb-3 text-amber-600">
+                                        <Trophy size={20} />
+                                        <span className="font-body font-bold text-sm uppercase tracking-wide">
+                                            {L10N.comparison.winner}
+                                        </span>
+                                    </div>
+                                )}
 
-                            {/* Product Info */}
-                            <div className="flex items-start gap-3 mb-4">
-                                <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 flex-shrink-0 overflow-hidden">
-                                    {product.imageUrl ? (
-                                        <img
-                                            src={product.imageUrl}
-                                            alt={product.name}
-                                            className="w-full h-full object-contain p-1"
-                                        />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center text-sm text-gray-400">
-                                            {(product.shortName || product.name).substring(0, 3)}
-                                        </div>
-                                    )}
+                                {/* Product Info */}
+                                <div className="flex items-start gap-3 mb-4">
+                                    <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 flex-shrink-0 overflow-hidden">
+                                        {product.imageUrl ? (
+                                            <img
+                                                src={product.imageUrl}
+                                                alt={product.name}
+                                                className="w-full h-full object-contain p-1"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center text-sm text-gray-400">
+                                                {(product.shortName || product.name).substring(0, 3)}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <h3 className="font-display font-semibold text-text-primary truncate">
+                                            {product.shortName || product.name}
+                                        </h3>
+                                    </div>
                                 </div>
-                                <div className="flex-1 min-w-0">
-                                    <h3 className="font-display font-semibold text-text-primary truncate">
-                                        {product.shortName || product.name}
-                                    </h3>
-                                    {/* Amazon Compliance: No fixed prices - only badges and scores */}
-                                </div>
-                            </div>
 
-                            {/* Badges - only for products with verdicts */}
-                            {productVerdict?.badges && productVerdict.badges.length > 0 && (
-                                <div className="flex flex-wrap gap-2 mb-4">
-                                    {productVerdict.badges.map((badge) => (
-                                        <VerdictBadgeDisplay key={badge.id} badge={badge} size="md" />
-                                    ))}
-                                </div>
-                            )}
+                                {/* Badges - only for products with verdicts */}
+                                {productVerdict?.badges && productVerdict.badges.length > 0 && (
+                                    <div className="flex flex-wrap gap-2 mb-4">
+                                        {productVerdict.badges.map((badge) => (
+                                            <VerdictBadgeDisplay key={badge.id} badge={badge} size="md" />
+                                        ))}
+                                    </div>
+                                )}
 
-                            {/* Rank indicator for 3rd+ products */}
-                            {!productVerdict && rank > 0 && (
-                                <div className="flex items-center gap-2 mb-4">
-                                    <Medal size={16} className="text-gray-400" />
-                                    <span className="text-sm text-text-muted">#{rank} no ranking</span>
-                                </div>
-                            )}
+                                {/* Rank indicator for 3rd+ products */}
+                                {!productVerdict && rank > 0 && (
+                                    <div className="flex items-center gap-2 mb-4">
+                                        <Medal size={16} className="text-gray-400" />
+                                        <span className="text-sm text-text-muted">#{rank} no ranking</span>
+                                    </div>
+                                )}
 
-                            {/* Main Score */}
-                            <div className={cn(
-                                'p-3 rounded-lg text-center',
-                                winner ? 'bg-amber-100' : 'bg-gray-100'
-                            )}>
-                                <p className="text-xs text-text-muted uppercase tracking-wide mb-1">
-                                    {L10N.scores.overall.full}
-                                </p>
-                                <p className={cn(
-                                    'text-data text-3xl font-bold',
-                                    winner ? 'text-amber-700' : 'text-text-primary'
+                                {/* Main Score */}
+                                <div className={cn(
+                                    'p-3 rounded-lg text-center',
+                                    winner ? 'bg-amber-100' : 'bg-gray-100'
                                 )}>
-                                    {getUnifiedScore(product).toFixed(2)}
-                                </p>
+                                    <p className="text-xs text-text-muted uppercase tracking-wide mb-1">
+                                        {L10N.scores.overall.full}
+                                    </p>
+                                    <p className={cn(
+                                        'text-data text-3xl font-bold',
+                                        winner ? 'text-amber-700' : 'text-text-primary'
+                                    )}>
+                                        {getUnifiedScore(product).toFixed(2)}
+                                    </p>
+                                </div>
+                            </Link>
+
+                            {/* Marketplace Buy Buttons - CRO Optimized */}
+                            <div className="flex flex-col gap-2 mt-3">
+                                <a
+                                    href={getOfferUrl(product, 'amazon') || generateAmazonSearchLink(product.name)}
+                                    target="_blank"
+                                    rel="noopener sponsored"
+                                    className="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold text-white transition-all hover:-translate-y-0.5"
+                                    style={{ background: 'linear-gradient(180deg, #FF9900 0%, #E88A00 100%)', boxShadow: '0 2px 6px rgba(255,153,0,0.35)' }}
+                                >
+                                    Ver na Amazon →
+                                </a>
+                                <a
+                                    href={getOfferUrl(product, 'mercado_livre') || generateMercadoLivreSearchLink(product.name)}
+                                    target="_blank"
+                                    rel="noopener sponsored"
+                                    className="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold transition-all hover:-translate-y-0.5"
+                                    style={{ background: 'linear-gradient(180deg, #FFE600 0%, #E6CF00 100%)', color: '#333', boxShadow: '0 2px 6px rgba(255,230,0,0.3)' }}
+                                >
+                                    Conferir no ML →
+                                </a>
+                                <div className="grid grid-cols-2 gap-2">
+                                    <a
+                                        href={getOfferUrl(product, 'magalu') || generateMagaluSearchLink(product.name)}
+                                        target="_blank"
+                                        rel="noopener sponsored"
+                                        className="flex items-center justify-center gap-1 px-3 py-2 rounded-lg text-xs font-semibold text-white transition-all hover:-translate-y-0.5"
+                                        style={{ background: 'linear-gradient(180deg, #0086FF 0%, #0070D4 100%)', boxShadow: '0 2px 4px rgba(0,134,255,0.3)' }}
+                                    >
+                                        Ver na Magalu
+                                    </a>
+                                    <a
+                                        href={getOfferUrl(product, 'shopee') || generateShopeeSearchLink(product.name)}
+                                        target="_blank"
+                                        rel="noopener sponsored"
+                                        className="flex items-center justify-center gap-1 px-3 py-2 rounded-lg text-xs font-semibold text-white transition-all hover:-translate-y-0.5"
+                                        style={{ background: 'linear-gradient(180deg, #EE4D2D 0%, #D44426 100%)', boxShadow: '0 2px 4px rgba(238,77,45,0.3)' }}
+                                    >
+                                        Ver na Shopee
+                                    </a>
+                                </div>
                             </div>
-                        </Link>
+                        </div>
                     );
                 })}
             </div>
@@ -332,27 +389,39 @@ export function ComparisonTable({ products, category }: ComparisonTableProps) {
                         );
                     })}
 
-                    {/* Price Row - Amazon Compliance: No fixed prices, link to check price */}
+                    {/* Price Row - Marketplace Links */}
                     <div
-                        className="flex items-center bg-gray-50"
+                        className="flex items-center bg-gradient-to-r from-amber-50/50 to-orange-50/50"
                         style={{ display: 'grid', gridTemplateColumns: `1fr repeat(${products.length}, minmax(100px, 150px))` }}
                     >
                         <div className="p-4">
                             <span className="font-body font-semibold text-text-primary">
-                                Preço
+                                Onde Comprar
                             </span>
                         </div>
                         {products.map((product) => (
                             <div
                                 key={product.id}
-                                className="p-4 text-center"
+                                className="p-2 text-center space-y-1"
                             >
-                                <Link
-                                    href={`/produto/${product.id}`}
-                                    className="text-xs font-medium text-amber-600 hover:text-amber-700 flex items-center justify-center gap-1"
+                                <a
+                                    href={getOfferUrl(product, 'amazon') || generateAmazonSearchLink(product.name)}
+                                    target="_blank"
+                                    rel="noopener sponsored"
+                                    className="block text-xs font-bold text-white px-2 py-1.5 rounded-md transition-all hover:-translate-y-0.5"
+                                    style={{ background: 'linear-gradient(180deg, #FF9900, #E88A00)', boxShadow: '0 1px 3px rgba(255,153,0,0.3)' }}
                                 >
-                                    Verificar Preço →
-                                </Link>
+                                    Amazon →
+                                </a>
+                                <a
+                                    href={getOfferUrl(product, 'mercado_livre') || generateMercadoLivreSearchLink(product.name)}
+                                    target="_blank"
+                                    rel="noopener sponsored"
+                                    className="block text-xs font-bold px-2 py-1.5 rounded-md transition-all hover:-translate-y-0.5"
+                                    style={{ background: 'linear-gradient(180deg, #FFE600, #E6CF00)', color: '#333', boxShadow: '0 1px 3px rgba(255,230,0,0.25)' }}
+                                >
+                                    ML →
+                                </a>
                             </div>
                         ))}
                     </div>
@@ -413,26 +482,22 @@ export function ComparisonTable({ products, category }: ComparisonTableProps) {
                             </tr>
                         </thead>
                         <tbody>
-                            {/* Price Row - Amazon Compliance: Link to check prices */}
-                            <tr className="border-b border-gray-100 bg-gray-50/50">
+                            {/* Price Row - Marketplace Links */}
+                            <tr className="border-b border-gray-100 bg-gradient-to-r from-amber-50/30 to-orange-50/30">
                                 <td className="py-3 px-3 font-body font-medium text-text-primary">
-                                    Preço
+                                    Onde Comprar
                                 </td>
-                                <td className="text-center py-3 px-3">
-                                    <Link
-                                        href={`/produto/${productA.id}`}
-                                        className="text-xs font-medium text-amber-600 hover:text-amber-700"
-                                    >
-                                        Verificar Preço
-                                    </Link>
+                                <td className="text-center py-2 px-2">
+                                    <div className="space-y-1">
+                                        <a href={getOfferUrl(productA, 'amazon') || generateAmazonSearchLink(productA.name)} target="_blank" rel="noopener sponsored" className="block text-xs font-bold text-white px-2 py-1 rounded transition-all hover:-translate-y-0.5" style={{ background: 'linear-gradient(180deg, #FF9900, #E88A00)' }}>Amazon →</a>
+                                        <a href={getOfferUrl(productA, 'mercado_livre') || generateMercadoLivreSearchLink(productA.name)} target="_blank" rel="noopener sponsored" className="block text-xs font-bold px-2 py-1 rounded transition-all hover:-translate-y-0.5" style={{ background: 'linear-gradient(180deg, #FFE600, #E6CF00)', color: '#333' }}>ML →</a>
+                                    </div>
                                 </td>
-                                <td className="text-center py-3 px-3">
-                                    <Link
-                                        href={`/produto/${productB.id}`}
-                                        className="text-xs font-medium text-amber-600 hover:text-amber-700"
-                                    >
-                                        Verificar Preço
-                                    </Link>
+                                <td className="text-center py-2 px-2">
+                                    <div className="space-y-1">
+                                        <a href={getOfferUrl(productB, 'amazon') || generateAmazonSearchLink(productB.name)} target="_blank" rel="noopener sponsored" className="block text-xs font-bold text-white px-2 py-1 rounded transition-all hover:-translate-y-0.5" style={{ background: 'linear-gradient(180deg, #FF9900, #E88A00)' }}>Amazon →</a>
+                                        <a href={getOfferUrl(productB, 'mercado_livre') || generateMercadoLivreSearchLink(productB.name)} target="_blank" rel="noopener sponsored" className="block text-xs font-bold px-2 py-1 rounded transition-all hover:-translate-y-0.5" style={{ background: 'linear-gradient(180deg, #FFE600, #E6CF00)', color: '#333' }}>ML →</a>
+                                    </div>
                                 </td>
                             </tr>
 

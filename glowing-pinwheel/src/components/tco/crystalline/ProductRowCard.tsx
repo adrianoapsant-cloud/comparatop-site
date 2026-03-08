@@ -10,7 +10,7 @@
 import { useState } from 'react';
 import { Row, flexRender } from '@tanstack/react-table';
 import Link from 'next/link';
-import { Eye, Shield, Star, Bell, GitCompare } from 'lucide-react';
+import { Eye, Shield, Star, Bell, GitCompare, ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { ProductTcoData, UsagePersona } from '@/types/tco';
 import type { ScoreViewMode } from '@/hooks/use-url-state';
@@ -20,6 +20,7 @@ import { MatchDonut } from './MatchDonut';
 import { HYBRID_GRID_COLS } from './HybridTableHeader';
 import type { ActiveSortMetric } from './SortDropdown';
 import { PriceAlertModal } from './PriceAlertModal';
+import { generateAmazonSearchLink, generateMercadoLivreSearchLink } from '@/lib/safe-links';
 
 // ============================================
 // TYPES
@@ -306,6 +307,24 @@ export function ProductRowCard({
 
                 {/* ZONA 5: Ações */}
                 <div className="flex items-center justify-end gap-2">
+                    <a
+                        href={generateAmazonSearchLink(product.name)}
+                        target="_blank"
+                        rel="noopener sponsored"
+                        className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-bold text-white transition-all hover:-translate-y-0.5"
+                        style={{ background: 'linear-gradient(180deg, #FF9900, #E88A00)', boxShadow: '0 2px 4px rgba(255,153,0,0.3)' }}
+                    >
+                        Amazon →
+                    </a>
+                    <a
+                        href={generateMercadoLivreSearchLink(product.name)}
+                        target="_blank"
+                        rel="noopener sponsored"
+                        className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-bold transition-all hover:-translate-y-0.5"
+                        style={{ background: 'linear-gradient(180deg, #FFE600, #E6CF00)', color: '#333', boxShadow: '0 2px 4px rgba(255,230,0,0.25)' }}
+                    >
+                        ML →
+                    </a>
                     <button
                         onClick={() => setPriceAlertOpen(true)}
                         className="p-2 rounded-lg hover:bg-amber-100 hover:text-amber-600 transition-colors group"
@@ -450,34 +469,59 @@ export function ProductRowCard({
                     </span>
                 </div>
 
-                {/* CTA Row: Bell + Ver Detalhes */}
-                <div className="flex items-center gap-2">
-                    {/* Alert Button */}
-                    <button
-                        onClick={() => setPriceAlertOpen(true)}
-                        className={cn(
-                            'flex items-center justify-center p-3 rounded-xl',
-                            'bg-amber-50 border border-amber-200',
-                            'hover:bg-amber-100 active:scale-95 transition-all'
-                        )}
-                        title="Criar alerta de preço"
-                    >
-                        <Bell className="w-5 h-5 text-amber-600" />
-                    </button>
+                {/* CTA Row: Marketplace + Bell + Ver Detalhes */}
+                <div className="flex flex-col gap-2">
+                    {/* Amazon + ML - Side by side */}
+                    <div className="grid grid-cols-2 gap-2">
+                        <a
+                            href={generateAmazonSearchLink(product.name)}
+                            target="_blank"
+                            rel="noopener sponsored"
+                            className="flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-bold text-white transition-all hover:-translate-y-0.5"
+                            style={{ background: 'linear-gradient(180deg, #FF9900, #E88A00)', boxShadow: '0 2px 4px rgba(255,153,0,0.3)' }}
+                        >
+                            Amazon →
+                        </a>
+                        <a
+                            href={generateMercadoLivreSearchLink(product.name)}
+                            target="_blank"
+                            rel="noopener sponsored"
+                            className="flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-bold transition-all hover:-translate-y-0.5"
+                            style={{ background: 'linear-gradient(180deg, #FFE600, #E6CF00)', color: '#333', boxShadow: '0 2px 4px rgba(255,230,0,0.25)' }}
+                        >
+                            ML →
+                        </a>
+                    </div>
 
-                    {/* Ver Detalhes Button */}
-                    <Link
-                        href={`/produto/${productSlug}`}
-                        className={cn(
-                            'flex-1 flex items-center justify-center gap-2 py-3 rounded-xl',
-                            'bg-indigo-600 text-white',
-                            'text-sm font-semibold',
-                            'hover:bg-indigo-700 active:bg-indigo-800 transition-colors'
-                        )}
-                    >
-                        <Eye className="w-4 h-4" />
-                        Ver Detalhes
-                    </Link>
+                    {/* Bell + Ver Detalhes */}
+                    <div className="flex items-center gap-2">
+                        {/* Alert Button */}
+                        <button
+                            onClick={() => setPriceAlertOpen(true)}
+                            className={cn(
+                                'flex items-center justify-center p-3 rounded-xl',
+                                'bg-amber-50 border border-amber-200',
+                                'hover:bg-amber-100 active:scale-95 transition-all'
+                            )}
+                            title="Criar alerta de preço"
+                        >
+                            <Bell className="w-5 h-5 text-amber-600" />
+                        </button>
+
+                        {/* Ver Detalhes Button */}
+                        <Link
+                            href={`/produto/${productSlug}`}
+                            className={cn(
+                                'flex-1 flex items-center justify-center gap-2 py-3 rounded-xl',
+                                'bg-indigo-600 text-white',
+                                'text-sm font-semibold',
+                                'hover:bg-indigo-700 active:bg-indigo-800 transition-colors'
+                            )}
+                        >
+                            <Eye className="w-4 h-4" />
+                            Ver Detalhes
+                        </Link>
+                    </div>
                 </div>
             </div>
 
