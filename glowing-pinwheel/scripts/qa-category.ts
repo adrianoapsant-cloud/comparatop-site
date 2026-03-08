@@ -138,25 +138,42 @@ function parseArgs(): { category: string; writeSnapshot: boolean; snapshotPath?:
 // ============================================
 
 /**
+ * Recursively find all files matching a pattern in a directory.
+ */
+function findFilesRecursive(dir: string, pattern: RegExp): string[] {
+    const results: string[] = [];
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+    for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+            // Skip node_modules, generated, backup dirs
+            if (['node_modules', '.next', 'generated', 'backup_pre_audit_2026-01-05'].includes(entry.name)) continue;
+            results.push(...findFilesRecursive(fullPath, pattern));
+        } else if (pattern.test(entry.name)) {
+            results.push(fullPath);
+        }
+    }
+
+    return results;
+}
+
+/**
  * Load all product entries via dynamic import.
  * 
  * How it works:
- * 1. List all files matching products.entry.*.ts in src/data
+ * 1. Recursively find all files matching products.entry.*.ts in src/data
  * 2. Convert each file path to a file:// URL for dynamic import
  * 3. Import the module and extract the default export (product object)
  * 4. Return all products as an array
  */
 async function loadProductEntries(): Promise<LoadedProduct[]> {
     const products: LoadedProduct[] = [];
-    const allFiles = fs.readdirSync(DATA_DIR);
+    const entryFiles = findFilesRecursive(DATA_DIR, /^products\.entry\..*\.ts$/);
 
-    for (const file of allFiles) {
-        if (!file.startsWith('products.entry.') || !file.endsWith('.ts')) {
-            continue;
-        }
-
-        const filePath = path.join(DATA_DIR, file);
+    for (const filePath of entryFiles) {
         const fileUrl = pathToFileURL(filePath).href;
+        const fileName = path.basename(filePath);
 
         try {
             // Dynamic import returns the module object
@@ -169,7 +186,7 @@ async function loadProductEntries(): Promise<LoadedProduct[]> {
                 products.push(product as LoadedProduct);
             }
         } catch (err) {
-            console.warn(`⚠️  Failed to load ${file}: ${(err as Error).message}`);
+            console.warn(`⚠️  Failed to load ${fileName}: ${(err as Error).message}`);
         }
     }
 

@@ -60,9 +60,9 @@ export const wap_robot_w100: Product = {
     structuredSpecs: {
         navigationType: 'random',
         mopType: 'static',
-        brushType: 'double-side',
-        dockType: 'standard', // Tem base? Report diz "Não possui base inteligente que corta energia". Mas tem base.
-        obstacleDetection: 'mechanical',
+        brushType: 'bristle',
+        dockType: 'basic', // Tem base? Report diz "Não possui base inteligente que corta energia". Mas tem base.
+        obstacleDetection: 'bump-only',
         heightCm: 7.5,
         noiseDb: 65,
         runtimeMinutes: 100,
@@ -81,7 +81,7 @@ export const wap_robot_w100: Product = {
         voiceAssistants: [],
         wifiBand: 'none',
         climbHeight: 1.2,
-        brushType: 'double_side',
+        brushType: 'bristle',
         batteryMah: 1800,
         chargingTimeHours: 5,
         runtimeMinutes: 100

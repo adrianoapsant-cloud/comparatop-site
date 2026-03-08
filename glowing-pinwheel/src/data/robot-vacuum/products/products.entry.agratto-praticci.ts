@@ -60,9 +60,9 @@ export const agratto_praticci: Product = {
     structuredSpecs: {
         navigationType: 'random',
         mopType: 'static',
-        brushType: 'double-side',
-        dockType: 'none', // USB Cable
-        obstacleDetection: 'mechanical',
+        brushType: 'bristle',
+        dockType: 'basic', // USB Cable
+        obstacleDetection: 'bump-only',
         heightCm: 7.0,
         noiseDb: 60,
         runtimeMinutes: 60,
@@ -81,7 +81,7 @@ export const agratto_praticci: Product = {
         voiceAssistants: [],
         wifiBand: 'none',
         climbHeight: 0.5,
-        brushType: 'double_side',
+        brushType: 'bristle',
         batteryMah: 1500,
         chargingTimeHours: 5,
         runtimeMinutes: 60

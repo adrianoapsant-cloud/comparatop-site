@@ -58,11 +58,11 @@ export const electrolux_erb30: Product = {
     },
 
     structuredSpecs: {
-        navigationType: 'gyro',
+        navigationType: 'gyroscope',
         mopType: 'static',
-        brushType: 'double-side',
-        dockType: 'standard',
-        obstacleDetection: 'ir-sensor',
+        brushType: 'bristle',
+        dockType: 'basic',
+        obstacleDetection: 'infrared',
         heightCm: 7.0,
         noiseDb: 65,
         runtimeMinutes: 90,
@@ -70,7 +70,7 @@ export const electrolux_erb30: Product = {
     },
 
     attributes: {
-        navigationType: 'gyro',
+        navigationType: 'gyroscope',
         hasMop: true,
         mopType: 'pano-estatico',
         hasAutoEmpty: false,
@@ -81,7 +81,7 @@ export const electrolux_erb30: Product = {
         voiceAssistants: [],
         wifiBand: 'none',
         climbHeight: 1.5,
-        brushType: 'double_side',
+        brushType: 'bristle',
         batteryMah: 2200,
         chargingTimeHours: 4,
         runtimeMinutes: 90,

@@ -1,9 +1,81 @@
 {
   "version": 1,
   "category": "robot-vacuum",
-  "generatedAt": "2026-01-31T23:25:53.651Z",
-  "productCount": 17,
+  "generatedAt": "2026-03-08T12:20:06.449Z",
+  "productCount": 21,
   "items": [
+    {
+      "id": "agratto-praticci",
+      "scores": {
+        "c1": 2.5,
+        "c2": 6,
+        "c3": 5,
+        "c4": 5.8,
+        "c5": 9.8,
+        "c6": 6,
+        "c7": 4,
+        "c8": 8.5,
+        "c9": 4.5,
+        "c10": 3
+      },
+      "tags": {
+        "hasLidar": false,
+        "hasVslam": false,
+        "hasSmartNav": false,
+        "trueMopping": false,
+        "hasRotatingMop": false,
+        "hasMopLift": false,
+        "lowProfile": true,
+        "ultraLowProfile": true,
+        "allInOneDock": false,
+        "autoEmptyDock": false,
+        "autoWashDock": false,
+        "goodForPets": false,
+        "advancedAvoidance": false,
+        "hasAiCamera": false,
+        "quiet": true,
+        "longRuntime": false,
+        "hasRechargeResume": false,
+        "hasGoodApp": false,
+        "goodPartsBrazil": false
+      }
+    },
+    {
+      "id": "electrolux-erb20",
+      "scores": {
+        "c1": 2.5,
+        "c2": 6,
+        "c3": 5,
+        "c4": 5.8,
+        "c5": 9.8,
+        "c6": 6,
+        "c7": 6,
+        "c8": 6.5,
+        "c9": 4.5,
+        "c10": 5.2
+      },
+      "tags": {
+        "hasLidar": false,
+        "hasVslam": false,
+        "hasSmartNav": false,
+        "trueMopping": false,
+        "hasRotatingMop": false,
+        "hasMopLift": false,
+        "lowProfile": true,
+        "ultraLowProfile": true,
+        "allInOneDock": false,
+        "autoEmptyDock": false,
+        "autoWashDock": false,
+        "goodForPets": false,
+        "advancedAvoidance": false,
+        "hasAiCamera": false,
+        "quiet": false,
+        "longRuntime": false,
+        "hasRechargeResume": false,
+        "hasGoodApp": false,
+        "goodPartsBrazil": false
+      }
+    },
     {
       "id": "electrolux-erb20-home-control-experience",
       "scores": {
@@ -17,6 +89,42 @@
         "c8": 6.5,
         "c9": 4.5,
         "c10": 3
+      },
+      "tags": {
+        "hasLidar": false,
+        "hasVslam": false,
+        "hasSmartNav": false,
+        "trueMopping": false,
+        "hasRotatingMop": false,
+        "hasMopLift": false,
+        "lowProfile": true,
+        "ultraLowProfile": true,
+        "allInOneDock": false,
+        "autoEmptyDock": false,
+        "autoWashDock": false,
+        "goodForPets": false,
+        "advancedAvoidance": false,
+        "hasAiCamera": false,
+        "quiet": false,
+        "longRuntime": false,
+        "hasRechargeResume": false,
+        "hasGoodApp": false,
+        "goodPartsBrazil": false
+      }
+    },
+    {
+      "id": "electrolux-erb30",
+      "scores": {
+        "c1": 5,
+        "c2": 6,
+        "c3": 5,
+        "c4": 5.8,
+        "c5": 9.8,
+        "c6": 6,
+        "c7": 6,
+        "c8": 7.5,
+        "c9": 4.5,
+        "c10": 5.2
       },
       "tags": {
         "hasLidar": false,
@@ -365,7 +473,7 @@
       }
     },
     {
-      "id": "wap-robot-w400",
+      "id": "wap-robot-w100",
       "scores": {
         "c1": 2.5,
         "c2": 6,
@@ -377,6 +485,42 @@
         "c8": 7.5,
         "c9": 4.5,
         "c10": 3
+      },
+      "tags": {
+        "hasLidar": false,
+        "hasVslam": false,
+        "hasSmartNav": false,
+        "trueMopping": false,
+        "hasRotatingMop": false,
+        "hasMopLift": false,
+        "lowProfile": true,
+        "ultraLowProfile": true,
+        "allInOneDock": false,
+        "autoEmptyDock": false,
+        "autoWashDock": false,
+        "goodForPets": false,
+        "advancedAvoidance": false,
+        "hasAiCamera": false,
+        "quiet": false,
+        "longRuntime": false,
+        "hasRechargeResume": false,
+        "hasGoodApp": false,
+        "goodPartsBrazil": false
+      }
+    },
+    {
+      "id": "wap-robot-w400",
+      "scores": {
+        "c1": 2.5,
+        "c2": 6,
+        "c3": 5,
+        "c4": 5.8,
+        "c5": 9.8,
+        "c6": 6,
+        "c7": 7.2,
+        "c8": 7.5,
+        "c9": 4.5,
+        "c10": 5.2
       },
       "tags": {
         "hasLidar": false,

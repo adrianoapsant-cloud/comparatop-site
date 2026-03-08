@@ -60,9 +60,9 @@ export const electrolux_erb20: Product = {
     structuredSpecs: {
         navigationType: 'random',
         mopType: 'static',
-        brushType: 'double-side',
-        dockType: 'standard',
-        obstacleDetection: 'ir-sensor',
+        brushType: 'bristle',
+        dockType: 'basic',
+        obstacleDetection: 'infrared',
         heightCm: 7.0,
         noiseDb: 70,
         runtimeMinutes: 90,
@@ -81,7 +81,7 @@ export const electrolux_erb20: Product = {
         voiceAssistants: [],
         wifiBand: 'none',
         climbHeight: 1.5,
-        brushType: 'double_side',
+        brushType: 'bristle',
         batteryMah: 2600,
         chargingTimeHours: 4,
         runtimeMinutes: 90
