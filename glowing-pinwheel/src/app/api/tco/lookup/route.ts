@@ -72,10 +72,19 @@ interface TcoData {
     };
 }
 
-// Cliente Supabase
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Cliente Supabase (lazy init to avoid crash in CI builds without env vars)
+let _supabase: ReturnType<typeof createClient> | null = null;
+function getSupabase() {
+    if (!_supabase) {
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+        const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+        if (!supabaseUrl || !supabaseAnonKey) {
+            throw new Error('Supabase environment variables not configured');
+        }
+        _supabase = createClient(supabaseUrl, supabaseAnonKey);
+    }
+    return _supabase;
+}
 
 // Force Rebuild 1
 export async function GET(req: NextRequest) {
@@ -99,7 +108,7 @@ export async function GET(req: NextRequest) {
 
         // Busca por ASIN (exata)
         if (asin) {
-            const { data, error } = await supabase
+            const { data, error } = await getSupabase()
                 .from('products_tco')
                 .select('*')
                 .eq('asin', asin.toUpperCase())
@@ -112,7 +121,7 @@ export async function GET(req: NextRequest) {
 
         // Busca por EAN (exata)
         else if (ean) {
-            const { data, error } = await supabase
+            const { data, error } = await getSupabase()
                 .from('products_tco')
                 .select('*')
                 .eq('ean', ean.replace(/\D/g, ''))
@@ -132,7 +141,7 @@ export async function GET(req: NextRequest) {
 
             // 1. Fetch from Supabase (Real DB)
             try {
-                let queryBuilder = supabase
+                let queryBuilder = getSupabase()
                     .from('products_tco')
                     .select('*')
                     .eq('is_active', true)
@@ -554,8 +563,8 @@ export async function GET(req: NextRequest) {
             {
                 error: 'Erro interno ao buscar produto',
                 details: errorDetails,
-                supabaseUrl: supabaseUrl ? 'configured' : 'MISSING',
-                supabaseKey: supabaseAnonKey ? 'configured' : 'MISSING'
+                supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL ? 'configured' : 'MISSING',
+                supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? 'configured' : 'MISSING'
             },
             { status: 500 }
         );
