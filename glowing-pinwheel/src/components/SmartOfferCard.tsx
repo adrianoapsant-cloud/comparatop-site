@@ -137,7 +137,9 @@ const SingleOfferCard = memo(function SingleOfferCard({
 
     // Generate affiliate link
     const subid = 'card_simple';
-    const affiliateLink = offer.affiliateUrl || generateTrackedLink(
+    const isPlaceholder = offer.affiliateUrl?.includes('B0XXXXXXXX');
+
+    const affiliateLink = (offer.affiliateUrl && !isPlaceholder) ? offer.affiliateUrl : generateTrackedLink(
         offer.platform,
         offer.productKeyword || productName,
         offer.affiliateTag,

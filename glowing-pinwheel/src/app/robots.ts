@@ -30,6 +30,8 @@ const INTERNAL_DISALLOW = [
     '/private/',
     '/*.json$',
     '/search?*',
+    '/tco-demo',
+    '/tco-demo/',
 ];
 
 export default function robots(): MetadataRoute.Robots {

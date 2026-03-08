@@ -282,7 +282,7 @@ export default async function ManualPage({ params }: { params: Promise<{ slug: s
                                             amazonOffer?.url ||
                                             product.offers?.[0]?.affiliateUrl ||
                                             product.offers?.[0]?.url ||
-                                            `https://amazon.com.br/s?k=${encodeURIComponent(product.name)}&tag=comparatop-20`;
+                                            `https://amazon.com.br/s?k=${encodeURIComponent(product.name)}&tag=aferio-20`;
                                     })()}
                                     target="_blank"
                                     rel="nofollow sponsored noopener noreferrer"
@@ -320,7 +320,7 @@ export default async function ManualPage({ params }: { params: Promise<{ slug: s
                             <a
                                 href={
                                     product.recommendedAccessory?.affiliateUrl ||
-                                    `https://amazon.com.br/s?k=${encodeURIComponent(`${product.brand} acessorios`)}&tag=comparatop-20`
+                                    `https://amazon.com.br/s?k=${encodeURIComponent(`${product.brand} acessorios`)}&tag=aferio-20`
                                 }
                                 target="_blank"
                                 rel="nofollow sponsored noopener noreferrer"

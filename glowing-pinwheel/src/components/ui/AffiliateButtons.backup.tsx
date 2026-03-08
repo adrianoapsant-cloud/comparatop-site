@@ -85,7 +85,7 @@ export function AffiliateButtons({
 
         switch (platform) {
             case 'amazon':
-                return `https://www.amazon.com.br/s?k=${encodedName}&tag=comparatop-20`;
+                return `https://www.amazon.com.br/s?k=${encodedName}&tag=aferio-20`;
             case 'mercadolivre':
                 return `https://lista.mercadolivre.com.br/${encodedName}_Frete_Gratis`;
             case 'shopee':
@@ -266,7 +266,7 @@ export function SingleAffiliateButton({
     const encodedName = encodeURIComponent(productName);
 
     const urls: Record<string, string> = {
-        amazon: `https://www.amazon.com.br/s?k=${encodedName}&tag=comparatop-20`,
+        amazon: `https://www.amazon.com.br/s?k=${encodedName}&tag=aferio-20`,
         mercadolivre: `https://lista.mercadolivre.com.br/${encodedName}_Frete_Gratis`,
         shopee: `https://shopee.com.br/search?keyword=${encodedName}&official_mall=1`,
         magalu: `https://www.magazineluiza.com.br/busca/${encodedName}/?seller=magazineluiza`,

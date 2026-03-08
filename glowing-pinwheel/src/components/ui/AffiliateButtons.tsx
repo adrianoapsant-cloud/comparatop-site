@@ -93,7 +93,7 @@ export function AffiliateButtons({
         switch (platform) {
             case 'amazon':
                 // Filters: Prime + Novo + 4★
-                return generateAmazonSearchLink(productName, 'comparatop-20');
+                return generateAmazonSearchLink(productName, 'aferio-20');
             case 'mercadolivre':
                 // Filters: Frete Grátis + Novo + Loja Oficial
                 return generateMercadoLivreSearchLink(productName);
@@ -289,7 +289,7 @@ export function SingleAffiliateButton({
 
     // Use safe-links library with Anti-Golpe filters
     const urls: Record<string, string> = {
-        amazon: generateAmazonSearchLink(productName, 'comparatop-20'),
+        amazon: generateAmazonSearchLink(productName, 'aferio-20'),
         mercadolivre: generateMercadoLivreSearchLink(productName),
         shopee: generateShopeeSearchLink(productName),
         magalu: generateMagaluSearchLink(productName),

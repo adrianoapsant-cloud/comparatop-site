@@ -1406,7 +1406,7 @@ export async function POST(req: Request) {
                                         ...product,
                                         priceFormatted: `R$ ${product.price.toLocaleString('pt-BR')}`,
                                         internalUrl: `/produto/${product.id}`,
-                                        amazonUrl: `https://amazon.com.br/s?k=${encodeURIComponent(product.name)}&tag=comparatop-20`
+                                        amazonUrl: `https://amazon.com.br/s?k=${encodeURIComponent(product.name)}&tag=aferio-20`
                                     })}\n`));
                                 }
 
@@ -1488,7 +1488,7 @@ export async function POST(req: Request) {
                                     ...product,
                                     priceFormatted: `R$ ${product.price.toLocaleString('pt-BR')}`,
                                     internalUrl: `/produto/${product.id}`,
-                                    amazonUrl: `https://amazon.com.br/s?k=${encodeURIComponent(product.name)}&tag=comparatop-20`
+                                    amazonUrl: `https://amazon.com.br/s?k=${encodeURIComponent(product.name)}&tag=aferio-20`
                                 })}\n`));
                             }
                             controller.enqueue(enc.encode(`0:${JSON.stringify(outro)}\n`));
@@ -1635,7 +1635,7 @@ export async function POST(req: Request) {
                                             ...top1,
                                             priceFormatted: `R$ ${top1.price.toLocaleString('pt-BR')}`,
                                             internalUrl: `/produto/${top1.id}`,
-                                            amazonUrl: `https://amazon.com.br/s?k=${encodeURIComponent(top1.name)}&tag=comparatop-20`
+                                            amazonUrl: `https://amazon.com.br/s?k=${encodeURIComponent(top1.name)}&tag=aferio-20`
                                         })}\n`));
                                         // Optionally emit top2 card if exists
                                         if (top2) {
@@ -1644,7 +1644,7 @@ export async function POST(req: Request) {
                                                 ...top2,
                                                 priceFormatted: `R$ ${top2.price.toLocaleString('pt-BR')}`,
                                                 internalUrl: `/produto/${top2.id}`,
-                                                amazonUrl: `https://amazon.com.br/s?k=${encodeURIComponent(top2.name)}&tag=comparatop-20`
+                                                amazonUrl: `https://amazon.com.br/s?k=${encodeURIComponent(top2.name)}&tag=aferio-20`
                                             })}\n`));
                                         }
                                         controller.enqueue(enc.encode(`d:${JSON.stringify({ finishReason: "stop", requestId })}\n`));
@@ -2076,7 +2076,7 @@ ${disabledList ? `**Elementos desabilitados:** ${disabledList}` : ''}
                                     priceFormatted: `R$ ${p.price.toLocaleString('pt-BR')}`,
                                     score: p.score,
                                     internalUrl: `/produto/${p.id}`,
-                                    amazonUrl: `https://amazon.com.br/s?k=${encodeURIComponent(p.name)}&tag=comparatop-20`
+                                    amazonUrl: `https://amazon.com.br/s?k=${encodeURIComponent(p.name)}&tag=aferio-20`
                                 }))
                             };
                         } catch (toolError) {

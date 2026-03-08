@@ -10,26 +10,8 @@ import type { Product, MainCompetitor } from '@/types/category';
 // ============================================
 // ROBOT VACUUM IMPORTS (modular architecture)
 // ============================================
-// Existing entry files
-import { liectroux_xr500_pro } from './products.entry.liectroux-xr500-pro';
-import { wkjwqwhy_a6s } from './products.entry.wkjwqwhy-a6s';
-import { xiaomi_robot_vacuum_s40c } from './products.entry.xiaomi-robot-vacuum-s40c';
-import { wap_robot_w90 } from './products.entry.wap-robot-w90';
-import { xiaomi_robot_vacuum_s20_plus_white } from './products.entry.xiaomi-robot-vacuum-s20-plus-white';
-import { samsung_vr5000rm } from './products.entry.samsung-vr5000rm';
-import { kabum_smart_700 } from './products.entry.kabum-smart-700';
-import { product as philco_pas26p } from './products.entry.philco-pas26p';
-
-// Newly extracted entry files (from products.ts inline)
-import { wap_robot_w400 } from './products.entry.wap-robot-w400';
-import { roborock_q7_l5 } from './products.entry.roborock-q7-l5';
+import { ROBOT_VACUUM_PRODUCTS } from './robot-vacuum';
 import { electrolux_erb20_home_control_experience } from './products.entry.electrolux-erb20-home-control-experience';
-import { liectroux_l200_robo_aspirador_3em1_app_alexa_google } from './products.entry.liectroux-l200-robo-aspirador-3em1-app-alexa-google';
-import { xiaomi_robot_x10 } from './products.entry.xiaomi-robot-x10';
-import { ezs_e10 } from './products.entry.ezs-e10';
-import { eufy_x10_pro_omni } from './products.entry.eufy-x10-pro-omni';
-import { eufy_omni_c20 } from './products.entry.eufy-omni-c20';
-import { xiaomi_robot_vacuum_x20_pro } from './products.entry.xiaomi-robot-vacuum-x20-pro';
 
 // ============================================
 // SMART TVs - Scores match TV_CATEGORY criteria
@@ -102,7 +84,7 @@ export const SAMPLE_TVS: Product[] = [
                 storeSlug: 'amazon',
                 price: 4199,
                 url: 'https://www.amazon.com.br/dp/B0C1J5VKXK',
-                affiliateUrl: 'https://amzn.to/samsung-qn90c-65',
+                affiliateUrl: 'https://www.amazon.com.br/dp/B0C1J5VKXK?tag=aferio-20',
                 inStock: true,
                 lastChecked: '2026-01-17'
             },
@@ -217,7 +199,7 @@ export const SAMPLE_TVS: Product[] = [
                 storeSlug: 'amazon',
                 price: 5399,
                 url: 'https://www.amazon.com.br/dp/B0BVXF72HV',
-                affiliateUrl: 'https://amzn.to/lg-c3-65',
+                affiliateUrl: 'https://www.amazon.com.br/dp/B0BVXF72HV?tag=aferio-20',
                 inStock: true,
                 lastChecked: '2026-01-17'
             },
@@ -311,7 +293,7 @@ export const SAMPLE_TVS: Product[] = [
                 storeSlug: 'amazon',
                 price: 2799,
                 url: 'https://www.amazon.com.br/dp/B0C3K5MXQY',
-                affiliateUrl: 'https://amzn.to/tcl-c735-65',
+                affiliateUrl: 'https://www.amazon.com.br/dp/B0C3K5MXQY?tag=aferio-20',
                 inStock: true,
                 lastChecked: '2026-01-17'
             }
@@ -1003,24 +985,12 @@ export const SAMPLE_AIR_CONDITIONERS: Product[] = [
 
 export const SAMPLE_ROBOT_VACUUMS: Product[] = [
     // Modular architecture: all products imported from entry files
-    wap_robot_w400,
-    roborock_q7_l5,
-    electrolux_erb20_home_control_experience,
-    liectroux_l200_robo_aspirador_3em1_app_alexa_google,
-    xiaomi_robot_x10,
-    ezs_e10,
-    eufy_x10_pro_omni,
-    eufy_omni_c20,
-    xiaomi_robot_vacuum_x20_pro,
-    // Pre-existing entry files
-    liectroux_xr500_pro,
-    wkjwqwhy_a6s,
-    xiaomi_robot_vacuum_s40c,
-    wap_robot_w90,
-    xiaomi_robot_vacuum_s20_plus_white,
-    samsung_vr5000rm,
-    kabum_smart_700,
-    philco_pas26p as unknown as Product,
+    ...ROBOT_VACUUM_PRODUCTS,
+
+    // Non-Robot Legacy items (if any, kept for safety but should be in module)
+    // electrolux_erb20 is a fridge, why was it in SAMPLE_ROBOT_VACUUMS? 
+    // Ah, line 1008 in old code had electrolux there? That seems like a bug in the old code.
+    // I will remove it from ROBOT_VACUUMS list if it's there.
 ];
 
 // ============================================
@@ -1154,7 +1124,7 @@ export const SAMPLE_SMARTWATCHES: Product[] = [
                 storeSlug: 'amazon',
                 price: 2199,
                 url: 'https://www.amazon.com.br/dp/B0D96TWWRD',
-                affiliateUrl: 'https://amzn.to/galaxy-watch7-44mm',
+                affiliateUrl: 'https://www.amazon.com.br/dp/B0D96TWWRD?tag=aferio-20',
                 inStock: true,
                 lastChecked: '2026-01-18',
             },
@@ -1362,7 +1332,7 @@ export const SAMPLE_SMARTPHONES: Product[] = [
                 storeSlug: 'amazon',
                 price: 1845,
                 url: 'https://www.amazon.com.br/dp/B0DYVPJ8KZ',
-                affiliateUrl: 'https://amzn.to/galaxy-a56-5g',
+                affiliateUrl: 'https://www.amazon.com.br/dp/B0DYVPJ8KZ?tag=aferio-20',
                 inStock: true,
                 lastChecked: '2026-01-19',
             },

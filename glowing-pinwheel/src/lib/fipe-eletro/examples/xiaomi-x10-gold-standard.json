@@ -1,0 +1,85 @@
+{
+    "metadata": {
+        "productName": "Xiaomi Robot Vacuum X10",
+        "model": "B102GL",
+        "category": "robo-aspirador",
+        "dataConfidence": 0.85,
+        "estimated_lifespan_years": 5,
+        "researchDate": "2026-02-03"
+    },
+    "market_price_brl": {
+        "lowestPrice": 2450.00,
+        "retailer": "Mercado Livre",
+        "productUrl": "https://lista.mercadolivre.com.br/xiaomi-robot-vacuum-x10",
+        "installationCost": 0,
+        "shippingCost": 0,
+        "best_retailer_name": "Mercado Livre",
+        "best_offer_url": "https://lista.mercadolivre.com.br/xiaomi-robot-vacuum-x10"
+    },
+    "energyConsumption": {
+        "nominalKwhMonth": 4.0,
+        "realKwhMonth": 5.0,
+        "monthlyCostBrl": 4.50,
+        "annualCostBrl": 54.00
+    },
+    "consumables": {
+        "totalAnnualCostModerate": 250.00,
+        "items": [
+            {
+                "name": "Sacos de Pó",
+                "annualCost": 100.00
+            },
+            {
+                "name": "Filtro HEPA",
+                "annualCost": 40.00
+            },
+            {
+                "name": "Escova Lateral",
+                "annualCost": 30.00
+            },
+            {
+                "name": "Escova Central",
+                "annualCost": 50.00
+            },
+            {
+                "name": "Mop/Pano",
+                "annualCost": 30.00
+            }
+        ]
+    },
+    "maintenanceProfile": {
+        "commonFailures": [
+            {
+                "component": "Bateria Li-Ion 5200mAh",
+                "partCost": 550.00,
+                "laborCost": 0,
+                "expectedYear": 3
+            },
+            {
+                "component": "Sensor LiDAR",
+                "partCost": 350.00,
+                "laborCost": 200.00,
+                "expectedYear": 4
+            }
+        ]
+    },
+    "depreciation": {
+        "year0": 2500.00,
+        "year1": 1800.00,
+        "year2": 1200.00,
+        "year5": 300.00,
+        "annualRate": 0.27
+    },
+    "tcoSummary": {
+        "horizonYears": 5,
+        "acquisitionCost": 2500.00,
+        "energyCost5Years": 270.00,
+        "consumablesCost5Years": 1250.00,
+        "maintenanceCost5Years": 900.00,
+        "opportunityCost": 500.00,
+        "tcoNominal": 5420.00,
+        "residualValue": 300.00,
+        "tcoFinal": 5120.00,
+        "monthlyEffectiveCost": 85.33
+    }
+}

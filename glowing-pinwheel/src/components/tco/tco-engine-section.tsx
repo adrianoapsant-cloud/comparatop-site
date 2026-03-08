@@ -367,16 +367,13 @@ export function TcoEngineSection({
     }, [tcoProducts, persona, years]);
 
     // Don't render if no TCO support - show explicit fallback
-    if (!isTcoSupported || tcoProducts.length < 2) {
+    if (!isTcoSupported || tcoProducts.length === 0) {
         return (
             <ModuleFallback
                 sectionId="tco_engine"
                 sectionName="Engenharia de Valor (TCO)"
                 status="unavailable"
-                reason={!isTcoSupported
-                    ? `Análise TCO não disponível para categoria ${categorySlug}`
-                    : 'Necessário mínimo de 2 produtos para comparação TCO'
-                }
+                reason={`Análise TCO não disponível para categoria ${categorySlug}`}
             />
         );
     }

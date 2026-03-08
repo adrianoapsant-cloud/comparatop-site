@@ -142,7 +142,7 @@ function getTomorrowDate(): string {
  *       currency: 'BRL',
  *       sellerName: 'Amazon',
  *       status: 'in_stock',
- *       safeUrl: generateSafeLink('amazon', 'B09V3KXJPB', 'Samsung QN90C', 'comparatop-20'),
+ *       safeUrl: generateSafeLink('amazon', 'B09V3KXJPB', 'Samsung QN90C', 'aferio-20'),
  *     },
  *   ]}
  * />

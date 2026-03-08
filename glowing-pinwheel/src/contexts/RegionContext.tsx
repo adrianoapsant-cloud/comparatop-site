@@ -204,9 +204,9 @@ export function RegionProvider({ children }: { children: ReactNode }) {
     }, []);
 
     // ============================================
-    // AUTO-DETECT LOCATION ON FIRST LOAD
+    // AUTO-DETECT LOCATION ON FIRST LOAD - DISABLED
     // ============================================
-
+    /*
     useEffect(() => {
         // Only detect if:
         // 1. Region has not been set (either via localStorage or manual selection)
@@ -223,6 +223,7 @@ export function RegionProvider({ children }: { children: ReactNode }) {
             return () => clearTimeout(timer);
         }
     }, [isRegionSet, detectLocation]);
+    */
 
     // ============================================
     // FETCH RATE FROM API WHEN STATE CHANGES

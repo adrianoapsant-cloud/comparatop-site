@@ -24,7 +24,7 @@ export type AvailabilityStatus = 'in_stock' | 'out_of_stock' | 'pre_order' | 'ba
 
 /** Configuração de tags de afiliado por plataforma */
 export interface AffiliateConfig {
-    /** Amazon Associate Tag (ex: 'comparatop-20') */
+    /** Amazon Associate Tag (ex: 'aferio-20') */
     amazonTag?: string;
     /** Mercado Livre Affiliate ID */
     mlAffiliateId?: string;
@@ -96,6 +96,15 @@ const MERCADOLIVRE_FILTERS = {
     SHIPPING_FREE: 'free',
 } as const;
 
+/**
+ * Constantes para Links Sociais (Mercado Livre)
+ * @see https://www.mercadolivre.com.br/social/
+ */
+export const ML_SOCIAL_CONFIG = {
+    MATT_TOOL: '21144041',
+    MATT_WORD: 'aa20250829125621'
+} as const;
+
 // ============================================================================
 // FUNÇÕES AUXILIARES - AMAZON
 // ============================================================================
@@ -116,19 +125,51 @@ const MERCADOLIVRE_FILTERS = {
  * @returns URL completa para a PDP (Buy Box)
  * 
  * @example
- * generateAmazonPDPLink('B09V3KXJPB', 'comparatop-20')
- * // => "https://www.amazon.com.br/dp/B09V3KXJPB?tag=comparatop-20"
+ * generateAmazonPDPLink('B09V3KXJPB', 'aferio-20')
+ * // => "https://www.amazon.com.br/dp/B09V3KXJPB?tag=aferio-20"
  */
 export function generateAmazonPDPLink(asin: string, affiliateTag?: string): string {
     const baseUrl = 'https://www.amazon.com.br/dp';
 
+    // URL Limpa sem parâmetros de sessão
     let url = `${baseUrl}/${asin}`;
 
     if (affiliateTag) {
         url += `?tag=${affiliateTag}`;
     }
 
+    // Enforce variation selection (th=1) to ensure main product view
+    if (!url.includes('th=1')) {
+        url += url.includes('?') ? '&th=1' : '?th=1';
+    }
+
     return url;
+}
+
+/**
+ * Adiciona a tag de afiliado Amazon a uma URL existente, respeitando a query string.
+ * 
+ * Regra de Ouro:
+ * - Se URL não tem '?': Adiciona '?tag=XYZ'
+ * - Se URL já tem '?': Adiciona '&tag=XYZ'
+ * 
+ * @param url - URL original
+ * @param tag - Tag de associado Amazon
+ * @returns URL com tag anexada corretamente
+ */
+export function appendAmazonTag(url: string, tag: string): string {
+    if (!tag) return url;
+    if (url.includes('tag=')) return url; // Já possui tag
+
+    const separator = url.includes('?') ? '&' : '?';
+    let newUrl = `${url}${separator}tag=${tag}`;
+
+    // Enforce variation selection (th=1)
+    if (!newUrl.includes('th=1')) {
+        newUrl += '&th=1';
+    }
+
+    return newUrl;
 }
 
 /**
@@ -168,8 +209,8 @@ export function generateAmazonOLPLink(asin: string, affiliateTag?: string): stri
  * @returns URL de busca com filtros aplicados
  * 
  * @example
- * generateAmazonSearchLink('Samsung QN90C 65"', 'comparatop-20', 'price')
- * // => "https://www.amazon.com.br/s?k=...&tag=comparatop-20&subid=price"
+ * generateAmazonSearchLink('Samsung QN90C 65"', 'aferio-20', 'price')
+ * // => "https://www.amazon.com.br/s?k=...&tag=aferio-20&subid=price"
  */
 export function generateAmazonSearchLink(keyword: string, affiliateTag?: string, subid?: string): string {
     const baseUrl = 'https://www.amazon.com.br/s';
@@ -221,9 +262,16 @@ export function generateMercadoLivreDirectLink(productId: string, affiliateId?: 
     const normalizedId = productId.toUpperCase();
     let url = `https://www.mercadolivre.com.br/p/${normalizedId}`;
 
-    // matt_tool: Parâmetro de tracking do Mercado Livre Afiliados
-    if (affiliateId) {
-        url += `?matt_tool=${affiliateId}`;
+    // Always include matt_tool for affiliate tracking
+    const toolId = affiliateId || ML_SOCIAL_CONFIG.MATT_TOOL;
+    if (toolId) {
+        url += `?matt_tool=${toolId}`;
+    }
+
+    // Enforce global tracking_id if available config
+    if (ML_SOCIAL_CONFIG.MATT_WORD) {
+        const separator = url.includes('?') ? '&' : '?';
+        url += `${separator}tracking_id=${ML_SOCIAL_CONFIG.MATT_WORD}`;
     }
 
     return url;
@@ -246,35 +294,47 @@ export function generateMercadoLivreDirectLink(productId: string, affiliateId?: 
  * generateMercadoLivreSearchLink('Samsung QN90C', 'comparatop', 'parcela')
  * // => "https://www.mercadolivre.com.br/jm/search?...&subid=parcela"
  */
-export function generateMercadoLivreSearchLink(keyword: string, affiliateId?: string, subid?: string): string {
+export function generateMercadoLivreSearchLink(
+    keyword: string,
+    affiliateId?: string,
+    subid?: string,
+    options: { strict?: boolean } = { strict: true }
+): string {
     const baseUrl = 'https://www.mercadolivre.com.br/jm/search';
 
     const params = new URLSearchParams({
         // as_word: Termo de busca (advanced search word)
         'as_word': keyword,
-
-        // shipping_cost: Filtro de frete
-        // 'free' = Apenas produtos com Frete Grátis
-        // Vendedores com Mercado Envios Full geralmente são mais confiáveis
-        'shipping_cost': MERCADOLIVRE_FILTERS.SHIPPING_FREE,
-
-        // ITEM_CONDITION: Condição do produto
-        // 2230284 = Apenas produtos NOVOS
-        'ITEM_CONDITION': MERCADOLIVRE_FILTERS.CONDITION_NEW,
     });
 
-    if (affiliateId) {
+    // Filtros Anti-Golpe (apenas se strict mode estiver ativo)
+    if (options.strict) {
+        // shipping_cost: 'free' = Apenas produtos com Frete Grátis (indicador de vendedor Full)
+        params.set('shipping_cost', MERCADOLIVRE_FILTERS.SHIPPING_FREE);
+
+        // ITEM_CONDITION: 2230284 = Apenas produtos NOVOS
+        params.set('ITEM_CONDITION', MERCADOLIVRE_FILTERS.CONDITION_NEW);
+    }
+
+    // Always include matt_tool for affiliate tracking
+    const toolId = affiliateId || ML_SOCIAL_CONFIG.MATT_TOOL;
+    if (toolId) {
         // matt_tool: Parâmetro de tracking do programa de afiliados
-        params.set('matt_tool', affiliateId);
+        params.set('matt_tool', toolId);
+    }
+
+    // Enforce global tracking_id
+    if (ML_SOCIAL_CONFIG.MATT_WORD) {
+        params.set('tracking_id', ML_SOCIAL_CONFIG.MATT_WORD);
     }
 
     if (subid) {
         params.set('subid', subid);
     }
 
-    // Adiciona filtro de Loja Oficial diretamente na URL
-    // O sufixo _LojaOficial prioriza resultados de lojas verificadas
-    return `${baseUrl}?${params.toString()}&_LojaOficial=1`;
+    // Se strict for true, adiciona filtro de Loja Oficial
+    const suffix = options.strict ? '&_LojaOficial=1' : '';
+    return `${baseUrl}?${params.toString()}${suffix}`;
 }
 
 /**
@@ -338,26 +398,29 @@ export function generateMercadoLivreOfficialStoreLink(
  * generateShopeeSearchLink('Samsung Galaxy S24')
  * // => "https://shopee.com.br/search?keyword=Samsung+Galaxy+S24&official_mall=1&rating_star=4"
  */
-export function generateShopeeSearchLink(keyword: string, affiliateId?: string): string {
+export function generateShopeeSearchLink(
+    keyword: string,
+    affiliateId?: string,
+    options: { strict?: boolean } = { strict: true }
+): string {
     const baseUrl = 'https://shopee.com.br/search';
 
     const params = new URLSearchParams({
-        // keyword: Termo de busca
         'keyword': keyword,
-
-        // official_mall: Filtro de Shopee Mall
-        // 1 = Apenas lojas oficiais verificadas (equivalente a "Lojas Oficiais" no ML)
-        // Isso exclui vendedores internacionais duvidosos
-        'official_mall': '1',
-
-        // rating_star: Filtro de avaliação do vendedor
-        // 4 = Apenas vendedores com 4 estrelas ou mais
-        'rating_star': '4',
     });
 
-    // af_id: Parâmetro de tracking de afiliados Shopee
-    if (affiliateId) {
-        params.set('af_id', affiliateId);
+    if (options.strict) {
+        // official_mall: 1 = Apenas lojas oficiais (Shopee Mall)
+        params.set('official_mall', '1');
+
+        // rating_star: 4 = Apenas vendedores > 4 estrelas
+        params.set('rating_star', '4');
+    }
+
+    // Always include af_id for affiliate tracking
+    const trackingId = affiliateId || 'aferio';
+    if (trackingId) {
+        params.set('af_id', trackingId);
     }
 
     return `${baseUrl}?${params.toString()}`;
@@ -411,22 +474,17 @@ export function generateShopeeDirectLink(
  * generateMagaluSearchLink('Samsung QN90C', 'comparatop123')
  * // => "https://www.magazineluiza.com.br/busca/Samsung+QN90C/?seller=magazineluiza&partner_id=comparatop123"
  */
-export function generateMagaluSearchLink(keyword: string, partnerId?: string): string {
+export function generateMagaluSearchLink(
+    keyword: string,
+    partnerId?: string,
+    options: { strict?: boolean } = { strict: true }
+): string {
     const sanitizedKeyword = encodeURIComponent(keyword.trim());
 
-    const params = new URLSearchParams({
-        // seller: Filtro de vendedor
-        // 'magazineluiza' = Apenas produtos vendidos diretamente pelo Magalu (1P)
-        // Exclui marketplace (3P) onde qualquer vendedor pode listar
-        'seller': 'magazineluiza',
-    });
-
-    // partner_id: Parâmetro de tracking do programa de afiliados Magalu
-    if (partnerId) {
-        params.set('partner_id', partnerId);
-    }
-
-    return `https://www.magazineluiza.com.br/busca/${sanitizedKeyword}/?${params.toString()}`;
+    // NOVA ESTRATÉGIA: Busca na vitrine do afiliado (Magazine Você)
+    // Formato: https://www.magazinevoce.com.br/{storeId}/busca/{termo}/
+    const storeId = partnerId || 'magazineaferio';
+    return `https://www.magazinevoce.com.br/${storeId}/busca/${sanitizedKeyword}/`;
 }
 
 /**
@@ -440,15 +498,73 @@ export function generateMagaluSearchLink(keyword: string, partnerId?: string): s
 export function generateMagaluDirectLink(
     productSlug: string,
     productId: string,
-    partnerId?: string
+    partnerId: string = 'magazineaferio'
 ): string {
-    let url = `https://www.magazineluiza.com.br/${productSlug}/p/${productId}/`;
+    // NOVA ESTRATÉGIA: Forçar domínio 'magazinevoce' para garantir atribuição
+    // Formato: https://www.magazinevoce.com.br/{storeId}/p/{id}/
+    return `https://www.magazinevoce.com.br/${partnerId}/p/${productId}/`;
+}
 
-    if (partnerId) {
-        url += `?partner_id=${partnerId}`;
+/**
+ * Converte uma URL oficial do Magazine Luiza para link de afiliado Magazine Você
+ * 
+ * @param originalUrl - URL do produto (magazineluiza.com.br)
+ * @param storeId - ID da loja Magazine Você (default: 'magazineaferio')
+ * @returns URL convertida para o formato de afiliado
+ */
+export function getMagaluAffiliateLink(
+    originalUrl: string,
+    storeId: string = 'magazineaferio'
+): string {
+    try {
+        const url = new URL(originalUrl);
+
+        // 1. Validação: Deve ser magazineluiza.com.br
+        if (!url.hostname.includes('magazineluiza.com.br')) {
+            return originalUrl;
+        }
+
+        // 2. Transformação de Domínio
+        url.hostname = 'www.magazinevoce.com.br';
+
+        // 3. Injeção da Loja
+        // Previne duplicação se a URL já tiver o storeId
+        if (!url.pathname.startsWith(`/${storeId}`)) {
+            url.pathname = `/${storeId}${url.pathname}`;
+        }
+
+        return url.toString();
+    } catch (e) {
+        // Retorna original se a URL for inválida
+        return originalUrl;
+    }
+}
+
+/**
+ * Gera um link de afiliado Magalu flexível (URL direta ou Busca)
+ * 
+ * @param input - URL do produto, Nome do Produto ou ASIN
+ * @param storeId - ID da loja Magazine Você (default: 'magazineaferio')
+ * @returns Link formatado (ou lança erro para ASIN isolado)
+ */
+export function generateMagaluLink(input: string, storeId: string = 'magazineaferio'): string {
+    const trimmedInput = input.trim();
+
+    // 1. Verifica se é ASIN (Começa com B0 e tem 10 chars)
+    // Magalu não aceita ASIN, então rejeitamos para evitar buscas inúteis
+    if (/^B0[A-Z0-9]{8}$/.test(trimmedInput)) {
+        throw new Error('Magalu não suporta busca por código ASIN. Por favor, forneça o Nome do Produto ou uma URL do Magalu.');
     }
 
-    return url;
+    // 2. Verifica se é uma URL válida do Magalu
+    if (trimmedInput.includes('magazineluiza.com.br')) {
+        return getMagaluAffiliateLink(trimmedInput, storeId);
+    }
+
+    // 3. Fallback: Gera Link de Busca na Loja do Afiliado
+    // Formato: https://www.magazinevoce.com.br/{storeId}/busca/{termo}/
+    const encodedQuery = encodeURIComponent(trimmedInput).replace(/%20/g, '+');
+    return `https://www.magazinevoce.com.br/${storeId}/busca/${encodedQuery}/`;
 }
 
 // ============================================================================
@@ -515,7 +631,7 @@ function isProductId(platform: Platform, identifier: string): boolean {
  * 
  * @example
  * // Amazon com ASIN - gera link OLP filtrado
- * generateSafeLink('amazon', 'B09V3KXJPB', 'Samsung QN90C', 'comparatop-20')
+ * generateSafeLink('amazon', 'B09V3KXJPB', 'Samsung QN90C', 'aferio-20')
  * // => "https://www.amazon.com.br/gp/offer-listing/B09V3KXJPB?f_primeEligible=true&..."
  * 
  * // Shopee com keyword - detecta automaticamente e usa busca Mall
@@ -601,7 +717,7 @@ export function generateSafeLink(
  * @example
  * // Configura uma vez (ex: em lib/affiliate-config.ts)
  * export const safeLink = createSafeLinkGenerator({
- *   amazonTag: 'comparatop-20',
+ *   amazonTag: 'aferio-20',
  *   mlAffiliateId: 'comparatop',
  *   shopeeAffiliateId: 'shopee_aff_123',
  *   magaluPartnerId: 'magalu_partner_456',

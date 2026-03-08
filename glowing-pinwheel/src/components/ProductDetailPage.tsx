@@ -56,6 +56,7 @@ import OwnershipInsights from '@/components/product/OwnershipInsights';
 import { OwnershipInsightsExpanded } from '@/components/product/OwnershipInsightsExpanded';
 import { analyzeProductOwnership } from '@/lib/scoring/product-ownership';
 import { getExpandedMetricsFromSIC, hasComponentMapping } from '@/lib/scoring/component-engine';
+import { TcoSection } from '@/components/pdp/TcoSection';
 
 // === UNKNOWN UNKNOWNS (Engenharia Oculta) ===
 import { ProductUnknownUnknownsWidget } from '@/components/pdp/ProductUnknownUnknownsWidget';
@@ -1574,55 +1575,62 @@ export function ProductDetailPage({ product, layoutConfig, layoutMode, layoutRea
 
                             {/* === OWNERSHIP INSIGHTS (TCO) - Custo Real de Propriedade === */}
                             {/* SLOT: deepDiveSlot - implementado inline para compatibilidade com 'use client' */}
-                            <section id="ownership-insights" className="mt-6 py-4">
-                                {(() => {
-                                    try {
-                                        const hasMappingResult = hasComponentMapping(product.id);
+                            {/* === OWNERSHIP INSIGHTS (TCO) - Custo Real de Propriedade === */}
+                            {/* SLOT: deepDiveSlot - implementado inline para compatibilidade com 'use client' */}
+                            <TcoSection
+                                product={product}
+                                fallback={
+                                    <section id="ownership-insights" className="mt-6 py-4">
+                                        {(() => {
+                                            try {
+                                                const hasMappingResult = hasComponentMapping(product.id);
 
-                                        if (hasMappingResult) {
-                                            const ownershipAnalysis = analyzeProductOwnership(product);
-                                            const expandedMetrics = getExpandedMetricsFromSIC(
-                                                product.id,
-                                                product.price || 0,
-                                                ownershipAnalysis.shadowMetrics?.monthlyCostBreakdown?.energy ?? 10,
-                                                ownershipAnalysis.categoryConstants?.avgLifespanYears ?? 8
-                                            );
+                                                if (hasMappingResult) {
+                                                    const ownershipAnalysis = analyzeProductOwnership(product);
+                                                    const expandedMetrics = getExpandedMetricsFromSIC(
+                                                        product.id,
+                                                        product.price || 0,
+                                                        ownershipAnalysis.shadowMetrics?.monthlyCostBreakdown?.energy ?? 10,
+                                                        ownershipAnalysis.categoryConstants?.avgLifespanYears ?? 8
+                                                    );
 
-                                            if (expandedMetrics) {
+                                                    if (expandedMetrics) {
+                                                        return (
+                                                            <OwnershipInsightsExpanded
+                                                                metrics={expandedMetrics}
+                                                                productName={product.name}
+                                                            />
+                                                        );
+                                                    }
+                                                }
+
+                                                // Fallback: versão simplificada
+                                                const ownershipAnalysis = analyzeProductOwnership(product);
                                                 return (
-                                                    <OwnershipInsightsExpanded
-                                                        metrics={expandedMetrics}
+                                                    <OwnershipInsights
+                                                        purchasePrice={product.price || 0}
+                                                        shadowMetrics={ownershipAnalysis.shadowMetrics}
+                                                        categoryConstants={ownershipAnalysis.categoryConstants}
+                                                        energyKwhMonth={(product as any).energy?.kwh_month}
                                                         productName={product.name}
                                                     />
                                                 );
+                                            } catch (error) {
+                                                console.error('[ProductDetailPage] Error rendering ownership insights:', error);
+                                                return (
+                                                    <ModuleFallback
+                                                        sectionId="ownership_insights"
+                                                        sectionName="Impacto no Bolso (TCO)"
+                                                        status="error"
+                                                        reason="Erro ao calcular custo de propriedade"
+                                                        missingFields={[String(error)]}
+                                                    />
+                                                );
                                             }
-                                        }
-
-                                        // Fallback: versão simplificada
-                                        const ownershipAnalysis = analyzeProductOwnership(product);
-                                        return (
-                                            <OwnershipInsights
-                                                purchasePrice={product.price || 0}
-                                                shadowMetrics={ownershipAnalysis.shadowMetrics}
-                                                categoryConstants={ownershipAnalysis.categoryConstants}
-                                                energyKwhMonth={(product as any).energy?.kwh_month}
-                                                productName={product.name}
-                                            />
-                                        );
-                                    } catch (error) {
-                                        console.error('[ProductDetailPage] Error rendering ownership insights:', error);
-                                        return (
-                                            <ModuleFallback
-                                                sectionId="ownership_insights"
-                                                sectionName="Impacto no Bolso (TCO)"
-                                                status="error"
-                                                reason="Erro ao calcular custo de propriedade"
-                                                missingFields={[String(error)]}
-                                            />
-                                        );
-                                    }
-                                })()}
-                            </section>
+                                        })()}
+                                    </section>
+                                }
+                            />
 
                             {/* === UNKNOWN UNKNOWNS (Engenharia Oculta) === */}
                             <section id="unknown-unknowns" className="mt-4">
@@ -1814,7 +1822,7 @@ export function ProductDetailPage({ product, layoutConfig, layoutMode, layoutRea
                                             asin: (product as unknown as { asin?: string }).asin || 'B0SAMPLE',
                                             price: product.price,
                                             imageUrl: product.imageUrl,
-                                            affiliateUrl: product.offers?.[0]?.affiliateUrl || product.offers?.[0]?.url || `https://www.amazon.com.br/dp/${(product as any).asin}?tag=comparatop-20`,
+                                            affiliateUrl: product.offers?.[0]?.affiliateUrl || product.offers?.[0]?.url || `https://www.amazon.com.br/dp/${(product as any).asin}?tag=aferio-20`,
                                         }}
                                         accessory={{
                                             name: bundleMatch.accessory.name,
@@ -1822,7 +1830,7 @@ export function ProductDetailPage({ product, layoutConfig, layoutMode, layoutRea
                                             asin: bundleMatch.accessory.asin,
                                             price: bundleMatch.accessory.price,
                                             imageUrl: bundleMatch.accessory.imageUrl,
-                                            affiliateUrl: (bundleMatch.accessory as any).affiliateUrl || `https://www.amazon.com.br/dp/${bundleMatch.accessory.asin}?tag=comparatop-20`,
+                                            affiliateUrl: (bundleMatch.accessory as any).affiliateUrl || `https://www.amazon.com.br/dp/${bundleMatch.accessory.asin}?tag=aferio-20`,
                                         }}
                                         title={bundleMatch.accessory.accessoryCategoryId === 'soundbar' ? '🔊 Complete sua experiência' : '✨ Acessório recomendado'}
                                         subtitle={bundleMatch.matchReason}
@@ -1862,7 +1870,7 @@ export function ProductDetailPage({ product, layoutConfig, layoutMode, layoutRea
                     imageUrl: product.imageUrl,
                     score: getUnifiedScore(product),
                     amazonUrl: (product as unknown as { asin?: string }).asin
-                        ? `https://www.amazon.com.br/dp/${(product as unknown as { asin?: string }).asin}?tag=comparatop-20`
+                        ? `https://www.amazon.com.br/dp/${(product as unknown as { asin?: string }).asin}?tag=aferio-20`
                         : undefined,
                 }}
                 rivalProduct={(() => {

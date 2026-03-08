@@ -18,7 +18,7 @@ import type { Product } from '@/types/category';
 // ============================================
 import { analyzeProductOwnership } from '@/lib/scoring/product-ownership';
 import OwnershipInsights from '@/components/product/OwnershipInsights';
-import { OwnershipInsightsExpanded } from '@/components/product/OwnershipInsightsExpanded';
+import { OwnershipInsightsExpanded } from '@/components/product/OwnershipInsightsV2';
 import { getExpandedMetricsFromSIC, hasComponentMapping } from '@/lib/scoring/component-engine';
 
 // ============================================
@@ -474,34 +474,75 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
                     /* Deep Dive sections - After DNA analysis */
                     <>
                         {/* Ownership Insights - Custo Real de Propriedade */}
-                        <section className="py-8">
+                        <section className="py-8" data-ext-tco-test={JSON.stringify({ has: !!(rawProduct as any).extendedTco, price: (rawProduct as any).extendedTco?.purchasePrice ?? 'N/A', rawKeys: Object.keys(rawProduct as any).filter(k => k.toLowerCase().includes('tco') || k.toLowerCase().includes('extended')).join(',') || 'NONE' })}>
                             {(() => {
-                                try {
-                                    // DEBUG: Log para verificar o ID do produto
-                                    console.log(`[RENDER DEBUG] rawProduct.id = ${rawProduct.id}`);
+                                // Check for verified TCO data (extendedTco from Fipe_Eletro)
+                                const extTco = (rawProduct as any).extendedTco;
 
+                                try {
                                     // Verificar se produto tem mapeamento E se os dados são válidos
                                     const hasMappingResult = hasComponentMapping(rawProduct.id);
-                                    console.log(`[RENDER DEBUG] hasMappingResult = ${hasMappingResult}`);
 
                                     if (hasMappingResult) {
-                                        console.log(`[RENDER DEBUG] Calling getExpandedMetricsFromSIC...`);
+                                        // Use verified purchase price when available
+                                        const effectivePrice = extTco?.purchasePrice ?? rawProduct.price ?? 0;
+
                                         const expandedMetrics = getExpandedMetricsFromSIC(
                                             rawProduct.id,
-                                            rawProduct.price || 0,
+                                            effectivePrice,
                                             ownershipAnalysis.shadowMetrics?.monthlyCostBreakdown?.energy ?? 10,
                                             ownershipAnalysis.categoryConstants?.avgLifespanYears ?? 8
                                         );
 
-                                        console.log(`[RENDER DEBUG] expandedMetrics = ${expandedMetrics ? 'VALID' : 'NULL'}`);
-
                                         if (expandedMetrics) {
-                                            console.log(`[RENDER DEBUG] Rendering OwnershipInsightsExpanded`);
+                                            // ========================================
+                                            // OVERRIDE BREAKDOWN: Inject verified values
+                                            // into the tcoBreakdown that the client component
+                                            // uses for display and recalculation
+                                            // ========================================
+                                            if (extTco) {
+                                                // Maintenance: use verified NPV value
+                                                expandedMetrics.tcoBreakdown.maintenanceCost = extTco.maintenanceCost5y ?? expandedMetrics.tcoBreakdown.maintenanceCost;
+
+                                                // Resale: TCO methodology = no resale assumption
+                                                expandedMetrics.tcoBreakdown.resaleValue = 0;
+                                                expandedMetrics.tcoBreakdown.depreciationRate = 0;
+
+                                                // Energy: set monthlyKwh so component recalculation
+                                                // produces the correct verified energy cost
+                                                // Client component does: monthlyKwh × energyRate × 60
+                                                // We want the result ≈ extTco.energyCost5y
+                                                // So monthlyKwh = energyCost5y / (tariff × 60)
+                                                // Using avg tariff 0.92 as reference
+                                                const targetEnergyKwh = (extTco.energyCost5y ?? 382) / (0.92 * 60);
+                                                if (expandedMetrics.tcoBreakdown.energyDetails) {
+                                                    expandedMetrics.tcoBreakdown.energyDetails.monthlyKwh = targetEnergyKwh;
+                                                }
+
+                                                // Update total and confidence
+                                                expandedMetrics.totalCostOfOwnership5Years = extTco.totalCost5y ?? expandedMetrics.totalCostOfOwnership5Years;
+                                                expandedMetrics.computedConfidence = 0.95;
+                                            }
+
+                                            console.log(`[TCO-TRACE] capex=${expandedMetrics.tcoBreakdown.capex}, effectivePrice=${effectivePrice}, extTco.purchasePrice=${extTco?.purchasePrice}, rawProduct.price=${rawProduct.price}`);
+
                                             return (
-                                                <OwnershipInsightsExpanded
-                                                    metrics={expandedMetrics}
-                                                    productName={rawProduct.name}
-                                                />
+                                                <>
+                                                    <p style={{ background: 'red', color: 'white', padding: '10px', fontSize: '18px', fontWeight: 'bold' }}>
+                                                        DEBUG: capex={expandedMetrics.tcoBreakdown.capex} | effectivePrice={effectivePrice} | extTco={extTco?.purchasePrice ?? 'N/A'} | rawPrice={rawProduct.price}
+                                                    </p>
+                                                    <OwnershipInsightsExpanded
+                                                        metrics={expandedMetrics}
+                                                        productName={rawProduct.name}
+                                                        verifiedTco={extTco ? {
+                                                            purchasePrice: extTco.purchasePrice,
+                                                            energyCost5y: extTco.energyCost5y,
+                                                            maintenanceCost5y: extTco.maintenanceCost5y,
+                                                            totalCost5y: extTco.totalCost5y,
+                                                            monthlyReserve: extTco.monthlyReserve,
+                                                        } : undefined}
+                                                    />
+                                                </>
                                             );
                                         }
                                     }
@@ -509,7 +550,33 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
                                     console.error(`[RENDER ERROR] Error rendering expanded metrics:`, error);
                                 }
 
-                                // Fallback para versão simplificada
+                                // ========================================
+                                // FALLBACK: Use extendedTco for simplified version too
+                                // ========================================
+                                if (extTco) {
+                                    console.log(`[RENDER DEBUG] Using OwnershipInsights with extendedTco override`);
+                                    const overriddenShadowMetrics = {
+                                        ...ownershipAnalysis.shadowMetrics,
+                                        totalCostOfOwnership5Years: extTco.totalCost5y,
+                                        monthlyCostBreakdown: {
+                                            energy: extTco.energyCost5y / 60,
+                                            consumables: 0,
+                                            maintenanceReserve: extTco.maintenanceCost5y / 60,
+                                        },
+                                        computedConfidence: 0.95,
+                                    };
+                                    return (
+                                        <OwnershipInsights
+                                            purchasePrice={extTco.purchasePrice}
+                                            shadowMetrics={overriddenShadowMetrics}
+                                            categoryConstants={ownershipAnalysis.categoryConstants}
+                                            energyKwhMonth={extTco.energyCost5y / (0.92 * 60)}
+                                            productName={rawProduct.name}
+                                        />
+                                    );
+                                }
+
+                                // Fallback para versão simplificada (sem extendedTco)
                                 console.log(`[RENDER DEBUG] Using fallback OwnershipInsights`);
                                 return (
                                     <OwnershipInsights
@@ -521,10 +588,10 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
                                     />
                                 );
                             })()}
-                        </section>
+                        </section >
 
                         {/* Unknown Unknowns - Engenharia Oculta */}
-                        <section className="py-4">
+                        < section className="py-4" >
                             <ProductUnknownUnknownsWidget product={rawProduct} />
                         </section>
                     </>

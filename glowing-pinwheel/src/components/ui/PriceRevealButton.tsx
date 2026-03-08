@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { ExternalLink, ShoppingCart, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { generateMercadoLivreSearchLink, generateShopeeSearchLink, generateMagaluSearchLink } from '@/lib/safe-links';
 
 // ============================================
 // PRICE REVEAL BUTTON
@@ -52,9 +53,9 @@ export function PriceRevealButton({
     // Generate URL: priority is affiliateUrl > ASIN > search
     const generateUrl = () => {
         if (affiliateUrl) return affiliateUrl;
-        if (asin) return `https://www.amazon.com.br/dp/${asin}?tag=comparatop-20`;
-        if (productName) return `https://www.amazon.com.br/s?k=${encodeURIComponent(productName)}&tag=comparatop-20`;
-        return 'https://www.amazon.com.br?tag=comparatop-20';
+        if (asin) return `https://www.amazon.com.br/dp/${asin}?tag=aferio-20`;
+        if (productName) return `https://www.amazon.com.br/s?k=${encodeURIComponent(productName)}&tag=aferio-20`;
+        return 'https://www.amazon.com.br?tag=aferio-20';
     };
 
     const sizeClasses = {
@@ -136,7 +137,7 @@ const DEFAULT_MARKETPLACES = (productName: string): MarketplaceOffer[] => [
         id: 'amazon',
         name: 'Amazon',
         icon: '🛒',
-        url: `https://www.amazon.com.br/s?k=${encodeURIComponent(productName)}&tag=comparatop-20`,
+        url: `https://www.amazon.com.br/s?k=${encodeURIComponent(productName)}&tag=aferio-20`,
         brandColor: '#FF9900', // Amazon Orange
         bgGradient: 'from-[#FF9900] to-[#FF6600]',
         hoverGradient: 'hover:from-[#FFB347] hover:to-[#FF9900]',
@@ -145,7 +146,7 @@ const DEFAULT_MARKETPLACES = (productName: string): MarketplaceOffer[] => [
         id: 'mercadolivre',
         name: 'Mercado Livre',
         icon: '🤝',
-        url: `https://lista.mercadolivre.com.br/${encodeURIComponent(productName)}_Frete_Gratis_NoIndex_True`,
+        url: generateMercadoLivreSearchLink(productName),
         brandColor: '#FFE600', // ML Yellow
         bgGradient: 'from-[#FFE600] to-[#FFC800]',
         hoverGradient: 'hover:from-[#FFEB3B] hover:to-[#FFE600]',
@@ -155,7 +156,7 @@ const DEFAULT_MARKETPLACES = (productName: string): MarketplaceOffer[] => [
         id: 'shopee',
         name: 'Shopee',
         icon: '🛍️',
-        url: `https://shopee.com.br/search?keyword=${encodeURIComponent(productName)}&official_mall=1&rating_star=4`,
+        url: generateShopeeSearchLink(productName),
         brandColor: '#EE4D2D', // Shopee Orange-Red
         bgGradient: 'from-[#EE4D2D] to-[#D0011B]',
         hoverGradient: 'hover:from-[#FF6B4A] hover:to-[#EE4D2D]',
@@ -164,7 +165,7 @@ const DEFAULT_MARKETPLACES = (productName: string): MarketplaceOffer[] => [
         id: 'magalu',
         name: 'Magazine Luiza',
         icon: '💙',
-        url: `https://www.magazineluiza.com.br/busca/${encodeURIComponent(productName)}/?seller=magazineluiza`,
+        url: generateMagaluSearchLink(productName),
         brandColor: '#0086FF', // Magalu Blue
         bgGradient: 'from-[#0086FF] to-[#0066CC]',
         hoverGradient: 'hover:from-[#3399FF] hover:to-[#0086FF]',
@@ -285,9 +286,9 @@ export function PriceBadge({
 }: PriceBadgeProps) {
     const generateUrl = () => {
         if (affiliateUrl) return affiliateUrl;
-        if (asin) return `https://www.amazon.com.br/dp/${asin}?tag=comparatop-20`;
-        if (productName) return `https://www.amazon.com.br/s?k=${encodeURIComponent(productName)}&tag=comparatop-20`;
-        return 'https://www.amazon.com.br?tag=comparatop-20';
+        if (asin) return `https://www.amazon.com.br/dp/${asin}?tag=aferio-20`;
+        if (productName) return `https://www.amazon.com.br/s?k=${encodeURIComponent(productName)}&tag=aferio-20`;
+        return 'https://www.amazon.com.br?tag=aferio-20';
     };
 
     return (

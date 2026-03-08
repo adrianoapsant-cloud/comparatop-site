@@ -60,7 +60,7 @@ export function BundleUpgrade({
             params.append('Quantity.2', '1');
         }
 
-        params.append('tag', 'comparatop-20');
+        params.append('tag', 'aferio-20');
 
         return `${baseUrl}?${params.toString()}`;
     };
@@ -68,9 +68,9 @@ export function BundleUpgrade({
     // Single product URL
     const generateSingleUrl = () => {
         if (mainProduct.asin) {
-            return `https://www.amazon.com.br/dp/${mainProduct.asin}?tag=comparatop-20`;
+            return `https://www.amazon.com.br/dp/${mainProduct.asin}?tag=aferio-20`;
         }
-        return `https://www.amazon.com.br/s?k=${encodeURIComponent(mainProduct.name)}&tag=comparatop-20`;
+        return `https://www.amazon.com.br/s?k=${encodeURIComponent(mainProduct.name)}&tag=aferio-20`;
     };
 
     const accessoryIcon = accessory.category === 'soundbar' ? '🔊' : '✨';
@@ -215,12 +215,12 @@ export function BundleUpgradeCompact({
 
     const generateUrl = () => {
         if (include && mainProductAsin && accessoryAsin) {
-            return `https://www.amazon.com.br/gp/aws/cart/add.html?ASIN.1=${mainProductAsin}&Quantity.1=1&ASIN.2=${accessoryAsin}&Quantity.2=1&tag=comparatop-20`;
+            return `https://www.amazon.com.br/gp/aws/cart/add.html?ASIN.1=${mainProductAsin}&Quantity.1=1&ASIN.2=${accessoryAsin}&Quantity.2=1&tag=aferio-20`;
         }
         if (mainProductAsin) {
-            return `https://www.amazon.com.br/dp/${mainProductAsin}?tag=comparatop-20`;
+            return `https://www.amazon.com.br/dp/${mainProductAsin}?tag=aferio-20`;
         }
-        return `https://www.amazon.com.br/s?k=${encodeURIComponent(mainProductName)}&tag=comparatop-20`;
+        return `https://www.amazon.com.br/s?k=${encodeURIComponent(mainProductName)}&tag=aferio-20`;
     };
 
     return (

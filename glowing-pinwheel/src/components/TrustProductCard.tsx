@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { ExternalLink, Check, ShieldCheck } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { generateMercadoLivreSearchLink, generateMagaluSearchLink } from '@/lib/safe-links';
 
 // ============================================
 // TRUST-OPTIMIZED PRODUCT CARD
@@ -170,7 +171,7 @@ export function TrustProductCard({ product, className }: TrustProductCardProps) 
 
                         {/* Mercado Livre */}
                         <a
-                            href={product.mlUrl || `https://lista.mercadolivre.com.br/${encodeURIComponent(product.name)}`}
+                            href={product.mlUrl || generateMercadoLivreSearchLink(product.name)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="px-3 py-1.5 text-xs font-medium text-[#FFE600] bg-[#2D3277] rounded-lg hover:opacity-90 transition-opacity"
@@ -181,7 +182,7 @@ export function TrustProductCard({ product, className }: TrustProductCardProps) 
 
                         {/* Magalu */}
                         <a
-                            href={product.magaluUrl || `https://www.magazineluiza.com.br/busca/${encodeURIComponent(product.name)}`}
+                            href={product.magaluUrl || generateMagaluSearchLink(product.name)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="px-3 py-1.5 text-xs font-medium text-white bg-[#0086FF] rounded-lg hover:opacity-90 transition-opacity"
@@ -209,8 +210,8 @@ export function TrustProductCardDemo() {
         reviewCount: 5420,
         reclameAquiStatus: 'safe' as const,
         amazonUrl: 'https://amazon.com.br',
-        mlUrl: 'https://lista.mercadolivre.com.br/samsung-qn90c',
-        magaluUrl: 'https://www.magazineluiza.com.br/busca/samsung-qn90c',
+        mlUrl: generateMercadoLivreSearchLink('samsung qn90c'),
+        magaluUrl: generateMagaluSearchLink('samsung qn90c'),
     };
 
     return (

@@ -80,15 +80,15 @@ export function StickyAction({
                 }
             });
 
-            params.append('tag', 'comparatop-20');
+            params.append('tag', 'aferio-20');
             return `https://www.amazon.com.br/gp/aws/cart/add.html?${params.toString()}`;
         }
 
         // Single product
         if (affiliateUrl) return affiliateUrl;
-        if (mainProductAsin) return `https://www.amazon.com.br/dp/${mainProductAsin}?tag=comparatop-20`;
-        if (productName) return `https://www.amazon.com.br/s?k=${encodeURIComponent(productName)}&tag=comparatop-20`;
-        return 'https://www.amazon.com.br?tag=comparatop-20';
+        if (mainProductAsin) return `https://www.amazon.com.br/dp/${mainProductAsin}?tag=aferio-20`;
+        if (productName) return `https://www.amazon.com.br/s?k=${encodeURIComponent(productName)}&tag=aferio-20`;
+        return 'https://www.amazon.com.br?tag=aferio-20';
     };
 
     // Calculate total delta for upsells
@@ -264,12 +264,12 @@ export function StickyActionMobile({
     // Generate URL
     const generateUrl = () => {
         if (includeAccessory && mainProductAsin && accessoryAsin) {
-            return `https://www.amazon.com.br/gp/aws/cart/add.html?ASIN.1=${mainProductAsin}&Quantity.1=1&ASIN.2=${accessoryAsin}&Quantity.2=1&tag=comparatop-20`;
+            return `https://www.amazon.com.br/gp/aws/cart/add.html?ASIN.1=${mainProductAsin}&Quantity.1=1&ASIN.2=${accessoryAsin}&Quantity.2=1&tag=aferio-20`;
         }
         if (mainProductAsin) {
-            return `https://www.amazon.com.br/dp/${mainProductAsin}?tag=comparatop-20`;
+            return `https://www.amazon.com.br/dp/${mainProductAsin}?tag=aferio-20`;
         }
-        return `https://www.amazon.com.br/s?k=${encodeURIComponent(productName)}&tag=comparatop-20`;
+        return `https://www.amazon.com.br/s?k=${encodeURIComponent(productName)}&tag=aferio-20`;
     };
 
     // Smart Hide scroll behavior

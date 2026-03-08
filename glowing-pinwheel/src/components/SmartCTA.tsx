@@ -125,7 +125,7 @@ export function SmartCTA({
     const handleClick = () => {
         onClick?.();
 
-        const url = offerUrl || generateAmazonSearchLink(productName, 'comparatop-20');
+        const url = offerUrl || generateAmazonSearchLink(productName, 'aferio-20');
         window.open(url, '_blank', 'noopener,noreferrer');
     };
 

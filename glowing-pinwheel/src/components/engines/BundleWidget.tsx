@@ -151,7 +151,7 @@ export function BundleWidget({ config, className }: BundleWidgetProps) {
         // Amazon multi-add-to-cart format
         // Format: https://www.amazon.com.br/gp/aws/cart/add.html?ASIN.1=XXX&Quantity.1=1&ASIN.2=YYY&Quantity.2=1
         const params = asins.map((asin, i) => `ASIN.${i + 1}=${asin}&Quantity.${i + 1}=1`).join('&');
-        return `https://www.amazon.com.br/gp/aws/cart/add.html?${params}&tag=comparatop-20`;
+        return `https://www.amazon.com.br/gp/aws/cart/add.html?${params}&tag=aferio-20`;
     }, [config]);
 
     if (config.relatedProducts.length === 0) {

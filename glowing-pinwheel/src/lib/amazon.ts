@@ -27,7 +27,7 @@ interface CartItem {
  * @example
  * const url = getAmazonCartUrl(
  *   [{ asin: 'B0ABCD1234', quantity: 1 }],
- *   'comparatop-20'
+ *   'aferio-20'
  * );
  */
 export function getAmazonCartUrl(
@@ -134,7 +134,7 @@ export const EXAMPLE_BUNDLES = {
                 price: 1500,
             },
         ],
-        associateTag: 'comparatop-20',
+        associateTag: 'aferio-20',
     },
     tvComplete: {
         name: 'Kit Home Theater Completo',
@@ -159,7 +159,7 @@ export const EXAMPLE_BUNDLES = {
                 price: 199,
             },
         ],
-        associateTag: 'comparatop-20',
+        associateTag: 'aferio-20',
     },
 } as const;
 

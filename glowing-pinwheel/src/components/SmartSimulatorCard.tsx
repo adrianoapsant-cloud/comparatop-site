@@ -174,7 +174,7 @@ function SuggestionItem({
                 element.scrollIntoView({ behavior: 'smooth', block: 'center' });
             } else {
                 // Fallback: open Amazon search for product with safe filters
-                const safeUrl = generateAmazonSearchLink(suggestion.productName, 'comparatop-20');
+                const safeUrl = generateAmazonSearchLink(suggestion.productName, 'aferio-20');
                 window.open(safeUrl, '_blank', 'noopener,noreferrer');
             }
         } else if (suggestion.actionType === 'scroll_to_bundle') {
@@ -184,14 +184,14 @@ function SuggestionItem({
                 element.scrollIntoView({ behavior: 'smooth', block: 'center' });
             } else {
                 // Fallback: open Amazon search for product with safe filters
-                const safeUrl = generateAmazonSearchLink(suggestion.productName, 'comparatop-20');
+                const safeUrl = generateAmazonSearchLink(suggestion.productName, 'aferio-20');
                 window.open(safeUrl, '_blank', 'noopener,noreferrer');
             }
         } else if (suggestion.actionLink && suggestion.actionLink !== '#') {
             window.open(suggestion.actionLink, '_blank', 'noopener,noreferrer');
         } else {
             // No valid link - fallback to safe Amazon search
-            const safeUrl = generateAmazonSearchLink(suggestion.productName, 'comparatop-20');
+            const safeUrl = generateAmazonSearchLink(suggestion.productName, 'aferio-20');
             window.open(safeUrl, '_blank', 'noopener,noreferrer');
         }
     };

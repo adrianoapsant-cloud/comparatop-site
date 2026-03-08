@@ -56,7 +56,7 @@ function getPersuasiveText(categoryId?: string, explicit?: string): string {
 export function BundleWidget({
     mainProduct,
     accessory,
-    associateTag = 'comparatop-20',
+    associateTag = 'aferio-20',
     title = '🔊 Complete sua Experiência',
     subtitle,
     persuasiveText,
@@ -72,9 +72,10 @@ export function BundleWidget({
     // Build Amazon cart URL that adds BOTH products to cart with affiliate tag
     const cartUrl = getAmazonCartUrl(
         [
-            { asin: mainProduct.asin, quantity: 1 },
-            { asin: accessory.asin, quantity: 1 },
-        ],
+            // Filter out placeholders
+            { asin: mainProduct.asin?.includes('B0XXXXXXXX') ? '' : mainProduct.asin, quantity: 1 },
+            { asin: accessory.asin?.includes('B0XXXXXXXX') ? '' : accessory.asin, quantity: 1 },
+        ].filter(i => i.asin && i.asin.length > 5), // Basic validation
         associateTag
     );
 
@@ -86,7 +87,7 @@ export function BundleWidget({
     // Main Product Card
     const MainProductCard = () => (
         <a
-            href={mainProduct.affiliateUrl}
+            href={mainProduct.affiliateUrl?.includes('B0XXXXXXXX') ? `https://www.amazon.com.br/s?k=${encodeURIComponent(mainProduct.name)}&tag=${associateTag}` : mainProduct.affiliateUrl}
             target="_blank"
             rel="noopener noreferrer sponsored"
             className="flex-1 max-w-[140px]"
@@ -119,7 +120,7 @@ export function BundleWidget({
     // Accessory Card
     const AccessoryCard = () => (
         <a
-            href={accessory.affiliateUrl}
+            href={accessory.affiliateUrl?.includes('B0XXXXXXXX') ? `https://www.amazon.com.br/s?k=${encodeURIComponent(accessory.name)}&tag=${associateTag}` : accessory.affiliateUrl}
             target="_blank"
             rel="noopener noreferrer sponsored"
             className="flex-1 max-w-[140px]"

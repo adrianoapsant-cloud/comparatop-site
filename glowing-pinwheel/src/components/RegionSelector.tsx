@@ -11,6 +11,10 @@ interface RegionSelectorProps {
     variant?: "compact" | "full";
     /** Additional class names */
     className?: string;
+    /** Additional class names for the button (compact mode) */
+    buttonClassName?: string;
+    /** Dropdown alignment */
+    align?: "left" | "right";
 }
 
 /**
@@ -19,13 +23,15 @@ interface RegionSelectorProps {
  * This affects energy rate calculations across the site.
  * The selection is persisted in localStorage.
  */
-export function RegionSelector({ variant = "compact", className }: RegionSelectorProps) {
+export function RegionSelector({ variant = "compact", className, buttonClassName, align = "right" }: RegionSelectorProps) {
     const { stateCode, stateName, energyRate, setRegion } = useRegion();
     const [isOpen, setIsOpen] = useState(false);
     const [search, setSearch] = useState("");
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     const stateOptions = getStateOptions();
+
+    // ... logic ...
 
     // Filter states based on search
     const filteredStates = stateOptions.filter(state =>
@@ -55,8 +61,13 @@ export function RegionSelector({ variant = "compact", className }: RegionSelecto
         return (
             <div ref={dropdownRef} className={cn("relative", className)}>
                 <button
+                    type="button"
                     onClick={() => setIsOpen(!isOpen)}
-                    className="flex items-center gap-1.5 px-2 py-1 text-xs text-text-muted hover:text-text-primary transition-colors rounded-lg hover:bg-bg-ground"
+                    className={cn(
+                        "flex items-center gap-1.5 px-2 py-1 text-xs transition-colors rounded-lg",
+                        "text-slate-500 hover:text-slate-800 hover:bg-slate-100", // Default styles
+                        buttonClassName // Custom override
+                    )}
                 >
                     <MapPin className="w-3.5 h-3.5" />
                     <span className="font-medium">{stateCode}</span>
@@ -64,7 +75,10 @@ export function RegionSelector({ variant = "compact", className }: RegionSelecto
                 </button>
 
                 {isOpen && (
-                    <div className="absolute top-full right-0 mt-1 w-56 bg-white rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden">
+                    <div className={cn(
+                        "absolute top-full mt-1 w-56 bg-white rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden",
+                        align === "right" ? "right-0" : "left-0"
+                    )}>
                         {/* Search */}
                         <div className="p-2 border-b border-gray-100">
                             <input

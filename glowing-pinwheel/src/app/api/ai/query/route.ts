@@ -38,11 +38,11 @@ function generateAffiliateLink(product: Product): string {
     // Amazon affiliate link format  
     const asin = (product as unknown as Record<string, unknown>).asin as string | undefined;
     if (asin) {
-        return `https://amazon.com.br/dp/${asin}?tag=comparatop-20`;
+        return `https://amazon.com.br/dp/${asin}?tag=aferio-20`;
     }
     // Fallback to search URL
     const searchQuery = encodeURIComponent(`${product.brand} ${product.model || product.name}`);
-    return `https://amazon.com.br/s?k=${searchQuery}&tag=comparatop-20`;
+    return `https://amazon.com.br/s?k=${searchQuery}&tag=aferio-20`;
 }
 
 // Hash IP for LGPD compliance

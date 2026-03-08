@@ -13,6 +13,7 @@ import { getUnifiedScore } from '@/lib/scoring/getUnifiedScore';
 import { CuriositySandwichWidget } from '@/components/pdp/CuriositySandwichWidget';
 import { ConfidenceBand, formatScoreRange, formatScoreValue } from '@/components/ui/ConfidenceBand';
 import { InfoTooltip } from '@/components/ui/InfoTooltip';
+import { generateMercadoLivreSearchLink, generateShopeeSearchLink, generateMagaluSearchLink } from '@/lib/safe-links';
 
 interface HeroSectionProps {
     data: PDPDataContract;
@@ -284,7 +285,18 @@ export function HeroSection({ data }: HeroSectionProps) {
                     <div className="mt-6 space-y-3">
                         {/* Primary CTA - Best Offer (first/Amazon) */}
                         <a
-                            href={product.offers?.[0]?.affiliateUrl || product.offers?.[0]?.url || `https://www.amazon.com.br/s?k=${encodeURIComponent(product.name)}&tag=comparatop-20`}
+                            href={(() => {
+                                const offer = product.offers?.[0];
+                                const url = offer?.affiliateUrl || offer?.url;
+                                const isPlaceholder = url?.includes('B0XXXXXXXX');
+
+                                // If URL is missing OR is a placeholder, use search fallback
+                                if (!url || isPlaceholder) {
+                                    return `https://www.amazon.com.br/s?k=${encodeURIComponent(product.name)}&tag=${process.env.NEXT_PUBLIC_AMAZON_TAG || 'aferio-20'}`;
+                                }
+
+                                return url;
+                            })()}
                             target="_blank"
                             rel="noopener noreferrer sponsored"
                             className="ct-btn ct-btn-primary w-full"
@@ -308,7 +320,7 @@ export function HeroSection({ data }: HeroSectionProps) {
                             <div className="ct-card-soft p-3 mt-2 space-y-2">
                                 {/* Mercado Livre */}
                                 <a
-                                    href={getStoreUrl(product.offers, 'mercado_livre', `https://lista.mercadolivre.com.br/${encodeURIComponent(product.shortName || product.name)}`)}
+                                    href={getStoreUrl(product.offers, 'mercado_livre', generateMercadoLivreSearchLink(product.shortName || product.name))}
                                     target="_blank"
                                     rel="noopener noreferrer sponsored"
                                     className="ct-link flex items-center justify-between py-2 px-3 hover:bg-ct-surface rounded-lg transition-colors"
@@ -318,7 +330,7 @@ export function HeroSection({ data }: HeroSectionProps) {
                                 </a>
                                 {/* Magazine Luiza */}
                                 <a
-                                    href={getStoreUrl(product.offers, 'magalu', `https://www.magazineluiza.com.br/busca/${encodeURIComponent(product.shortName || product.name)}`)}
+                                    href={getStoreUrl(product.offers, 'magalu', generateMagaluSearchLink(product.shortName || product.name))}
                                     target="_blank"
                                     rel="noopener noreferrer sponsored"
                                     className="ct-link flex items-center justify-between py-2 px-3 hover:bg-ct-surface rounded-lg transition-colors"
@@ -326,9 +338,9 @@ export function HeroSection({ data }: HeroSectionProps) {
                                     <span>Magazine Luiza</span>
                                     <span className="text-xs text-ct-muted">Abrir ↗</span>
                                 </a>
-                                {/* Shopee - always search */}
+                                {/* Shopee */}
                                 <a
-                                    href={`https://shopee.com.br/search?keyword=${encodeURIComponent(product.shortName || product.name)}`}
+                                    href={generateShopeeSearchLink(product.shortName || product.name)}
                                     target="_blank"
                                     rel="noopener noreferrer sponsored"
                                     className="ct-link flex items-center justify-between py-2 px-3 hover:bg-ct-surface rounded-lg transition-colors"

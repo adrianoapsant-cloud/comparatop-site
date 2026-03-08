@@ -221,7 +221,7 @@ export async function revealPrice(input: PriceRevealInput): Promise<PriceRevealR
  */
 function getAffiliateTag(platform: Platform): string {
     const tags: Record<Platform, string> = {
-        amazon: process.env.AMAZON_AFFILIATE_TAG || 'comparatop-20',
+        amazon: process.env.AMAZON_AFFILIATE_TAG || 'aferio-20',
         mercadolivre: process.env.ML_AFFILIATE_ID || 'comparatop',
         shopee: process.env.SHOPEE_AFFILIATE_ID || '',
         magalu: process.env.MAGALU_PARTNER_ID || '',

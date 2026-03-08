@@ -97,10 +97,10 @@ function searchProducts(query: string): { products: Product[], matchType: 'exact
 function generateAffiliateLink(product: Product): string {
     const asin = (product as unknown as Record<string, unknown>).asin as string | undefined;
     if (asin) {
-        return `https://amazon.com.br/dp/${asin}?tag=comparatop-20`;
+        return `https://amazon.com.br/dp/${asin}?tag=aferio-20`;
     }
     const searchQuery = encodeURIComponent(`${product.brand} ${product.model || product.name}`);
-    return `https://amazon.com.br/s?k=${searchQuery}&tag=comparatop-20`;
+    return `https://amazon.com.br/s?k=${searchQuery}&tag=aferio-20`;
 }
 
 function generateComparaTopUrl(product: Product): string {

@@ -468,11 +468,13 @@ export function SmartStickyFooter({
             });
         }
 
-        if (currentProduct?.amazonUrl) {
+        const isPlaceholder = currentProduct?.amazonUrl?.includes('B0XXXXXXXX');
+
+        if (currentProduct?.amazonUrl && !isPlaceholder) {
             window.open(currentProduct.amazonUrl, '_blank', 'noopener,noreferrer');
         } else if (currentProduct?.name) {
             // Fallback: Safe Amazon search URL with Prime/New/4★ filters
-            const safeUrl = generateAmazonSearchLink(currentProduct.name, 'comparatop-20');
+            const safeUrl = generateAmazonSearchLink(currentProduct.name, 'aferio-20');
             window.open(safeUrl, '_blank', 'noopener,noreferrer');
         }
     }, [haptic, currentProduct, layoutId]);
