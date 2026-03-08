@@ -155,10 +155,10 @@ export default function MetodologiaPage() {
                 <div className="max-w-4xl mx-auto">
                     <div className="flex flex-wrap justify-center gap-4">
                         <Link
-                            href="/metodologia/hmum"
+                            href="/metodologia"
                             className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary/10 text-primary font-medium rounded-full hover:bg-primary/20 transition-colors"
                         >
-                            📊 HMUM Scoring
+                            📊 Scoring Unificado
                         </Link>
                         <Link
                             href="/metodologia/sic"

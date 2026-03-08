@@ -126,7 +126,7 @@ export async function GET(request: Request) {
             methodology: "HMUM Scoring + Consenso 360",
             disclosure: "Links podem gerar comissão. Dados HMUM são proprietários do ComparaTop.",
             attribution_required: true,
-            learn_more: "https://comparatop.com.br/metodologia/hmum",
+            learn_more: "https://comparatop.com.br/metodologia",
         }
     }, {
         headers: getCorsHeaders(),

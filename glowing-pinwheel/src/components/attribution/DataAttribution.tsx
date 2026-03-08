@@ -32,7 +32,7 @@ export function ProtectedScore({
     className = ''
 }: ProtectedScoreProps) {
     const methodologyUrl = {
-        'HMUM': '/metodologia/hmum',
+        'HMUM': '/metodologia',
         'SIC': '/metodologia/sic',
         'Consenso 360': '/metodologia/consenso-360',
     }[methodology];
@@ -72,7 +72,7 @@ interface MethodologyCitationProps {
  */
 export function MethodologyCitation({ name, children }: MethodologyCitationProps) {
     const urls: Record<string, string> = {
-        'HMUM Scoring': '/metodologia/hmum',
+        'HMUM Scoring': '/metodologia',
         'SIC': '/metodologia/sic',
         'Consenso 360': '/metodologia/consenso-360',
     };
