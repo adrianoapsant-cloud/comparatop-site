@@ -61,7 +61,7 @@ const UI_CONTRACTS: ContractCheck[] = [
         required: [
             'ComparaMatch',           // Filter ribbon
             'EditorialWinners',       // Winner badges
-            'HybridProductList',      // Product grid
+            'TcoEngineSection',        // Product grid (replaced HybridProductList)
             'pushState',              // Pagination SEO
             'useChat',                // ChatContext integration
             'updateCatalogSnapshot',  // Catalog sync for chat
