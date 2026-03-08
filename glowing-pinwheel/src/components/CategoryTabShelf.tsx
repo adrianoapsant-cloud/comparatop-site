@@ -136,11 +136,13 @@ function MiniProductCard({ product, rank }: MiniProductCardProps) {
                 <div className="space-y-1.5 mt-auto">
                     {/* PRIMARY CTA: Ver Oferta (Affiliate Link) - LARANJA VIBRANTE */}
                     {product.offers && product.offers.length > 0 && product.offers[0].url ? (
-                        <a
-                            href={product.offers[0].url}
-                            target="_blank"
-                            rel="nofollow noopener noreferrer"
-                            onClick={(e) => e.stopPropagation()}
+                        <button
+                            type="button"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                window.open(product.offers![0].url, '_blank', 'noopener,noreferrer');
+                            }}
                             className={cn(
                                 'w-full flex items-center justify-center gap-1 py-2 rounded-lg',
                                 'bg-gradient-to-r from-orange-500 to-amber-500',
@@ -153,7 +155,7 @@ function MiniProductCard({ product, rank }: MiniProductCardProps) {
                             <ShoppingCart className="w-3.5 h-3.5" />
                             Ver Oferta
                             <ExternalLink className="w-2.5 h-2.5 opacity-80" />
-                        </a>
+                        </button>
                     ) : (
                         <span
                             className={cn(
