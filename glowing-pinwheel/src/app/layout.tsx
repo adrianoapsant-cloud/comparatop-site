@@ -39,6 +39,9 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "ComparaTop | Comparativos Premium de Tecnologia",
   description: "Compare os melhores produtos de tecnologia com análises editoriais e scores de qualidade e custo-benefício.",
+  verification: {
+    google: "AHALFBOtdRuQjnh_hC7dVmTPYueSc7adn2rsrzxTbI0",
+  },
 };
 
 export default function RootLayout({
