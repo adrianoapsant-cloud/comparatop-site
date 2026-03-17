@@ -17,6 +17,7 @@ import { ExternalLink, Truck, CreditCard, Tag, CheckCircle2, ChevronDown, Chevro
 import type { Platform } from '@/lib/safe-links';
 import { generateAmazonSearchLink, generateMercadoLivreSearchLink, generateShopeeSearchLink, generateMagaluSearchLink } from '@/lib/safe-links';
 import { getSmartCTALabel, isParcelamentoSensitive, getQualifiedCTA } from '@/lib/smart-routing';
+import { trackAffiliateClick } from '@/lib/trackAffiliateClick';
 
 // ============================================================================
 // TYPES
@@ -165,6 +166,7 @@ const SingleOfferCard = memo(function SingleOfferCard({
                     e.preventDefault();
                     return;
                 }
+                trackAffiliateClick(productName, config.name);
             }}
         >
             {ctaLabel}

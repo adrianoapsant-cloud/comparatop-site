@@ -14,6 +14,7 @@ import { CuriositySandwichWidget } from '@/components/pdp/CuriositySandwichWidge
 import { ConfidenceBand, formatScoreRange, formatScoreValue } from '@/components/ui/ConfidenceBand';
 import { InfoTooltip } from '@/components/ui/InfoTooltip';
 import { generateAmazonSearchLink, generateAmazonPDPLink, generateMercadoLivreSearchLink, generateShopeeSearchLink, generateMagaluSearchLink } from '@/lib/safe-links';
+import { trackAffiliateClick } from '@/lib/trackAffiliateClick';
 
 interface HeroSectionProps {
     data: PDPDataContract;
@@ -288,6 +289,7 @@ export function HeroSection({ data }: HeroSectionProps) {
                             href={getStoreUrl(product.offers, 'amazon', generateAmazonSearchLink(product.shortName || product.name))}
                             target="_blank"
                             rel="noopener noreferrer sponsored"
+                            onClick={() => trackAffiliateClick(product.shortName || product.name, 'Amazon')}
                             className="flex items-center justify-center gap-2 w-full px-5 py-3.5 rounded-xl text-base font-bold text-white transition-all hover:-translate-y-0.5 active:translate-y-0"
                             style={{ background: 'linear-gradient(180deg, #FF9900 0%, #E88A00 100%)', boxShadow: '0 3px 8px rgba(255,153,0,0.4)' }}
                         >
@@ -299,6 +301,7 @@ export function HeroSection({ data }: HeroSectionProps) {
                             href={getStoreUrl(product.offers, 'mercado_livre', generateMercadoLivreSearchLink(product.shortName || product.name))}
                             target="_blank"
                             rel="noopener noreferrer sponsored"
+                            onClick={() => trackAffiliateClick(product.shortName || product.name, 'Mercado Livre')}
                             className="flex items-center justify-center gap-2 w-full px-5 py-3.5 rounded-xl text-base font-bold transition-all hover:-translate-y-0.5 active:translate-y-0"
                             style={{ background: 'linear-gradient(180deg, #FFE600 0%, #E6CF00 100%)', color: '#333', boxShadow: '0 3px 8px rgba(255,230,0,0.35)' }}
                         >
@@ -311,6 +314,7 @@ export function HeroSection({ data }: HeroSectionProps) {
                                 href={getStoreUrl(product.offers, 'magalu', generateMagaluSearchLink(product.shortName || product.name))}
                                 target="_blank"
                                 rel="noopener noreferrer sponsored"
+                                onClick={() => trackAffiliateClick(product.shortName || product.name, 'Magazine Luiza')}
                                 className="flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl text-sm font-bold text-white transition-all hover:-translate-y-0.5 active:translate-y-0"
                                 style={{ background: 'linear-gradient(180deg, #0086FF 0%, #0070D4 100%)', boxShadow: '0 2px 6px rgba(0,134,255,0.35)' }}
                             >
@@ -320,6 +324,7 @@ export function HeroSection({ data }: HeroSectionProps) {
                                 href={generateShopeeSearchLink(product.shortName || product.name)}
                                 target="_blank"
                                 rel="noopener noreferrer sponsored"
+                                onClick={() => trackAffiliateClick(product.shortName || product.name, 'Shopee')}
                                 className="flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl text-sm font-bold text-white transition-all hover:-translate-y-0.5 active:translate-y-0"
                                 style={{ background: 'linear-gradient(180deg, #EE4D2D 0%, #D44426 100%)', boxShadow: '0 2px 6px rgba(238,77,45,0.35)' }}
                             >

@@ -17,6 +17,7 @@
 
 import React from 'react';
 import { ShoppingCart, Handshake, ShoppingBag, Heart, ExternalLink } from 'lucide-react';
+import { trackAffiliateClick } from '@/lib/trackAffiliateClick';
 import {
     generateAmazonSearchLink,
     generateMercadoLivreSearchLink,
@@ -174,6 +175,7 @@ export function AffiliateButtons({
                     href={button.url}
                     target="_blank"
                     rel="nofollow sponsored noopener noreferrer"
+                    onClick={() => trackAffiliateClick(productName, button.storeName)}
                     className={`
             flex items-center justify-between
             w-full px-5 py-4
@@ -302,6 +304,7 @@ export function SingleAffiliateButton({
             href={url}
             target="_blank"
             rel="nofollow sponsored noopener noreferrer"
+            onClick={() => trackAffiliateClick(productName, config.storeName)}
             className={`
         flex items-center justify-between
         w-full px-5 py-4

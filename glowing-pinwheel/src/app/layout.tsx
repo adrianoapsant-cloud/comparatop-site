@@ -14,6 +14,7 @@ import { LayoutShell } from "@/components/layout/LayoutShell";
 import { FrictionNudge } from "@/components/FrictionNudge";
 import { WebVitalsReporter } from "@/components/WebVitalsReporter";
 import { Analytics } from "@vercel/analytics/next";
+import { AffiliateClickInterceptor } from "@/components/AffiliateClickInterceptor";
 
 // ============================================
 // AUDIT EDITORIAL - Font Configuration
@@ -73,6 +74,7 @@ export default function RootLayout({
         </ReviewProvider>
         <WebVitalsReporter />
         <Analytics />
+        <AffiliateClickInterceptor />
       </body>
     </html>
   );

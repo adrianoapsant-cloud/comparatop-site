@@ -82,3 +82,40 @@ export async function sendTelegramMessage(message: string): Promise<SendTelegram
         };
     }
 }
+
+// ============================================
+// AFFILIATE CLICK NOTIFICATION
+// ============================================
+
+/**
+ * Send a real-time Telegram notification when a user clicks an affiliate link.
+ * Adapted from AFERIO2.0's notifyAffiliateClick pattern.
+ */
+export async function notifyAffiliateClick(data: {
+    product: string;
+    marketplace: string;
+    page?: string;
+}): Promise<SendTelegramResult> {
+    const time = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    const mpEmoji = marketplaceEmoji(data.marketplace);
+
+    const message = [
+        `🛒 *ComparaTop · Clique Afiliado*`,
+        ``,
+        `📦 Produto: *${data.product}*`,
+        `${mpEmoji} Marketplace: ${data.marketplace}`,
+        `🕐 Horário: ${time}`,
+        data.page ? `🔗 Página: https://comparatop.com.br${data.page}` : '',
+    ].filter(Boolean).join('\n');
+
+    return sendTelegramMessage(message);
+}
+
+function marketplaceEmoji(mp: string): string {
+    const lower = mp.toLowerCase();
+    if (lower.includes('amazon')) return '🟠';
+    if (lower.includes('mercado') || lower.includes('ml')) return '🟡';
+    if (lower.includes('magalu') || lower.includes('magazine')) return '🔵';
+    if (lower.includes('shopee')) return '🟤';
+    return '🏪';
+}

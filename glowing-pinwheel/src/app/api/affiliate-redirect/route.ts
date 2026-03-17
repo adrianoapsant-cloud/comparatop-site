@@ -14,6 +14,7 @@ import {
     generateMercadoLivreSearchLink,
     generateMercadoLivreDirectLink,
 } from '../../../lib/safe-links';
+import { notifyAffiliateClick } from '@/lib/notifications/telegram';
 
 // ============================================================================
 // TIPOS
@@ -102,6 +103,13 @@ export async function GET(request: NextRequest) {
         );
     }
 
+    // ── Telegram notification (fire-and-forget) ──
+    const productName = fallback || id;
+    notifyAffiliateClick({
+        product: productName,
+        marketplace: platform,
+    }).catch(() => {});
+
     // Mercado Livre: Verificação em tempo real
     if (platform === 'mercadolivre' && id.toUpperCase().startsWith('MLB')) {
         const status = await checkMLItemStatus(id.toUpperCase());
@@ -131,4 +139,4 @@ export async function GET(request: NextRequest) {
 // METADATA
 // ============================================================================
 
-export const runtime = 'edge'; // Usar Edge Runtime para menor latência
+// Removed Edge Runtime to allow Telegram notification (uses process.env)
