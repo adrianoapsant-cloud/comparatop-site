@@ -1,7 +1,11 @@
 /**
- * POST /api/track/affiliate-click
+ * POST /api/ev/ac
  *
  * Receives affiliate click events and sends Telegram notification.
+ *
+ * NOTE: This endpoint uses an obfuscated path (/ev/ac) instead of
+ * /track/affiliate-click to bypass ad-blocker filter lists that
+ * target keywords like "track", "affiliate", and "click".
  *
  * IMPORTANT: navigator.sendBeacon sends with Content-Type: text/plain
  * when the payload is a plain string. We must handle both text/plain

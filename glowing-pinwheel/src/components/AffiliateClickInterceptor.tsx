@@ -16,7 +16,7 @@
 
 import { useEffect } from 'react';
 
-const ENDPOINT = '/api/track/affiliate-click';
+const ENDPOINT = '/api/ev/ac';
 
 function extractMarketplace(href: string): string {
     if (!href) return 'unknown';

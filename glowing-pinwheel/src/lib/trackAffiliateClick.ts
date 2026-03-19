@@ -7,7 +7,7 @@
  * - Falls back to fetch if sendBeacon unavailable
  */
 
-const ENDPOINT = '/api/track/affiliate-click';
+const ENDPOINT = '/api/ev/ac';
 
 export function trackAffiliateClick(product: string, marketplace: string): void {
     if (typeof window === 'undefined') return;
